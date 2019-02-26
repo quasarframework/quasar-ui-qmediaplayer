@@ -11,7 +11,20 @@ In your Quasar project:
 quasar ext --add @quasar/qmediaplayer
 ```
 
+# Test Project
+Can be found [here](https://github.com/hawkeye64/quasar-app-extension-qmediaplayer-test).
 
+# Demo
+Can be found [here](https://romantic-gates-e70b63.netlify.com/#/).
+
+# Example Code
+TBD
+
+# Language Files
+
+We need help translating the language files. They are all currently using English. If you know another language, please PR and help us out.
+
+---
 
 # QMediaPlayer Vue Properties
 | Vue&nbsp;Property | Type	| Mode | Description |
