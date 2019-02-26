@@ -43,8 +43,6 @@ const extendWithMediaPlayer = function (api, conf) {
     boot.push('qmediaplayer')
     console.log(` App Extension (qmediaplayer) Info: 'Adding qmediaplayer boot reference to your quasar.conf.js'`)
   }
-
-  console.log(conf)
 }
 
 module.exports = function (api, ctx) {
