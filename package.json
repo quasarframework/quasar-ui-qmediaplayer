@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-app-extension-qmediaplayer",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "QMediaPlayer is an app extension for Quasar",
   "author": "Hawkeye64 <jeff@quasar-framework.org>",
   "scripts": {
