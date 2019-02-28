@@ -9,6 +9,12 @@ This work is currently in `alpha` and there are expected changes while things ge
 >
 > This app extension has been updated to work with changes that will be released with `@quasar/app - 1.0.0-beta.9`. If you have not upgraded to `1.0.0-beta.9` this app extension will not work.
 
+If you have installed before `@quasar/app - 1.0.0-beta.9` then follow these before upgrading Quasar.
+
+1) Remove: `quasar ext -r @quasar/qmediaplayer`
+2) Upgrade: `yarn upgrade`
+3) Re-install: `quasar ext add @quasar/qmediaplayer`
+
 # Installation
 In your Quasar project:
 ```
