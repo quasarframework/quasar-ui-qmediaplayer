@@ -1,5 +1,5 @@
 export default {
-  name: 'fontawesome',
+  name: 'fontawesome-v5',
   mediaPlayer: {
     play: 'fas fa-play',
     pause: 'fas fa-pause',

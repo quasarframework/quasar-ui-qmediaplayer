@@ -1,5 +1,5 @@
 export default {
-  name: 'ionicons',
+  name: 'ionicons-v4',
   mediaPlayer: {
     play: 'ion-play',
     pause: 'ion-pause',
