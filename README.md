@@ -18,7 +18,7 @@ If you have installed before `@quasar/app - 1.0.0-beta.9` then follow these befo
 # Installation
 In your Quasar project:
 ```
-quasar ext --add @quasar/qmediaplayer
+quasar ext add @quasar/qmediaplayer
 ```
 
 # Test Project
