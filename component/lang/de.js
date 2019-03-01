@@ -1,27 +1,27 @@
 export default {
   lang: 'de',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
+    oldBrowserVideo: 'Um das Video einwandfrei sehen zu können, benötigen Sie JavaScript und einen modernen Browser.',
+    oldBrowserAudio: 'Um den Sound einwandfrei sehen zu können, benötigen Sie JavaScript und einen modernen Browser.',
     pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    play: 'Wiedergabe',
+    settings: 'Einstellungen',
+    toggleFullscreen: 'Vollbild',
+    mute: 'Ton aus',
+    unmute: 'Ton an',
+    speed: 'Geschwindigkeit', // Playback rate
+    language: 'Sprache',
+    playbackRate: 'Wiedergabegeschwindigkeit',
+    waitingVideo: 'Warte auf Video',
+    waitingAudio: 'Warte auf Audio',
     ratePoint5: '.5x',
     rateNormal: 'Normal',
     rate1Point5: '1.5x',
     rate2: '2x',
-    trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    trackLanguageOff: 'aus',
+    noLoadVideo: 'Das Video konnte nicht geladen werden',
+    noLoadAudio: 'Der Sound konnte nicht geladen werden',
+    cannotPlayVideo: 'Video kann nicht abgespielt werden',
+    cannotPlayAudio: 'Sound kann nicht abgespielt werden'
   }
 }
