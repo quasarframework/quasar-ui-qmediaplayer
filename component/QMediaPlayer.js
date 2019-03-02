@@ -702,7 +702,7 @@ export default Vue.extend({
       const pos = this.$el.getBoundingClientRect()
       if (!pos) return false
       if (x > pos.left && x < pos.left + pos.width) {
-        if (y > pos.top + pos.height * 0.6 && y < pos.top + pos.height) {
+        if (y > pos.top + pos.height - (this.dense ? 40 : 80) && y < pos.top + pos.height) {
           this.showControls()
           return true
         }
@@ -710,6 +710,7 @@ export default Vue.extend({
       return false
     },
     __videoCurrentTimeChanged (val) {
+      this.showControls()
       if (this.$media && this.$media.duration && val && val > 0 && val <= this.state.duration) {
         if (this.$media.currentTime !== val) {
           this.state.currentTime = val
@@ -718,6 +719,7 @@ export default Vue.extend({
       }
     },
     __volumePercentChanged (val) {
+      this.showControls()
       this.state.volume = val
     },
     __trackLanguageChanged (language) {
