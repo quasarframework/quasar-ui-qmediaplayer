@@ -245,7 +245,7 @@ export default Vue.extend({
     volumeIcon () {
       if (this.state.volume > 1 && this.state.volume < 70 && !this.state.muted) {
         return this.iconSet.mediaPlayer.volumeDown
-      } else if (this.state.volume > 70 && !this.state.muted) {
+      } else if (this.state.volume >= 70 && !this.state.muted) {
         return this.iconSet.mediaPlayer.volumeUp
       } else {
         return this.iconSet.mediaPlayer.volumeOff
