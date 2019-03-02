@@ -1,15 +1,15 @@
 QMediaPlayer
 ===
 
-QMediaPlayer is an `app extension` for Quasar Framework v1. It will not work with legacy versions of Quasar Framework.
+QMediaPlayer is an `app extension` for [Quasar Framework v1](https://v1.quasar-framework.org/). It will not work with legacy versions of Quasar Framework.
 
 This work is currently in `alpha` and there are expected changes while things get worked out.
 
 > WARNING
 >
-> This app extension has been updated to work with changes that will be released with `@quasar/app - 1.0.0-beta.9`. If you have not upgraded to `1.0.0-beta.9` this app extension will not work.
+> This app extension has been updated to work with changes that were released with `@quasar/app - 1.0.0-beta.9`. If you have not upgraded to at least `1.0.0-beta.9` this app extension will not work.
 
-If you have installed before `@quasar/app - 1.0.0-beta.9` then follow these before upgrading Quasar.
+If you have installed before `@quasar/app - 1.0.0-beta.9` (or later) then follow these before upgrading Quasar if you previously had this extension installed:
 
 1) Remove: `quasar ext -r @quasar/qmediaplayer`
 2) Upgrade: `yarn upgrade`
@@ -98,7 +98,7 @@ setVolume(percent) | Both | Sets the volume as a percent (0-100).
 @ready() | Both | Emitted when the media is ready to play. You cannot play/pause or setCurrentTime before this event.
 @duration(seconds) | Both | Emitted when the duration of the media has been determined.
 @ended() | Both | Emitted when the media has finished playing.
-@error(MediaError) | Both | Emitted when the is a media error.
+@error(MediaError) | Both | Emitted when there is a media error.
 @paused() | Both | Emitted when the media is paused.
 @playing() | Both | Emitted when the media starts playing. This will also emit after a pause or a wait.
 @timeupdate(curTime, remaining) | Both | Emitted wenever there is a time update (during play).
@@ -113,7 +113,7 @@ setVolume(percent) | Both | Sets the volume as a percent (0-100).
 | Vue&nbsp;Slots | Mode | Description |
 |---|---|---|
 | old-browser | Both | When the browser does not support HTML5 (or has Javascript turned off).
-| overlay | Both | User to overlay any HTML over the media window.
+| overlay | Both | Used to overlay any HTML over the media window.
 | error-window | Both | Used to display an error.
 | controls | Both | With this slot all of the controls can be replaced.
 | spinner | Both | With this slot the loading spinner can be replaced.
