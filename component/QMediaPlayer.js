@@ -270,6 +270,16 @@ export default Vue.extend({
     },
     isVideo () {
       return this.type === 'video'
+    },
+    settingsPlaybackCaption () {
+      let caption = ''
+      this.state.playbackRates.forEach((rate) => {
+        if (rate.value === this.state.playbackRate) {
+          caption = rate.label
+          return
+        }
+      })
+      return caption
     }
   },
 
@@ -1171,7 +1181,7 @@ export default Vue.extend({
             expandSeparator: true,
             icon: this.iconSet.mediaPlayer.speed,
             label: this.lang.mediaPlayer.speed,
-            caption: this.lang.mediaPlayer.playbackRate
+            caption: this.settingsPlaybackCaption
           },
           on: {
             show: this.__adjustMenu,
@@ -1229,7 +1239,8 @@ export default Vue.extend({
             group: 'settings-menu',
             expandSeparator: true,
             icon: this.iconSet.mediaPlayer.language,
-            label: this.lang.mediaPlayer.language
+            label: this.lang.mediaPlayer.language,
+            caption: this.state.trackLanguage
           },
           on: {
             show: this.__adjustMenu,
