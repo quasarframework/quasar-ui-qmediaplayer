@@ -58,42 +58,39 @@
       height: 1rem
       color white
       background-color transparent
-  &__big-button
-    &--container
-      position absolute
-      left 50%
-      margin-left -1.5rem
-      bottom 50%
-      margin-bottom -1.5rem
-      color white
-      background-color transparent
-      border-style solid
-      border-color white
-      border-width 1px
-      border-radius 1.5rem
-      opacity 1.0
-      &:hover
-        background-color rgba(0, 0, 0, 0.40)
-  &__controls
-    &__container 
-      position absolute
-      left 0
-      bottom 0
+  &--big-button
+    position absolute
+    left 50%
+    margin-left -1.5rem
+    bottom 50%
+    margin-bottom -1.5rem
+    color white
+    background-color transparent
+    border-style solid
+    border-color white
+    border-width 1px
+    border-radius 1.5rem
+    opacity 1.0
+    &:hover
       background-color rgba(0, 0, 0, 0.40)
-      width 100%
-      overflow hidden
-      &--row
-        height 40px
-      &--standard
-        height 80px !important
-        transition height 0.25s ease-in
-      &--dense
-        height 40px !important
-        transition height 0.25s ease-in
-      &--hidden
-        height 0 !important
-        transition height 0.25s ease-out
   &__controls
+    position absolute
+    left 0
+    bottom 0
+    background-color rgba(0, 0, 0, 0.40)
+    width 100%
+    overflow hidden
+    &--row
+      height 40px
+    &--standard
+      height 80px !important
+      transition height 0.25s ease-in
+    &--dense
+      height 40px !important
+      transition height 0.25s ease-in
+    &--hidden
+      height 0 !important
+      transition height 0.25s ease-out
     &--button
       max-width 40px !important
       min-width 40px !important

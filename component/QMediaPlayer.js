@@ -225,15 +225,15 @@ export default Vue.extend({
     },
     videoControlsClasses () {
       return {
-        'q-media__controls__container--dense': (this.state.showControls || this.mobileMode) && this.dense,
-        'q-media__controls__container--standard': (this.state.showControls || this.mobileMode) && !this.dense,
-        'q-media__controls__container--hidden': !this.state.showControls
+        'q-media__controls--dense': (this.state.showControls || this.mobileMode) && this.dense,
+        'q-media__controls--standard': (this.state.showControls || this.mobileMode) && !this.dense,
+        'q-media__controls--hidden': !this.state.showControls
       }
     },
     audioControlsClasses () {
       return {
-        'q-media__controls__container--dense': this.dense,
-        'q-media__controls__container--standard': !this.dense
+        'q-media__controls--dense': this.dense,
+        'q-media__controls--standard': !this.dense
       }
     },
     videoWidth () {
@@ -940,12 +940,12 @@ export default Vue.extend({
     __renderVideoControls (h) {
       return h('div', {
         ref: 'controls',
-        staticClass: 'q-media__controls__container',
+        staticClass: 'q-media__controls',
         class: this.videoControlsClasses
       }, [
         // dense
         this.dense && h('div', {
-          staticClass: 'q-media__controls__container--row row col content-start items-center'
+          staticClass: 'q-media__controls--row row col content-start items-center'
         }, [
           h('div', [
             this.__renderPlayButton(h),
@@ -961,14 +961,14 @@ export default Vue.extend({
         ]),
         // sparse
         !this.dense && h('div', {
-          staticClass: 'q-media__controls__container--row row col items-center justify-between'
+          staticClass: 'q-media__controls--row row col items-center justify-between'
         }, [
           this.__renderDisplayTime(h),
           this.__renderCurrentTimeSlider(h),
           this.__renderDurationTime(h)
         ]),
         !this.dense && h('div', {
-          staticClass: 'q-media__controls__container--row row col content-start items-center'
+          staticClass: 'q-media__controls--row row col content-start items-center'
         }, [
           h('div', {
             staticClass: 'row col'
@@ -990,11 +990,11 @@ export default Vue.extend({
     __renderAudioControls (h) {
       return h('div', {
         ref: 'controls',
-        staticClass: 'q-media__controls__container',
+        staticClass: 'q-media__controls',
         class: this.audioControlsClasses
       }, [
         this.dense && h('div', {
-          staticClass: 'q-media__controls__container--row row col content-start items-center'
+          staticClass: 'q-media__controls--row row col content-start items-center'
         }, [
           // dense
           h('div', [
@@ -1009,14 +1009,14 @@ export default Vue.extend({
         ]),
         // sparse
         !this.dense && h('div', {
-          staticClass: 'q-media__controls__container--row row col items-center justify-between'
+          staticClass: 'q-media__controls--row row col items-center justify-between'
         }, [
           this.__renderDisplayTime(h),
           this.__renderCurrentTimeSlider(h),
           this.__renderDurationTime(h)
         ]),
         !this.dense && h('div', {
-          staticClass: 'q-media__controls__container--row row col content-start items-center'
+          staticClass: 'q-media__controls--row row col content-start items-center'
         }, [
           h('div', [
             this.__renderPlayButton(h),
@@ -1112,7 +1112,7 @@ export default Vue.extend({
     },
     __renderBigPlayButton (h) {
       return h('div', {
-        staticClass: 'q-media__big-button--container'
+        staticClass: 'q-media--big-button'
       }, [
         h(QIcon, {
           props: {
