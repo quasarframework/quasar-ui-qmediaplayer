@@ -2,7 +2,7 @@ export default {
   lang: 'de',
   mediaPlayer: {
     oldBrowserVideo: 'Um das Video einwandfrei sehen zu können, benötigen Sie JavaScript und einen modernen Browser.',
-    oldBrowserAudio: 'Um den Sound einwandfrei sehen zu können, benötigen Sie JavaScript und einen modernen Browser.',
+    oldBrowserAudio: 'Um den Sound einwandfrei hören zu können, benötigen Sie JavaScript und einen modernen Browser.',
     pause: 'Pause',
     play: 'Wiedergabe',
     settings: 'Einstellungen',
