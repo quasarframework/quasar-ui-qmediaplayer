@@ -7,7 +7,6 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = function (api) {
-  // TODO: remove boot file
   let qmediaplayerBootFile = path.resolve(process.cwd(), './src/boot/qmediaplayer.js')
   if (fs.existsSync(qmediaplayerBootFile)) {
     fs.unlinkSync(qmediaplayerBootFile)
