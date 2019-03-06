@@ -43,6 +43,15 @@ const extendWithMediaPlayer = function (api, conf) {
     boot.push('qmediaplayer')
     console.log(` App Extension (qmediaplayer) Info: 'Adding qmediaplayer boot reference to your quasar.conf.js'`)
   }
+
+  // for brevity
+  let css = conf.css
+
+  // make sure qmediaplayer css goes through webpack to avoid ssr issues
+  if (!css.includes('~@quasar/quasar-app-extension-qmediaplayer/component/media-player.styl')) {
+    css.push('~@quasar/quasar-app-extension-qmediaplayer/component/media-player.styl')
+    console.log(` App Extension (qmediaplayer) Info: 'Adding media-player.styl css reference to your quasar.conf.js'`)
+  }
 }
 
 module.exports = function (api, ctx) {
