@@ -127,3 +127,6 @@ volume-slider | Both | With this slot the volume slider can be replaced.
 settings | Video | With this slot the Settings icon can be replaced.
 settings-menu | Video | With this slot the Settings Menu can be replaced.
 fullscreen | Video | With this slot the Fullscreen icon can be replaced.
+
+# Patreon
+If you like (and use) this App Extension, please consider becoming a Quasar [Patreon](https://www.patreon.com/quasarframework).
