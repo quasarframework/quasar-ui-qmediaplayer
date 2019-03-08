@@ -90,6 +90,7 @@ export default Vue.extend({
       type: Boolean,
       default: true
     },
+    noControls: Boolean,
     controlsDisplayTime: {
       type: Number,
       default: 2000
@@ -343,7 +344,7 @@ export default Vue.extend({
       this.$emit('trackLanguage', val)
     },
     'state.showControls' (val) {
-      if (this.isVideo) {
+      if (this.isVideo && !this.noControls) {
         this.$emit('showControls', val)
       }
     },
@@ -372,6 +373,9 @@ export default Vue.extend({
       if (this.timer.hideControlsTimer) {
         clearTimeout(this.timer.hideControlsTimer)
         this.timer.hideControlsTimer = null
+      }
+      if (this.noControls) {
+        return
       }
       this.state.showControls = true
       this.__checkCursor()
@@ -1316,8 +1320,8 @@ export default Vue.extend({
       this.isAudio && this.__renderAudio(h),
       this.__renderOverlayWindow(h),
       this.state.errorText && this.__renderErrorWindow(h),
-      this.isVideo && !this.state.errorText && this.__renderVideoControls(h),
-      this.isAudio && !this.state.errorText && this.__renderAudioControls(h),
+      this.isVideo && !this.noControls && !this.state.errorText && this.__renderVideoControls(h),
+      this.isAudio && !this.noControls && !this.state.errorText && this.__renderAudioControls(h),
       this.showSpinner && this.state.loading && !this.state.playReady && !this.state.errorText && this.__renderLoader(h),
       this.isVideo && this.showBigPlayButton && this.state.playReady && !this.state.playing && this.__renderBigPlayButton(h)
     ])
