@@ -56,6 +56,7 @@ muted | Boolean | Both | If the player should be muted. (Default: false)
 show-big-play-button | Boolean | Video | Show/hide the Big Play Button. (Default: true)
 show-spinner | Boolean | Both | If the spinner should be displayed while video/audio is loading. (Default: true)
 controls-display-time | Number | Video | The amount of idle time in milliseconds to wait before hiding the controls (default 2000). This is applied when the mouse cursor is within the QMediaPlayer window but has not moved.
+no-controls | Boolean | Video | If set to true, the controls will never be displayed. This is useful if you want full control. Your controls can be on another place on your page.
 playback-rates | Array | Video | This is an array of one or more objects, that look like this: { **label**: '.5x', **value**: 0.5 }. **Note:** The default playbackRates include 0.5, 1, 1.5 and 2.0."
 playback-rate | Number | Video | Corresponds to the value in playback-rates.
 background-color | String | Both | One from Quasar Color Palette. It determines the background color of the MediaPlayer. (Default: 'black')
