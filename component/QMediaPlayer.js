@@ -14,7 +14,7 @@ import {
   QSpinner
 } from 'quasar'
 
-import './media-player.styl'
+// import slot from 'quasar/src/utils/slot.js'
 
 const getMousePosition = function (e, type = 'x') {
   if (type === 'x') {
