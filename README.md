@@ -9,11 +9,7 @@ QMediaPlayer
 
 QMediaPlayer is an `app extension` for [Quasar Framework v1](https://v1.quasar-framework.org/). It will not work with legacy versions of Quasar Framework.
 
-This work is currently in `alpha` and there are expected changes while things get worked out.
-
-> WARNING
->
-> This app extension has been updated to work with changes that were released with `@quasar/app - 1.0.0-beta.9`. If you have not upgraded to at least `1.0.0-beta.9` this app extension will not work.
+This work is currently in `beta` and there are expected changes while things get worked out.
 
 If you have installed before `@quasar/app - 1.0.0-beta.9` (or later) then follow these before upgrading Quasar if you previously had this extension installed:
 
