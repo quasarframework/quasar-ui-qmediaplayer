@@ -1,7 +1,7 @@
 QMediaPlayer
 ===
 
-![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20App%20Extension-blue.svg)
+![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/app-extension-qmediaplayer.svg)]()
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/app-extension-qmediaplayer.svg)]()
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
