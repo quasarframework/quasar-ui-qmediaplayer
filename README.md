@@ -11,7 +11,7 @@ This work is currently in `alpha` and there are expected changes while things ge
 
 If you have installed before `@quasar/app - 1.0.0-beta.9` (or later) then follow these before upgrading Quasar if you previously had this extension installed:
 
-1) Remove: `quasar ext -r @quasar/qmediaplayer`
+1) Remove: `quasar ext remove @quasar/qmediaplayer`
 2) Upgrade: `yarn upgrade`
 3) Re-install: `quasar ext add @quasar/qmediaplayer`
 
