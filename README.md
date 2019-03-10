@@ -1,6 +1,12 @@
 QMediaPlayer
 ===
 
+![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20App%20Extension-blue.svg)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/app-extension-qmediaplayer.svg)]()
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/app-extension-qmediaplayer.svg)]()
+[![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
+
+
 QMediaPlayer is an `app extension` for [Quasar Framework v1](https://v1.quasar-framework.org/). It will not work with legacy versions of Quasar Framework.
 
 This work is currently in `alpha` and there are expected changes while things get worked out.
