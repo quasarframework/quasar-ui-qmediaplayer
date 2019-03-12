@@ -11,17 +11,14 @@ QMediaPlayer is an `app extension` for [Quasar Framework v1](https://v1.quasar-f
 
 This work is currently in `beta` and there are expected changes while things get worked out.
 
-If you have installed before `@quasar/app - 1.0.0-beta.9` (or later) then follow these before upgrading Quasar if you previously had this extension installed:
-
-1) Remove: `quasar ext remove @quasar/qmediaplayer`
-2) Upgrade: `yarn upgrade`
-3) Re-install: `quasar ext add @quasar/qmediaplayer`
-
 # Installation
 In your Quasar project:
 ```
 quasar ext add @quasar/qmediaplayer
 ```
+
+# Describe
+You can use `quasar describe QMediaPlayer`
 
 # Test Project
 Can be found [here](https://github.com/hawkeye64/quasar-app-extension-qmediaplayer-test).
