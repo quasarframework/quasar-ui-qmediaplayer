@@ -62,16 +62,11 @@ const extendWithMediaPlayer = function (api, conf) {
 }
 
 module.exports = function (api, ctx) {
+  // register JSON api
   api.registerDescribeApi('QMediaPlayer', '../component/QMediaPlayer.json')
 
+  // extend quasar.conf
   api.extendQuasarConf((conf) => {
-    return new Promise((resolve, reject) => {
-      console.log('QMediaPlayer boot before:', conf.boot)
-      console.log('QMediaPlayer css before:', conf.css)
-      extendWithMediaPlayer(api, conf)
-      console.log('QMediaPlayer boot after:', conf.boot)
-      console.log('QMediaPlayer css after:', conf.css)
-      resolve()
-    })
+    extendWithMediaPlayer(api, conf)
   })
 }
