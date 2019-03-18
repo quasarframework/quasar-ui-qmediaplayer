@@ -1,18 +1,19 @@
-QMediaPlayer
+QMediaPlayer (quasar-app-extension-qmediaplayer)
 ===
 
 ![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg)
+![npm (scoped)](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?style=plastic)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/app-extension-qmediaplayer.svg)]()
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/app-extension-qmediaplayer.svg)]()
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
 
 
-QMediaPlayer is an `app extension` for [Quasar Framework v1](https://v1.quasar-framework.org/). It will not work with legacy versions of Quasar Framework.
+QMediaPlayer is an `UI App Extension` for [Quasar Framework v1](https://v1.quasar-framework.org/). It will not work with legacy versions of Quasar Framework.
 
-This work is currently in `beta` and there are expected changes while things get worked out.
+This work is currently in `beta` and there are expected changes while things get worked out. Your help with testing is greatly appreciated.
 
 # Installation
-In your Quasar project:
+To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
 ```
 quasar ext add @quasar/qmediaplayer
 ```
@@ -25,6 +26,8 @@ Can be found [here](https://github.com/hawkeye64/quasar-app-extension-qmediaplay
 
 # Demo
 Can be found [here](https://qmediaplayer.netlify.com).
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1e4a88d0-4c67-43c0-aa9c-c39bdb407424/deploy-status)](https://app.netlify.com/sites/qmediaplayer/deploys)
 
 # Example Code
 ```html
