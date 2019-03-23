@@ -130,6 +130,7 @@ We need help translating the language files. They are all currently using Englis
 
 ## Completed languages
 - German/Deutsch
+- Polish/Polski
 
 ---
 
