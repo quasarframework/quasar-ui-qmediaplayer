@@ -129,8 +129,9 @@ audio: {
 We need help translating the language files. They are all currently using English. If you know another language, please PR and help us out.
 
 ## Completed languages
-- German/Deutsch
-- Polish/Polski
+- English
+- German/Deutsch ([@mstaack](https://github.com/mstaack)/[@smolinari](https://github.com/smolinari))
+- Polish/Polski ([@kubawolanin](https://github.com/kubawolanin))
 
 ---
 
