@@ -5,17 +5,7 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
  */
 
-const extendWithMediaPlayer = function (api, conf) {
-  // make sure there is a framework section
-  if (!conf.framework) {
-    conf.framework = {}
-  }
-  
-  // make sure there is a directives array
-  if (!conf.framework.directives) {
-    conf.framework.directives = []
-  }
-
+const extendConf = function (api, conf) {
   // for brevity
   let directives = conf.framework.directives
 
@@ -30,33 +20,26 @@ const extendWithMediaPlayer = function (api, conf) {
     directives.push('Ripple')
   }
 
-  // make sure there is a boot array
-  if (!conf.boot) {
-    conf.boot = []
-  }
-
   // for brevity
   let boot = conf.boot
 
   // make sure qmediaplayer boot file is registered
-  if (!boot.includes('~@quasar/quasar-app-extension-qmediaplayer/boot/qmediaplayer.js')) {
-    boot.push('~@quasar/quasar-app-extension-qmediaplayer/boot/qmediaplayer.js')
+  const bootFile = '~@quasar/quasar-app-extension-qmediaplayer/src/boot/qmediaplayer.js'
+  if (!boot.includes(bootFile)) {
+    boot.push(bootFile)
     // make sure boot file transpiles
     conf.build.transpileDependencies.push(/quasar-app-extension-qmediaplayer[\\/]src[\\/]boot/)
+    conf.build.transpileDependencies.push(/quasar-app-extension-qmediaplayer[\\/]src[\\/]component/)
     console.log(` App Extension (qmediaplayer) Info: 'Adding qmediaplayer boot reference to your quasar.conf.js'`)
   }
 
-  // make sure there is a css array
-  if (!conf.css) {
-    conf.css = []
-  }
-  
   // for brevity
   let css = conf.css
 
   // make sure qmediaplayer css goes through webpack to avoid ssr issues
-  if (!css.includes('~@quasar/quasar-app-extension-qmediaplayer/component/media-player.styl')) {
-    css.push('~@quasar/quasar-app-extension-qmediaplayer/component/media-player.styl')
+  const cssFile = '~@quasar/quasar-app-extension-qmediaplayer/src/component/media-player.styl'
+  if (!css.includes(cssFile)) {
+    css.push(cssFile)
     console.log(` App Extension (qmediaplayer) Info: 'Adding media-player.styl css reference to your quasar.conf.js'`)
   }
 }
@@ -67,6 +50,6 @@ module.exports = function (api, ctx) {
 
   // extend quasar.conf
   api.extendQuasarConf((conf) => {
-    extendWithMediaPlayer(api, conf)
+    extendConf(api, conf)
   })
 }
