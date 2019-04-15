@@ -189,7 +189,7 @@ export default Vue.extend({
     }
   },
 
-  created () {
+  beforeMount () {
     this.__setupLang()
     this.__setupIcons()
 

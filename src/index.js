@@ -13,13 +13,12 @@ const extendConf = function (api, conf) {
   const bootFile = '~@quasar/quasar-app-extension-qmediaplayer/src/boot/qmediaplayer.js'
   if (!boot.includes(bootFile)) {
     boot.push(bootFile)
-    // make sure boot file transpiles
-    conf.build.transpileDependencies.push(
-      /quasar-app-extension-qmediaplayer[\\/]src[\\/]boot/,
-      /quasar-app-extension-qmediaplayer[\\/]src[\\/]component/
-    )
     console.log(` App Extension (qmediaplayer) Info: 'Adding qmediaplayer boot reference to your quasar.conf.js'`)
   }
+
+  // make sure boot file transpiles
+  conf.build.transpileDependencies.push(/quasar-app-extension-qmediaplayer[\\/]src/)
+
 
   // for brevity
   let css = conf.css
@@ -33,6 +32,9 @@ const extendConf = function (api, conf) {
 }
 
 module.exports = function (api, ctx) {
+  // quasar compatibility check
+  api.compatibleWithQuasarApp('^1.0.0-beta.17')
+
   // register JSON api
   api.registerDescribeApi('QMediaPlayer', './component/QMediaPlayer.json')
 
