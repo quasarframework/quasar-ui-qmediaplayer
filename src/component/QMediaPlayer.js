@@ -11,10 +11,12 @@ import {
   QItem,
   QItemSection,
   QIcon,
-  QSpinner
+  QSpinner,
+  CloseMenu,
+  Ripple
 } from 'quasar'
 
-// import slot from 'quasar/src/utils/slot.js'
+import slot from 'quasar/src/utils/slot.js'
 
 const getMousePosition = function (e, type = 'x') {
   if (type === 'x') {
@@ -38,6 +40,11 @@ const timeParse = (sec) => {
 
 export default Vue.extend({
   name: 'QMediaPlayer',
+
+  directives: {
+    CloseMenu,
+    Ripple
+  },
 
   props: {
     type: {
@@ -206,6 +213,8 @@ export default Vue.extend({
 
   beforeDestroy () {
     this.exitFullscreen()
+
+    // TODO: clear all timers
 
     document.body.removeEventListener('mousemove', this.__mouseMoveAction)
 
@@ -864,7 +873,7 @@ export default Vue.extend({
       }, [
         // this.sources.length && this.__renderSources(h),
         // this.tracks.length && this.__renderTracks(h),
-        this.isVideo && h('p', this.lang.mediaPlayer.oldBrowserVideo, this.$slots.oldbrowser)
+        this.isVideo && h('p', this.lang.mediaPlayer.oldBrowserVideo, slot(this, 'oldbrowser'))
       ])
     },
     __renderAudio (h) {
@@ -879,7 +888,7 @@ export default Vue.extend({
         }
       }, [
         // this.sources.length && this.__renderSources(h),
-        this.isAudio && h('p', this.lang.mediaPlayer.oldBrowserAudio, this.$slots.oldbrowser)
+        this.isAudio && h('p', this.lang.mediaPlayer.oldBrowserAudio, slot(this, 'oldbrowser'))
       ])
     },
     __renderSources (h) {
@@ -913,7 +922,7 @@ export default Vue.extend({
           click: this.__videoClick
         }
       }, [
-        h('div', this.$slots.overlay)
+        h('div', slot(this, 'overlay'))
       ])
     },
     __renderErrorWindow (h) {
@@ -921,7 +930,7 @@ export default Vue.extend({
         staticClass: 'q-media__error-window'
       }, [
         h('div', this.state.errorText)
-      ], this.$slots.errorWindow)
+      ], slot(this, 'errorWindow'))
     },
     __renderPlayButton (h) {
       return h(QBtn, {
@@ -939,7 +948,7 @@ export default Vue.extend({
       }, [
         this.showTooltips && this.state.playing && h(QTooltip, this.lang.mediaPlayer.pause),
         this.showTooltips && !this.state.playing && this.state.playReady && h(QTooltip, this.lang.mediaPlayer.play)
-      ], this.$slots.play)
+      ], slot(this, 'play'))
     },
     __renderVideoControls (h) {
       return h('div', {
@@ -989,7 +998,7 @@ export default Vue.extend({
             this.__renderFullscreenButton(h)
           ])
         ])
-      ], this.$slots.controls)
+      ], slot(this, 'controls'))
     },
     __renderAudioControls (h) {
       return h('div', {
@@ -1029,7 +1038,7 @@ export default Vue.extend({
           this.__renderVolumeButton(h),
           this.__renderVolumeSlider(h)
         ])
-      ], this.$slots.controls)
+      ], slot(this, 'controls'))
     },
     __renderVolumeButton (h) {
       return h(QBtn, {
@@ -1047,7 +1056,7 @@ export default Vue.extend({
       }, [
         this.showTooltips && !this.state.muted && h(QTooltip, this.lang.mediaPlayer.mute),
         this.showTooltips && this.state.muted && h(QTooltip, this.lang.mediaPlayer.unmute)
-      ], this.$slots.volume)
+      ], slot(this, 'volume'))
     },
     __renderVolumeSlider (h) {
       return h(QSlider, {
@@ -1069,7 +1078,7 @@ export default Vue.extend({
         on: {
           input: this.__volumePercentChanged
         }
-      }, this.$slots.volumeSlider)
+      }, slot(this, 'volumeSlider'))
     },
     __renderSettingsButton (h) {
       return h(QBtn, {
@@ -1084,7 +1093,7 @@ export default Vue.extend({
       }, [
         this.showTooltips && !this.settingsMenuVisible && h(QTooltip, this.lang.mediaPlayer.settings),
         this.__renderSettingsMenu(h)
-      ], this.$slots.settings)
+      ], slot(this, 'settings'))
     },
     __renderFullscreenButton (h) {
       return h(QBtn, {
@@ -1101,7 +1110,7 @@ export default Vue.extend({
         }
       }, [
         this.showTooltips && h(QTooltip, this.lang.mediaPlayer.toggleFullscreen)
-      ], this.$slots.fullscreen)
+      ], slot(this, 'fullscreen'))
     },
     __renderLoader (h) {
       return h('div', {
@@ -1112,7 +1121,7 @@ export default Vue.extend({
             size: this.isVideo ? '3rem' : '1rem'
           }
         })
-      ], this.$slots.spinner)
+      ], slot(this, 'spinner'))
     },
     __renderBigPlayButton (h) {
       return h('div', {
@@ -1133,7 +1142,7 @@ export default Vue.extend({
             }
           ]
         })
-      ], this.$slots.bigPlayButton)
+      ], slot(this, 'bigPlayButton'))
     },
     __renderCurrentTimeSlider (h) {
       return h(QSlider, {
@@ -1153,17 +1162,19 @@ export default Vue.extend({
         on: {
           input: this.__videoCurrentTimeChanged
         }
-      }, this.$slots.positionSlider)
+      }, slot(this, 'positionSlider'))
     },
     __renderDisplayTime (h) {
       return h('span', {
         staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
-      }, this.state.displayTime, this.$slots.displayTime)
+      }, this.state.displayTime, slot(this, 'displayTime'))
+      // TODO: syntax on above line??
     },
     __renderDurationTime (h) {
       return h('span', {
         staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
-      }, this.state.durationTime, this.$slots.durationTime)
+      }, this.state.durationTime, slot(this, 'durationTime'))
+      // TODO: syntax on above line??
     },
     __renderSettingsMenu (h) {
       return h(QMenu, {
@@ -1298,7 +1309,7 @@ export default Vue.extend({
             })
           ])
         ])
-      ], this.$slots.settingsMenu)
+      ], slot(this, 'settingsMenu'))
     }
   },
 
