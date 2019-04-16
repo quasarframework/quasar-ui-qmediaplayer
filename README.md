@@ -22,12 +22,10 @@ quasar ext add @quasar/qmediaplayer
 You can use `quasar describe QMediaPlayer`
 
 # Test Project
-Can be found [here](https://github.com/hawkeye64/quasar-app-extension-qmediaplayer-test).
+In **demo** folder of **app-extension-qmediaplayer**.
 
 # Demo
-Can be found [here](https://qmediaplayer.netlify.com).
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1e4a88d0-4c67-43c0-aa9c-c39bdb407424/deploy-status)](https://app.netlify.com/sites/qmediaplayer/deploys)
+Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/demo/dist/spa/#/).
 
 # Example Code
 ```html
