@@ -16,7 +16,7 @@
     "quasar": "^1.0.0-beta.17"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0-beta.17",
+    "@quasar/app": "^1.0.0-beta.18",
     "@quasar/quasar-app-extension-qmediaplayer": "link:../.",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
