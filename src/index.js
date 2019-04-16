@@ -5,7 +5,7 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
  */
 
-const extendConf = function (api, conf) {
+const extendConf = function (conf) {
   // make sure qmediaplayer boot file is registered
   conf.boot.push('~@quasar/quasar-app-extension-qmediaplayer/src/boot/qmediaplayer.js')
   console.log(` App Extension (qmediaplayer) Info: 'Adding qmediaplayer boot reference to your quasar.conf.js'`)
@@ -18,7 +18,7 @@ const extendConf = function (api, conf) {
   console.log(` App Extension (qmediaplayer) Info: 'Adding media-player.styl css reference to your quasar.conf.js'`)
 }
 
-module.exports = function (api, ctx) {
+module.exports = function (api) {
   // quasar compatibility check
   api.compatibleWith('@quasar/app', '^1.0.0-beta.18')
 
@@ -26,7 +26,5 @@ module.exports = function (api, ctx) {
   api.registerDescribeApi('QMediaPlayer', './component/QMediaPlayer.json')
 
   // extend quasar.conf
-  api.extendQuasarConf((conf) => {
-    extendConf(api, conf)
-  })
+  api.extendQuasarConf(extendConf)
 }
