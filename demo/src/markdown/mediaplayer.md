@@ -15,11 +15,8 @@ quasar ext add @quasar/qmediaplayer
 # Describe
 You can use `quasar describe QMediaPlayer`
 
-# Test Project
-In **demo** folder of **app-extension-qmediaplayer**.
-
 # Demo
-Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/demo/dist/spa/#/).
+Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/#/demo).
 
 # Example Code
 ```html

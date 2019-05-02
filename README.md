@@ -12,8 +12,11 @@ QMediaPlayer is an `UI App Extension` for [Quasar Framework v1](https://v1.quasa
 
 This work is currently in `beta` and there are expected changes while things get worked out. Your help with testing is greatly appreciated.
 
-# QMediaPlayer
-Please check out the [documentation](https://quasarframework.github.io/app-extension-qmediaplayer/demo).
+# Demo Project
+Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
+
+# Documentation
+Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/#/).
 
 # Install
 To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
