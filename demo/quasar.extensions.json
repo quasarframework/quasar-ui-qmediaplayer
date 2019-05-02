@@ -1,3 +1,4 @@
 {
-  "@quasar/qmediaplayer": {}
+  "@quasar/qmediaplayer": {},
+  "@quasar/qmarkdown": {}
 }
