@@ -1,7 +1,7 @@
 {
   "name": "quasar-app-extension-qmediaplayer-test",
   "version": "0.0.3",
-  "description": "Quasar App Extension QMediaPlayer Test",
+  "description": "QMediaPlayer App Extension for Quasar",
   "productName": "QMediaPlayer docs/demo",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Hawkeye64 <jeff@quasar-framework.org>",
