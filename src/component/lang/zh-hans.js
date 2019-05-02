@@ -3,7 +3,7 @@ export default {
   mediaPlayer: {
     oldBrowserVideo: '为观看此视频，请启用 JavaScript 或者考虑升级到支持 HTML5 视频的浏览器。',
     oldBrowserAudio: '为欣赏此音频，请启用 JavaScript 或者考虑升级到支持 HTML5 音频的浏览器。',
-    pause: '暂停',
+    pause: '暂停', // -- time out?
     play: '播放',
     settings: '设置',
     toggleFullscreen: '切换全屏',
@@ -18,7 +18,7 @@ export default {
     rateNormal: '正常',
     rate1Point5: '1.5倍',
     rate2: '2倍',
-    trackLanguageOff: '关闭',
+    trackLanguageOff: '关闭', // -- shutdown?
     noLoadVideo: '无法加载视频',
     noLoadAudio: '无法加载音频',
     cannotPlayVideo: '无法播放视频',
