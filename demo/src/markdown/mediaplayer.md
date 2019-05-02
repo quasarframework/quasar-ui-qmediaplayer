@@ -1,6 +1,9 @@
 QMediaPlayer
 ===
 
+![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg) ![npm (scoped)](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?style=plastic)
+
+
 QMediaPlayer is an [Quasar App Extension](https://v1.quasar-framework.org/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
 
 This work is currently in `beta` and there are expected changes while things get worked out. Your help with testing is greatly appreciated.
