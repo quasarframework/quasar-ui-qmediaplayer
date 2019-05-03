@@ -8,11 +8,17 @@ QMediaPlayer is an [Quasar App Extension](https://v1.quasar-framework.org/app-ex
 
 This work is currently in `beta` and there are expected changes while things get worked out. Your help with testing is greatly appreciated.
 
-# Installation
+# Install
 To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
 
-```
+```shell
 quasar ext add @quasar/qmediaplayer
+```
+# Uninstall
+To remove this App Extension from your Quasar application, run the following (in your Quasar app folder):
+
+```shell
+quasar ext remove @quasar/qmediaplayer
 ```
 
 # Describe
@@ -22,6 +28,9 @@ You can use `quasar describe QMediaPlayer`
 Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/#/demo).
 
 # Example Code
+
+## Video example
+
 ```html
 <q-media-player
   type="video"
@@ -46,7 +55,9 @@ Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer
   </template>
 </q-media-player>
 ```
+
 and the data...
+
 ```js
 data () {
   return {
@@ -105,6 +116,7 @@ data () {
 ```
 
 ## Audio example
+
 ```js
 audio: {
   sources: [
@@ -129,7 +141,8 @@ We need help translating the language files. They are all currently using Englis
 ---
 
 # QMediaPlayer Vue Properties
-| Vue&nbsp;Property | Type	| Mode | Description |
+
+| Property | Type	| Mode | Description |
 |---|---|---|---|
 | type | String | Both | ['video','audio'] This determines the type of player. (Default: 'video') |
 | color | String | Both | One from Quasar Color Palette. It determines the color of the MediaPlayer controls. (Default: 'white')|
@@ -172,7 +185,7 @@ This enumerated attribute is intended to provide a hint to the browser about wha
 
 # QMediaPlayer Vue Methods
 
-| Vue&nbsp;Method | Mode | Description |
+| Method | Mode | Description |
 |---|---|---|
 showControls() | Video | Show the controls.
 hideControls() | Video | Hide the controls.
@@ -185,7 +198,7 @@ setVolume(percent) | Both | Sets the volume as a percent (0-100).
 
 # QMediaPlayer Vue Events
 
-| Vue&nbsp;Event | Mode | Description |
+| Event | Mode | Description |
 |---|---|---|
 @loaded() | Both | Emitted when the media has been loaded.
 @ready() | Both | Emitted when the media is ready to play. You cannot play/pause or setCurrentTime before this event.
@@ -203,7 +216,7 @@ setVolume(percent) | Both | Sets the volume as a percent (0-100).
 
 # QMediaPlayer Vue Slots
 
-| Vue&nbsp;Slots | Mode | Description |
+| Slots | Mode | Description |
 |---|---|---|
 | old-browser | Both | When the browser does not support HTML5 (or has Javascript turned off).
 | overlay | Both | Used to overlay any HTML over the media window.
