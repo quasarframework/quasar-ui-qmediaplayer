@@ -829,15 +829,15 @@
     babel-plugin-dynamic-import-node "2.2.0"
     core-js "2.6.5"
 
-"@quasar/extras@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.1.1.tgz#f514bf5108c5de964949aaa336ba65266a25fd88"
-  integrity sha512-n9aQ9N9GBaRF15v3Rm5QDoeLOHFzjQ874f+54TthWmaQvx/8DV6fG/bwLgA6AjLUIZJs3ogm4J1KqWO+4zSg1g==
+"@quasar/extras@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.1.2.tgz#8b3a5faa52a824ffe53d233b9dffa2de15377f37"
+  integrity sha512-gas3jD/ArAtRNwUgvosUNl8ueWZJD4ULd7n6nWrWIH3I+I3A1u3CJbwVlsR1czlY7eawMFXmhJ3KKnx3IbkASg==
 
-"@quasar/quasar-app-extension-qmarkdown@^1.0.0-beta.6":
-  version "1.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.0.0-beta.6.tgz#0107cb9cc59d14d51d5323f1dce751814c4d9a98"
-  integrity sha512-fJ5c9Vu3blUlbFEemRkmtlZ0GdJ4oHr3aueL2rG2V+uKvaC82ciwat/mKqrTnagoK5ePJTQSza1hTR4ieMdE5w==
+"@quasar/quasar-app-extension-qmarkdown@^1.0.0-beta.7":
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.0.0-beta.7.tgz#a9a000142ab64bb69f10cd842024c3d4e7630c68"
+  integrity sha512-qsP2PI4fNc+v/7jDuH9V2eNLArv8eax2RTwGUNwq1xlGdBSlrKQBUOHEnpPCZ2A1OrofFzqlI67R7W0RQnVhJw==
   dependencies:
     markdown-it "^8.4.2"
     markdown-it-abbr "^1.0.4"
