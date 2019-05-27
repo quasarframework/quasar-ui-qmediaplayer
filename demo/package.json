@@ -4,7 +4,7 @@
   "description": "QMediaPlayer App Extension for Quasar",
   "productName": "QMediaPlayer docs/demo",
   "cordovaId": "org.cordova.quasar.app",
-  "author": "Hawkeye64 <jeff@quasar-framework.org>",
+  "author": "Hawkeye64 <jeff@quasar.dev>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
