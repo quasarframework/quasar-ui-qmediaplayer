@@ -12,7 +12,7 @@ import {
   QItemSection,
   QIcon,
   QSpinner,
-  CloseMenu,
+  ClosePopup,
   Ripple
 } from 'quasar'
 
@@ -42,7 +42,7 @@ export default Vue.extend({
   name: 'QMediaPlayer',
 
   directives: {
-    CloseMenu,
+    ClosePopup,
     Ripple
   },
 
