@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
 import {
-  AppFullscreen,
   QSlider,
   QBtn,
   QTooltip,
@@ -37,6 +36,8 @@ const timeParse = (sec) => {
   sec = sec - min * 60
   return padTime(min) + ':' + padTime(sec)
 }
+
+const prefixes = {}
 
 export default Vue.extend({
   name: 'QMediaPlayer',
@@ -185,7 +186,9 @@ export default Vue.extend({
         'volumechange',
         'waiting'
       ],
-      settingsMenuVisible: false
+      settingsMenuVisible: false,
+      isFullscreenActive: false,
+      isFullscreenCapable: false
     }
   },
 
@@ -208,6 +211,7 @@ export default Vue.extend({
   },
 
   mounted () {
+    this.__initFullscreen()
     this.__init()
   },
 
@@ -336,7 +340,7 @@ export default Vue.extend({
     '$q.iconSet.name' (val) {
       this.__setupIcons()
     },
-    'AppFullscreen.isActive' (val) {
+    isFullscreenActive (val) {
       // user pressed F11 to exit fullscreen
       if (!val && this.isVideo && this.state.inFullscreen) {
         this.exitFullscreen()
@@ -485,16 +489,20 @@ export default Vue.extend({
         return
       }
       this.state.inFullscreen = true
-      AppFullscreen.request(this.$el)
       document.body.classList.add('q-body--fullscreen-mixin')
+      this.$nextTick(() => {
+        this.__requestFullscreen(this.$el)
+      })
     },
     exitFullscreen () {
       if (!this.isVideo || !this.state.inFullscreen) {
         return
       }
       this.state.inFullscreen = false
-      AppFullscreen.exit()
       document.body.classList.remove('q-body--fullscreen-mixin')
+      this.$nextTick(() => {
+        this.__exitFullscreen()
+      })
     },
     setCurrentTime (seconds) {
       if (this.state.playReady) {
@@ -525,6 +533,50 @@ export default Vue.extend({
         iconSet = require(`./iconSet/${iconName}`)
       } catch (e) {}
       iconSet && (this.iconSet['mediaPlayer'] = { ...iconSet.default.mediaPlayer })
+    },
+
+    __initFullscreen () {
+      prefixes.request = [
+        'requestFullscreen',
+        'msRequestFullscreen', 'mozRequestFullScreen', 'webkitRequestFullscreen'
+      ].find(request => document.documentElement[request])
+  
+      this.isFullscreenCapable = prefixes.request !== undefined
+      if (!this.isFullscreenCapable) {
+        // it means the browser does NOT support it
+        return
+      }
+  
+      prefixes.exit = [
+        'exitFullscreen',
+        'msExitFullscreen', 'mozCancelFullScreen', 'webkitExitFullscreen'
+      ].find(exit => document[exit])
+  
+      this.isFullscreenActive = !!(document.fullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement)
+  
+      ;[
+        'onfullscreenchange', 'onmsfullscreenchange', 'onwebkitfullscreenchange'
+      ].forEach(evt => {
+        document[evt] = () => {
+          this.isFullscreenActive = !this.isFullscreenActive
+        }
+      })
+    },
+
+    __exitFullscreen () {
+      if (this.isFullscreenCapable && this.isFullscreenActive) {
+        document[prefixes.exit]()
+      }
+    },
+
+    __requestFullscreen (target) {
+      if (this.isFullscreenCapable && !this.isFullscreenActive) {
+        target = target || document.documentElement
+        target[prefixes.request]()
+      }
     },
 
     __init () {
