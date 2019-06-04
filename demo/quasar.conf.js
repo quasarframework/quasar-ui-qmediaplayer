@@ -40,7 +40,13 @@ module.exports = function (ctx) {
     devServer: {
       // https: true,
       // port: 8080,
-      open: true // opens browser window automatically
+      open: true, // opens browser window automatically
+      watchOptions: {
+        ignored: [
+          'node_modules',
+          '!node_modules/@quasar/quasar-app-extension-qmediaplayer'
+        ]
+      }
     },
     // framework: 'all' --- includes everything; for dev only!
     framework: {

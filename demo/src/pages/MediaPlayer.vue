@@ -59,7 +59,6 @@
         :tracks="videoType ? video[videoIndex].tracks : []"
         track-language="English"
         @ended="onEnded"
-        style="max-height: 200px;"
       >
         <template v-if="overlay" v-slot:overlay>
           <div>
@@ -234,6 +233,9 @@ export default {
   },
 
   mounted () {
+  },
+
+  computed: {
   },
 
   watch: {
