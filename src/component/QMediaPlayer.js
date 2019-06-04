@@ -1281,7 +1281,7 @@ export default Vue.extend({
                     value: true
                   },
                   {
-                    name: 'close-menu',
+                    name: 'close-popup',
                     value: true
                   }
                 ]
@@ -1340,7 +1340,7 @@ export default Vue.extend({
                     value: true
                   },
                   {
-                    name: 'close-menu',
+                    name: 'close-popup',
                     value: true
                   }
                 ]
