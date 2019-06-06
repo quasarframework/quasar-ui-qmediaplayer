@@ -20,7 +20,8 @@ module.exports = function (ctx) {
     supportIE: false,
     build: {
       scopeHoisting: true,
-      // vueRouterMode: 'history',
+      vueRouterMode: 'history',
+      publicPath: 'app-extension-qmediaplayer',
       // vueCompiler: true,
       // gzip: true,
       // analyze: true,
