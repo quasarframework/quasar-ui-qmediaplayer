@@ -7,3 +7,4 @@ yarn-error.log*
 .editorconfig
 .eslintrc.js
 yarn.lock
+_redirects
