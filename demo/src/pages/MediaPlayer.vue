@@ -89,7 +89,7 @@ export default {
       darkbg: true,
       dark: false,
       dense: false,
-      videoType: false,
+      videoType: true,
       mobileMode: false,
       muted: false,
       bigPlay: true,

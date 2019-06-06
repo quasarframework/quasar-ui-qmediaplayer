@@ -1,13 +1,13 @@
 {
   "name": "@quasar/quasar-app-extension-qmediaplayer",
-  "version": "1.0.0-beta.13",
+  "version": "1.0.0-beta.14",
   "description": "QMediaPlayer is an audio/video app extension for Quasar",
   "author": "Hawkeye64 <jeff@quasar.dev>",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "lint-fix": "eslint --ext .js,.vue src --fix",
-    "build-demo": "cd ./demo && quasar build && cd .. && rm -r -f ./docs && cp -r ./demo/dist/spa/. ./docs",
+    "build-demo": "cd ./demo && yarn build && cd .. && cp ./_redirects ./demo/dist/spa && rm -r -f ./docs && cp -r ./demo/dist/spa/. ./docs",
     "test": "echo \"No test specified\" && exit 0"
   },
   "publishConfig": {
