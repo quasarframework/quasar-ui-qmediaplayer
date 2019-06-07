@@ -1,7 +1,4 @@
 <template>
-  <!-- <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
-  </q-page> -->
   <div class="q-layout-padding q-mx-auto q-gutter-sm" style="max-width: 500px; min-height: 100vh;">
 
     <div class="row flex-center">
