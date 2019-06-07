@@ -16,7 +16,7 @@ This work is currently in `beta` and there are expected changes while things get
 Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
 
 # Documentation
-Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/#/).
+Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer).
 
 # Install
 To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
