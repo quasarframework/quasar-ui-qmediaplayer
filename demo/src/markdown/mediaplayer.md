@@ -25,7 +25,7 @@ quasar ext remove @quasar/qmediaplayer
 You can use `quasar describe QMediaPlayer`
 
 # Demo
-Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/#/demo).
+Can be found [here](/demo).
 
 # Example Code
 
