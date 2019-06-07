@@ -1,28 +1,22 @@
 <template>
-  <div>
-    <section class="page-header">
-      <h1 class="project-name">QMediaPlayer</h1>
-      <h2 class="project-tagline"></h2>
-      <a href="https://github.com/quasarframework/app-extension-qmediaplayer" target="_blank" class="btn">View on GitHub</a>
-      <a href="/demo" target="_blank" class="btn">Demo</a>
-    </section>
-    <main class="flex flex-start justify-center inset-shadow">
-      <div class="q-pa-md col-12-sm col-8-md col-6-lg inset-shadow" style="width: 100%; height: 3px;" />
-      <div class="q-pa-md col-12-sm col-8-md col-6-lg bg-white shadow-1" style="max-width: 800px; width: 100%; ">
-        <q-markdown :src="markdown" toc @data="onToc" />
-      </div>
-    </main>
-  </div>
+  <hero>
+    <q-markdown :src="markdown" toc @data="onToc" />
+  </hero>
 </template>
 
 <style>
 </style>
 
 <script>
+import Hero from '../components/Hero'
 import markdown from '../markdown/mediaplayer.md'
 
 export default {
   name: 'PageIndex',
+
+  components: {
+    Hero
+  },
 
   data () {
     return {
