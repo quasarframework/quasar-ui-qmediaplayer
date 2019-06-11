@@ -86,6 +86,7 @@ export default function (ssrContext) {
         validator: v => ['none', 'metadata', 'auto'].includes(v)
       },
       muted: Boolean,
+      loop: Boolean,
       trackLanguage: {
         type: String,
         default: 'off' // value for 'Off'
@@ -920,23 +921,23 @@ export default function (ssrContext) {
           staticClass: 'q-media--player',
           attrs: {
             poster: this.poster,
-            preload: this.preload
+            preload: this.preload,
+            loop: this.loop
           }
         }, [
-          // this.sources.length && this.__renderSources(h),
-          // this.tracks.length && this.__renderTracks(h),
           this.isVideo && h('p', this.lang.mediaPlayer.oldBrowserVideo, slot(this, 'oldbrowser'))
         ])
       },
       __renderAudio (h) {
         // This is on purpose (not using audio tag).
         // The video tag can also play audio and works if dynamically
-        // switching between video and audo on the same component.
+        // switching between video and audio on the same component.
         return h('video', {
           ref: 'media',
           staticClass: 'q-media--player',
           attrs: {
-            preload: this.preload
+            preload: this.preload,
+            loop: this.loop
           }
         }, [
           // this.sources.length && this.__renderSources(h),
