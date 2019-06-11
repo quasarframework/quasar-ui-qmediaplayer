@@ -86,6 +86,8 @@ export default function (ssrContext) {
         validator: v => ['none', 'metadata', 'auto'].includes(v)
       },
       muted: Boolean,
+      playsinline: Boolean,
+      loop: Boolean,
       trackLanguage: {
         type: String,
         default: 'off' // value for 'Off'
@@ -918,25 +920,31 @@ export default function (ssrContext) {
         return h('video', {
           ref: 'media',
           staticClass: 'q-media--player',
+          class: this.contentClass,
+          style: this.contentStyle,
           attrs: {
             poster: this.poster,
-            preload: this.preload
+            preload: this.preload,
+            playsinline: this.playsinline,
+            loop: this.loop
           }
         }, [
-          // this.sources.length && this.__renderSources(h),
-          // this.tracks.length && this.__renderTracks(h),
           this.isVideo && h('p', this.lang.mediaPlayer.oldBrowserVideo, slot(this, 'oldbrowser'))
         ])
       },
       __renderAudio (h) {
         // This is on purpose (not using audio tag).
         // The video tag can also play audio and works if dynamically
-        // switching between video and audo on the same component.
+        // switching between video and audio on the same component.
         return h('video', {
           ref: 'media',
           staticClass: 'q-media--player',
+          class: this.contentClass,
+          style: this.contentStyle,
           attrs: {
-            preload: this.preload
+            preload: this.preload,
+            playsinline: this.playsinline,
+            loop: this.loop
           }
         }, [
           // this.sources.length && this.__renderSources(h),
@@ -1367,7 +1375,7 @@ export default function (ssrContext) {
 
     render (h) {
       return h('div', {
-        staticClass: 'q-media col-12 bg-' + this.backgroundColor,
+        staticClass: 'q-media bg-' + this.backgroundColor,
         class: this.classes,
         style: {
           borderRadius: !this.state.inFullscreen ? this.radius : 0,
