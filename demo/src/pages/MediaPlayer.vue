@@ -1,5 +1,5 @@
 <template>
-  <div class="q-layout-padding q-mx-auto q-gutter-sm" style="max-width: 500px; min-height: 100vh;">
+  <div class="q-layout-padding q-mx-auto q-gutter-sm" style="max-width: 1000px; width: 100%; min-height: 100vh;">
 
     <div class="row flex-center">
       <p>This page is intended to test multiple scenarios of QMediaPlayer.</p>
@@ -8,23 +8,25 @@
     </div>
 
     <div class="row flex-center">
-      <q-item tag="label" class="q-my-sm bg-primary shadow-1" :dark="true" style="border-radius: 30px">
+      <q-item tag="label" class="q-my-sm bg-blue-grey-6 shadow-1" :dark="!darkbg" style="border-radius: 30px">
         <q-item-section>
-          <q-item-label>Dark background</q-item-label>
+          <q-item-label>Dark background (audio)</q-item-label>
         </q-item-section>
 
         <q-item-section side>
-          <q-toggle v-model="darkbg" color="tertiary" :dark="true"></q-toggle>
+          <q-toggle v-model="darkbg" color="blue-grey-2" :dark="darkbg"></q-toggle>
         </q-item-section>
       </q-item>
 
-      <q-card class="q-mx-auto" style="width: 500px; max-width: 90vw;">
+      <q-card class="q-mx-auto" style="max-width: 800px; width: 100%; max-width: 90vw;">
         <q-card-section class="text-center">
           <div class="row flex-center q-gutter-sm">
             <q-toggle v-model="dense" label="Dense"></q-toggle>
             <q-toggle v-model="dark" label="Dark"></q-toggle>
             <q-toggle v-model="radius" label="Radius"></q-toggle>
             <q-toggle v-model="muted" label="Muted"></q-toggle>
+            <q-toggle v-model="playsinline" label="Plays Inline"></q-toggle>
+            <q-toggle v-model="loop" label="Loop"></q-toggle>
           </div>
           <div class="row flex-center q-gutter-sm">
             <q-toggle v-model="bigPlay" label="Big Play Button" :disable="!videoType"></q-toggle>
@@ -40,7 +42,7 @@
       </q-card>
     </div>
 
-    <div class="row" style="min-height: 2rem; max-height: 200px; max-width: 90vw;">
+    <div class="row" style="min-height: 2rem;">
       <q-media-player
         :type="videoType ? 'video' : 'audio'"
         :dense="dense"
@@ -48,6 +50,8 @@
         :background-color="darkbg ? 'black' : 'white'"
         :mobile-mode="mobileMode"
         :muted="muted"
+        :playsinline="playsinline"
+        :loop="loop"
         :radius="radius ? '1rem' : 0"
         :autoplay="autoPlay"
         :show-big-play-button="bigPlay"
@@ -89,6 +93,8 @@ export default {
       videoType: true,
       mobileMode: false,
       muted: false,
+      playsinline: false,
+      loop: false,
       bigPlay: true,
       radius: false,
       overlay: false,
@@ -160,7 +166,7 @@ export default {
           poster: 'statics/media/sintel/sintel-poster2.jpeg',
           sources: [
             {
-              src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
+              src: 'https://peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
               type: 'video/mp4'
             }
           ],
