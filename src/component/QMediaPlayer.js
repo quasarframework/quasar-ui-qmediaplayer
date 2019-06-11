@@ -86,6 +86,7 @@ export default function (ssrContext) {
         validator: v => ['none', 'metadata', 'auto'].includes(v)
       },
       muted: Boolean,
+      playsinline: Boolean,
       loop: Boolean,
       trackLanguage: {
         type: String,
@@ -922,6 +923,7 @@ export default function (ssrContext) {
           attrs: {
             poster: this.poster,
             preload: this.preload,
+            playsinline: this.playsinline,
             loop: this.loop
           }
         }, [
@@ -937,6 +939,7 @@ export default function (ssrContext) {
           staticClass: 'q-media--player',
           attrs: {
             preload: this.preload,
+            playsinline: this.playsinline,
             loop: this.loop
           }
         }, [
