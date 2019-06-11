@@ -109,6 +109,14 @@
       "type": "Boolean",
       "desc": "If the player should be muted"
     },
+    "inline": {
+      "type": "Boolean",
+      "desc": "If the player should be inline (see video element playsinline)"
+    },
+    "loop": {
+      "type": "Boolean",
+      "desc": "If the player should automatically seek back to the start upon reaching the end of the video"
+    },
     "show-big-play-button": {
       "type": "Boolean",
       "desc": "Show/hide the Big Play Button",
@@ -148,7 +156,24 @@
       "desc": "Corresponds to the value in playback-rates",
       "default": "0.5",
       "examples": [ "2" ]
+    },
+    "content-class": {
+      "type": [ "Array", "String", "Object" ],
+      "desc": "Class definitions to be attributed to the markdown container",
+      "examples": [
+        "my-special-class",
+        ":content-class=\"{ 'my-special-class': <condition> }\""
+      ]
+    },
+    "content-style": {
+      "type": [ "Array", "String", "Object" ],
+      "desc": "Style definitions to be attributed to the markdown container",
+      "examples": [
+        "background-color: #ff0000",
+        ":content-style=\"{ backgroundColor: '#ff0000' }\""
+      ]
     }
+
   },
   "events": {
     "loaded": {
