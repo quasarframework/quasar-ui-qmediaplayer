@@ -160,7 +160,7 @@ export default {
           poster: 'statics/media/sintel/sintel-poster2.jpeg',
           sources: [
             {
-              src: 'https://peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
+              src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
               type: 'video/mp4'
             }
           ],
