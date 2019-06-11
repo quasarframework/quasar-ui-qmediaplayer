@@ -920,6 +920,8 @@ export default function (ssrContext) {
         return h('video', {
           ref: 'media',
           staticClass: 'q-media--player',
+          class: this.contentClass,
+          style: this.contentStyle,
           attrs: {
             poster: this.poster,
             preload: this.preload,
@@ -937,6 +939,8 @@ export default function (ssrContext) {
         return h('video', {
           ref: 'media',
           staticClass: 'q-media--player',
+          class: this.contentClass,
+          style: this.contentStyle,
           attrs: {
             preload: this.preload,
             playsinline: this.playsinline,
@@ -1371,7 +1375,7 @@ export default function (ssrContext) {
 
     render (h) {
       return h('div', {
-        staticClass: 'q-media col-12 bg-' + this.backgroundColor,
+        staticClass: 'q-media bg-' + this.backgroundColor,
         class: this.classes,
         style: {
           borderRadius: !this.state.inFullscreen ? this.radius : 0,
