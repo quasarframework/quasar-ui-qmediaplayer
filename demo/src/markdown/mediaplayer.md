@@ -166,6 +166,7 @@ sources	| Array | Both | Required. This is an array of one or more objects, that
 | loop | Boolean | Both | If the player should automatically seek back to the start upon reaching the end of the video |
 | show-big-play-button | Boolean | Video | Show/hide the Big Play Button. (Default: true) |
 | show-spinner | Boolean | Both | If the spinner should be displayed while video/audio is loading. (Default: true) |
+| spinner-size | String | Both | Pass a CSS unit to change spinner size. (Default: '5em' for video, '3em' for audio) |
 | controls-display-time | Number | Video | The amount of idle time in milliseconds to wait before hiding the controls (default 2000). This is applied when the mouse cursor is within the QMediaPlayer window but has not moved |
 | no-controls | Boolean | Video | If set to true, the controls will never be displayed. This is useful if you want full control. Your controls can be on another place on your page |
 | playback-rates | Array | Video | This is an array of one or more objects, that look like this: { **label**: '.5x', **value**: 0.5 }. **Note:** The default playbackRates include 0.5, 1, 1.5 and 2.0." |

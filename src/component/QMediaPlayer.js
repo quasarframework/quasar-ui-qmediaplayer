@@ -101,6 +101,7 @@ export default function (ssrContext) {
         type: Boolean,
         default: true
       },
+      spinnerSize: String,
       noControls: Boolean,
       controlsDisplayTime: {
         type: Number,
@@ -607,7 +608,6 @@ export default function (ssrContext) {
         this.__addMediaEventListeners()
         this.__addSourceEventListeners()
         this.__toggleCaptions()
-        // send player to parent, if they are interested
       },
 
       __addMediaEventListeners () {
@@ -1173,12 +1173,17 @@ export default function (ssrContext) {
         ], slot(this, 'fullscreen'))
       },
       __renderLoader (h) {
+        if (this.spinnerSize === void 0) {
+          if (this.isVideo) this.spinnerSize = '5em'
+          else this.spinnerSize = '3em'
+        }
+
         return h('div', {
           staticClass: this.isVideo ? 'q-media__loading--video' : 'q-media__loading--audio'
         }, [
           h(QSpinner, {
             props: {
-              size: this.isVideo ? '3rem' : '1rem'
+              size: this.spinnerSize
             }
           })
         ], slot(this, 'spinner'))
