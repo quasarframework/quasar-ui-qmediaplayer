@@ -42,7 +42,7 @@
       </q-card>
     </div>
 
-    <div class="row" style="min-height: 2rem;">
+    <div class="row flex-center" style="min-height: 2rem;">
       <q-media-player
         :type="videoType ? 'video' : 'audio'"
         :dense="dense"
