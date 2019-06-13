@@ -1,4 +1,4 @@
-QMediaPlayer (quasar-app-extension-qmediaplayer)
+QMediaPlayer (@quasar/qmediaplayer)
 ===
 
 ![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg)

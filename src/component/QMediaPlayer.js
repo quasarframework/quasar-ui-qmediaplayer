@@ -165,7 +165,8 @@ export default function (ssrContext) {
           playbackRate: 1,
           trackLanguage: 'Off',
           showBigPlayButton: true,
-          metadataLoaded: false
+          metadataLoaded: false,
+          spinnerSize: '5em'
         },
         allEvents: [
           'abort',
@@ -1174,8 +1175,10 @@ export default function (ssrContext) {
       },
       __renderLoader (h) {
         if (this.spinnerSize === void 0) {
-          if (this.isVideo) this.spinnerSize = '5em'
-          else this.spinnerSize = '3em'
+          if (this.isVideo) this.state.spinnerSize = '5em'
+          else this.state.spinnerSize = '3em'
+        } else {
+          this.state.spinnerSize = this.spinnerSize
         }
 
         return h('div', {
@@ -1183,7 +1186,7 @@ export default function (ssrContext) {
         }, [
           h(QSpinner, {
             props: {
-              size: this.spinnerSize
+              size: this.state.spinnerSize
             }
           })
         ], slot(this, 'spinner'))
