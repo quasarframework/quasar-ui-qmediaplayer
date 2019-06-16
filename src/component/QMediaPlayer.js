@@ -56,6 +56,7 @@ export default function (ssrContext) {
         validator: v => ['video', 'audio'].includes(v)
       },
       mobileMode: Boolean,
+      source: String,
       sources: {
         type: Array,
         default: () => []
@@ -862,16 +863,21 @@ export default function (ssrContext) {
       __addSources () {
         if (this.$media) {
           let loaded = false
-          this.sources.forEach((source) => {
-            let s = document.createElement('SOURCE')
-            s.src = source.src ? source.src : ''
-            s.type = source.type ? source.type : ''
-            this.$media.appendChild(s)
-            if (!loaded && source.src) {
-              this.$media.src = source.src
-              loaded = true
-            }
-          })
+          if (this.source !== void 0 && this.source.length > 0) {
+            this.$media.src = this.source
+            loaded = true
+          } else {
+            this.sources.forEach((source) => {
+              let s = document.createElement('SOURCE')
+              s.src = source.src ? source.src : ''
+              s.type = source.type ? source.type : ''
+              this.$media.appendChild(s)
+              if (!loaded && source.src) {
+                this.$media.src = source.src
+                loaded = true
+              }
+            })
+          }
           this.__reset()
           this.__addSourceEventListeners()
           this.$media.load()
