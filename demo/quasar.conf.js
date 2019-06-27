@@ -33,7 +33,7 @@ module.exports = function (ctx) {
           loader: 'eslint-loader',
           exclude: /node_modules/,
           options: {
-            cache: true
+            formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         })
       }
