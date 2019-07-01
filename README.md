@@ -32,3 +32,6 @@ quasar ext remove @quasar/qmediaplayer
 
 # Describe
 You can use `quasar describe QMediaPlayer`
+
+# Donate
+If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
