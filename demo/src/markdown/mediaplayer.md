@@ -139,6 +139,7 @@ We need help translating the language files. They are all currently using Englis
 - German/Deutsch ([@mstaack](https://github.com/mstaack)/[@smolinari](https://github.com/smolinari))
 - Polish/Polski ([@kubawolanin](https://github.com/kubawolanin))
 - Chinese/中文 ([@songzhi](https://github.com/songzhi))
+- Dutch ([stefanvanherwijnen](https://github.com/stefanvanherwijnen))
 
 ---
 
