@@ -139,6 +139,7 @@ We need help translating the language files. They are all currently using Englis
 - German/Deutsch ([@mstaack](https://github.com/mstaack)/[@smolinari](https://github.com/smolinari))
 - Polish/Polski ([@kubawolanin](https://github.com/kubawolanin))
 - Chinese/中文 ([@songzhi](https://github.com/songzhi))
+- Dutch ([stefanvanherwijnen](https://github.com/stefanvanherwijnen))
 
 ---
 
@@ -242,8 +243,8 @@ This enumerated attribute is intended to provide a hint to the browser about wha
 | settings-menu | Video | With this slot the Settings Menu can be replaced |
 | fullscreen | Video | With this slot the Fullscreen icon can be replaced |
 
-# Patreon
-If you like (and use) this App Extension, please consider becoming a Quasar [Patreon](https://www.patreon.com/quasarframework).
+# Donate
+If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
 
 ---
 This page created with [QMarkdown](https://quasarframework.github.io/app-extension-qmarkdown), another great Quasar App Extension.
