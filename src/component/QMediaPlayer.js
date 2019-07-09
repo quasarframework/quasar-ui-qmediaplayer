@@ -1192,7 +1192,8 @@ export default function (ssrContext) {
         }, [
           h(QSpinner, {
             props: {
-              size: this.state.spinnerSize
+              size: this.state.spinnerSize,
+              color: this.color
             }
           })
         ], slot(this, 'spinner'))
@@ -1204,6 +1205,7 @@ export default function (ssrContext) {
           h(QIcon, {
             props: {
               name: this.iconSet.mediaPlayer.bigPlayButton,
+              color: this.color,
               size: '3rem'
             },
             on: {
