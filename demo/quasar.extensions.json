@@ -1,4 +1,5 @@
 {
   "@quasar/qmediaplayer": {},
-  "@quasar/qmarkdown": {}
+  "@quasar/qmarkdown": {},
+  "qribbon": {}
 }
