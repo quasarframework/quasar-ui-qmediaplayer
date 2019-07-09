@@ -243,8 +243,8 @@ This enumerated attribute is intended to provide a hint to the browser about wha
 | settings-menu | Video | With this slot the Settings Menu can be replaced |
 | fullscreen | Video | With this slot the Fullscreen icon can be replaced |
 
-# Patreon
-If you like (and use) this App Extension, please consider becoming a Quasar [Patreon](https://www.patreon.com/quasarframework).
+# Donate
+If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
 
 ---
 This page created with [QMarkdown](https://quasarframework.github.io/app-extension-qmarkdown), another great Quasar App Extension.
