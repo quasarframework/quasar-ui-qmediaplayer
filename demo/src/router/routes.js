@@ -12,6 +12,13 @@ const routes = [
     ]
   },
   {
+    path: '/examples',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Examples.vue') }
+    ]
+  },
+  {
     path: '/demo',
     component: () => import('layouts/MediaPlayerLayout.vue'),
     children: [
