@@ -1205,9 +1205,9 @@ export default function (ssrContext) {
           h(QIcon, {
             props: {
               name: this.iconSet.mediaPlayer.bigPlayButton,
-              color: this.color,
-              size: '3rem'
+              color: this.color
             },
+            staticClass: 'q-media--big-button-icon',
             on: {
               click: this.__bigButtonClick
             },
