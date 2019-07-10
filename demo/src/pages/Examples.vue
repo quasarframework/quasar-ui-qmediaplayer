@@ -40,6 +40,29 @@ It is preferable to use the property `sources` rather than `source` so the brows
       <example-card title="Audio - Source" name="AudioSource" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioSource.vue').default)" />
       <example-card title="Video - Source" name="VideoSource" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoSource.vue').default)" />
 
+      <example-title title="Tracks" />
+      <q-markdown>
+> Tracks, are also known as captions or subtitles. When enabled, it can be changed from the configuration icon.
+      </q-markdown>
+      <example-card title="Video - Tracks" name="VideoTracks" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoTracks.vue').default)" />
+      <q-markdown>
+In the example below, the default language track has been set to French.
+      </q-markdown>
+      <example-card title="Video - Track Language" name="VideoTrackLanguage" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoTrackLanguage.vue').default)" />
+
+      <example-title title="Language" />
+      <q-markdown>
+Not all languages have been translated. If you can help out, please [PR a language pack](https://github.com/quasarframework/app-extension-qmediaplayer/tree/dev/src/component/lang).
+
+> QMediaPlayer does not have a property to set the language directly. It uses Quasar's internal language support indirectly. When that switches, then QMediaPlayer also switches to that language.
+      </q-markdown>
+      <example-card title="Video - Language" name="VideoLanguage" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoLanguage.vue').default)" />
+
+      <example-title title="Icon Set" />
+      <q-markdown>
+> QMediaPlayer does not have a property to set the icon set directly. It uses Quasar's internal icon set support indirectly. When that switches, then QMediaPlayer also switches to that icon set.
+      </q-markdown>
+      <example-card title="Video - Icon Set" name="VideoIconSet" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoIconSet.vue').default)" />
     </div>
   </hero>
 </template>
@@ -92,6 +115,17 @@ export default {
     this.addToToc('Source')
     this.addToToc('Audio - Source', 2)
     this.addToToc('Video - Source', 2)
+
+    this.addToToc('Tracks')
+    this.addToToc('Video - Tracks', 2)
+    this.addToToc('Video - Track Language', 2)
+
+    this.addToToc('Language')
+    this.addToToc('Video - Language', 2)
+
+    this.addToToc('Icon Set')
+    this.addToToc('Audio - Icon Set', 2)
+    this.addToToc('Video - Icon Set', 2)
 
     this.toc = this.tempToc
   },
