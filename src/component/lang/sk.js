@@ -1,27 +1,27 @@
 export default {
   lang: 'sk',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
-    pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    oldBrowserVideo: 'Na zobrazenie obrazu prosím zapnite JavaScript a/alebo zvážtě aktualizáciu na prehliadač, ktorý podporuje HTML5 audio.',
+    oldBrowserAudio: 'Na prehratie zvuku, prosím zapnite JavaScript a/alebo zvážtě aktualizáciu na prehliadač, ktorý podporuje HTML5 audio.',
+    pause: 'Pauza',
+    play: 'Hrať',
+    settings: 'Nastavenia',
+    toggleFullscreen: 'Prepni na celú obrazovku',
+    mute: 'Vypnúť zvuk',
+    unmute: 'Zapnúť zvuk',
+    speed: 'Rýchlosť', // Playback rate
+    language: 'Jazyk',
+    playbackRate: 'Rýchlosť prehrávania',
+    waitingVideo: 'Čakám na video',
+    waitingAudio: 'Čakám na audio',
     ratePoint5: '.5x',
-    rateNormal: 'Normal',
+    rateNormal: 'Normálne',
     rate1Point5: '1.5x',
     rate2: '2x',
-    trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    trackLanguageOff: 'Vypnúť',
+    noLoadVideo: 'Nemôžem nahrať video',
+    noLoadAudio: 'Nemôžem nahrať audio',
+    cannotPlayVideo: 'Nemôžem prehrať video',
+    cannotPlayAudio: 'Nemôžem prehrať audio'
   }
 }
