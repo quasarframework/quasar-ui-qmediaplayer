@@ -81,7 +81,11 @@ export default {
     AudioDense: () => import('../examples/AudioDense'),
     VideoDense: () => import('../examples/VideoDense'),
     AudioSource: () => import('../examples/AudioSource'),
-    VideoSource: () => import('../examples/VideoSource')
+    VideoSource: () => import('../examples/VideoSource'),
+    VideoTracks: () => import('../examples/VideoTracks'),
+    VideoTrackLanguage: () => import('../examples/VideoTrackLanguage'),
+    VideoLanguage: () => import('../examples/VideoLanguage'),
+    VideoIconSet: () => import('../examples/VideoIconSet')
   },
 
   props: {

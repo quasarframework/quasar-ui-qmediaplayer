@@ -202,17 +202,6 @@ export default function (ssrContext) {
       this.__setupLang()
       this.__setupIcons()
 
-      // if playbackRates has not been passed in
-      if (!this.playbackRates) {
-        this.state.playbackRates.splice(0, this.state.playbackRates.length)
-        this.state.playbackRates.push({ label: this.lang.mediaPlayer.ratePoint5, value: 0.5 })
-        this.state.playbackRates.push({ label: this.lang.mediaPlayer.rateNormal, value: 1 })
-        this.state.playbackRates.push({ label: this.lang.mediaPlayer.rate1Point5, value: 1.5 })
-        this.state.playbackRates.push({ label: this.lang.mediaPlayer.rate2, value: 2 })
-      }
-
-      this.state.trackLanguage = this.lang.mediaPlayer.trackLanguageOff
-
       document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
     },
 
@@ -528,7 +517,12 @@ export default function (ssrContext) {
         try {
           lang = require(`./lang/${isoName}`)
         } catch (e) {}
-        lang && (this.lang['mediaPlayer'] = { ...lang.default.mediaPlayer })
+
+        if (lang !== void 0) {
+          this.lang['mediaPlayer'] = { ...lang.default.mediaPlayer }
+          this.__updatePlaybackRates()
+          this.__updateTrackLanguage()
+        }
       },
 
       __setupIcons () {
@@ -830,7 +824,14 @@ export default function (ssrContext) {
       __updatePlaybackRates () {
         if (this.playbackRates && this.playbackRates.length > 0) {
           this.state.playbackRates = [...this.playbackRates]
+        } else {
+          this.state.playbackRates.splice(0, this.state.playbackRates.length)
+          this.state.playbackRates.push({ label: this.lang.mediaPlayer.ratePoint5, value: 0.5 })
+          this.state.playbackRates.push({ label: this.lang.mediaPlayer.rateNormal, value: 1 })
+          this.state.playbackRates.push({ label: this.lang.mediaPlayer.rate1Point5, value: 1.5 })
+          this.state.playbackRates.push({ label: this.lang.mediaPlayer.rate2, value: 2 })
         }
+        this.state.trackLanguage = this.lang.mediaPlayer.trackLanguageOff
       },
       __updatePlaybackRate () {
         if (this.state.playbackRate !== this.playbackRate) {
@@ -1205,9 +1206,9 @@ export default function (ssrContext) {
           h(QIcon, {
             props: {
               name: this.iconSet.mediaPlayer.bigPlayButton,
-              color: this.color,
-              size: '3rem'
+              color: this.color
             },
+            staticClass: 'q-media--big-button-icon',
             on: {
               click: this.__bigButtonClick
             },

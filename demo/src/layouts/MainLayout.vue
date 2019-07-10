@@ -13,7 +13,7 @@
         </q-btn>
 
         <q-toolbar-title>
-          QMediaPlayer - Quasar App Extension
+          QMediaPlayer
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -149,8 +149,14 @@ export default {
       activeToc: 0
     }
   },
-  beforeDestroy () {
-    clearTimeout(this.scrollTimer)
+  mounted () {
+    // code to handle anchor link on refresh/new page, etc
+    if (location.hash !== '') {
+      const id = location.hash.substring(1, location.hash.length)
+      setTimeout(() => {
+        this.scrollTo(id)
+      }, 200)
+    }
   },
   computed: {
     ...mapGetters({
@@ -161,22 +167,14 @@ export default {
     scrollTo (id) {
       this.activeToc = id
       const el = document.getElementById(id)
-      clearTimeout(this.scrollTimer)
 
       if (el) {
         this.scrollPage(el)
       }
     },
     scrollPage (el) {
-      const
-        target = scroll.getScrollTarget(el),
-        offset = el.offsetTop - el.scrollHeight
-
-      this.scrollingPage = true
-      this.scrollTimer = setTimeout(() => {
-        this.scrollingPage = false
-      }, 510)
-      scroll.setScrollPosition(target, offset, 500)
+      const offset = el.offsetTop - el.scrollHeight
+      scroll.setScrollPosition(window, offset, 500)
     }
   }
 }
