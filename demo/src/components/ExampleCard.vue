@@ -80,6 +80,7 @@ export default {
     VideoDark: () => import('../examples/VideoDark'),
     AudioDense: () => import('../examples/AudioDense'),
     VideoDense: () => import('../examples/VideoDense'),
+    VideoMobileMode: () => import('../examples/VideoMobileMode'),
     AudioSource: () => import('../examples/AudioSource'),
     VideoSource: () => import('../examples/VideoSource'),
     VideoTracks: () => import('../examples/VideoTracks'),

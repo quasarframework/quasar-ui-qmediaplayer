@@ -33,6 +33,12 @@ The background color of the video view is only visible until the video is loaded
       <example-card title="Audio - Dense" name="AudioDense" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioDense.vue').default)" />
       <example-card title="Video - Dense" name="VideoDense" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoDense.vue').default)" />
 
+      <example-title title="Mobile Mode" />
+      <q-markdown>
+The `mobile-mode` property is available to turn off the hover effect that displays the controls window. You can use this propery for desktops too!
+      </q-markdown>
+      <example-card title="Video - Mobile Mode" name="VideoMobileMode" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoMobileMode.vue').default)" />
+
       <example-title title="Source" />
       <q-markdown>
 It is preferable to use the property `sources` rather than `source` so the browser can have the associated type of media file, rather than relying on the extension.
@@ -111,6 +117,9 @@ export default {
     this.addToToc('Dense')
     this.addToToc('Audio - Dense', 2)
     this.addToToc('Video - Dense', 2)
+
+    this.addToToc('Mobile Mode')
+    this.addToToc('Video - Mobile Mode', 2)
 
     this.addToToc('Source')
     this.addToToc('Audio - Source', 2)
