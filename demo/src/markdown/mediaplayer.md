@@ -140,6 +140,8 @@ We need help translating the language files. They are all currently using Englis
 - Polish/Polski ([@kubawolanin](https://github.com/kubawolanin))
 - Chinese/中文 ([@songzhi](https://github.com/songzhi))
 - Dutch ([stefanvanherwijnen](https://github.com/stefanvanherwijnen))
+- Čeština ([@valasek](https://github.com/valasek))
+- Slovenčina ([@valasek](https://github.com/valasek))
 
 ---
 
