@@ -1,27 +1,27 @@
 export default {
   lang: 'cs',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
-    pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    oldBrowserVideo: 'Pro zobrazení obrazu prosím zapněte JavaScript a/nebo zvažte aktualizaci na prohlížeč, který podporuje HTML5 audio.',
+    oldBrowserAudio: 'Pro přehrání zvuku, prosím zapněte JavaScript a/nebo zvažte aktualizaci na prohlížeč, který podporuje HTML5 audio.',
+    pause: 'Zastavit',
+    play: 'Hrát',
+    settings: 'Nastavení',
+    toggleFullscreen: 'Přepni na celou obrazovku',
+    mute: 'Vypnout zvuk',
+    unmute: 'Zapnout zvuk',
+    speed: 'Rychlost', // Playback rate
+    language: 'Jazyk',
+    playbackRate: 'Rychlost přehrávání',
+    waitingVideo: 'Čekám na video',
+    waitingAudio: 'Čekám na audio',
     ratePoint5: '.5x',
-    rateNormal: 'Normal',
+    rateNormal: 'Normálně',
     rate1Point5: '1.5x',
     rate2: '2x',
-    trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    trackLanguageOff: 'Vypnout',
+    noLoadVideo: 'Nemůžu nahrát video',
+    noLoadAudio: 'Nemůžu nahrát audio',
+    cannotPlayVideo: 'Nemůžu přehrát video',
+    cannotPlayAudio: 'Nemůžu přehrát audio'
   }
 }
