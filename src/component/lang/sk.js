@@ -3,7 +3,7 @@ export default {
   mediaPlayer: {
     oldBrowserVideo: 'Na zobrazenie obrazu prosím zapnite JavaScript a/alebo zvážtě aktualizáciu na prehliadač, ktorý podporuje HTML5 audio.',
     oldBrowserAudio: 'Na prehratie zvuku, prosím zapnite JavaScript a/alebo zvážtě aktualizáciu na prehliadač, ktorý podporuje HTML5 audio.',
-    pause: 'Pauza',
+    pause: 'Zastaviť',
     play: 'Hrať',
     settings: 'Nastavenia',
     toggleFullscreen: 'Prepni na celú obrazovku',
