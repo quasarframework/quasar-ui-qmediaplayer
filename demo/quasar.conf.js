@@ -102,6 +102,8 @@ module.exports = function (ctx) {
         'ClosePopup',
         'TouchSwipe'
       ],
+      // iconSet: 'fontawesome-v5', // requires icon library to be specified in "extras" section too,
+      // lang: 'de', // Tell Quasar which language pack to use for its own components
       // Quasar plugins
       plugins: [
         'Notify',
