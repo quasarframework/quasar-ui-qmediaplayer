@@ -105,8 +105,10 @@ export default {
     }
   },
   methods: {
-    // in this scenario, each icon set must have a path and cannot be loaded dynamically.
-    // This allows webpack to know each font that culd be used so it is available for loading.
+    // in this scenario, each icon set must have a
+    // path and cannot be loaded dynamically.
+    // This allows webpack to know each font that
+    // could be used so it is available for loading.
     changeIconSetToEvaIcons () {
       this.$q.iconSet = require('quasar/icon-set/eva-icons.js').default
     },
