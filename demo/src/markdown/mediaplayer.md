@@ -6,8 +6,6 @@ QMediaPlayer
 
 QMediaPlayer is an [Quasar App Extension](https://quasar.dev/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
 
-This work is currently in `beta` and there are expected changes while things get worked out. Your help with testing is greatly appreciated.
-
 # Install
 To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
 
