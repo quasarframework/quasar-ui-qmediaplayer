@@ -1,27 +1,27 @@
 export default {
   lang: 'ro',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
-    pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    oldBrowserVideo: 'Pentru a vizualiza acest videoclip vă rugăm să activați JavaScript și/sau să faceți upgrade la un browser care acceptă video HTML5.',
+    oldBrowserAudio: 'Pentru a asculta această înregistrare audio vă rugăm să activați JavaScript și/sau să faceți upgrade la un browser care acceptă audio HTML5.',
+    pause: 'Pauză',
+    play: 'Redă',
+    settings: 'Setări',
+    toggleFullscreen: 'Alternează fullscreen',
+    mute: 'Mut',
+    unmute: 'Sonor',
+    speed: 'Viteză', // Playback rate
+    language: 'Limbă',
+    playbackRate: 'Rata de redare',
+    waitingVideo: 'Așteaptă videoclipul',
+    waitingAudio: 'Așteaptă înregistrarea audio',
     ratePoint5: '.5x',
     rateNormal: 'Normal',
     rate1Point5: '1.5x',
     rate2: '2x',
     trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    noLoadVideo: 'Nu se poate încărca videoclipul',
+    noLoadAudio: 'Nu se poate încărca înregistrarea audio',
+    cannotPlayVideo: 'Nu se poate reda videoclipul',
+    cannotPlayAudio: 'Nu se poate reda înregistrarea audio'
   }
 }
