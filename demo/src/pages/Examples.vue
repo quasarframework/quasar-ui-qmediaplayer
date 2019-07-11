@@ -35,7 +35,7 @@ The background color of the video view is only visible until the video is loaded
 
       <example-title title="Mobile Mode" />
       <q-markdown>
-The `mobile-mode` property is available to turn off the hover effect that displays the controls window. You can use this propery for desktops too!
+The `mobile-mode` property is available to turn off the hover effect that displays the controls window. With `mobile-mode` touching (clicking) the video will toggle the controls display. You can use this property for desktops too!
       </q-markdown>
       <example-card title="Video - Mobile Mode" name="VideoMobileMode" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoMobileMode.vue').default)" />
 
