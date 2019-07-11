@@ -1,8 +1,8 @@
 export default {
   lang: 'ro',
   mediaPlayer: {
-    oldBrowserVideo: 'Pentru a vizualiza acest videoclip vă rugăm să activați JavaScript și/sau să faceți upgrade la un browser care acceptă video HTML5.',
-    oldBrowserAudio: 'Pentru a asculta această înregistrare audio vă rugăm să activați JavaScript și/sau să faceți upgrade la un browser care acceptă audio HTML5.',
+    oldBrowserVideo: 'Pentru a vizualiza acest videoclip vă rugăm să activați JavaScript și/sau să faceți upgrade la un browser care acceptă HMTL5 video.',
+    oldBrowserAudio: 'Pentru a asculta această înregistrare audio vă rugăm să activați JavaScript și/sau să faceți upgrade la un browser care acceptă HTML5 audio.',
     pause: 'Pauză',
     play: 'Redă',
     settings: 'Setări',
