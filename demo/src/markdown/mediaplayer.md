@@ -162,6 +162,7 @@ mobile-mode	| Boolean	| Video	| In normal mode, the controls show/hide with mous
 | track-language | String | Video | A value that corresponds to the **'label'** attribute of the **'tracks'** property. This will be the default language. |
 | preload | String | Both | ['none', 'metadata', 'auto'] Provides a hint to the browser about what the author thinks will lead to the best user experience. (Default: 'metadata') |
 | dense | Boolean | Both | When true displays controls window on one line |
+| hide-volume-slider | Boolean | Both | When true the volume slider control will be hidden |
 | dark | Boolean | Both | When component is rendered on a dark background |
 | autoplay | Boolean | Both | Automatically start video/audio when it is ready to play. (Default: false) |
 | cross-origin | String,null | Both | [null, 'anonymous', 'use-credentials'] |
