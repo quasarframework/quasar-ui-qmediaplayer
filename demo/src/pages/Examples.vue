@@ -33,9 +33,18 @@ The background color of the video view is only visible until the video is loaded
       <example-card title="Audio - Dense" name="AudioDense" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioDense.vue').default)" />
       <example-card title="Video - Dense" name="VideoDense" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoDense.vue').default)" />
 
+      <example-title title="Hide Volume Slider" />
+      <q-markdown>
+The `hide-volumn-slider` property is available to hide the volume slider control, which is more applicable to mobile devices, but can also be used for desktops as well.
+      </q-markdown>
+      <example-card title="Audio - Hide Volume Slider" name="AudioHideVolumeSlider" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioHideVolumeSlider.vue').default)" />
+      <example-card title="Video - Hide Volume Slider" name="VideoHideVolumeSlider" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoHideVolumeSlider.vue').default)" />
+      <example-card title="Audio - Hide Volume Slider (Dense)" name="AudioHideVolumeSliderDense" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioHideVolumeSliderDense.vue').default)" />
+      <example-card title="Video - Hide Volume Slider (Dense)" name="VideoHideVolumeSliderDense" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoHideVolumeSliderDense.vue').default)" />
+
       <example-title title="Mobile Mode" />
       <q-markdown>
-The `mobile-mode` property is available to turn off the hover effect that displays the controls window. You can use this propery for desktops too!
+The `mobile-mode` property is available to turn off the hover effect that displays the controls window. With `mobile-mode` touching (clicking) the video will toggle the controls display. You can use this property for desktops too!
       </q-markdown>
       <example-card title="Video - Mobile Mode" name="VideoMobileMode" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoMobileMode.vue').default)" />
 
@@ -117,6 +126,12 @@ export default {
     this.addToToc('Dense')
     this.addToToc('Audio - Dense', 2)
     this.addToToc('Video - Dense', 2)
+
+    this.addToToc('Hide Volume Slider')
+    this.addToToc('Audio - Hide Volume Slider', 2)
+    this.addToToc('Video - Hide Volume Slider', 2)
+    this.addToToc('Audio - Hide Volume Slider (Dense)', 2)
+    this.addToToc('Video - Hide Volume Slider (Dense)', 2)
 
     this.addToToc('Mobile Mode')
     this.addToToc('Video - Mobile Mode', 2)

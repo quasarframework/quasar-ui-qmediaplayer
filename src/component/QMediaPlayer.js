@@ -81,6 +81,7 @@ export default function (ssrContext) {
         default: 60,
         validator: v => v >= 0 && v <= 100
       },
+      hideVolumeSlider: Boolean,
       preload: {
         type: String,
         default: 'metadata',
@@ -1127,6 +1128,9 @@ export default function (ssrContext) {
         ], slot(this, 'volume'))
       },
       __renderVolumeSlider (h) {
+        if (this.hideVolumeSlider === true) {
+          return ''
+        }
         return h(QSlider, {
           staticClass: 'col',
           style: {

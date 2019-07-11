@@ -12,10 +12,10 @@ QMediaPlayer is an `UI App Extension` for [Quasar Framework v1](https://quasar.d
 
 This work is currently in `beta` and there are expected changes while things get worked out. Your help with testing is greatly appreciated.
 
-# Demo Project
+# Demo Project (source)
 Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
 
-# Documentation
+# Documentation and Examples
 Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer).
 
 # Install
