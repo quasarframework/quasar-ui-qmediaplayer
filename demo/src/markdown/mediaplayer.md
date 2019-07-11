@@ -6,8 +6,6 @@ QMediaPlayer
 
 QMediaPlayer is an [Quasar App Extension](https://quasar.dev/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
 
-This work is currently in `beta` and there are expected changes while things get worked out. Your help with testing is greatly appreciated.
-
 # Install
 To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
 
@@ -145,6 +143,7 @@ We need help translating the language files. They are all currently using Englis
 - Português (BR) ([TobyMosque](https://github.com/TobyMosque))
 - 中文(繁體) ([618457](https://github.com/618457))
 - Română ([@pdanpdan](https://github.com/pdanpdan)/[@rstoenescu](https://github.com/rstoenescu))
+- Slovenski Jezik ([@borutjures](https://github.com/borutjures))
 
 ---
 
@@ -162,6 +161,7 @@ mobile-mode	| Boolean	| Video	| In normal mode, the controls show/hide with mous
 | track-language | String | Video | A value that corresponds to the **'label'** attribute of the **'tracks'** property. This will be the default language. |
 | preload | String | Both | ['none', 'metadata', 'auto'] Provides a hint to the browser about what the author thinks will lead to the best user experience. (Default: 'metadata') |
 | dense | Boolean | Both | When true displays controls window on one line |
+| hide-volume-slider | Boolean | Both | When true the volume slider control will be hidden |
 | dark | Boolean | Both | When component is rendered on a dark background |
 | autoplay | Boolean | Both | Automatically start video/audio when it is ready to play. (Default: false) |
 | cross-origin | String,null | Both | [null, 'anonymous', 'use-credentials'] |

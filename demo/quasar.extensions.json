@@ -1,5 +1,9 @@
 {
   "@quasar/qmediaplayer": {},
   "@quasar/qmarkdown": {},
-  "qribbon": {}
+  "qribbon": {},
+  "qautomate": {
+    "quasarConfFixMode": "automatic",
+    "sort": true
+  }
 }

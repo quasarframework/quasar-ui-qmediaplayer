@@ -85,6 +85,10 @@
       "type": "Boolean",
       "desc": "When true displays controls window on one line"
     },
+    "hide-volume-slider": {
+      "type": "Boolean",
+      "desc": "When true the volume slider control will be hidden"
+    },
     "dark": {
       "type": "Boolean",
       "desc": "When component is rendered on a dark background"

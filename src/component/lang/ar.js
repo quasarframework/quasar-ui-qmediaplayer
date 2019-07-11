@@ -1,27 +1,27 @@
 export default {
   lang: 'ar',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
-    pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    oldBrowserVideo: 'لمشاهدة الفيديو، يرجي تمكين جافا سكريبت و/أو قم بالتحديث الى متصفح يدعم خاصية صوت HTML5',
+    oldBrowserAudio: 'للإستماع للصوت، يرجي تمكين جافا سكريبت و/أو قم بالتحديث الى متصفح يدعم خاصية صوت HTML5',
+    pause: 'توقف',
+    play: 'تشغيل',
+    settings: 'إعدادات ',
+    toggleFullscreen: 'تغيير للوضع الكامل للشاشة',
+    mute: 'كتم الصوت',
+    unmute: 'تفعيل الصوت',
+    speed: 'معدل التشغيل', // Playback rate
+    language: 'اللغه',
+    playbackRate: 'معدل التشغيل',
+    waitingVideo: 'إنتظار الفيديو',
+    waitingAudio: 'إنتظار الصوت',
     ratePoint5: '.5x',
-    rateNormal: 'Normal',
+    rateNormal: 'عادي',
     rate1Point5: '1.5x',
     rate2: '2x',
-    trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    trackLanguageOff: 'إيقاف ',
+    noLoadVideo: 'غير قادر على تحميل الفيديو',
+    noLoadAudio: 'غير قادر على تحميل الصوت',
+    cannotPlayVideo: 'تعذر تشغيل الفيديو',
+    cannotPlayAudio: 'تعذر تشغيل الصوت'
   }
 }
