@@ -79,6 +79,9 @@ Not all languages have been translated. If you can help out, please [PR a langua
       </q-markdown>
       <example-card title="Video - Icon Set" name="VideoIconSet" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoIconSet.vue').default)" />
     </div>
+    <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+      <q-btn fab icon="keyboard_arrow_up" color="primary" />
+    </q-page-scroller>
   </hero>
 </template>
 
