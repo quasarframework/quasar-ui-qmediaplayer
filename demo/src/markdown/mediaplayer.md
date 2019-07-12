@@ -156,7 +156,7 @@ We need help translating the language files. They are all currently using Englis
 | color | String | Both | One from Quasar Color Palette. It determines the color of the MediaPlayer controls. (Default: 'white') |
 mobile-mode	| Boolean	| Video	| In normal mode, the controls show/hide with mouse movements. When set to true, the controls' visibility is controlled by touch/click. (Default: false) |
 | source | String | Both | if this is set, then the `video.src` or `audio.src` will be set directly and the `sources` attribute will be ignored |
-| sources	| Array | Both | Required. This is an array of one or more objects, that looks like this: { **src**: 'https://your-server/your-video.mov', **type**:  'video/mp4' } |
+| sources	| Array | Both | Required if `source` is not set. This is an array of one or more objects, that looks like this: { **src**: 'https://your-server/your-video.mov', **type**:  'video/mp4' } |
 | poster | String | Video |The poster image to display before the video is started |
 | tracks | Array | Video | This is an array of one or more objects, that looks like this: { **src**: 'https://your-server//path-to-subtitles-en.vtt', **kind**: 'subtitles', **srclang**: 'en', **label**: 'English } |
 | track-language | String | Video | A value that corresponds to the **'label'** attribute of the **'tracks'** property. This will be the default language. |
