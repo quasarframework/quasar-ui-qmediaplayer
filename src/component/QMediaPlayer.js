@@ -499,9 +499,15 @@ export default function (ssrContext) {
           this.__exitFullscreen()
         })
       },
+      currentTime () {
+        if (this.$media && this.state.playReady) {
+          return this.$media.currentTime
+        }
+        return -1
+      },
       setCurrentTime (seconds) {
         if (this.state.playReady) {
-          if (seconds >= 0 && seconds <= this.$media.duration) {
+          if (this.$media && seconds >= 0 && seconds <= this.$media.duration) {
             this.state.currentTime = Math.floor(seconds)
             this.$media.currentTime = Math.floor(seconds)
           }

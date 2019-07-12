@@ -930,10 +930,10 @@
     babel-plugin-module-resolver "^3.2.0"
     babel-plugin-transform-imports "^1.5.1"
 
-"@quasar/extras@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.1.4.tgz#a51efa11b2dced4d4d99b1f0e0410254f2593852"
-  integrity sha512-W+BrplCY+UeEN4Lwy2GcQH5CR92CrqhD2YjlcoCSbCEkSna0A35Be3kJ23qqLUMh4iuyG3jLFI1y9nUENTZqTg==
+"@quasar/extras@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.2.0.tgz#46520c283aa82cc4bb65c7a7b6a6e048fb356335"
+  integrity sha512-DUo4KRayuwnMwzRK4vYjd6q6e6sGOkt5moD2Lz/q5PiPqvEjoNeQd9vcNPTqpSjWk7AUDVW4meDR2ThHyQMzAQ==
 
 "@quasar/quasar-app-extension-qmarkdown@^1.0.0-beta.13":
   version "1.0.0-beta.13"
@@ -960,7 +960,12 @@
     ware-loader "^0.2.4"
 
 "@quasar/quasar-app-extension-qmediaplayer@file:..":
-  version "1.0.0-beta.21"
+  version "1.0.0"
+
+"@quasar/quasar-app-extension-qribbon@^1.0.0-alpha.10":
+  version "1.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qribbon/-/quasar-app-extension-qribbon-1.0.0-alpha.10.tgz#90bb02602e6ec8bc4a7c9ba5869bc5da705c845a"
+  integrity sha512-H+naWrE1ZYAcdF9jvcgOVpfMYph297Q8/ZjOdqqtMrFU5emTQBxOpD6Efnhn55gXjKox8KwnPf6NPgFztNh/1A==
 
 "@types/events@*":
   version "3.0.0"
@@ -6367,11 +6372,6 @@ quasar-app-extension-qautomate@^1.0.0-alpha.4:
     inquirer "^6.4.1"
     param-case "^2.1.1"
     ware-loader "^0.2.4"
-
-quasar-app-extension-qribbon@^1.0.0-alpha.8:
-  version "1.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/quasar-app-extension-qribbon/-/quasar-app-extension-qribbon-1.0.0-alpha.8.tgz#b8f844da700a66f769a819f28369b19077aa6727"
-  integrity sha512-ffWfqr+9q/pltWaJxNlqU2tD29iwkkLm1H3IYkI9KktoACzQM0K572XBtYzuOD6diXR7DGFmax3M95lHolWLMQ==
 
 quasar@^1.0.4:
   version "1.0.4"
