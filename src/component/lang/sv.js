@@ -1,27 +1,27 @@
 export default {
   lang: 'sv',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
-    pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    oldBrowserVideo: 'Aktivera Javascript för att visa den här videon och/eller installera en webbläsare som stöder HTML5 video',
+    oldBrowserAudio: 'Aktivera JavaScript för att lyssna på det här ljudet och/eller installera en webbläsare som stödjer HTML5 ljud',
+    pause: 'Pausa',
+    play: 'Spela',
+    settings: 'Inställningar',
+    toggleFullscreen: 'Växla fullskärm',
+    mute: 'Ljud av',
+    unmute: 'Ljud på',
+    speed: 'Uppspelningshastighet', // Playback rate
+    language: 'Språk',
+    playbackRate: 'Uppspelningstempo',
+    waitingVideo: 'Väntar på video',
+    waitingAudio: 'Väntar på språk',
     ratePoint5: '.5x',
     rateNormal: 'Normal',
     rate1Point5: '1.5x',
     rate2: '2x',
-    trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    trackLanguageOff: 'Av',
+    noLoadVideo: 'Kan inte ladda video',
+    noLoadAudio: 'Kan inte ladda ljud',
+    cannotPlayVideo: 'Kan inte spela video',
+    cannotPlayAudio: 'Kan inte spela ljud'
   }
 }
