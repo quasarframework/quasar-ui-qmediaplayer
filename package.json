@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-app-extension-qmediaplayer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "QMediaPlayer is an HTML5 audio/video app extension for Quasar",
   "author": "Hawkeye64 <jeff@quasar.dev>",
   "main": "src/index.js",
