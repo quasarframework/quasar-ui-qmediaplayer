@@ -145,6 +145,9 @@ We need help translating the language files. They are all currently using Englis
 - Română ([@pdanpdan](https://github.com/pdanpdan)/[@rstoenescu](https://github.com/rstoenescu))
 - Slovenski Jezik ([@borutjures](https://github.com/borutjures))
 - العربية (Arabic) (Khalid)
+- Français ([@fmarquis](https://github.com/fmarquis)
+- Español ([@luismiguelgilbert](https://github.com/luismiguelgilbert))
+- Svensk ([@Someone92](https://github.com/Someone92))
 
 ---
 
