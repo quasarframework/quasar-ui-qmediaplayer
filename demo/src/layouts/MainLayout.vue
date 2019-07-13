@@ -12,8 +12,11 @@
           <q-icon name="menu" />
         </q-btn>
 
-        <q-toolbar-title>
+        <q-toolbar-title v-if="$q.screen.width > 500">
           QMediaPlayer
+          <q-tooltip v-if="$q.screen.width < 1077">
+            QMediaPlayer
+          </q-tooltip>
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -114,7 +117,7 @@ export default {
       }
     },
     scrollPage (el) {
-      const offset = el.offsetTop - el.scrollHeight
+      const offset = el.offsetTop - 50
       scroll.setScrollPosition(window, offset, 500)
     }
   }

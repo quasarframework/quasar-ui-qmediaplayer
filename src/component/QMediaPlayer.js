@@ -233,6 +233,7 @@ export default function (ssrContext) {
           'q-media--fullscreen': this.state.inFullscreen
         }
       },
+
       videoControlsClasses () {
         return {
           'q-media__controls--dense': (this.state.showControls || this.mobileMode) && this.dense,
@@ -240,18 +241,21 @@ export default function (ssrContext) {
           'q-media__controls--hidden': !this.state.showControls
         }
       },
+
       audioControlsClasses () {
         return {
           'q-media__controls--dense': this.dense,
           'q-media__controls--standard': !this.dense
         }
       },
+
       videoWidth () {
         if (this.$el) {
           return this.$el.getBoundingClientRect().width
         }
         return 0
       },
+
       volumeIcon () {
         if (this.state.volume > 1 && this.state.volume < 70 && !this.state.muted) {
           return this.iconSet.mediaPlayer.volumeDown
@@ -261,6 +265,7 @@ export default function (ssrContext) {
           return this.iconSet.mediaPlayer.volumeOff
         }
       },
+
       selectTracksLanguageList () {
         let tracksList = []
         // provide option to turn subtitles/captions/chapters off
@@ -275,12 +280,15 @@ export default function (ssrContext) {
         }
         return tracksList
       },
+
       isAudio () {
         return this.type === 'audio'
       },
+
       isVideo () {
         return this.type === 'video'
       },
+
       settingsPlaybackCaption () {
         let caption = ''
         this.state.playbackRates.forEach((rate) => {
@@ -296,66 +304,82 @@ export default function (ssrContext) {
       poster () {
         this.__updatePoster()
       },
+
       sources: {
         handler () {
           this.__updateSources()
         },
         deep: true
       },
+
       tracks: {
         handler () {
           this.__updateTracks()
         },
         deep: true
       },
+
       volume () {
         this.__updateVolume()
       },
+
       muted () {
         this.__updateMuted()
       },
+
       trackLanguage () {
         this.__updateTrackLanguage()
       },
+
       showBigPlayButton () {
         this.__updateBigPlayButton()
       },
+
       playbackRates () {
         this.__updatePlaybackRates()
       },
+
       playbackRate () {
         this.__updatePlaybackRate()
       },
+
       $route (val) {
         this.exitFullscreen()
       },
+
       '$q.lang.isoName' (val) {
         this.__setupLang()
       },
+
       '$q.iconSet.name' (val) {
         this.__setupIcons()
       },
+
       isFullscreenActive (val) {
         // user pressed F11 to exit fullscreen
         if (!val && this.isVideo && this.state.inFullscreen) {
           this.exitFullscreen()
         }
       },
+
       'state.playbackRate' (val) {
         if (val && this.$media) {
           this.$media.playbackRate = parseFloat(val)
           this.$emit('playbackRate', val)
         }
       },
+
       'state.trackLanguage' (val) {
         this.__toggleCaptions()
         this.$emit('trackLanguage', val)
       },
+
       'state.showControls' (val) {
         if (this.isVideo && !this.noControls) {
           this.$emit('showControls', val)
         }
       },
+
       'state.volume' (val) {
         if (this.$media) {
           let volume = parseFloat(val / 100.0)
@@ -365,9 +389,11 @@ export default function (ssrContext) {
           }
         }
       },
+
       'state.muted' (val) {
         this.$emit('muted', val)
       },
+
       'state.currentTime' (val) {
         if (this.$media && this.state.playReady) {
           this.state.remainingTime = timeParse(this.$media.duration - this.$media.currentTime)
@@ -399,6 +425,7 @@ export default function (ssrContext) {
           }, this.controlsDisplayTime)
         }
       },
+
       hideControls () {
         if (this.timer.hideControlsTimer) {
           clearTimeout(this.timer.hideControlsTimer)
@@ -409,6 +436,7 @@ export default function (ssrContext) {
         }
         this.timer.hideControlsTimer = null
       },
+
       toggleControls () {
         if (this.state.showControls) {
           this.hideControls()
@@ -416,6 +444,7 @@ export default function (ssrContext) {
           this.showControls()
         }
       },
+
       __reset () {
         if (this.timer.hideControlsTimer) {
           clearTimeout(this.timer.hideControlsTimer)
@@ -434,9 +463,11 @@ export default function (ssrContext) {
         this.__updateTrackLanguage()
         this.showControls()
       },
+
       __toggleCaptions () {
         this.__showCaptions(this.state.trackLanguage)
       },
+
       __showCaptions (lang) {
         if (this.$media && this.isVideo) {
           for (let index = 0; index < this.$media.textTracks.length; ++index) {
@@ -450,6 +481,7 @@ export default function (ssrContext) {
           }
         }
       },
+
       togglePlay () {
         if (this.state.playReady) {
           this.state.playing = !this.state.playing
@@ -463,12 +495,14 @@ export default function (ssrContext) {
           }
         }
       },
+
       toggleMuted () {
         this.state.muted = !this.state.muted
         if (this.$media) {
           this.$media.muted = this.state.muted
         }
       },
+
       toggleFullscreen () {
         if (this.isVideo) {
           if (this.state.inFullscreen) {
@@ -479,6 +513,7 @@ export default function (ssrContext) {
           this.$emit('fullscreen', this.state.inFullscreen)
         }
       },
+
       setFullscreen () {
         if (!this.isVideo || this.state.inFullscreen) {
           return
@@ -489,6 +524,7 @@ export default function (ssrContext) {
           this.__requestFullscreen(this.$el)
         })
       },
+
       exitFullscreen () {
         if (!this.isVideo || !this.state.inFullscreen) {
           return
@@ -499,12 +535,14 @@ export default function (ssrContext) {
           this.__exitFullscreen()
         })
       },
+
       currentTime () {
         if (this.$media && this.state.playReady) {
           return this.$media.currentTime
         }
         return -1
       },
+
       setCurrentTime (seconds) {
         if (this.state.playReady) {
           if (this.$media && seconds >= 0 && seconds <= this.$media.duration) {
@@ -513,11 +551,13 @@ export default function (ssrContext) {
           }
         }
       },
+
       setVolume (volume) {
         if (volume >= 100 && volume <= 100) {
           this.state.volume = volume
         }
       },
+
       __setupLang () {
         let isoName = this.$q.lang.isoName || 'en-us'
         let lang
@@ -620,6 +660,7 @@ export default function (ssrContext) {
           })
         }
       },
+
       __removeMediaEventListeners () {
         if (this.$media) {
           this.allEvents.forEach((event) => {
@@ -627,6 +668,7 @@ export default function (ssrContext) {
           })
         }
       },
+
       __addSourceEventListeners () {
         if (this.$media) {
           let sources = this.$media.querySelectorAll('source')
@@ -635,6 +677,7 @@ export default function (ssrContext) {
           }
         }
       },
+
       __removeSourceEventListeners () {
         if (this.$media) {
           let sources = this.$media.querySelectorAll('source')
@@ -643,12 +686,14 @@ export default function (ssrContext) {
           }
         }
       },
+
       __sourceEventHandler (event) {
         const NETWORK_NO_SOURCE = 3
         if (this.$media && this.$media.networkState === NETWORK_NO_SOURCE) {
           this.state.errorText = this.isVideo ? this.lang.mediaPlayer.noLoadVideo : this.lang.mediaPlayer.noLoadAudio
         }
       },
+
       __mediaEventHandler (event) {
         if (event.type === 'abort') {
 
@@ -738,30 +783,36 @@ export default function (ssrContext) {
           this.togglePlay()
         }
       },
+
       __bigButtonClick () {
         if (this.mobileMode) {
           this.hideControls()
         }
         this.togglePlay()
       },
+
       __settingsMenuShowing (val) {
         this.settingsMenuVisible = val
       },
+
       __mouseEnterVideo (e) {
         if (!this.mobileMode && !this.isAudio) {
           this.showControls()
         }
       },
+
       __mouseLeaveVideo (e) {
         if (!this.mobileMode && !this.isAudio) {
           this.hideControls()
         }
       },
+
       __mouseMoveAction (e) {
         if (!this.mobileMode && !this.isAudio) {
           this.__showControlsIfValid(e)
         }
       },
+
       __showControlsIfValid (e) {
         if (this.__showingMenu()) {
           this.showControls()
@@ -779,6 +830,7 @@ export default function (ssrContext) {
         }
         return false
       },
+
       __videoCurrentTimeChanged (val) {
         this.showControls()
         if (this.$media && this.$media.duration && val && val > 0 && val <= this.state.duration) {
@@ -788,33 +840,40 @@ export default function (ssrContext) {
           }
         }
       },
+
       __volumePercentChanged (val) {
         this.showControls()
         this.state.volume = val
       },
+
       __trackLanguageChanged (language) {
         if (this.state.trackLanguage !== language) {
           this.state.trackLanguage = language
         }
       },
+
       __playbackRateChanged (rate) {
         if (this.state.playbackRate !== rate) {
           this.state.playbackRate = rate
         }
       },
+
       __showingMenu () {
         return this.settingsMenuVisible
       },
+
       __updateBigPlayButton () {
         if (this.state.showBigPlayButton !== this.showBigPlayButton) {
           this.state.showBigPlayButton = this.showBigPlayButton
         }
       },
+
       __updateVolume () {
         if (this.state.volume !== this.volume) {
           this.state.volume = this.volume
         }
       },
+
       __updateMuted () {
         if (this.state.muted !== this.muted) {
           this.state.muted = this.muted
@@ -823,11 +882,13 @@ export default function (ssrContext) {
           }
         }
       },
+
       __updateTrackLanguage () {
         if (this.state.trackLanguage !== this.trackLanguage || this.lang.mediaPlayer.trackLanguageOff) {
           this.state.trackLanguage = this.trackLanguage || this.lang.mediaPlayer.trackLanguageOff
         }
       },
+
       __updatePlaybackRates () {
         if (this.playbackRates && this.playbackRates.length > 0) {
           this.state.playbackRates = [...this.playbackRates]
@@ -840,6 +901,7 @@ export default function (ssrContext) {
         }
         this.state.trackLanguage = this.lang.mediaPlayer.trackLanguageOff
       },
+
       __updatePlaybackRate () {
         if (this.state.playbackRate !== this.playbackRate) {
           this.state.playbackRate = this.playbackRate
@@ -940,13 +1002,14 @@ export default function (ssrContext) {
           attrs: {
             poster: this.poster,
             preload: this.preload,
-            playsinline: this.playsinline,
-            loop: this.loop
+            playsinline: this.playsinline === true,
+            loop: this.loop === true
           }
         }, [
           this.isVideo && h('p', this.lang.mediaPlayer.oldBrowserVideo, slot(this, 'oldbrowser'))
         ])
       },
+
       __renderAudio (h) {
         // This is on purpose (not using audio tag).
         // The video tag can also play audio and works if dynamically
@@ -958,14 +1021,15 @@ export default function (ssrContext) {
           style: this.contentStyle,
           attrs: {
             preload: this.preload,
-            playsinline: this.playsinline,
-            loop: this.loop
+            playsinline: this.playsinline === true,
+            loop: this.loop === true
           }
         }, [
           // this.sources.length && this.__renderSources(h),
           this.isAudio && h('p', this.lang.mediaPlayer.oldBrowserAudio, slot(this, 'oldbrowser'))
         ])
       },
+
       __renderSources (h) {
         return this.sources.map((source) => {
           return h('source', {
@@ -977,6 +1041,7 @@ export default function (ssrContext) {
           })
         })
       },
+
       __renderTracks (h) {
         return this.tracks.map((track) => {
           return h('track', {
@@ -990,6 +1055,7 @@ export default function (ssrContext) {
           })
         })
       },
+
       __renderOverlayWindow (h) {
         return h('div', {
           staticClass: 'q-media__overlay-window',
@@ -1000,6 +1066,7 @@ export default function (ssrContext) {
           h('div', slot(this, 'overlay'))
         ])
       },
+
       __renderErrorWindow (h) {
         return h('div', {
           staticClass: 'q-media__error-window'
@@ -1007,6 +1074,7 @@ export default function (ssrContext) {
           h('div', this.state.errorText)
         ], slot(this, 'errorWindow'))
       },
+
       __renderPlayButton (h) {
         return h(QBtn, {
           staticClass: 'q-media__controls--button',
@@ -1025,6 +1093,7 @@ export default function (ssrContext) {
           this.showTooltips && !this.state.playing && this.state.playReady && h(QTooltip, this.lang.mediaPlayer.play)
         ], slot(this, 'play'))
       },
+
       __renderVideoControls (h) {
         return h('div', {
           ref: 'controls',
@@ -1075,6 +1144,7 @@ export default function (ssrContext) {
           ])
         ], slot(this, 'controls'))
       },
+
       __renderAudioControls (h) {
         return h('div', {
           ref: 'controls',
@@ -1115,6 +1185,7 @@ export default function (ssrContext) {
           ])
         ], slot(this, 'controls'))
       },
+
       __renderVolumeButton (h) {
         return h(QBtn, {
           staticClass: 'q-media__controls--button',
@@ -1133,6 +1204,7 @@ export default function (ssrContext) {
           this.showTooltips && this.state.muted && h(QTooltip, this.lang.mediaPlayer.unmute)
         ], slot(this, 'volume'))
       },
+
       __renderVolumeSlider (h) {
         if (this.hideVolumeSlider === true) {
           return ''
@@ -1158,6 +1230,7 @@ export default function (ssrContext) {
           }
         }, slot(this, 'volumeSlider'))
       },
+
       __renderSettingsButton (h) {
         return h(QBtn, {
           staticClass: 'q-media__controls--button',
@@ -1173,6 +1246,7 @@ export default function (ssrContext) {
           this.__renderSettingsMenu(h)
         ], slot(this, 'settings'))
       },
+
       __renderFullscreenButton (h) {
         return h(QBtn, {
           staticClass: 'q-media__controls--button',
@@ -1190,6 +1264,7 @@ export default function (ssrContext) {
           this.showTooltips && h(QTooltip, this.lang.mediaPlayer.toggleFullscreen)
         ], slot(this, 'fullscreen'))
       },
+
       __renderLoader (h) {
         if (this.spinnerSize === void 0) {
           if (this.isVideo) this.state.spinnerSize = '5em'
@@ -1209,6 +1284,7 @@ export default function (ssrContext) {
           })
         ], slot(this, 'spinner'))
       },
+
       __renderBigPlayButton (h) {
         return h('div', {
           staticClass: 'q-media--big-button'
@@ -1231,6 +1307,7 @@ export default function (ssrContext) {
           })
         ], slot(this, 'bigPlayButton'))
       },
+
       __renderCurrentTimeSlider (h) {
         return h(QSlider, {
           staticClass: 'col',
@@ -1251,18 +1328,21 @@ export default function (ssrContext) {
           }
         }, slot(this, 'positionSlider'))
       },
+
       __renderDisplayTime (h) {
         return h('span', {
           staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
         }, this.state.displayTime, slot(this, 'displayTime'))
         // TODO: syntax on above line??
       },
+
       __renderDurationTime (h) {
         return h('span', {
           staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
         }, this.state.durationTime, slot(this, 'durationTime'))
         // TODO: syntax on above line??
       },
+
       __renderSettingsMenu (h) {
         return h(QMenu, {
           ref: 'menu',

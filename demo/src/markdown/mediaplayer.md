@@ -4,7 +4,7 @@ QMediaPlayer
 ![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg) ![npm (scoped)](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?style=plastic)
 
 
-QMediaPlayer is an [Quasar App Extension](https://quasar.dev/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
+QMediaPlayer is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
 
 # Install
 To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
@@ -25,7 +25,7 @@ You can use `quasar describe QMediaPlayer`
 # Interactive Demo
 Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/demo).
 
-# Demo (source) Project
+# Demo Project (source)
 Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
 
 
@@ -149,7 +149,7 @@ We need help translating the language files. They are all currently using Englis
 - Español ([@luismiguelgilbert](https://github.com/luismiguelgilbert))
 - Svensk ([@Someone92](https://github.com/Someone92))
 - русский/Russian ([@Dmitrij-Polyanin](https://github.com/Dmitrij-Polyanin))
-
+- 日本語 (にほんご) ([@mesqueeb](https://github.com/mesqueeb))
 ---
 
 # QMediaPlayer Vue Properties

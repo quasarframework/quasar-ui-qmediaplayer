@@ -1,7 +1,7 @@
 export default {
   lang: 'sv',
   mediaPlayer: {
-    oldBrowserVideo: 'Aktivera Javascript för att visa den här videon och/eller installera en webbläsare som stöder HTML5 video',
+    oldBrowserVideo: 'Aktivera Javascript för att visa den här videon och/eller installera en webbläsare som stödjer HTML5 video',
     oldBrowserAudio: 'Aktivera JavaScript för att lyssna på det här ljudet och/eller installera en webbläsare som stödjer HTML5 ljud',
     pause: 'Pausa',
     play: 'Spela',
@@ -13,7 +13,7 @@ export default {
     language: 'Språk',
     playbackRate: 'Uppspelningstempo',
     waitingVideo: 'Väntar på video',
-    waitingAudio: 'Väntar på språk',
+    waitingAudio: 'Väntar på ljud',
     ratePoint5: '.5x',
     rateNormal: 'Normal',
     rate1Point5: '1.5x',

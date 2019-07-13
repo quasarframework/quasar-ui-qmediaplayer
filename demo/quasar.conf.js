@@ -112,7 +112,8 @@ module.exports = function (ctx) {
         'Loading',
         'Meta',
         'Notify',
-        'Platform'
+        'Platform',
+        'Screen'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language

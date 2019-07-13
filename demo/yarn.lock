@@ -960,7 +960,7 @@
     ware-loader "^0.2.4"
 
 "@quasar/quasar-app-extension-qmediaplayer@file:..":
-  version "1.0.0"
+  version "1.0.1"
 
 "@quasar/quasar-app-extension-qribbon@^1.0.0-alpha.10":
   version "1.0.0-alpha.10"
@@ -6373,10 +6373,10 @@ quasar-app-extension-qautomate@^1.0.0-alpha.4:
     param-case "^2.1.1"
     ware-loader "^0.2.4"
 
-quasar@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.0.4.tgz#b5e5aa2aa113a797729ed85728e88a4ebc5f1e0b"
-  integrity sha512-/9ZOGOl29jy1jNG/IUjwM57y0XKamgc0N/440QBSfHSHnnusGSaIkdtCZ363EUUXvELIO7tHi/yiln0q7P2X1g==
+quasar@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.0.5.tgz#caddfac55fca0779c996dc1b3977a045ae1426e6"
+  integrity sha512-8CxBZk5Ge+jUC7nzlzrLwlZRedpBkcYjkmyBOA0QJLvCXE8K8Ro68R7Vxf7+Baplo11aBMhFX1FhHZWrSM7Y2A==
 
 query-string@^4.1.0:
   version "4.3.4"
