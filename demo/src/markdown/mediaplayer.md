@@ -4,9 +4,7 @@ QMediaPlayer
 ![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg) ![npm (scoped)](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?style=plastic)
 
 
-QMediaPlayer is an [Quasar App Extension](https://quasar.dev/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
-
-This work is currently in `beta` and there are expected changes while things get worked out. Your help with testing is greatly appreciated.
+QMediaPlayer is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
 
 # Install
 To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
@@ -27,7 +25,7 @@ You can use `quasar describe QMediaPlayer`
 # Interactive Demo
 Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/demo).
 
-# Demo (source) Project
+# Demo Project (source)
 Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
 
 
@@ -146,6 +144,11 @@ We need help translating the language files. They are all currently using Englis
 - 中文(繁體) ([618457](https://github.com/618457))
 - Română ([@pdanpdan](https://github.com/pdanpdan)/[@rstoenescu](https://github.com/rstoenescu))
 - Slovenski Jezik ([@borutjures](https://github.com/borutjures))
+- العربية (Arabic) (Khalid)
+- Français ([@fmarquis](https://github.com/fmarquis)
+- Español ([@luismiguelgilbert](https://github.com/luismiguelgilbert))
+- Svensk ([@Someone92](https://github.com/Someone92))
+- русский/Russian ([@Dmitrij-Polyanin](https://github.com/Dmitrij-Polyanin))
 - 日本語 (にほんご) ([@mesqueeb](https://github.com/mesqueeb))
 ---
 
@@ -157,7 +160,7 @@ We need help translating the language files. They are all currently using Englis
 | color | String | Both | One from Quasar Color Palette. It determines the color of the MediaPlayer controls. (Default: 'white') |
 mobile-mode	| Boolean	| Video	| In normal mode, the controls show/hide with mouse movements. When set to true, the controls' visibility is controlled by touch/click. (Default: false) |
 | source | String | Both | if this is set, then the `video.src` or `audio.src` will be set directly and the `sources` attribute will be ignored |
-| sources	| Array | Both | Required. This is an array of one or more objects, that looks like this: { **src**: 'https://your-server/your-video.mov', **type**:  'video/mp4' } |
+| sources	| Array | Both | Required if `source` is not set. This is an array of one or more objects, that looks like this: { **src**: 'https://your-server/your-video.mov', **type**:  'video/mp4' } |
 | poster | String | Video |The poster image to display before the video is started |
 | tracks | Array | Video | This is an array of one or more objects, that looks like this: { **src**: 'https://your-server//path-to-subtitles-en.vtt', **kind**: 'subtitles', **srclang**: 'en', **label**: 'English } |
 | track-language | String | Video | A value that corresponds to the **'label'** attribute of the **'tracks'** property. This will be the default language. |
@@ -190,6 +193,8 @@ Whether to use CORS for fetching assets.
 2. **use-credentials** - CORS requests for this element will have the credentials flag set; this means the request will provide credentials.
 3. **null** - do not use CORS.
 
+For more detailed information [go here](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes).
+
 **preload:**
 
 This enumerated attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience. It may have one of the following values:
@@ -198,6 +203,7 @@ This enumerated attribute is intended to provide a hint to the browser about wha
 2. **metadata**: Indicates that only audio metadata (e.g. length) is fetched.
 3. **auto**: Indicates that the whole audio file can be downloaded, even if the user is not expected to use it.
 
+For more detailed information [go here](https://html.spec.whatwg.org/multipage/media.html#attr-media-preload).
 
 # QMediaPlayer Vue Methods
 
@@ -209,6 +215,7 @@ This enumerated attribute is intended to provide a hint to the browser about wha
 | togglePlay() | Both | Toggles between play/pause states |
 | toggleMuted() | Both | Toggles between mute/unmute states |
 | toggleFullscreen() | Video | Toggle fullscreen mode |
+| currentTime() | Both | Returns the current time of the video/audio player (in seconds). If audio or video are not ready, a -1 is returned |
 | setCurrentTime(seconds) | Both | Set the current time of the video/audio player (in seconds) |
 | setVolume(percent) | Both | Sets the volume as a percent (0-100) |
 

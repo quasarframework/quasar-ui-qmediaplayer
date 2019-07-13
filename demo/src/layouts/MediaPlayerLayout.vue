@@ -12,8 +12,11 @@
           <q-icon name="menu"></q-icon>
         </q-btn>
 
-        <q-toolbar-title>
+        <q-toolbar-title v-if="$q.screen.width > 500">
           QMediaPlayer
+          <q-tooltip v-if="$q.screen.width < 1077">
+            QMediaPlayer
+          </q-tooltip>
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
