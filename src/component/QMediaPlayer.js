@@ -356,7 +356,7 @@ export default function (ssrContext) {
       },
 
       isFullscreenActive (val) {
-        // user pressed F11 to exit fullscreen
+        // user pressed F11/ESC to exit fullscreen
         if (!val && this.isVideo && this.state.inFullscreen) {
           this.exitFullscreen()
         }
@@ -483,7 +483,7 @@ export default function (ssrContext) {
       },
 
       togglePlay () {
-        if (this.state.playReady) {
+        if (this.$media && this.state.playReady) {
           this.state.playing = !this.state.playing
           if (this.state.playing) {
             this.state.showBigPlayButton = false
@@ -499,7 +499,7 @@ export default function (ssrContext) {
       toggleMuted () {
         this.state.muted = !this.state.muted
         if (this.$media) {
-          this.$media.muted = this.state.muted
+          this.$media.muted = this.state.muted === true
         }
       },
 
