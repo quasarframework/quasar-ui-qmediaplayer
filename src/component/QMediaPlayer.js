@@ -1010,7 +1010,7 @@ export default function (ssrContext) {
 
       __renderAudio (h) {
         // This is on purpose (not using audio tag).
-        // The video tag can also play audio and works if dynamically
+        // The video tag can also play audio and works better if dynamically
         // switching between video and audio on the same component.
         return h('video', {
           ref: 'media',
@@ -1025,7 +1025,6 @@ export default function (ssrContext) {
             muted: this.mute === true
           }
         }, [
-          // this.sources.length && this.__renderSources(h),
           this.isAudio && h('p', this.lang.mediaPlayer.oldBrowserAudio, slot(this, 'oldbrowser'))
         ])
       },
