@@ -36,7 +36,7 @@
           <div class="row flex-center q-gutter-sm">
             <q-toggle v-model="videoType" label="Video"></q-toggle>
             <q-btn label="Next Video" :disable="!videoType" @click="nextVideo"></q-btn>
-            <q-toggle v-model="autoPlay" label="Autoplay"></q-toggle>
+            <q-toggle v-model="autoplay" label="Autoplay"></q-toggle>
           </div>
         </q-card-section>
       </q-card>
@@ -53,7 +53,7 @@
         :playsinline="playsinline"
         :loop="loop"
         :radius="radius ? '1rem' : 0"
-        :autoplay="autoPlay"
+        :autoplay="autoplay"
         :show-big-play-button="bigPlay"
         :sources="videoType ? video[videoIndex].sources : audio.sources"
         :poster="videoType ? video[videoIndex].poster : ''"
@@ -95,12 +95,12 @@ export default {
       muted: false,
       playsinline: false,
       loop: false,
+      autoplay: false,
       bigPlay: true,
       radius: false,
       overlay: false,
 
       videoIndex: 0,
-      autoPlay: false,
       sources: [],
 
       audio: {
@@ -256,7 +256,9 @@ export default {
       }
     },
     onEnded () {
-      this.nextVideo()
+      if (this.videoType) {
+        this.nextVideo()
+      }
     },
     nextVideo () {
       if (this.videoIndex === 0) {

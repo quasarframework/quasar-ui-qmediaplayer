@@ -356,7 +356,7 @@ export default function (ssrContext) {
       },
 
       isFullscreenActive (val) {
-        // user pressed F11 to exit fullscreen
+        // user pressed F11/ESC to exit fullscreen
         if (!val && this.isVideo && this.state.inFullscreen) {
           this.exitFullscreen()
         }
@@ -483,7 +483,7 @@ export default function (ssrContext) {
       },
 
       togglePlay () {
-        if (this.state.playReady) {
+        if (this.$media && this.state.playReady) {
           this.state.playing = !this.state.playing
           if (this.state.playing) {
             this.state.showBigPlayButton = false
@@ -499,7 +499,7 @@ export default function (ssrContext) {
       toggleMuted () {
         this.state.muted = !this.state.muted
         if (this.$media) {
-          this.$media.muted = this.state.muted
+          this.$media.muted = this.state.muted === true
         }
       },
 
@@ -701,10 +701,6 @@ export default function (ssrContext) {
           this.state.playReady = true
           this.__mouseEnterVideo()
           this.$emit('ready')
-          // autoplay if set (we manage this)
-          if (this.autoplay) {
-            this.togglePlay()
-          }
         } else if (event.type === 'canplaythrough') {
           // console.log('canplaythrough')
         } else if (event.type === 'durationchange') {
@@ -1003,7 +999,9 @@ export default function (ssrContext) {
             poster: this.poster,
             preload: this.preload,
             playsinline: this.playsinline === true,
-            loop: this.loop === true
+            loop: this.loop === true,
+            autoplay: this.autoplay === true,
+            muted: this.mute === true
           }
         }, [
           this.isVideo && h('p', this.lang.mediaPlayer.oldBrowserVideo, slot(this, 'oldbrowser'))
@@ -1022,7 +1020,9 @@ export default function (ssrContext) {
           attrs: {
             preload: this.preload,
             playsinline: this.playsinline === true,
-            loop: this.loop === true
+            loop: this.loop === true,
+            autoplay: this.autoplay === true,
+            muted: this.mute === true
           }
         }, [
           // this.sources.length && this.__renderSources(h),
