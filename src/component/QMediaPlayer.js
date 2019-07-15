@@ -701,10 +701,6 @@ export default function (ssrContext) {
           this.state.playReady = true
           this.__mouseEnterVideo()
           this.$emit('ready')
-          // autoplay if set (we manage this)
-          if (this.autoplay) {
-            this.togglePlay()
-          }
         } else if (event.type === 'canplaythrough') {
           // console.log('canplaythrough')
         } else if (event.type === 'durationchange') {
@@ -1003,7 +999,9 @@ export default function (ssrContext) {
             poster: this.poster,
             preload: this.preload,
             playsinline: this.playsinline === true,
-            loop: this.loop === true
+            loop: this.loop === true,
+            autoplay: this.autoplay === true,
+            muted: this.mute === true
           }
         }, [
           this.isVideo && h('p', this.lang.mediaPlayer.oldBrowserVideo, slot(this, 'oldbrowser'))
@@ -1022,7 +1020,9 @@ export default function (ssrContext) {
           attrs: {
             preload: this.preload,
             playsinline: this.playsinline === true,
-            loop: this.loop === true
+            loop: this.loop === true,
+            autoplay: this.autoplay === true,
+            muted: this.mute === true
           }
         }, [
           // this.sources.length && this.__renderSources(h),
