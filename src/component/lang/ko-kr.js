@@ -11,7 +11,7 @@ export default {
     unmute: '음소거 해제',
     speed: '재생 속도', // Playback rate
     language: '언어',
-    playbackRate: 'Playback Rate',
+    playbackRate: '재생 속도',
     waitingVideo: '비디오 준비 중',
     waitingAudio: '오디오 준비 중',
     ratePoint5: '.5x',
