@@ -150,6 +150,7 @@ We need help translating the language files. They are all currently using Englis
 - Svensk ([@Someone92](https://github.com/Someone92))
 - русский/Russian ([@Dmitrij-Polyanin](https://github.com/Dmitrij-Polyanin))
 - 日本語 (にほんご) ([@mesqueeb](https://github.com/mesqueeb))
+- 한국어 ([@bichikim](https://github.com/bichikim))
 ---
 
 # QMediaPlayer Vue Properties
