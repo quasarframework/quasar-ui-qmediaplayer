@@ -1,5 +1,8 @@
 import Vue from 'vue'
 
+// classList polyfill
+import 'classlist-polyfill'
+
 import {
   QSlider,
   QBtn,
