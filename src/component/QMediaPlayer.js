@@ -40,8 +40,6 @@ const timeParse = (sec) => {
   return padTime(min) + ':' + padTime(sec)
 }
 
-const prefixes = {}
-
 export default function (ssrContext) {
   return Vue.extend({
     name: 'QMediaPlayer',
@@ -1011,14 +1009,20 @@ export default function (ssrContext) {
       },
 
       __renderOverlayWindow (h) {
-        return h('div', {
-          staticClass: 'q-media__overlay-window',
-          on: {
-            click: this.__videoClick
-          }
-        }, [
-          h('div', slot(this, 'overlay'))
-        ])
+        let overlaySlot = this.$slots.overlay
+
+        if (overlaySlot !== void 0) {
+          return h('div', {
+            staticClass: 'q-media__overlay-window',
+            on: {
+              click: this.__videoClick
+            }
+          }, [
+            overlaySlot
+          ])
+        } else {
+          return ''
+        }
       },
 
       __renderErrorWindow (h) {
@@ -1186,19 +1190,24 @@ export default function (ssrContext) {
       },
 
       __renderSettingsButton (h) {
-        return h(QBtn, {
-          staticClass: 'q-media__controls--button',
-          props: {
-            icon: this.iconSet.mediaPlayer.settings,
-            textColor: this.color,
-            size: '1rem',
-            disable: !this.state.playReady,
-            flat: true
-          }
-        }, [
-          this.showTooltips && !this.settingsMenuVisible && h(QTooltip, this.lang.mediaPlayer.settings),
-          this.__renderSettingsMenu(h)
-        ], slot(this, 'settings'))
+        let settingsSlot = this.$slots.settings
+        if (settingsSlot !== void 0) {
+          return settingsSlot
+        } else {
+          return h(QBtn, {
+            staticClass: 'q-media__controls--button',
+            props: {
+              icon: this.iconSet.mediaPlayer.settings,
+              textColor: this.color,
+              size: '1rem',
+              disable: !this.state.playReady,
+              flat: true
+            }
+          }, [
+            this.showTooltips && !this.settingsMenuVisible && h(QTooltip, this.lang.mediaPlayer.settings),
+            this.__renderSettingsMenu(h)
+          ], slot(this, 'settings'))
+        }
       },
 
       __renderFullscreenButton (h) {
@@ -1298,6 +1307,7 @@ export default function (ssrContext) {
       },
 
       __renderSettingsMenu (h) {
+        let settingsMenuSlot = this.$slots.settingsMenu
         return h(QMenu, {
           ref: 'menu',
           props: {
@@ -1313,7 +1323,8 @@ export default function (ssrContext) {
             }
           }
         }, [
-          h('div', [
+          settingsMenuSlot,
+          settingsMenuSlot === void 0 && h('div', [
             this.state.playbackRates.length && h(QExpansionItem, {
               props: {
                 group: 'settings-menu',
@@ -1373,7 +1384,7 @@ export default function (ssrContext) {
               ])
             ]),
             // first item is 'Off' and doesn't count unless more are added
-            this.selectTracksLanguageList.length > 1 && h(QExpansionItem, {
+            settingsMenuSlot === void 0 && this.selectTracksLanguageList.length > 1 && h(QExpansionItem, {
               props: {
                 group: 'settings-menu',
                 expandSeparator: true,
@@ -1430,9 +1441,9 @@ export default function (ssrContext) {
                   ])
                 })
               ])
+            ])
           ])
-          ])
-        ], slot(this, 'settingsMenu'))
+        ])
       }
     },
 
