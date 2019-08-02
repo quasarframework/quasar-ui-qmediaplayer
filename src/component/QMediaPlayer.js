@@ -196,9 +196,7 @@ export default function (ssrContext) {
           'volumechange',
           'waiting'
         ],
-        settingsMenuVisible: false,
-        isFullscreenActive: false,
-        isFullscreenCapable: false
+        settingsMenuVisible: false
       }
     },
 
@@ -210,7 +208,6 @@ export default function (ssrContext) {
     },
 
     mounted () {
-      this.__initFullscreen()
       this.__init()
       if (this.$media) {
         this.$emit('mediaPlayer', this.$media)
@@ -236,7 +233,8 @@ export default function (ssrContext) {
     computed: {
       classes () {
         return {
-          'q-media--fullscreen': this.state.inFullscreen
+          'q-media__fullscreen': this.state.inFullscreen,
+          'q-media__fullscreen--window': this.state.inFullscreen
         }
       },
 
@@ -361,7 +359,7 @@ export default function (ssrContext) {
         this.__setupIcons()
       },
 
-      isFullscreenActive (val) {
+      '$q.fullscreen.isActive' (val) {
         // user pressed F11/ESC to exit fullscreen
         if (!val && this.isVideo && this.state.inFullscreen) {
           this.exitFullscreen()
@@ -525,10 +523,7 @@ export default function (ssrContext) {
           return
         }
         this.state.inFullscreen = true
-        document.body.classList.add('q-body--fullscreen-mixin')
-        this.$nextTick(() => {
-          this.__requestFullscreen(this.$el)
-        })
+        this.$q.fullscreen.request()
       },
 
       exitFullscreen () {
@@ -536,10 +531,7 @@ export default function (ssrContext) {
           return
         }
         this.state.inFullscreen = false
-        document.body.classList.remove('q-body--fullscreen-mixin')
-        this.$nextTick(() => {
-          this.__exitFullscreen()
-        })
+        this.$q.fullscreen.exit()
       },
 
       currentTime () {
@@ -585,50 +577,6 @@ export default function (ssrContext) {
           iconSet = require(`./iconSet/${iconName}`)
         } catch (e) {}
         iconSet && (this.iconSet['mediaPlayer'] = { ...iconSet.default.mediaPlayer })
-      },
-
-      __initFullscreen () {
-        prefixes.request = [
-          'requestFullscreen',
-          'msRequestFullscreen', 'mozRequestFullScreen', 'webkitRequestFullscreen'
-        ].find(request => document.documentElement[request])
-
-        this.isFullscreenCapable = prefixes.request !== undefined
-        if (!this.isFullscreenCapable) {
-          // it means the browser does NOT support it
-          return
-        }
-
-        prefixes.exit = [
-          'exitFullscreen',
-          'msExitFullscreen', 'mozCancelFullScreen', 'webkitExitFullscreen'
-        ].find(exit => document[exit])
-
-        this.isFullscreenActive = !!(document.fullscreenElement ||
-          document.mozFullScreenElement ||
-          document.webkitFullscreenElement ||
-          document.msFullscreenElement)
-
-        ;[
-          'onfullscreenchange', 'onmsfullscreenchange', 'onwebkitfullscreenchange'
-        ].forEach(evt => {
-          document[evt] = () => {
-            this.isFullscreenActive = !this.isFullscreenActive
-          }
-        })
-      },
-
-      __exitFullscreen () {
-        if (this.isFullscreenCapable && this.isFullscreenActive) {
-          document[prefixes.exit]()
-        }
-      },
-
-      __requestFullscreen (target) {
-        if (this.isFullscreenCapable && !this.isFullscreenActive) {
-          target = target || document.documentElement
-          target[prefixes.request]()
-        }
       },
 
       __init () {
@@ -1365,122 +1313,124 @@ export default function (ssrContext) {
             }
           }
         }, [
-          this.state.playbackRates.length && h(QExpansionItem, {
-            props: {
-              group: 'settings-menu',
-              expandSeparator: true,
-              icon: this.iconSet.mediaPlayer.speed,
-              label: this.lang.mediaPlayer.speed,
-              caption: this.settingsPlaybackCaption
-            },
-            on: {
-              show: this.__adjustMenu,
-              hide: this.__adjustMenu
-            }
-          }, [
-            h(QList, {
+          h('div', [
+            this.state.playbackRates.length && h(QExpansionItem, {
               props: {
-                highlight: true
+                group: 'settings-menu',
+                expandSeparator: true,
+                icon: this.iconSet.mediaPlayer.speed,
+                label: this.lang.mediaPlayer.speed,
+                caption: this.settingsPlaybackCaption
+              },
+              on: {
+                show: this.__adjustMenu,
+                hide: this.__adjustMenu
               }
             }, [
-              this.state.playbackRates.map((rate) => {
-                return h(QItem, {
-                  attrs: {
-                    key: rate.value
-                  },
-                  props: {
-                    clickable: true
-                  },
-                  on: {
-                    click: () => {
-                      this.__playbackRateChanged(rate.value)
-                    }
-                  },
-                  directives: [
-                    {
-                      name: 'ripple',
-                      value: true
+              h(QList, {
+                props: {
+                  highlight: true
+                }
+              }, [
+                this.state.playbackRates.map((rate) => {
+                  return h(QItem, {
+                    attrs: {
+                      key: rate.value
                     },
-                    {
-                      name: 'close-popup',
-                      value: true
-                    }
-                  ]
-                }, [
-                  h(QItemSection, {
                     props: {
-                      avatar: true
-                    }
-                  }, [
-                    rate.value === this.state.playbackRate && h(QIcon, {
-                      props: {
-                        name: this.iconSet.mediaPlayer.selected
+                      clickable: true
+                    },
+                    on: {
+                      click: () => {
+                        this.__playbackRateChanged(rate.value)
                       }
-                    })
-                  ]),
-                  h(QItemSection, rate.label)
-                ])
-              })
-            ])
-          ]),
-          // first item is 'Off' and doesn't count unless more are added
-          this.selectTracksLanguageList.length > 1 && h(QExpansionItem, {
-            props: {
-              group: 'settings-menu',
-              expandSeparator: true,
-              icon: this.iconSet.mediaPlayer.language,
-              label: this.lang.mediaPlayer.language,
-              caption: this.state.trackLanguage
-            },
-            on: {
-              show: this.__adjustMenu,
-              hide: this.__adjustMenu
-            }
-          }, [
-            h(QList, {
+                    },
+                    directives: [
+                      {
+                        name: 'ripple',
+                        value: true
+                      },
+                      {
+                        name: 'close-popup',
+                        value: true
+                      }
+                    ]
+                  }, [
+                    h(QItemSection, {
+                      props: {
+                        avatar: true
+                      }
+                    }, [
+                      rate.value === this.state.playbackRate && h(QIcon, {
+                        props: {
+                          name: this.iconSet.mediaPlayer.selected
+                        }
+                      })
+                    ]),
+                    h(QItemSection, rate.label)
+                  ])
+                })
+              ])
+            ]),
+            // first item is 'Off' and doesn't count unless more are added
+            this.selectTracksLanguageList.length > 1 && h(QExpansionItem, {
               props: {
-                highlight: true
+                group: 'settings-menu',
+                expandSeparator: true,
+                icon: this.iconSet.mediaPlayer.language,
+                label: this.lang.mediaPlayer.language,
+                caption: this.state.trackLanguage
+              },
+              on: {
+                show: this.__adjustMenu,
+                hide: this.__adjustMenu
               }
             }, [
-              this.selectTracksLanguageList.map((language) => {
-                return h(QItem, {
-                  attrs: {
-                    key: language.value
-                  },
-                  props: {
-                    clickable: true
-                  },
-                  on: {
-                    click: (event) => {
-                      this.__trackLanguageChanged(language.value)
-                    }
-                  },
-                  directives: [
-                    {
-                      name: 'ripple',
-                      value: true
+              h(QList, {
+                props: {
+                  highlight: true
+                }
+              }, [
+                this.selectTracksLanguageList.map((language) => {
+                  return h(QItem, {
+                    attrs: {
+                      key: language.value
                     },
-                    {
-                      name: 'close-popup',
-                      value: true
-                    }
-                  ]
-                }, [
-                  h(QItemSection, {
                     props: {
-                      avatar: true
-                    }
-                  }, [
-                    language.value === this.state.trackLanguage && h(QIcon, {
-                      props: {
-                        name: this.iconSet.mediaPlayer.selected
+                      clickable: true
+                    },
+                    on: {
+                      click: (event) => {
+                        this.__trackLanguageChanged(language.value)
                       }
-                    })
-                  ]),
-                  h(QItemSection, language.label)
-                ])
-              })
-            ])
+                    },
+                    directives: [
+                      {
+                        name: 'ripple',
+                        value: true
+                      },
+                      {
+                        name: 'close-popup',
+                        value: true
+                      }
+                    ]
+                  }, [
+                    h(QItemSection, {
+                      props: {
+                        avatar: true
+                      }
+                    }, [
+                      language.value === this.state.trackLanguage && h(QIcon, {
+                        props: {
+                          name: this.iconSet.mediaPlayer.selected
+                        }
+                      })
+                    ]),
+                    h(QItemSection, language.label)
+                  ])
+                })
+              ])
+          ])
           ])
         ], slot(this, 'settingsMenu'))
       }

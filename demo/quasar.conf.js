@@ -108,6 +108,7 @@ module.exports = function (ctx) {
       // lang: 'de', // Tell Quasar which language pack to use for its own components
       // Quasar plugins
       plugins: [
+        'AppFullscreen',
         'Dialog',
         'Loading',
         'Meta',

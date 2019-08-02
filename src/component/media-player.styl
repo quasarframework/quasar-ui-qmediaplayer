@@ -1,3 +1,17 @@
+$max-z-index ?= 5900
+
+:fullscreen
+  overflow hidden !important
+
+:-ms-fullscreen
+  overflow hidden !important
+
+:-webkit-full-screen
+  overflow hidden !important
+
+:-moz-full-screen
+  overflow hidden !important
+
 .q-media
   position relative
   max-width 100% !important
@@ -20,7 +34,7 @@
     height 40px !important
     vertical-align bottom
     align-self flex-end
-  &__error-window 
+  &__error-window
     position absolute;
     left 0
     top 0
@@ -31,7 +45,7 @@
     color white
     background-color rgba(255, 0, 0, 0.25)
     transition height 0.25s ease-in
-  &__overlay-window 
+  &__overlay-window
     position absolute;
     left 0
     top 0
@@ -113,14 +127,15 @@
       text-align center
     &--video-slider
       padding 0 4px
-  &--fullscreen
-    z-index 8000
-    position fixed !important
-    top 0 !important
-    left 0 !important
-    height 100vh !important
-    width 100vw !important
-    overflow hidden
+  &__fullscreen
+    z-index $max-z-index
+    &--window
+      position fixed !important
+      top 0 !important
+      left 0 !important
+      height 100vh !important
+      width 100vw !important
+      overflow hidden
 ::-webkit-media-controls
   display none !important
 video::-webkit-media-controls
