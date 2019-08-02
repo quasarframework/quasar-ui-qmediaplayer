@@ -22,6 +22,6 @@ export default {
     noLoadVideo: '動画の読み込みエラー', // 'Unable to load video',
     noLoadAudio: 'オーディオの読み込みエラー', // 'Unable to load audio',
     cannotPlayVideo: '動画を再生できません', // 'Cannot play video',
-    cannotPlayAudio: 'オーディオを再生できません', // 'Cannot play audio'
+    cannotPlayAudio: 'オーディオを再生できません' // 'Cannot play audio'
   }
 }

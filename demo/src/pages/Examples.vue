@@ -15,12 +15,13 @@
 
       <example-title title="Background Color" />
       <example-card title="Audio - Background Color" name="AudioBackgroundColor" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioBackgroundColor.vue').default)" />
-      <q-markdown>
+      <example-card title="Video - Background Color" name="VideoBackgroundColor" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoBackgroundColor.vue').default)">
+        <q-markdown>
 ::: info
 The background color of the video view is only visible until the video is loaded.
 :::
-      </q-markdown>
-      <example-card title="Video - Background Color" name="VideoBackgroundColor" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoBackgroundColor.vue').default)" />
+        </q-markdown>
+      </example-card>
 
       <example-title title="Poster" />
       <example-card title="Video - Poster" name="VideoPoster" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoPoster.vue').default)" />
@@ -43,10 +44,11 @@ The `hide-volumn-slider` property is available to hide the volume slider control
       <example-card title="Video - Hide Volume Slider (Dense)" name="VideoHideVolumeSliderDense" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoHideVolumeSliderDense.vue').default)" />
 
       <example-title title="Mobile Mode" />
-      <q-markdown>
+      <example-card title="Video - Mobile Mode" name="VideoMobileMode" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoMobileMode.vue').default)">
+        <q-markdown>
 The `mobile-mode` property is available to turn off the hover effect that displays the controls window. With `mobile-mode` touching (clicking) the video will toggle the controls display. You can use this property for desktops too!
-      </q-markdown>
-      <example-card title="Video - Mobile Mode" name="VideoMobileMode" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoMobileMode.vue').default)" />
+        </q-markdown>
+      </example-card>
 
       <example-title title="Source" />
       <q-markdown>
