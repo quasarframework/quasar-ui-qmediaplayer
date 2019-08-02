@@ -209,6 +209,9 @@ export default function (ssrContext) {
     mounted () {
       this.__initFullscreen()
       this.__init()
+      if (this.$media) {
+        this.$emit('mediaPlayer', this.$media)
+      }
     },
 
     beforeDestroy () {
@@ -692,11 +695,12 @@ export default function (ssrContext) {
         if (this.$media && this.$media.networkState === NETWORK_NO_SOURCE) {
           this.state.errorText = this.isVideo ? this.lang.mediaPlayer.noLoadVideo : this.lang.mediaPlayer.noLoadAudio
         }
+        this.$emit('networkState', event)
       },
 
       __mediaEventHandler (event) {
         if (event.type === 'abort') {
-
+          this.$emit('abort')
         } else if (event.type === 'canplay') {
           this.state.playReady = true
           this.__mouseEnterVideo()

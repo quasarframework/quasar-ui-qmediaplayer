@@ -216,7 +216,7 @@ For more detailed information [go here](https://html.spec.whatwg.org/multipage/m
 | togglePlay() | Both | Toggles between play/pause states |
 | toggleMuted() | Both | Toggles between mute/unmute states |
 | toggleFullscreen() | Video | Toggle fullscreen mode |
-| currentTime() | Both | Returns the current time of the video/audio player (in seconds). If audio or video are not ready, a -1 is returned |
+| currentTime() | Both | Returns the current time of the video/audio player (in seconds). If audio or video is not ready, a -1 is returned |
 | setCurrentTime(seconds) | Both | Set the current time of the video/audio player (in seconds) |
 | setVolume(percent) | Both | Sets the volume as a percent (0-100) |
 
@@ -224,6 +224,9 @@ For more detailed information [go here](https://html.spec.whatwg.org/multipage/m
 
 | Event | Mode | Description |
 |---|---|---|
+| @mediaPlayer() | Both | Emitted when the media player has been secured. This gives you direct access to the HTMLMediaElement, which you can manipulate, but be careful - recommended only for extreme programmers |
+| @abort() | Both | Emitted when the process has been aborted (usually by the user) |
+| @networkState() | Both | Emitted when the networkSate has changed |
 | @loaded() | Both | Emitted when the media has been loaded |
 | @ready() | Both | Emitted when the media is ready to play. You cannot play/pause or setCurrentTime before this event |
 | @duration(seconds) | Both | Emitted when the duration of the media has been determined |
@@ -237,6 +240,14 @@ For more detailed information [go here](https://html.spec.whatwg.org/multipage/m
 | @showControls(true/false) | Video | Emitted when the Controls are toggled (show/hide) |
 | @volume(percent) | Both | Emitted when the volume changes |
 | @muted(true/false) | Both | Emitted when the mute changes |
+
+## networkState
+```js
+  const unsigned short NETWORK_EMPTY = 0;
+  const unsigned short NETWORK_IDLE = 1;
+  const unsigned short NETWORK_LOADING = 2;
+  const unsigned short NETWORK_NO_SOURCE = 3;
+```
 
 # QMediaPlayer Vue Slots
 
