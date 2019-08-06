@@ -547,7 +547,7 @@ export default function (ssrContext) {
       },
 
       setVolume (volume) {
-        if (volume >= 100 && volume <= 100) {
+        if (volume >= 0 && volume <= 100) {
           this.state.volume = volume
         }
       },
