@@ -131,7 +131,7 @@ export default function (ssrContext) {
       }
     },
 
-    data () {
+    data() {
       return {
         lang: {
           mediaPlayer: {}
@@ -159,11 +159,22 @@ export default function (ssrContext) {
           loading: true,
           playReady: false,
           playing: false,
-          playbackRates: [
-            { label: '.5x', value: 0.5 },
-            { label: 'Normal', value: 1 },
-            { label: '1.5x', value: 1.5 },
-            { label: '2x', value: 2 }
+          playbackRates: [{
+              label: '.5x',
+              value: 0.5
+            },
+            {
+              label: 'Normal',
+              value: 1
+            },
+            {
+              label: '1.5x',
+              value: 1.5
+            },
+            {
+              label: '2x',
+              value: 2
+            }
           ],
           playbackRate: 1,
           trackLanguage: 'Off',
@@ -198,21 +209,21 @@ export default function (ssrContext) {
       }
     },
 
-    beforeMount () {
+    beforeMount() {
       this.__setupLang()
       this.__setupIcons()
 
       document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
     },
 
-    mounted () {
+    mounted() {
       this.__init()
       if (this.$media) {
         this.$emit('mediaPlayer', this.$media)
       }
     },
 
-    beforeDestroy () {
+    beforeDestroy() {
       this.exitFullscreen()
 
       // TODO: clear all timers
@@ -229,14 +240,14 @@ export default function (ssrContext) {
     },
 
     computed: {
-      classes () {
+      classes() {
         return {
           'q-media__fullscreen': this.state.inFullscreen,
           'q-media__fullscreen--window': this.state.inFullscreen
         }
       },
 
-      videoControlsClasses () {
+      videoControlsClasses() {
         return {
           'q-media__controls--dense': (this.state.showControls || this.mobileMode) && this.dense,
           'q-media__controls--standard': (this.state.showControls || this.mobileMode) && !this.dense,
@@ -244,21 +255,21 @@ export default function (ssrContext) {
         }
       },
 
-      audioControlsClasses () {
+      audioControlsClasses() {
         return {
           'q-media__controls--dense': this.dense,
           'q-media__controls--standard': !this.dense
         }
       },
 
-      videoWidth () {
+      videoWidth() {
         if (this.$el) {
           return this.$el.getBoundingClientRect().width
         }
         return 0
       },
 
-      volumeIcon () {
+      volumeIcon() {
         if (this.state.volume > 1 && this.state.volume < 70 && !this.state.muted) {
           return this.iconSet.mediaPlayer.volumeDown
         } else if (this.state.volume >= 70 && !this.state.muted) {
@@ -268,7 +279,7 @@ export default function (ssrContext) {
         }
       },
 
-      selectTracksLanguageList () {
+      selectTracksLanguageList() {
         let tracksList = []
         // provide option to turn subtitles/captions/chapters off
         let track = {}
@@ -283,15 +294,15 @@ export default function (ssrContext) {
         return tracksList
       },
 
-      isAudio () {
+      isAudio() {
         return this.type === 'audio'
       },
 
-      isVideo () {
+      isVideo() {
         return this.type === 'video'
       },
 
-      settingsPlaybackCaption () {
+      settingsPlaybackCaption() {
         let caption = ''
         this.state.playbackRates.forEach((rate) => {
           if (rate.value === this.state.playbackRate) {
@@ -303,86 +314,86 @@ export default function (ssrContext) {
     },
 
     watch: {
-      poster () {
+      poster() {
         this.__updatePoster()
       },
 
       sources: {
-        handler () {
+        handler() {
           this.__updateSources()
         },
         deep: true
       },
 
       tracks: {
-        handler () {
+        handler() {
           this.__updateTracks()
         },
         deep: true
       },
 
-      volume () {
+      volume() {
         this.__updateVolume()
       },
 
-      muted () {
+      muted() {
         this.__updateMuted()
       },
 
-      trackLanguage () {
+      trackLanguage() {
         this.__updateTrackLanguage()
       },
 
-      showBigPlayButton () {
+      showBigPlayButton() {
         this.__updateBigPlayButton()
       },
 
-      playbackRates () {
+      playbackRates() {
         this.__updatePlaybackRates()
       },
 
-      playbackRate () {
+      playbackRate() {
         this.__updatePlaybackRate()
       },
 
-      $route (val) {
+      $route(val) {
         this.exitFullscreen()
       },
 
-      '$q.lang.isoName' (val) {
+      '$q.lang.isoName'(val) {
         this.__setupLang()
       },
 
-      '$q.iconSet.name' (val) {
+      '$q.iconSet.name'(val) {
         this.__setupIcons()
       },
 
-      '$q.fullscreen.isActive' (val) {
+      '$q.fullscreen.isActive'(val) {
         // user pressed F11/ESC to exit fullscreen
         if (!val && this.isVideo && this.state.inFullscreen) {
           this.exitFullscreen()
         }
       },
 
-      'state.playbackRate' (val) {
+      'state.playbackRate'(val) {
         if (val && this.$media) {
           this.$media.playbackRate = parseFloat(val)
           this.$emit('playbackRate', val)
         }
       },
 
-      'state.trackLanguage' (val) {
+      'state.trackLanguage'(val) {
         this.__toggleCaptions()
         this.$emit('trackLanguage', val)
       },
 
-      'state.showControls' (val) {
+      'state.showControls'(val) {
         if (this.isVideo && !this.noControls) {
           this.$emit('showControls', val)
         }
       },
 
-      'state.volume' (val) {
+      'state.volume'(val) {
         if (this.$media) {
           let volume = parseFloat(val / 100.0)
           if (this.$media.volume !== volume) {
@@ -392,11 +403,11 @@ export default function (ssrContext) {
         }
       },
 
-      'state.muted' (val) {
+      'state.muted'(val) {
         this.$emit('muted', val)
       },
 
-      'state.currentTime' (val) {
+      'state.currentTime'(val) {
         if (this.$media && this.state.playReady) {
           this.state.remainingTime = timeParse(this.$media.duration - this.$media.currentTime)
           this.state.displayTime = timeParse(this.$media.currentTime)
@@ -405,7 +416,7 @@ export default function (ssrContext) {
     },
 
     methods: {
-      showControls () {
+      showControls() {
         if (this.timer.hideControlsTimer) {
           clearTimeout(this.timer.hideControlsTimer)
           this.timer.hideControlsTimer = null
@@ -428,7 +439,7 @@ export default function (ssrContext) {
         }
       },
 
-      hideControls () {
+      hideControls() {
         if (this.timer.hideControlsTimer) {
           clearTimeout(this.timer.hideControlsTimer)
         }
@@ -439,7 +450,7 @@ export default function (ssrContext) {
         this.timer.hideControlsTimer = null
       },
 
-      toggleControls () {
+      toggleControls() {
         if (this.state.showControls) {
           this.hideControls()
         } else {
@@ -447,7 +458,7 @@ export default function (ssrContext) {
         }
       },
 
-      __reset () {
+      __reset() {
         if (this.timer.hideControlsTimer) {
           clearTimeout(this.timer.hideControlsTimer)
         }
@@ -466,11 +477,11 @@ export default function (ssrContext) {
         this.showControls()
       },
 
-      __toggleCaptions () {
+      __toggleCaptions() {
         this.__showCaptions(this.state.trackLanguage)
       },
 
-      __showCaptions (lang) {
+      __showCaptions(lang) {
         if (this.$media && this.isVideo) {
           for (let index = 0; index < this.$media.textTracks.length; ++index) {
             if (this.$media.textTracks[index].label === lang) {
@@ -484,7 +495,7 @@ export default function (ssrContext) {
         }
       },
 
-      togglePlay () {
+      togglePlay() {
         if (this.$media && this.state.playReady) {
           this.state.playing = !this.state.playing
           if (this.state.playing) {
@@ -498,14 +509,14 @@ export default function (ssrContext) {
         }
       },
 
-      toggleMuted () {
+      toggleMuted() {
         this.state.muted = !this.state.muted
         if (this.$media) {
           this.$media.muted = this.state.muted === true
         }
       },
 
-      toggleFullscreen () {
+      toggleFullscreen() {
         if (this.isVideo) {
           if (this.state.inFullscreen) {
             this.exitFullscreen()
@@ -516,7 +527,7 @@ export default function (ssrContext) {
         }
       },
 
-      setFullscreen () {
+      setFullscreen() {
         if (!this.isVideo || this.state.inFullscreen) {
           return
         }
@@ -524,7 +535,7 @@ export default function (ssrContext) {
         this.$q.fullscreen.request()
       },
 
-      exitFullscreen () {
+      exitFullscreen() {
         if (!this.isVideo || !this.state.inFullscreen) {
           return
         }
@@ -532,14 +543,14 @@ export default function (ssrContext) {
         this.$q.fullscreen.exit()
       },
 
-      currentTime () {
+      currentTime() {
         if (this.$media && this.state.playReady) {
           return this.$media.currentTime
         }
         return -1
       },
 
-      setCurrentTime (seconds) {
+      setCurrentTime(seconds) {
         if (this.state.playReady) {
           if (this.$media && seconds >= 0 && seconds <= this.$media.duration) {
             this.state.currentTime = Math.floor(seconds)
@@ -548,13 +559,13 @@ export default function (ssrContext) {
         }
       },
 
-      setVolume (volume) {
+      setVolume(volume) {
         if (volume >= 100 && volume <= 100) {
           this.state.volume = volume
         }
       },
 
-      __setupLang () {
+      __setupLang() {
         let isoName = this.$q.lang.isoName || 'en-us'
         let lang
         try {
@@ -562,22 +573,26 @@ export default function (ssrContext) {
         } catch (e) {}
 
         if (lang !== void 0) {
-          this.lang['mediaPlayer'] = { ...lang.default.mediaPlayer }
+          this.lang['mediaPlayer'] = {
+            ...lang.default.mediaPlayer
+          }
           this.__updatePlaybackRates()
           this.__updateTrackLanguage()
         }
       },
 
-      __setupIcons () {
+      __setupIcons() {
         let iconName = this.$q.iconSet.name || 'material-icons'
         let iconSet
         try {
           iconSet = require(`./iconSet/${iconName}`)
         } catch (e) {}
-        iconSet && (this.iconSet['mediaPlayer'] = { ...iconSet.default.mediaPlayer })
+        iconSet && (this.iconSet['mediaPlayer'] = {
+          ...iconSet.default.mediaPlayer
+        })
       },
 
-      __init () {
+      __init() {
         this.$media = this.$refs['media']
         // set default track language
         this.__updateTrackLanguage()
@@ -605,7 +620,7 @@ export default function (ssrContext) {
         this.__toggleCaptions()
       },
 
-      __addMediaEventListeners () {
+      __addMediaEventListeners() {
         if (this.$media) {
           this.allEvents.forEach((event) => {
             this.$media.addEventListener(event, this.__mediaEventHandler)
@@ -613,7 +628,7 @@ export default function (ssrContext) {
         }
       },
 
-      __removeMediaEventListeners () {
+      __removeMediaEventListeners() {
         if (this.$media) {
           this.allEvents.forEach((event) => {
             this.$media.removeEventListener(event, this.__mediaEventHandler)
@@ -621,7 +636,7 @@ export default function (ssrContext) {
         }
       },
 
-      __addSourceEventListeners () {
+      __addSourceEventListeners() {
         if (this.$media) {
           let sources = this.$media.querySelectorAll('source')
           for (let index = 0; index < sources.length; ++index) {
@@ -630,7 +645,7 @@ export default function (ssrContext) {
         }
       },
 
-      __removeSourceEventListeners () {
+      __removeSourceEventListeners() {
         if (this.$media) {
           let sources = this.$media.querySelectorAll('source')
           for (let index = 0; index < sources.length; ++index) {
@@ -639,7 +654,7 @@ export default function (ssrContext) {
         }
       },
 
-      __sourceEventHandler (event) {
+      __sourceEventHandler(event) {
         const NETWORK_NO_SOURCE = 3
         if (this.$media && this.$media.networkState === NETWORK_NO_SOURCE) {
           this.state.errorText = this.isVideo ? this.lang.mediaPlayer.noLoadVideo : this.lang.mediaPlayer.noLoadAudio
@@ -647,7 +662,7 @@ export default function (ssrContext) {
         this.$emit('networkState', event)
       },
 
-      __mediaEventHandler (event) {
+      __mediaEventHandler(event) {
         if (event.type === 'abort') {
           this.$emit('abort')
         } else if (event.type === 'canplay') {
@@ -660,8 +675,7 @@ export default function (ssrContext) {
           this.state.duration = Math.floor(this.$media.duration)
           this.state.durationTime = timeParse(this.$media.duration)
           this.$emit('duration', this.$media.duration)
-        } else if (event.type === 'emptied') {
-        } else if (event.type === 'ended') {
+        } else if (event.type === 'emptied') {} else if (event.type === 'ended') {
           this.state.playing = false
           this.$emit('ended')
         } else if (event.type === 'error') {
@@ -681,8 +695,7 @@ export default function (ssrContext) {
           // set default track language
           this.__updateTrackLanguage()
           this.__toggleCaptions()
-        } else if (event.type === 'loadedstart') {
-        } else if (event.type === 'pause') {
+        } else if (event.type === 'loadedstart') {} else if (event.type === 'pause') {
           this.state.playing = false
           this.$emit('paused')
         } else if (event.type === 'play') {
@@ -690,23 +703,18 @@ export default function (ssrContext) {
         } else if (event.type === 'playing') {
           this.state.playing = true
           this.$emit('playing')
-        } else if (event.type === 'progress') {
-        } else if (event.type === 'ratechange') {
-        } else if (event.type === 'seeked') {
-        } else if (event.type === 'timeupdate') {
+        } else if (event.type === 'progress') {} else if (event.type === 'ratechange') {} else if (event.type === 'seeked') {} else if (event.type === 'timeupdate') {
           this.state.currentTime = Math.floor(this.$media.currentTime)
           this.$emit('timeupdate', this.$media.currentTime, this.state.remainingTime)
-        } else if (event.type === 'volumechange') {
-        } else if (event.type === 'waiting') {
+        } else if (event.type === 'volumechange') {} else if (event.type === 'waiting') {
           this.$emit('waiting')
         }
       },
 
       // for future functionality
-      __cueChanged (data) {
-      },
+      __cueChanged(data) {},
 
-      __checkCursor () {
+      __checkCursor() {
         if (this.state.inFullscreen && this.state.playing && !this.state.showControls) {
           this.$el.classList.remove('cursor-inherit')
           this.$el.classList.add('cursor-none')
@@ -716,7 +724,7 @@ export default function (ssrContext) {
         }
       },
 
-      __adjustMenu () {
+      __adjustMenu() {
         const qmenu = this.$refs['menu']
         if (qmenu) {
           setTimeout(() => {
@@ -725,7 +733,7 @@ export default function (ssrContext) {
         }
       },
 
-      __videoClick () {
+      __videoClick() {
         if (this.mobileMode) {
           this.toggleControls()
         } else {
@@ -733,36 +741,36 @@ export default function (ssrContext) {
         }
       },
 
-      __bigButtonClick () {
+      __bigButtonClick() {
         if (this.mobileMode) {
           this.hideControls()
         }
         this.togglePlay()
       },
 
-      __settingsMenuShowing (val) {
+      __settingsMenuShowing(val) {
         this.settingsMenuVisible = val
       },
 
-      __mouseEnterVideo (e) {
+      __mouseEnterVideo(e) {
         if (!this.mobileMode && !this.isAudio) {
           this.showControls()
         }
       },
 
-      __mouseLeaveVideo (e) {
+      __mouseLeaveVideo(e) {
         if (!this.mobileMode && !this.isAudio) {
           this.hideControls()
         }
       },
 
-      __mouseMoveAction (e) {
+      __mouseMoveAction(e) {
         if (!this.mobileMode && !this.isAudio) {
           this.__showControlsIfValid(e)
         }
       },
 
-      __showControlsIfValid (e) {
+      __showControlsIfValid(e) {
         if (this.__showingMenu()) {
           this.showControls()
           return true
@@ -780,7 +788,7 @@ export default function (ssrContext) {
         return false
       },
 
-      __videoCurrentTimeChanged (val) {
+      __videoCurrentTimeChanged(val) {
         this.showControls()
         if (this.$media && this.$media.duration && val && val > 0 && val <= this.state.duration) {
           if (this.$media.currentTime !== val) {
@@ -790,40 +798,40 @@ export default function (ssrContext) {
         }
       },
 
-      __volumePercentChanged (val) {
+      __volumePercentChanged(val) {
         this.showControls()
         this.state.volume = val
       },
 
-      __trackLanguageChanged (language) {
+      __trackLanguageChanged(language) {
         if (this.state.trackLanguage !== language) {
           this.state.trackLanguage = language
         }
       },
 
-      __playbackRateChanged (rate) {
+      __playbackRateChanged(rate) {
         if (this.state.playbackRate !== rate) {
           this.state.playbackRate = rate
         }
       },
 
-      __showingMenu () {
+      __showingMenu() {
         return this.settingsMenuVisible
       },
 
-      __updateBigPlayButton () {
+      __updateBigPlayButton() {
         if (this.state.showBigPlayButton !== this.showBigPlayButton) {
           this.state.showBigPlayButton = this.showBigPlayButton
         }
       },
 
-      __updateVolume () {
+      __updateVolume() {
         if (this.state.volume !== this.volume) {
           this.state.volume = this.volume
         }
       },
 
-      __updateMuted () {
+      __updateMuted() {
         if (this.state.muted !== this.muted) {
           this.state.muted = this.muted
           if (this.$media) {
@@ -832,37 +840,49 @@ export default function (ssrContext) {
         }
       },
 
-      __updateTrackLanguage () {
+      __updateTrackLanguage() {
         if (this.state.trackLanguage !== this.trackLanguage || this.lang.mediaPlayer.trackLanguageOff) {
           this.state.trackLanguage = this.trackLanguage || this.lang.mediaPlayer.trackLanguageOff
         }
       },
 
-      __updatePlaybackRates () {
+      __updatePlaybackRates() {
         if (this.playbackRates && this.playbackRates.length > 0) {
           this.state.playbackRates = [...this.playbackRates]
         } else {
           this.state.playbackRates.splice(0, this.state.playbackRates.length)
-          this.state.playbackRates.push({ label: this.lang.mediaPlayer.ratePoint5, value: 0.5 })
-          this.state.playbackRates.push({ label: this.lang.mediaPlayer.rateNormal, value: 1 })
-          this.state.playbackRates.push({ label: this.lang.mediaPlayer.rate1Point5, value: 1.5 })
-          this.state.playbackRates.push({ label: this.lang.mediaPlayer.rate2, value: 2 })
+          this.state.playbackRates.push({
+            label: this.lang.mediaPlayer.ratePoint5,
+            value: 0.5
+          })
+          this.state.playbackRates.push({
+            label: this.lang.mediaPlayer.rateNormal,
+            value: 1
+          })
+          this.state.playbackRates.push({
+            label: this.lang.mediaPlayer.rate1Point5,
+            value: 1.5
+          })
+          this.state.playbackRates.push({
+            label: this.lang.mediaPlayer.rate2,
+            value: 2
+          })
         }
         this.state.trackLanguage = this.lang.mediaPlayer.trackLanguageOff
       },
 
-      __updatePlaybackRate () {
+      __updatePlaybackRate() {
         if (this.state.playbackRate !== this.playbackRate) {
           this.state.playbackRate = this.playbackRate
         }
       },
 
-      __updateSources () {
+      __updateSources() {
         this.__removeSources()
         this.__addSources()
       },
 
-      __removeSources () {
+      __removeSources() {
         if (this.$media) {
           this.__removeSourceEventListeners()
           // player must not be running
@@ -879,7 +899,7 @@ export default function (ssrContext) {
         }
       },
 
-      __addSources () {
+      __addSources() {
         if (this.$media) {
           let loaded = false
           if (this.source !== void 0 && this.source.length > 0) {
@@ -903,12 +923,12 @@ export default function (ssrContext) {
         }
       },
 
-      __updateTracks () {
+      __updateTracks() {
         this.__removeTracks()
         this.__addTracks()
       },
 
-      __removeTracks () {
+      __removeTracks() {
         if (this.$media) {
           let childNodes = this.$media.childNodes
           for (let index = childNodes.length - 1; index >= 0; --index) {
@@ -919,7 +939,7 @@ export default function (ssrContext) {
         }
       },
 
-      __addTracks () {
+      __addTracks() {
         // only add tracks to video
         if (this.isVideo && this.$media) {
           this.tracks.forEach((track) => {
@@ -936,13 +956,13 @@ export default function (ssrContext) {
         }
       },
 
-      __updatePoster () {
+      __updatePoster() {
         if (this.$media) {
           this.$media.poster = this.poster
         }
       },
 
-      __renderVideo (h) {
+      __renderVideo(h) {
         return h('video', {
           ref: 'media',
           staticClass: 'q-media--player',
@@ -961,7 +981,7 @@ export default function (ssrContext) {
         ])
       },
 
-      __renderAudio (h) {
+      __renderAudio(h) {
         // This is on purpose (not using audio tag).
         // The video tag can also play audio and works better if dynamically
         // switching between video and audio on the same component.
@@ -982,7 +1002,7 @@ export default function (ssrContext) {
         ])
       },
 
-      __renderSources (h) {
+      __renderSources(h) {
         return this.sources.map((source) => {
           return h('source', {
             attrs: {
@@ -994,7 +1014,7 @@ export default function (ssrContext) {
         })
       },
 
-      __renderTracks (h) {
+      __renderTracks(h) {
         return this.tracks.map((track) => {
           return h('track', {
             attrs: {
@@ -1008,7 +1028,7 @@ export default function (ssrContext) {
         })
       },
 
-      __renderOverlayWindow (h) {
+      __renderOverlayWindow(h) {
         let overlaySlot = this.$slots.overlay
 
         if (overlaySlot !== void 0) {
@@ -1025,171 +1045,228 @@ export default function (ssrContext) {
         }
       },
 
-      __renderErrorWindow (h) {
-        return h('div', {
-          staticClass: 'q-media__error-window'
-        }, [
-          h('div', this.state.errorText)
-        ], slot(this, 'errorWindow'))
-      },
-
-      __renderPlayButton (h) {
-        return h(QBtn, {
-          staticClass: 'q-media__controls--button',
-          props: {
-            icon: this.state.playing ? this.iconSet.mediaPlayer.pause : this.iconSet.mediaPlayer.play,
-            textColor: this.color,
-            size: '1rem',
-            disable: !this.state.playReady,
-            flat: true
-          },
-          on: {
-            click: this.togglePlay
+      __renderErrorWindow(h) {
+        let errorWindow = this.$slots.errorWindow
+        if (errorWindow !== void 0) {
+          return errorWindow
+        } else {
+          let a = 'div'
+          let b = {
+            staticClass: 'q-media__error-window'
           }
-        }, [
-          this.showTooltips && this.state.playing && h(QTooltip, this.lang.mediaPlayer.pause),
-          this.showTooltips && !this.state.playing && this.state.playReady && h(QTooltip, this.lang.mediaPlayer.play)
-        ], slot(this, 'play'))
+          let c = [
+            h('div', this.state.errorText)
+          ]
+          let d = slot(this, 'errorWindow')
+
+          return h(a, b, c, d)
+        }
       },
 
-      __renderVideoControls (h) {
-        return h('div', {
-          ref: 'controls',
-          staticClass: 'q-media__controls',
-          class: this.videoControlsClasses
-        }, [
-          // dense
-          this.dense && h('div', {
-            staticClass: 'q-media__controls--row row col content-start items-center'
-          }, [
-            h('div', [
-              this.__renderPlayButton(h),
-              this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingVideo)
-            ]),
-            this.__renderVolumeButton(h),
-            this.__renderVolumeSlider(h),
-            this.__renderDisplayTime(h),
-            this.__renderCurrentTimeSlider(h),
-            this.__renderDurationTime(h),
-            this.__renderSettingsButton(h),
-            this.__renderFullscreenButton(h)
-          ]),
-          // sparse
-          !this.dense && h('div', {
-            staticClass: 'q-media__controls--row row col items-center justify-between'
-          }, [
-            this.__renderDisplayTime(h),
-            this.__renderCurrentTimeSlider(h),
-            this.__renderDurationTime(h)
-          ]),
-          !this.dense && h('div', {
-            staticClass: 'q-media__controls--row row col content-start items-center'
-          }, [
-            h('div', {
-              staticClass: 'row col'
+      __renderPlayButton(h) {
+        let play = this.$slots.play
+        if (play !== void 0) {
+          return play
+        } else {
+          let a = QBtn
+          let b = {
+            staticClass: 'q-media__controls--button',
+            props: {
+              icon: this.state.playing ? this.iconSet.mediaPlayer.pause : this.iconSet.mediaPlayer.play,
+              textColor: this.color,
+              size: '1rem',
+              disable: !this.state.playReady,
+              flat: true
+            },
+            on: {
+              click: this.togglePlay
+            }
+          }
+          let c = [
+            this.showTooltips && this.state.playing && h(QTooltip, this.lang.mediaPlayer.pause),
+            this.showTooltips && !this.state.playing && this.state.playReady && h(QTooltip, this.lang.mediaPlayer.play)
+          ]
+          let d = slot(this, 'play')
+
+          return h(a, b, c, d)
+        }
+      },
+
+      __renderVideoControls(h) {
+        let controls = this.$slots.controls
+        if (controls !== void 0) {
+          return controls
+        } else {
+          let a = 'div'
+          let b = {
+            ref: 'controls',
+            staticClass: 'q-media__controls',
+            class: this.videoControlsClasses
+          }
+          let c = [
+            // dense
+            this.dense && h('div', {
+              staticClass: 'q-media__controls--row row col content-start items-center'
             }, [
               h('div', [
                 this.__renderPlayButton(h),
                 this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingVideo)
               ]),
               this.__renderVolumeButton(h),
-              this.__renderVolumeSlider(h)
-            ]),
-            h('div', [
+              this.__renderVolumeSlider(h),
+              this.__renderDisplayTime(h),
+              this.__renderCurrentTimeSlider(h),
+              this.__renderDurationTime(h),
               this.__renderSettingsButton(h),
               this.__renderFullscreenButton(h)
+            ]),
+            // sparse
+            !this.dense && h('div', {
+              staticClass: 'q-media__controls--row row col items-center justify-between'
+            }, [
+              this.__renderDisplayTime(h),
+              this.__renderCurrentTimeSlider(h),
+              this.__renderDurationTime(h)
+            ]),
+            !this.dense && h('div', {
+              staticClass: 'q-media__controls--row row col content-start items-center'
+            }, [
+              h('div', {
+                staticClass: 'row col'
+              }, [
+                h('div', [
+                  this.__renderPlayButton(h),
+                  this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingVideo)
+                ]),
+                this.__renderVolumeButton(h),
+                this.__renderVolumeSlider(h)
+              ]),
+              h('div', [
+                this.__renderSettingsButton(h),
+                this.__renderFullscreenButton(h)
+              ])
             ])
-          ])
-        ], slot(this, 'controls'))
+          ]
+          let d = slot(this, 'controls')
+
+          return h(a, b, c, d)
+        }
+
       },
 
-      __renderAudioControls (h) {
-        return h('div', {
-          ref: 'controls',
-          staticClass: 'q-media__controls',
-          class: this.audioControlsClasses
-        }, [
-          this.dense && h('div', {
-            staticClass: 'q-media__controls--row row col content-start items-center'
-          }, [
-            // dense
-            h('div', [
-              this.__renderPlayButton(h),
-              this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingAudio)
-            ]),
-            this.__renderVolumeButton(h),
-            this.__renderVolumeSlider(h),
-            this.__renderDisplayTime(h),
-            this.__renderCurrentTimeSlider(h),
-            this.__renderDurationTime(h)
-          ]),
-          // sparse
-          !this.dense && h('div', {
-            staticClass: 'q-media__controls--row row col items-center justify-between'
-          }, [
-            this.__renderDisplayTime(h),
-            this.__renderCurrentTimeSlider(h),
-            this.__renderDurationTime(h)
-          ]),
-          !this.dense && h('div', {
-            staticClass: 'q-media__controls--row row col content-start items-center'
-          }, [
-            h('div', [
-              this.__renderPlayButton(h),
-              this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingAudio)
-            ]),
-            this.__renderVolumeButton(h),
-            this.__renderVolumeSlider(h)
-          ])
-        ], slot(this, 'controls'))
-      },
-
-      __renderVolumeButton (h) {
-        return h(QBtn, {
-          staticClass: 'q-media__controls--button',
-          props: {
-            icon: this.volumeIcon,
-            textColor: this.color,
-            size: '1rem',
-            disable: !this.state.playReady,
-            flat: true
-          },
-          on: {
-            click: this.toggleMuted
+      __renderAudioControls(h) {
+        let controls = this.$slots.controls
+        if (controls !== void 0) {
+          return controls
+        } else {
+          let a = 'div'
+          let b = {
+            ref: 'controls',
+            staticClass: 'q-media__controls',
+            class: this.audioControlsClasses
           }
-        }, [
-          this.showTooltips && !this.state.muted && h(QTooltip, this.lang.mediaPlayer.mute),
-          this.showTooltips && this.state.muted && h(QTooltip, this.lang.mediaPlayer.unmute)
-        ], slot(this, 'volume'))
+          let c = [
+            this.dense && h('div', {
+              staticClass: 'q-media__controls--row row col content-start items-center'
+            }, [
+              // dense
+              h('div', [
+                this.__renderPlayButton(h),
+                this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingAudio)
+              ]),
+              this.__renderVolumeButton(h),
+              this.__renderVolumeSlider(h),
+              this.__renderDisplayTime(h),
+              this.__renderCurrentTimeSlider(h),
+              this.__renderDurationTime(h)
+            ]),
+            // sparse
+            !this.dense && h('div', {
+              staticClass: 'q-media__controls--row row col items-center justify-between'
+            }, [
+              this.__renderDisplayTime(h),
+              this.__renderCurrentTimeSlider(h),
+              this.__renderDurationTime(h)
+            ]),
+            !this.dense && h('div', {
+              staticClass: 'q-media__controls--row row col content-start items-center'
+            }, [
+              h('div', [
+                this.__renderPlayButton(h),
+                this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingAudio)
+              ]),
+              this.__renderVolumeButton(h),
+              this.__renderVolumeSlider(h)
+            ])
+          ]
+          let d = slot(this, 'controls')
+
+          return h(a, b, c, d)
+        }
       },
 
-      __renderVolumeSlider (h) {
+      __renderVolumeButton(h) {
+        let volume = this.$slots.volume
+        if (volume !== void 0) {
+          return volume
+        } else {
+          let a = QBtn
+          let b = {
+            staticClass: 'q-media__controls--button',
+            props: {
+              icon: this.volumeIcon,
+              textColor: this.color,
+              size: '1rem',
+              disable: !this.state.playReady,
+              flat: true
+            },
+            on: {
+              click: this.toggleMuted
+            }
+          }
+          let c = [
+            this.showTooltips && !this.state.muted && h(QTooltip, this.lang.mediaPlayer.mute),
+            this.showTooltips && this.state.muted && h(QTooltip, this.lang.mediaPlayer.unmute)
+          ]
+          let d = slot(this, 'volume')
+
+          return h(a, b, c, d)
+        }
+      },
+
+      __renderVolumeSlider(h) {
         if (this.hideVolumeSlider === true) {
           return ''
         }
-        return h(QSlider, {
-          staticClass: 'col',
-          style: {
-            width: '20%',
-            margin: '0 0.5rem',
-            minWidth: this.dense ? '20px' : '50px',
-            maxWidth: this.dense ? '50px' : '200px'
-          },
-          props: {
-            value: this.state.volume,
-            color: this.color,
-            dark: this.dark,
-            min: 0,
-            max: 100,
-            disable: !this.state.playReady || this.state.muted
-          },
-          on: {
-            input: this.__volumePercentChanged
-          }
-        }, slot(this, 'volumeSlider'))
+
+        let volumeSlider = this.$slots.volumeSlider
+        if (volumeSlider !== void 0) {
+          return volumeSlider
+        } else {
+          return h(QSlider, {
+            staticClass: 'col',
+            style: {
+              width: '20%',
+              margin: '0 0.5rem',
+              minWidth: this.dense ? '20px' : '50px',
+              maxWidth: this.dense ? '50px' : '200px'
+            },
+            props: {
+              value: this.state.volume,
+              color: this.color,
+              dark: this.dark,
+              min: 0,
+              max: 100,
+              disable: !this.state.playReady || this.state.muted
+            },
+            on: {
+              input: this.__volumePercentChanged
+            }
+          }, slot(this, 'volumeSlider'))
+        }
       },
 
-      __renderSettingsButton (h) {
+      __renderSettingsButton(h) {
         let settingsSlot = this.$slots.settings
         if (settingsSlot !== void 0) {
           return settingsSlot
@@ -1210,103 +1287,139 @@ export default function (ssrContext) {
         }
       },
 
-      __renderFullscreenButton (h) {
-        return h(QBtn, {
-          staticClass: 'q-media__controls--button',
-          props: {
-            icon: this.state.inFullscreen ? this.iconSet.mediaPlayer.fullscreenExit : this.iconSet.mediaPlayer.fullscreen,
-            textColor: this.color,
-            size: '1rem',
-            disable: !this.state.playReady,
-            flat: true
-          },
-          on: {
-            click: this.toggleFullscreen
-          }
-        }, [
-          this.showTooltips && h(QTooltip, this.lang.mediaPlayer.toggleFullscreen)
-        ], slot(this, 'fullscreen'))
-      },
-
-      __renderLoader (h) {
-        if (this.spinnerSize === void 0) {
-          if (this.isVideo) this.state.spinnerSize = '5em'
-          else this.state.spinnerSize = '3em'
+      __renderFullscreenButton(h) {
+        let fullscreen = this.$slots.fullscreen
+        if (fullscreen !== void 0) {
+          return fullscreen
         } else {
-          this.state.spinnerSize = this.spinnerSize
-        }
-
-        return h('div', {
-          staticClass: this.isVideo ? 'q-media__loading--video' : 'q-media__loading--audio'
-        }, [
-          h(QSpinner, {
+          return h(QBtn, {
+            staticClass: 'q-media__controls--button',
             props: {
-              size: this.state.spinnerSize,
-              color: this.color
+              icon: this.state.inFullscreen ? this.iconSet.mediaPlayer.fullscreenExit : this.iconSet.mediaPlayer.fullscreen,
+              textColor: this.color,
+              size: '1rem',
+              disable: !this.state.playReady,
+              flat: true
+            },
+            on: {
+              click: this.toggleFullscreen
             }
-          })
-        ], slot(this, 'spinner'))
+          }, [
+            this.showTooltips && h(QTooltip, this.lang.mediaPlayer.toggleFullscreen)
+          ], slot(this, 'fullscreen'))
+        }
       },
 
-      __renderBigPlayButton (h) {
-        return h('div', {
-          staticClass: 'q-media--big-button'
-        }, [
-          h(QIcon, {
-            props: {
-              name: this.iconSet.mediaPlayer.bigPlayButton,
-              color: this.color
-            },
-            staticClass: 'q-media--big-button-icon',
-            on: {
-              click: this.__bigButtonClick
-            },
-            directives: [
-              {
+      __renderLoader(h) {
+        let spinner = this.$slots.spinner
+        if (spinner !== void 0) {
+          return spinner
+        } else {
+          if (this.spinnerSize === void 0) {
+            if (this.isVideo) this.state.spinnerSize = '5em'
+            else this.state.spinnerSize = '3em'
+          } else {
+            this.state.spinnerSize = this.spinnerSize
+          }
+
+          return h('div', {
+            staticClass: this.isVideo ? 'q-media__loading--video' : 'q-media__loading--audio'
+          }, [
+            h(QSpinner, {
+              props: {
+                size: this.state.spinnerSize,
+                color: this.color
+              }
+            })
+          ], slot(this, 'spinner'))
+        }
+      },
+
+      __renderBigPlayButton(h) {
+        let bigPlayButton = this.$slots.bigPlayButton
+        if (bigPlayButton !== void 0) {
+          return bigPlayButton
+        } else {
+          return h('div', {
+            staticClass: 'q-media--big-button'
+          }, [
+            h(QIcon, {
+              props: {
+                name: this.iconSet.mediaPlayer.bigPlayButton,
+                color: this.color
+              },
+              staticClass: 'q-media--big-button-icon',
+              on: {
+                click: this.__bigButtonClick
+              },
+              directives: [{
                 name: 'ripple',
                 value: true
-              }
-            ]
-          })
-        ], slot(this, 'bigPlayButton'))
+              }]
+            })
+          ], slot(this, 'bigPlayButton'))
+        }
       },
 
-      __renderCurrentTimeSlider (h) {
-        return h(QSlider, {
-          staticClass: 'col',
-          style: {
-            width: '100%',
-            margin: '0 0.5rem'
-          },
-          props: {
-            value: this.state.currentTime,
-            color: this.color,
-            dark: this.dark,
-            min: 0.01,
-            max: this.state.duration ? this.state.duration : 1,
-            disable: !this.state.playReady
-          },
-          on: {
-            input: this.__videoCurrentTimeChanged
+      __renderCurrentTimeSlider(h) {
+        let positionSlider = this.$slots.positionSlider
+        if (positionSlider !== void 0) {
+          return positionSlider
+        } else {
+          return h(QSlider, {
+            staticClass: 'col',
+            style: {
+              width: '100%',
+              margin: '0 0.5rem'
+            },
+            props: {
+              value: this.state.currentTime,
+              color: this.color,
+              dark: this.dark,
+              min: 0.01,
+              max: this.state.duration ? this.state.duration : 1,
+              disable: !this.state.playReady
+            },
+            on: {
+              input: this.__videoCurrentTimeChanged
+            }
+          }, slot(this, 'positionSlider'))
+        }
+      },
+
+      __renderDisplayTime(h) {
+        let displayTime = this.$slots.displayTime
+        if (displayTime !== void 0) {
+          return displayTime
+        } else {
+          let a = 'span'
+          let b = {
+            staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
           }
-        }, slot(this, 'positionSlider'))
+          let c = this.state.displayTime
+          let d = slot(this, 'displayTime')
+
+          return h(a, b, c, d)
+        }
       },
 
-      __renderDisplayTime (h) {
-        return h('span', {
-          staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
-        }, this.state.displayTime, slot(this, 'displayTime'))
-        // TODO: syntax on above line??
+      __renderDurationTime(h) {
+        let durationTime = this.$slots.durationTime
+        if (durationTime !== void 0) {
+          return durationTime
+        } else {
+          let a = 'span'
+          let b = {
+            staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
+          }
+          let c = this.state.durationTime
+          let d = slot(this, 'durationTime')
+
+          return h(a, b, c, d)
+        }
       },
 
-      __renderDurationTime (h) {
-        return h('span', {
-          staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
-        }, this.state.durationTime, slot(this, 'durationTime'))
-        // TODO: syntax on above line??
-      },
-
-      __renderSettingsMenu (h) {
+      __renderSettingsMenu(h) {
         let settingsMenuSlot = this.$slots.settingsMenu
         return h(QMenu, {
           ref: 'menu',
@@ -1356,8 +1469,7 @@ export default function (ssrContext) {
                         this.__playbackRateChanged(rate.value)
                       }
                     },
-                    directives: [
-                      {
+                    directives: [{
                         name: 'ripple',
                         value: true
                       },
@@ -1415,8 +1527,7 @@ export default function (ssrContext) {
                         this.__trackLanguageChanged(language.value)
                       }
                     },
-                    directives: [
-                      {
+                    directives: [{
                         name: 'ripple',
                         value: true
                       },
@@ -1447,7 +1558,7 @@ export default function (ssrContext) {
       }
     },
 
-    render (h) {
+    render(h) {
       return h('div', {
         staticClass: 'q-media bg-' + this.backgroundColor,
         class: this.classes,
