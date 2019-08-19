@@ -1,8 +1,8 @@
 {
-  "name": "quasar-app-extension-qmediaplayer-test",
+  "name": "quasar-app-extension-qmediaplayer",
   "version": "0.0.3",
   "description": "QMediaPlayer App Extension for Quasar",
-  "productName": "QMediaPlayer docs/demo",
+  "productName": "QMediaPlayer  docs, examples and demo site",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Hawkeye64 <jeff@quasar.dev>",
   "private": true,
@@ -18,12 +18,13 @@
   },
   "devDependencies": {
     "@quasar/app": "^1.0.4",
-    "@quasar/quasar-app-extension-qmarkdown": "^1.0.0-beta.13",
+    "@quasar/quasar-app-extension-qmarkdown": "^1.0.0-beta.18",
     "@quasar/quasar-app-extension-qmediaplayer": "file:../.",
-    "@quasar/quasar-app-extension-qribbon": "^1.0.0-alpha.10",
+    "@quasar/quasar-app-extension-qpublish": "../../app-extension-qpublish",
+    "@quasar/quasar-app-extension-qribbon": "^1.0.0-beta.3",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.2",
-    "eslint": "^6.1.0",
+    "eslint": "^6.2.0",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-vue": "^5.2.3",
     "quasar-app-extension-qautomate": "^1.0.0-alpha.4"

@@ -28,6 +28,30 @@ Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer
 # Demo Project (source)
 Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
 
+# Language Files
+
+We need help translating the language files. They are all currently using English. If you know another language, please PR and help us out.
+
+## Completed languages
+- English
+- German/Deutsch ([@mstaack](https://github.com/mstaack)/[@smolinari](https://github.com/smolinari))
+- Polish/Polski ([@kubawolanin](https://github.com/kubawolanin))
+- Chinese/中文 ([@songzhi](https://github.com/songzhi))
+- Dutch ([stefanvanherwijnen](https://github.com/stefanvanherwijnen))
+- Čeština ([@valasek](https://github.com/valasek))
+- Slovenčina ([@valasek](https://github.com/valasek))
+- Português (BR) ([TobyMosque](https://github.com/TobyMosque))
+- 中文(繁體) ([618457](https://github.com/618457))
+- Română ([@pdanpdan](https://github.com/pdanpdan)/[@rstoenescu](https://github.com/rstoenescu))
+- Slovenski Jezik ([@borutjures](https://github.com/borutjures))
+- العربية (Arabic) (Khalid)
+- Français ([@fmarquis](https://github.com/fmarquis)
+- Español ([@luismiguelgilbert](https://github.com/luismiguelgilbert))
+- Svensk ([@Someone92](https://github.com/Someone92))
+- русский/Russian ([@Dmitrij-Polyanin](https://github.com/Dmitrij-Polyanin))
+- 日本語 (にほんご) ([@mesqueeb](https://github.com/mesqueeb))
+- 한국어 ([@bichikim](https://github.com/bichikim))
+
 
 # Example Code
 
@@ -128,65 +152,7 @@ audio: {
 }
 ```
 
-# Language Files
-
-We need help translating the language files. They are all currently using English. If you know another language, please PR and help us out.
-
-## Completed languages
-- English
-- German/Deutsch ([@mstaack](https://github.com/mstaack)/[@smolinari](https://github.com/smolinari))
-- Polish/Polski ([@kubawolanin](https://github.com/kubawolanin))
-- Chinese/中文 ([@songzhi](https://github.com/songzhi))
-- Dutch ([stefanvanherwijnen](https://github.com/stefanvanherwijnen))
-- Čeština ([@valasek](https://github.com/valasek))
-- Slovenčina ([@valasek](https://github.com/valasek))
-- Português (BR) ([TobyMosque](https://github.com/TobyMosque))
-- 中文(繁體) ([618457](https://github.com/618457))
-- Română ([@pdanpdan](https://github.com/pdanpdan)/[@rstoenescu](https://github.com/rstoenescu))
-- Slovenski Jezik ([@borutjures](https://github.com/borutjures))
-- العربية (Arabic) (Khalid)
-- Français ([@fmarquis](https://github.com/fmarquis)
-- Español ([@luismiguelgilbert](https://github.com/luismiguelgilbert))
-- Svensk ([@Someone92](https://github.com/Someone92))
-- русский/Russian ([@Dmitrij-Polyanin](https://github.com/Dmitrij-Polyanin))
-- 日本語 (にほんご) ([@mesqueeb](https://github.com/mesqueeb))
-- 한국어 ([@bichikim](https://github.com/bichikim))
----
-
-# QMediaPlayer Vue Properties
-
-| Property | Type	| Mode | Description |
-|---|---|---|---|
-| type | String | Both | ['video','audio'] This determines the type of player. (Default: 'video') |
-| color | String | Both | One from Quasar Color Palette. It determines the color of the MediaPlayer controls. (Default: 'white') |
-mobile-mode	| Boolean	| Video	| In normal mode, the controls show/hide with mouse movements. When set to true, the controls' visibility is controlled by touch/click. (Default: false) |
-| source | String | Both | if this is set, then the `video.src` or `audio.src` will be set directly and the `sources` attribute will be ignored |
-| sources	| Array | Both | Required if `source` is not set. This is an array of one or more objects, that looks like this: { **src**: 'https://your-server/your-video.mov', **type**:  'video/mp4' } |
-| poster | String | Video |The poster image to display before the video is started |
-| tracks | Array | Video | This is an array of one or more objects, that looks like this: { **src**: 'https://your-server//path-to-subtitles-en.vtt', **kind**: 'subtitles', **srclang**: 'en', **label**: 'English } |
-| track-language | String | Video | A value that corresponds to the **'label'** attribute of the **'tracks'** property. This will be the default language. |
-| preload | String | Both | ['none', 'metadata', 'auto'] Provides a hint to the browser about what the author thinks will lead to the best user experience. (Default: 'metadata') |
-| dense | Boolean | Both | When true displays controls window on one line |
-| hide-volume-slider | Boolean | Both | When true the volume slider control will be hidden |
-| dark | Boolean | Both | When component is rendered on a dark background |
-| autoplay | Boolean | Both | Automatically start video/audio when it is ready to play. (Default: false) |
-| cross-origin | String,null | Both | [null, 'anonymous', 'use-credentials'] |
-| volume | Number | Both | A value from 0-100 (as a percentage). (Default: 60) |
-| muted | Boolean | Both | If the player should be muted. (Default: false) |
-| playsinline | Boolean | Both | If the player should be inline (see video element playsinline) |
-| loop | Boolean | Both | If the player should automatically seek back to the start upon reaching the end of the video |
-| show-big-play-button | Boolean | Video | Show/hide the Big Play Button. (Default: true) |
-| show-spinner | Boolean | Both | If the spinner should be displayed while video/audio is loading. (Default: true) |
-| spinner-size | String | Both | Pass a CSS unit to change spinner size. (Default: '5em' for video, '3em' for audio) |
-| controls-display-time | Number | Video | The amount of idle time in milliseconds to wait before hiding the controls (default 2000). This is applied when the mouse cursor is within the QMediaPlayer window but has not moved |
-| no-controls | Boolean | Video | If set to true, the controls will never be displayed. This is useful if you want full control. Your controls can be on another place on your page |
-| playback-rates | Array | Video | This is an array of one or more objects, that look like this: { **label**: '.5x', **value**: 0.5 }. **Note:** The default playbackRates include 0.5, 1, 1.5 and 2.0." |
-| playback-rate | Number | Video | Corresponds to the value in playback-rates |
-| background-color | String | Both | One from Quasar Color Palette. It determines the background color of the MediaPlayer. (Default: 'black') |
-| content-class | [String, Object, Array] | Both | Class definitions to be attributed to the media player |
-| content-style | [String, Object, Array] | Both | Style definitions to be attributed to the media player |
-
-**cross-origin:**
+## cross-origin
 
 Whether to use CORS for fetching assets.
 
@@ -196,7 +162,7 @@ Whether to use CORS for fetching assets.
 
 For more detailed information [go here](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes).
 
-**preload:**
+## preload
 
 This enumerated attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience. It may have one of the following values:
 
@@ -206,41 +172,6 @@ This enumerated attribute is intended to provide a hint to the browser about wha
 
 For more detailed information [go here](https://html.spec.whatwg.org/multipage/media.html#attr-media-preload).
 
-# QMediaPlayer Vue Methods
-
-| Method | Mode | Description |
-|---|---|---|
-| showControls() | Video | Show the controls |
-| hideControls() | Video | Hide the controls |
-| toggleControls() | Video | Toggle the controls |
-| togglePlay() | Both | Toggles between play/pause states |
-| toggleMuted() | Both | Toggles between mute/unmute states |
-| toggleFullscreen() | Video | Toggle fullscreen mode |
-| currentTime() | Both | Returns the current time of the video/audio player (in seconds). If audio or video is not ready, a -1 is returned |
-| setCurrentTime(seconds) | Both | Set the current time of the video/audio player (in seconds) |
-| setVolume(percent) | Both | Sets the volume as a percent (0-100) |
-
-# QMediaPlayer Vue Events
-
-| Event | Mode | Description |
-|---|---|---|
-| @mediaPlayer() | Both | Emitted when the media player has been secured. This gives you direct access to the HTMLMediaElement, which you can manipulate, but be careful - recommended only for extreme programmers |
-| @abort() | Both | Emitted when the process has been aborted (usually by the user) |
-| @networkState() | Both | Emitted when the networkSate has changed |
-| @loaded() | Both | Emitted when the media has been loaded |
-| @ready() | Both | Emitted when the media is ready to play. You cannot play/pause or setCurrentTime before this event |
-| @duration(seconds) | Both | Emitted when the duration of the media has been determined |
-| @ended() | Both | Emitted when the media has finished playing |
-| @error(MediaError) | Both | Emitted when there is a media error |
-| @paused() | Both | Emitted when the media is paused |
-| @playing() | Both | Emitted when the media starts playing. This will also emit after a pause or a wait |
-| @timeupdate(curTime, remaining) | Both | Emitted wenever there is a time update (during play) |
-| @fullscreen(true/false) | Video | Emitted when entering/exiting fullscreen mode |
-| @waiting() | Both | Emitted when the media player goes into a wait state (typically waiting while downloading) |
-| @showControls(true/false) | Video | Emitted when the Controls are toggled (show/hide) |
-| @volume(percent) | Both | Emitted when the volume changes |
-| @muted(true/false) | Both | Emitted when the mute changes |
-
 ## networkState
 ```js
   const unsigned short NETWORK_EMPTY = 0;
@@ -248,29 +179,3 @@ For more detailed information [go here](https://html.spec.whatwg.org/multipage/m
   const unsigned short NETWORK_LOADING = 2;
   const unsigned short NETWORK_NO_SOURCE = 3;
 ```
-
-# QMediaPlayer Vue Slots
-
-| Slots | Mode | Description |
-|---|---|---|
-| old-browser | Both | When the browser does not support HTML5 (or has Javascript turned off) |
-| overlay | Both | Used to overlay any HTML over the media window |
-| error-window | Both | Used to display an error |
-| controls | Both | With this slot all of the controls can be replaced |
-| spinner | Both | With this slot the loading spinner can be replaced |
-| big-play-button | Video | With this slot the Big Play Button can be replaced |
-| display-time | Both | With this slot the display time can be replaced |
-| position-slider | Both | With this slot the positioning slider can be replaced |
-| duration-time | Both | With this slot the duration time can be replaced |
-| play | Both | With this slot the play button can be replaced |
-| volume | Both | With this slot the volume mute/unmute button can be replaced |
-| volume-slider | Both | With this slot the volume slider can be replaced |
-| settings | Video | With this slot the Settings icon can be replaced |
-| settings-menu | Video | With this slot the Settings Menu can be replaced |
-| fullscreen | Video | With this slot the Fullscreen icon can be replaced |
-
-# Donate
-If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
-
----
-This page created with [QMarkdown](https://quasarframework.github.io/app-extension-qmarkdown), another great Quasar App Extension.

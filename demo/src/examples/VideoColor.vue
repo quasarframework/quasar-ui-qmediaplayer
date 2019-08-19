@@ -2,7 +2,8 @@
   <q-media-player
     type="video"
     :sources="sources"
-    color='orange-8'
+    color="orange-8"
+    big-play-button-color="yellow-8"
   />
 </template>
 

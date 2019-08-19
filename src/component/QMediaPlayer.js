@@ -1,7 +1,10 @@
 import Vue from 'vue'
 
-// classList polyfill
-import 'classlist-polyfill'
+// Styles
+import './media-player.styl'
+
+// Utils
+import { Colorize } from 'quasar-mixin-colorize'
 
 import {
   QSlider,
@@ -46,6 +49,8 @@ export default function (ssrContext) {
       ClosePopup,
       Ripple
     },
+
+    mixins: [Colorize],
 
     props: {
       type: {
@@ -121,6 +126,10 @@ export default function (ssrContext) {
       backgroundColor: {
         type: String,
         default: 'black'
+      },
+      bigPlayButtonColor: {
+        type: String,
+        default: 'white'
       },
       dark: Boolean,
       radius: {
@@ -1260,13 +1269,12 @@ export default function (ssrContext) {
       __renderBigPlayButton (h) {
         let slot = this.$slots.bigPlayButton
 
-        return h('div', {
+        return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
           staticClass: 'q-media--big-button'
-        }, [
-          slot || h(QIcon, {
+        }), [
+          h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
             props: {
-              name: this.iconSet.mediaPlayer.bigPlayButton,
-              color: this.color
+              name: this.iconSet.mediaPlayer.bigPlayButton
             },
             staticClass: 'q-media--big-button-icon',
             on: {
@@ -1278,7 +1286,7 @@ export default function (ssrContext) {
                 value: true
               }
             ]
-          })
+          }))
         ])
       },
 

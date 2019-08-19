@@ -3,28 +3,33 @@
   "props": {
     "type": {
       "type": "String",
-      "desc": "Tells the component which player is to be used",
+      "desc": "[Both] Tells the component which player is to be used",
       "default": "video",
       "values": [ "video", "audio" ],
       "examples": [ "video" ]
     },
     "color": {
       "type": "String",
-      "desc": "Color name for component from the Quasar Color Palette",
+      "desc": "[Both] Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
       "examples": [ "primary", "teal-10" ]
     },
     "background-color": {
       "type": "String",
-      "desc": "Color name for component from the Quasar Color Palette",
+      "desc": "[Both] Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
       "examples": [ "black", "teal-10" ]
+    },
+    "big-play-button-color": {
+      "type": "String",
+      "desc": "[Video] Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
+      "examples": [ "primary", "teal-10" ]
     },
     "mobile-mode": {
       "type": "Boolean",
-      "desc": "Use mobile logic for handling visibility of controls"
+      "desc": "[Video] Use mobile logic for handling visibility of controls"
     },
     "sources": {
       "type": "Array",
-      "desc": "The one or more sources for Video or Audio",
+      "desc": "[Both] The one or more sources for Video or Audio",
       "definition": {
         "src": {
           "type": "String",
@@ -38,14 +43,19 @@
       },
       "examples": [ "[{ src: 'https://your-server/your-video.mov', type: 'video/mp4' }]", "[{ src: 'https://your-server/your-audio.mp3', type: 'audio/mp3' }]" ]
     },
+    "source": {
+      "type": "String",
+      "desc": "[Both] if this is set, then the `video.src` or `audio.src` will be set directly and the `sources` attribute will be ignored",
+      "examples": [ "https://path/to/the/image.jpg" ]
+    },
     "poster": {
       "type": "String",
-      "desc": "[Video only] The poster image to display before the video is loaded",
+      "desc": "[Video] The poster image to display before the video is loaded",
       "examples": [ "https://path/to/the/image.jpg" ]
     },
     "tracks": {
       "type": "Array",
-      "desc": "[Video only] The one or more tracks for subtitle, captions, etc",
+      "desc": "[Video] The one or more tracks for subtitle, captions, etc",
       "definition": {
         "src": {
           "type": "String",
@@ -71,74 +81,84 @@
     },
     "track-language": {
       "type": "String",
-      "desc": "[Video only] A value that corresponds to the 'label' attribute of the 'tracks' property. This will be the default language",
+      "desc": "[Video] A value that corresponds to the 'label' attribute of the 'tracks' property. This will be the default language",
       "examples": [ "English" ]
     },
     "preload": {
       "type": "String",
-      "desc": "[Video only] Provides a hint to the browser about what the author thinks will lead to the best user experience",
+      "desc": "[Video] Provides a hint to the browser about what the author thinks will lead to the best user experience",
       "default": "metadata",
       "values": [ "none", "metadata", "auto" ],
       "examples": [ "metadata" ]
     },
     "dense": {
       "type": "Boolean",
-      "desc": "When true displays controls window on one line"
+      "desc": "[Both] When true displays controls window on one line"
     },
     "hide-volume-slider": {
       "type": "Boolean",
-      "desc": "When true the volume slider control will be hidden"
+      "desc": "[Both] When true the volume slider control will be hidden"
     },
     "dark": {
       "type": "Boolean",
-      "desc": "When component is rendered on a dark background"
+      "desc": "[Both] When component is rendered on a dark background"
     },
     "autoplay": {
       "type": "Boolean",
-      "desc": "Automatically start video/audio when it is ready to play"
+      "desc": "[Both] Automatically start video/audio when it is ready to play"
     },
     "cross-origin": {
       "type": [ "String", "Null" ],
-      "desc": "Whether to use CORS for fetching assets",
+      "desc": "[Both] Whether to use CORS for fetching assets",
       "values": [ "null", "anonymous", "use-credentials" ],
       "examples": [ "anonymous" ]
     },
     "volume": {
       "type": "Number",
-      "desc": "A value from 0-100 (as a percentage)",
+      "desc": "[Both] A value from 0-100 (as a percentage)",
       "default": "60",
       "examples": [ "50", "75" ]
     },
     "muted": {
       "type": "Boolean",
-      "desc": "If the player should be muted"
+      "desc": "[Both] If the player should be muted"
     },
-    "inline": {
+    "playsinline": {
       "type": "Boolean",
-      "desc": "If the player should be inline (see video element playsinline)"
+      "desc": "[Both] If the player should be inline (see video element playsinline)"
     },
     "loop": {
       "type": "Boolean",
-      "desc": "If the player should automatically seek back to the start upon reaching the end of the video"
+      "desc": "[Both] If the player should automatically seek back to the start upon reaching the end of the video"
     },
     "show-big-play-button": {
       "type": "Boolean",
-      "desc": "Show/hide the Big Play Button",
+      "desc": "[Video] Show/hide the Big Play Button",
+      "default": "true"
+    },
+    "show-spinner": {
+      "type": "Boolean",
+      "desc": "[Both] If the spinner should be displayed while video/audio is loading",
+      "default": "true"
+    },
+    "spinner-size": {
+      "type": "String",
+      "desc": "[Both] Pass a CSS unit to change spinner size. (Default: ‘5em’ for video, ‘3em’ for audio)",
       "default": "true"
     },
     "controls-display-time": {
       "type": "Number",
-      "desc": "The amount of idle time in milliseconds to wait before hiding the controls",
+      "desc": "[Video] The amount of idle time in milliseconds to wait before hiding the controls",
       "default": "2000",
       "examples": [ "3000" ]
     },
     "no-controls": {
       "type": "Boolean",
-      "desc": "If set to true, the controls will never be displayed"
+      "desc": "[Video] If set to true, the controls will never be displayed"
     },
     "playback-rates": {
       "type": "Array",
-      "desc": "[Video only] This is an array of one or more objects for playback rate (speed)",
+      "desc": "[Video] This is an array of one or more objects for playback rate (speed)",
       "definition": {
         "label": {
           "type": "String",
@@ -157,13 +177,13 @@
     },
     "playback-rate": {
       "type": "Number",
-      "desc": "Corresponds to the value in playback-rates",
+      "desc": "[Video] Corresponds to the value in playback-rates",
       "default": "0.5",
       "examples": [ "2" ]
     },
     "content-class": {
       "type": [ "Array", "String", "Object" ],
-      "desc": "Class definitions to be attributed to the markdown container",
+      "desc": "[Both] Class definitions to be attributed to the media player container",
       "examples": [
         "my-special-class",
         ":content-class=\"{ 'my-special-class': <condition> }\""
@@ -171,7 +191,7 @@
     },
     "content-style": {
       "type": [ "Array", "String", "Object" ],
-      "desc": "Style definitions to be attributed to the markdown container",
+      "desc": "[Both] Style definitions to be attributed to the media player container",
       "examples": [
         "background-color: #ff0000",
         ":content-style=\"{ backgroundColor: '#ff0000' }\""
@@ -181,13 +201,13 @@
   },
   "events": {
     "loaded": {
-      "desc": "Emitted when the media has been loaded"
+      "desc": "[Both] Emitted when the media has been loaded"
     },
     "ready": {
-      "desc": "Emitted when the media is ready to play. You cannot play/pause or setCurrentTime before this event"
+      "desc": "[Both] Emitted when the media is ready to play. You cannot play/pause or setCurrentTime before this event"
     },
     "duration": {
-      "desc": "Emitted when the duration of the media has been determined",
+      "desc": "[Both] Emitted when the duration of the media has been determined",
       "params": {
         "seconds": {
           "type": "Number",
@@ -196,19 +216,25 @@
       }
     },
     "ended": {
-      "desc": "Emitted when the media has finished playing"
+      "desc": "[Both] Emitted when the media has finished playing"
     },
     "error": {
-      "desc": "Emitted when there is a media error"
+      "desc": "[Both] Emitted when there is a media error",
+      "params": {
+        "MediaError": {
+          "type": "Object",
+          "desc": "For more information, look up `MediaError` from HTML 5 spec"
+        }
+      }
     },
     "paused": {
-      "desc": "Emitted when the media is paused"
+      "desc": "[Both] Emitted when the media is paused"
     },
     "playing": {
-      "desc": "Emitted when the media starts playing. This will also emit after a pause or a wait"
+      "desc": "[Both] Emitted when the media starts playing. This will also emit after a pause or a wait"
     },
     "timeupdate": {
-      "desc": "Emitted wenever there is a time update (during play)",
+      "desc": "[Both] Emitted wenever there is a time update (during play)",
       "params": {
         "curTime": {
           "type": "Number",
@@ -221,7 +247,7 @@
       }
     },
     "fullscreen": {
-      "desc": "Emitted when entering/exiting fullscreen mode",
+      "desc": "[Video] Emitted when entering/exiting fullscreen mode",
       "params": {
         "showing": {
           "type": "Boolean",
@@ -230,10 +256,10 @@
       }
     },
     "waiting": {
-      "desc": "Emitted when the media player goes into a wait state (typically waiting while downloading)"
+      "desc": "[Both] Emitted when the media player goes into a wait state (typically waiting while downloading)"
     },
     "showControls": {
-      "desc": "Emitted when the Controls are toggled",
+      "desc": "[Video] Emitted when the Controls are toggled",
       "params": {
         "showing": {
           "type": "Boolean",
@@ -242,10 +268,14 @@
       }
     },
     "volume": {
-      "desc": "Emitted when the volume changes"
+      "desc": "[Both] Emitted when the volume changes",
+      "params": {
+        "type": "Number",
+        "desc": "The value as a percent"
+      }
     },
     "muted": {
-      "desc": "Emitted when the mute changes",
+      "desc": "[Both] Emitted when the mute changes",
       "params": {
         "showing": {
           "type": "Boolean",
@@ -256,52 +286,52 @@
   },
   "methods": {
     "showControls": {
-      "desc": "Show the controls. Has no effect is already being displayed"
+      "desc": "[Video] Show the controls. Has no effect is already being displayed"
     },
     "hideControls": {
-      "desc": "Hide the controls. Has no effect is already being hidden"
+      "desc": "[Video] Hide the controls. Has no effect is already being hidden"
     },
     "toggleControls": {
-      "desc": "Toggle the controls"
+      "desc": "[Video] Toggle the controls"
     },
     "togglePlay": {
-      "desc": "Toggles between play/pause states"
+      "desc": "[Both] Toggles between play/pause states"
     },
     "toggleMuted": {
-      "desc": "Toggles between mute/unmute states"
+      "desc": "[Both] Toggles between mute/unmute states"
     },
     "toggleFullscreen": {
-      "desc": "Toggles fullscreen mode"
+      "desc": "[Video] Toggles fullscreen mode"
     },
     "setCurrentTime": {
+      "desc": "[Both] Set the current time of the video/audio player (in seconds)",
       "params": {
         "seconds": {
           "type": "Number",
           "required": true,
           "desc": "The time in seconds"
         }
-      },
-      "desc": "Set the current time of the video/audio player (in seconds)"
+      }
     },
     "setVolume": {
+      "desc": "[Both] Sets the volume as a percent (0-100).",
       "params": {
         "percent": {
           "type": "Number",
           "required": true,
           "desc": "The volume in percent"
         }
-      },
-      "desc": "Sets the volume as a percent (0-100)."
+      }
     }
   },
   "slots": {
-    "old-browser": {
+    "oldbrowser": {
       "desc": "Slot for replacing the default old browser text"
     },
     "overlay": {
       "desc": "Slot for replacing the default overlay"
     },
-    "error-window": {
+    "errorWindow": {
       "desc": "Slot for replacing the default error window"
     },
     "controls": {
@@ -310,16 +340,16 @@
     "spinner": {
       "desc": "Slot for replacing the default spinner/loading icon"
     },
-    "big-play-button": {
+    "bigPlayButton": {
       "desc": "Slot for replacing the default big play button icon"
     },
-    "display-time": {
+    "displayTime": {
       "desc": "Slot for replacing the default display time"
     },
-    "position-slider": {
+    "positionSlider": {
       "desc": "Slot for replacing the default positioning slider"
     },
-    "duration-time": {
+    "durationTime": {
       "desc": "Slot for replacing the default duration time"
     },
     "play": {
@@ -328,13 +358,13 @@
     "volume": {
       "desc": "Slot for replacing the default volume icon"
     },
-    "volume-slider": {
+    "volumeSlider": {
       "desc": "Slot for replacing the default volume slider"
     },
     "settings": {
       "desc": "Slot for replacing the default settings icon"
     },
-    "settings-menu": {
+    "settingsMenu": {
       "desc": "Slot for replacing the default Settings menu"
     },
     "fullscreen": {
