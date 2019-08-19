@@ -2,7 +2,7 @@
   <hero>
     <q-markdown :src="markdown" toc @data="onToc" />
     <component-api
-      title="QMediaPlayer"
+      title="QMediaPlayer API"
       :json="json"
     />
     <q-markdown>
@@ -55,7 +55,7 @@ export default {
   methods: {
     onToc (toc) {
       // add the manual ones
-      toc.push({ id: 'QMediaPlayer%20API', label: 'QMediaPlayer API', level: 1, children: Array(0) })
+      toc.push({ id: 'QMediaPlayer-API', label: 'QMediaPlayer API', level: 1, children: Array(0) })
       toc.push({ id: 'Donate', label: 'Donate', level: 1, children: Array(0) })
 
       this.toc = toc
