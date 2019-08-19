@@ -20,7 +20,7 @@
     "@quasar/app": "^1.0.4",
     "@quasar/quasar-app-extension-qmarkdown": "^1.0.0-beta.18",
     "@quasar/quasar-app-extension-qmediaplayer": "file:../.",
-    "@quasar/quasar-app-extension-qpublish": "../../app-extension-qpublish",
+    "@quasar/quasar-app-extension-qpublish": "^1.0.0-alpha.2",
     "@quasar/quasar-app-extension-qribbon": "^1.0.0-beta.3",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.2",
