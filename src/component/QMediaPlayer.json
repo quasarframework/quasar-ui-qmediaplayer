@@ -295,13 +295,13 @@
     }
   },
   "slots": {
-    "old-browser": {
+    "oldbrowser": {
       "desc": "Slot for replacing the default old browser text"
     },
     "overlay": {
       "desc": "Slot for replacing the default overlay"
     },
-    "error-window": {
+    "errorWindow": {
       "desc": "Slot for replacing the default error window"
     },
     "controls": {
@@ -310,16 +310,16 @@
     "spinner": {
       "desc": "Slot for replacing the default spinner/loading icon"
     },
-    "big-play-button": {
+    "bigPlayButton": {
       "desc": "Slot for replacing the default big play button icon"
     },
-    "display-time": {
+    "displayTime": {
       "desc": "Slot for replacing the default display time"
     },
-    "position-slider": {
+    "positionSlider": {
       "desc": "Slot for replacing the default positioning slider"
     },
-    "duration-time": {
+    "durationTime": {
       "desc": "Slot for replacing the default duration time"
     },
     "play": {
@@ -328,13 +328,13 @@
     "volume": {
       "desc": "Slot for replacing the default volume icon"
     },
-    "volume-slider": {
+    "volumeSlider": {
       "desc": "Slot for replacing the default volume slider"
     },
     "settings": {
       "desc": "Slot for replacing the default settings icon"
     },
-    "settings-menu": {
+    "settingsMenu": {
       "desc": "Slot for replacing the default Settings menu"
     },
     "fullscreen": {
