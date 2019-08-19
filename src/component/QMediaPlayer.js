@@ -1269,10 +1269,10 @@ export default function (ssrContext) {
       __renderBigPlayButton (h) {
         let slot = this.$slots.bigPlayButton
 
-        return h('div', this.setBorderColor(this.bigPlayButtonColor, {
+        return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
           staticClass: 'q-media--big-button'
         }), [
-          slot || h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
+          h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
             props: {
               name: this.iconSet.mediaPlayer.bigPlayButton
             },
