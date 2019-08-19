@@ -183,7 +183,7 @@
     },
     "content-class": {
       "type": [ "Array", "String", "Object" ],
-      "desc": "[Both] Class definitions to be attributed to the markdown container",
+      "desc": "[Both] Class definitions to be attributed to the media player container",
       "examples": [
         "my-special-class",
         ":content-class=\"{ 'my-special-class': <condition> }\""
@@ -191,7 +191,7 @@
     },
     "content-style": {
       "type": [ "Array", "String", "Object" ],
-      "desc": "[Both] Style definitions to be attributed to the markdown container",
+      "desc": "[Both] Style definitions to be attributed to the media player container",
       "examples": [
         "background-color: #ff0000",
         ":content-style=\"{ backgroundColor: '#ff0000' }\""
