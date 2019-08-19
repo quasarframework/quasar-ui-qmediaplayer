@@ -1,6 +1,6 @@
 <template>
   <hero>
-    <div class="q-markdown">
+    <div>
       <q-markdown>
 > Music courtesy of [Free Music Archive](http://freemusicarchive.org/music/Dee_Yan-Key/years_and_years_ago/01--Dee_Yan-Key-Driving_Home)
 > Videos and subtitles courtesy of [Blender Organization](https://mango.blender.org/download)
@@ -11,7 +11,13 @@
 
       <example-title title="Color" />
       <example-card title="Audio - Color" name="AudioColor" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioColor.vue').default)" />
-      <example-card title="Video - Color" name="VideoColor" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoColor.vue').default)" />
+      <example-card title="Video - Color" name="VideoColor" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoColor.vue').default)">
+        <q-markdown>
+::: tip
+The color of the Big Play Button can also be changed independently
+:::
+        </q-markdown>
+      </example-card>
 
       <example-title title="Background Color" />
       <example-card title="Audio - Background Color" name="AudioBackgroundColor" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioBackgroundColor.vue').default)" />

@@ -127,6 +127,10 @@ export default function (ssrContext) {
         type: String,
         default: 'black'
       },
+      bigPlayButtonColor: {
+        type: String,
+        default: 'white'
+      },
       dark: Boolean,
       radius: {
         type: [Number, String],
@@ -1265,13 +1269,12 @@ export default function (ssrContext) {
       __renderBigPlayButton (h) {
         let slot = this.$slots.bigPlayButton
 
-        return h('div', this.setBorderColor(this.color, {
+        return h('div', this.setBorderColor(this.bigPlayButtonColor, {
           staticClass: 'q-media--big-button'
         }), [
-          slot || h(QIcon, {
+          slot || h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
             props: {
-              name: this.iconSet.mediaPlayer.bigPlayButton,
-              color: this.color
+              name: this.iconSet.mediaPlayer.bigPlayButton
             },
             staticClass: 'q-media--big-button-icon',
             on: {
@@ -1283,7 +1286,7 @@ export default function (ssrContext) {
                 value: true
               }
             ]
-          })
+          }))
         ])
       },
 
