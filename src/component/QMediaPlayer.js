@@ -1,5 +1,11 @@
 import Vue from 'vue'
 
+// Styles
+import './media-player.styl'
+
+// Utils
+import { Colorize } from 'quasar-mixin-colorize'
+
 import {
   QSlider,
   QBtn,
@@ -43,6 +49,8 @@ export default function (ssrContext) {
       ClosePopup,
       Ripple
     },
+
+    mixins: [Colorize],
 
     props: {
       type: {
@@ -1257,9 +1265,9 @@ export default function (ssrContext) {
       __renderBigPlayButton (h) {
         let slot = this.$slots.bigPlayButton
 
-        return h('div', {
+        return h('div', this.setBorderColor(this.color, {
           staticClass: 'q-media--big-button'
-        }, [
+        }), [
           slot || h(QIcon, {
             props: {
               name: this.iconSet.mediaPlayer.bigPlayButton,
