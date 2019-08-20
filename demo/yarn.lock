@@ -960,7 +960,16 @@
     ware-loader "^0.2.4"
 
 "@quasar/quasar-app-extension-qmediaplayer@file:..":
-  version "1.0.5"
+  version "1.0.6"
+  dependencies:
+    quasar-mixin-colorize "^1.0.0-alpha.6"
+
+"@quasar/quasar-app-extension-qpublish@^1.0.0-alpha.3":
+  version "1.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qpublish/-/quasar-app-extension-qpublish-1.0.0-alpha.4.tgz#16800b55e24892d9435b3f1092bf92d25ba38c73"
+  integrity sha512-uO8E97r+iPv4LEMP1Qf8owPeNp7GS2l08zr0L6gEGTS4ryLV1smBz2lBvDG59pk31N1dJWfCxIM5lo9lPumAAw==
+  dependencies:
+    quasar-mixin-colorize "^1.0.0-alpha.6"
 
 "@quasar/quasar-app-extension-qribbon@^1.0.0-beta.3":
   version "1.0.0-beta.3"
@@ -6406,7 +6415,7 @@ quasar-app-extension-qautomate@^1.0.0-alpha.4:
     param-case "^2.1.1"
     ware-loader "^0.2.4"
 
-quasar-mixin-colorize@^1.0.0-alpha.4:
+quasar-mixin-colorize@^1.0.0-alpha.4, quasar-mixin-colorize@^1.0.0-alpha.6:
   version "1.0.0-alpha.6"
   resolved "https://registry.yarnpkg.com/quasar-mixin-colorize/-/quasar-mixin-colorize-1.0.0-alpha.6.tgz#6cd5cdb62d37bf3bde6b740f4ca4d70bf55bfeaf"
   integrity sha512-4G4OFMCv+4tXQ74hMV7V8RA/UhWdj1WDxE7hryjj7p9RDXO9hiGKLDTOR86MtGbkSglIBvNwBsAO6yaKxktiuQ==
