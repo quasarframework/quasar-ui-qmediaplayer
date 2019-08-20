@@ -493,17 +493,17 @@ export default function (ssrContext) {
 
       togglePlay () {
         if (this.$media && this.state.playReady) {
-          this.state.playing = !this.state.playing
           if (this.state.playing) {
+            this.$media.pause()
+            this.state.showBigPlayButton = true
+            this.state.playing = false
+          } else {
             this.$media.play().then(() => {
               this.state.showBigPlayButton = false
               this.state.playing = true
               this.__mouseLeaveVideo()
             })
-          } else {
-            this.$media.pause()
-            this.state.showBigPlayButton = true
-            this.state.playing = false
+              .catch((e) => {})
           }
         }
       },

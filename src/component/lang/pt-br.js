@@ -4,7 +4,7 @@ export default {
     oldBrowserVideo: 'Para ver este vídeo, por favor ative o JavaScript e/ou considere instalar um navegador que suporte vídeos HTML5.',
     oldBrowserAudio: 'Para escutar este áudio, por favor ative o JavaScript e/ou considere instalar um navegador que suporte áudios HTML5.',
     pause: 'Pausar',
-    play: 'Reproduzie',
+    play: 'Reproduzir',
     settings: 'Configurações',
     toggleFullscreen: 'Alternar Tela Cheia',
     mute: 'Silenciar',
