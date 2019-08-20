@@ -499,6 +499,7 @@ export default function (ssrContext) {
               this.state.playing = true
               this.__mouseLeaveVideo()
             })
+              .catch((e) => {})
           } else {
             this.$media.pause()
             this.state.showBigPlayButton = true
