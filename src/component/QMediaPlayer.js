@@ -493,7 +493,6 @@ export default function (ssrContext) {
 
       togglePlay () {
         if (this.$media && this.state.playReady) {
-          this.state.playing = !this.state.playing
           if (this.state.playing) {
             this.$media.play().then(() => {
               this.state.showBigPlayButton = false
