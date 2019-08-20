@@ -151,6 +151,7 @@ audio: {
   ]
 }
 ```
+# Other
 
 ## cross-origin
 
@@ -178,4 +179,27 @@ For more detailed information [go here](https://html.spec.whatwg.org/multipage/m
   const unsigned short NETWORK_IDLE = 1;
   const unsigned short NETWORK_LOADING = 2;
   const unsigned short NETWORK_NO_SOURCE = 3;
+```
+For more detailed information [go here](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/networkState).
+
+# Direct Access
+
+If you find you have a need access to use the underlying media player, you can set up a ref on the QMediaPlayer and access `$media` directly, even capturing and handling events.
+
+```html
+  <q-media-player
+    ref="my-player"
+    ...
+  />
+```
+
+then
+
+```js
+// in code some where
+this.$refs['my-player'].$media
+
+// examples to call native functions:
+// this.$refs['my-player'].$media.pause()
+// this.$refs['my-player'].$media.play()
 ```
