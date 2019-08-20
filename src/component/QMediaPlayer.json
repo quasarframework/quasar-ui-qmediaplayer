@@ -7,29 +7,41 @@
       "default": "video",
       "values": [ "video", "audio" ],
       "applicable": [ "Audio", "Video" ],
-      "examples": [ "video" ]
+      "examples": [
+        "type=\"video\"",
+        "type=\"audio\""
+      ]
     },
     "color": {
       "type": "String",
       "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
       "applicable": [ "Audio", "Video" ],
-      "examples": [ "primary", "teal-10" ]
+      "examples": [
+        "color=\"primary\"",
+        "color=\"teal-10\""
+      ]
     },
     "background-color": {
       "type": "String",
       "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
       "applicable": [ "Audio", "Video" ],
-      "examples": [ "black", "teal-10" ]
+      "examples": [
+        "background-color=\"black\"",
+        "background-color=\"teal-10\""
+      ]
     },
     "big-play-button-color": {
       "type": "String",
       "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
       "applicable": [ "Video" ],
-      "examples": [ "primary", "teal-10" ]
+      "examples": [
+        "big-play-button-color=\"primary\"",
+        "big-play-button-color=\"teal-10\""
+      ]
     },
     "mobile-mode": {
       "type": "Boolean",
-      "desc": "Use mobile logic for handling visibility of controls",
+      "desc": "Use mobile logic for handling visibility of controls. This mode is best for mobiles, but can be used on the desktop as well. It prevents the controls from displaying/hiding with mouse hover. Instead, clicks are used to show/hide the controls",
       "applicable": [ "Video" ]
     },
     "sources": {
@@ -44,26 +56,36 @@
         "type": {
           "type": "String",
           "desc": "The kind of source",
-          "examples": [ "video/mp4", "audio/mp3" ]
+          "examples": [
+            "type='video/mp4'",
+            "type='audio/mp3'"
+          ]
         }
       },
-      "examples": [ "[{ src: 'https://your-server/your-video.mov', type: 'video/mp4' }]", "[{ src: 'https://your-server/your-audio.mp3', type: 'audio/mp3' }]" ]
+      "examples": [
+        ":sources=\"[{ src: 'https://your-server/your-video.mov', type: 'video/mp4' }]\"",
+        ":sources=\"[{ src: 'https://your-server/your-audio.mp3', type: 'audio/mp3' }]\""
+      ]
     },
     "source": {
       "type": "String",
       "desc": "if this is set, then the `video.src` or `audio.src` will be set directly and the `sources` attribute will be ignored",
       "applicable": [ "Audio", "Video" ],
-      "examples": [ "https://path/to/the/image.jpg" ]
+      "examples": [
+        "source=\"https://path/to/the/video.mpeg\""
+      ]
     },
     "poster": {
       "type": "String",
       "desc": "The poster image to display before the video is loaded",
       "applicable": [ "Video" ],
-      "examples": [ "https://path/to/the/image.jpg" ]
+      "examples": [
+        "poster=\"https://path/to/the/image.jpg\""
+      ]
     },
     "tracks": {
       "type": "Array",
-      "desc": "[Video] The one or more tracks for subtitle, captions, etc",
+      "desc": "The one or more tracks for subtitle, captions, etc",
       "applicable": [ "Video" ],
       "definition": {
         "src": {
@@ -73,26 +95,39 @@
         "kind": {
           "type": "String",
           "desc": "The kind of track",
-          "examples": [ "subtitle", "caption" ]
+          "examples": [
+            "kind: 'subtitle'",
+            "kind: 'caption'"
+          ]
         },
         "srclang": {
           "type": "String",
           "desc": "Language identifier",
-          "examples": [ "en", "de" ]
+          "examples": [
+            "srclang: 'en'",
+            "srclang: 'de'"
+          ]
         },
         "label": {
           "type": "String",
           "desc": "Label to use for selection purposes",
-          "examples": [ "English", "Deutsche" ]
+          "examples": [
+            "label: 'English'",
+            "label: 'Deutsche'"
+          ]
         }
       },
-      "examples": [ "[ { src: 'https://your-server//path/to/subtitles-en.vtt', kind: 'subtitles', srclang: 'en', label: 'English } ]" ]
+      "examples": [
+        ":tracks=\"[ { src: 'https://your-server//path/to/subtitles-en.vtt', kind: 'subtitles', srclang: 'en', label: 'English } ]\""
+      ]
     },
     "track-language": {
       "type": "String",
       "desc": "A value that corresponds to the 'label' attribute of the 'tracks' property. This will be the default language",
       "applicable": [ "Video" ],
-      "examples": [ "English" ]
+      "examples": [
+        "track-language=\"English\""
+      ]
     },
     "preload": {
       "type": "String",
@@ -100,7 +135,9 @@
       "default": "metadata",
       "values": [ "none", "metadata", "auto" ],
       "applicable": [ "Video" ],
-      "examples": [ "metadata" ]
+      "examples": [
+        "preload=\"metadata\""
+      ]
     },
     "dense": {
       "type": "Boolean",
@@ -127,14 +164,19 @@
       "desc": "Whether to use CORS for fetching assets",
       "values": [ "null", "anonymous", "use-credentials" ],
       "applicable": [ "Audio", "Video" ],
-      "examples": [ "anonymous" ]
+      "examples": [
+        "cross-origin=\"anonymous\""
+      ]
     },
     "volume": {
       "type": "Number",
       "desc": "A value from 0-100 (as a percentage)",
       "default": "60",
       "applicable": [ "Audio", "Video" ],
-      "examples": [ "50", "75" ]
+      "examples": [
+        ":volume=\"50\"",
+        ":volume=\"75\""
+      ]
     },
     "muted": {
       "type": "Boolean",
@@ -167,14 +209,20 @@
       "type": "String",
       "desc": "Pass a CSS unit to change spinner size. (Default: ‘5em’ for video, ‘3em’ for audio)",
       "default": "true",
-      "applicable": [ "Audio", "Video" ]
+      "applicable": ["Audio", "Video" ],
+      "examples": [
+        "spinner-size=\"5em\"",
+        "spinner-size=\"3em\""
+      ]
     },
     "controls-display-time": {
       "type": "Number",
       "desc": "The amount of idle time in milliseconds to wait before hiding the controls",
       "default": "2000",
       "applicable": [ "Video" ],
-      "examples": [ "3000" ]
+      "examples": [
+        ":controls-display-time=\"3000\""
+      ]
     },
     "no-controls": {
       "type": "Boolean",
@@ -199,21 +247,21 @@
       },
 
       "default": "[ { label: '.5x', value: 0.5 }, { label: 'Normal', value: 1 }, { label: '1.5x', value: 1.5 }, { label: '2x', value: 2 } ]",
-      "examples": [ "[ { label: '.5x', value: 0.5 } ]" ]
+      "examples": [ ":playback-rates=\"[ { label: '.5x', value: 0.5 } ]\"" ]
     },
     "playback-rate": {
       "type": "Number",
       "desc": "Corresponds to the value in playback-rates",
       "default": "0.5",
       "applicable": [ "Video" ],
-      "examples": [ "2" ]
+      "examples": [ "playback-rate=\"2\"" ]
     },
     "content-class": {
       "type": [ "Array", "String", "Object" ],
       "desc": "Class definitions to be attributed to the media player container",
       "applicable": [ "Audio", "Video" ],
       "examples": [
-        "my-special-class",
+        "content-class=\"my-special-class\"",
         ":content-class=\"{ 'my-special-class': <condition> }\""
       ]
     },
@@ -222,7 +270,7 @@
       "desc": "Style definitions to be attributed to the media player container",
       "applicable": [ "Audio", "Video" ],
       "examples": [
-        "background-color: #ff0000",
+        "content-style=\"background-color: #ff0000\"",
         ":content-style=\"{ backgroundColor: '#ff0000' }\""
       ]
     }
