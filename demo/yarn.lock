@@ -960,7 +960,7 @@
     ware-loader "^0.2.4"
 
 "@quasar/quasar-app-extension-qmediaplayer@file:..":
-  version "1.0.6"
+  version "1.0.9"
   dependencies:
     quasar-mixin-colorize "^1.0.0-alpha.6"
 
@@ -6414,6 +6414,9 @@ quasar-app-extension-qautomate@^1.0.0-alpha.4:
     inquirer "^6.4.1"
     param-case "^2.1.1"
     ware-loader "^0.2.4"
+
+quasar-mixin-colorize@../../quasar-mixin-colorize:
+  version "1.0.0-alpha.6"
 
 quasar-mixin-colorize@^1.0.0-alpha.4, quasar-mixin-colorize@^1.0.0-alpha.6:
   version "1.0.0-alpha.6"
