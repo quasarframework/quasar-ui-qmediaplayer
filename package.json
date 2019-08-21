@@ -27,7 +27,11 @@
     "extension",
     "video",
     "audio",
-    "player"
+    "player",
+    "HTML5 media player",
+    "mediaplayer",
+    "media player",
+    "media"
   ],
   "engines": {
     "node": ">= 8.9.0",
@@ -39,11 +43,9 @@
     "babel-eslint": "^10.0.2",
     "eslint": "^6.2.1",
     "eslint-loader": "^2.2.1",
-    "eslint-plugin-vue": "^5.2.3",
-    "fs": "^0.0.2",
-    "path": "^0.12.7"
+    "eslint-plugin-vue": "^5.2.3"
   },
   "dependencies": {
-    "quasar-mixin-colorize": "^1.0.0-alpha.6"
+    "quasar-mixin-colorize": "^1.0.0-alpha.8"
   }
 }

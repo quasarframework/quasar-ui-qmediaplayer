@@ -962,7 +962,7 @@
 "@quasar/quasar-app-extension-qmediaplayer@file:..":
   version "1.0.9"
   dependencies:
-    quasar-mixin-colorize "^1.0.0-alpha.6"
+    quasar-mixin-colorize "^1.0.0-alpha.7"
 
 "@quasar/quasar-app-extension-qpublish@^1.0.0-alpha.4":
   version "1.0.0-alpha.4"
@@ -6404,10 +6404,10 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-quasar-app-extension-qautomate@^1.0.0-alpha.4:
-  version "1.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/quasar-app-extension-qautomate/-/quasar-app-extension-qautomate-1.0.0-alpha.4.tgz#2e0c2aa44beb95263bb52efdb76610a68ee1f5aa"
-  integrity sha512-4fmqPkobjPC/ZpC0C0qkE0z/0vpRnDvRX3Z/PPGoMnUk92ran46cMsaXuKA+wiX/kPzmyYtDn4X8ZNL1PJFDqw==
+quasar-app-extension-qautomate@^1.0.0-alpha.5:
+  version "1.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/quasar-app-extension-qautomate/-/quasar-app-extension-qautomate-1.0.0-alpha.5.tgz#05c3ba95d17b78d180d2dae043c86a6b60629d99"
+  integrity sha512-VjClH4OJWEHOR3/rVj2jAl4pT/Mg/UBRtAruGDtbOtq09bmEiKEcbzET2tHOC2cMn3GjYA/7HQQpXBCC82ZSOQ==
   dependencies:
     chalk "^2.4.2"
     fs-extra "^8.1.0"
@@ -6415,13 +6415,15 @@ quasar-app-extension-qautomate@^1.0.0-alpha.4:
     param-case "^2.1.1"
     ware-loader "^0.2.4"
 
-quasar-mixin-colorize@../../quasar-mixin-colorize:
-  version "1.0.0-alpha.6"
-
 quasar-mixin-colorize@^1.0.0-alpha.4, quasar-mixin-colorize@^1.0.0-alpha.6:
   version "1.0.0-alpha.6"
   resolved "https://registry.yarnpkg.com/quasar-mixin-colorize/-/quasar-mixin-colorize-1.0.0-alpha.6.tgz#6cd5cdb62d37bf3bde6b740f4ca4d70bf55bfeaf"
   integrity sha512-4G4OFMCv+4tXQ74hMV7V8RA/UhWdj1WDxE7hryjj7p9RDXO9hiGKLDTOR86MtGbkSglIBvNwBsAO6yaKxktiuQ==
+
+quasar-mixin-colorize@^1.0.0-alpha.7:
+  version "1.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/quasar-mixin-colorize/-/quasar-mixin-colorize-1.0.0-alpha.7.tgz#8f3347e0cc4726966a1c1cc8e9302c040f0080bd"
+  integrity sha512-DZWkbLTvIs3phnfrrdFwN1uEDNZLRwYzYJTVRtQ+muiewOpyz6tmJVN1uXXm0xAXeVotLfUUJMPOhDXPZZ3QQA==
 
 quasar@^1.0.5:
   version "1.0.5"
