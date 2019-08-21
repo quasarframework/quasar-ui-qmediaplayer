@@ -27,7 +27,8 @@
     "eslint": "^6.2.1",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-vue": "^5.2.3",
-    "quasar-app-extension-qautomate": "^1.0.0-alpha.4"
+    "quasar-app-extension-qautomate": "^1.0.0-alpha.4",
+    "quasar-mixin-colorize": "../../quasar-mixin-colorize"
   },
   "engines": {
     "node": ">= 8.9.0",
