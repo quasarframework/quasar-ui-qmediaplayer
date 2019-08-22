@@ -959,15 +959,14 @@
     raw-loader "^3.1.0"
     ware-loader "^0.2.4"
 
-"@quasar/quasar-app-extension-qmediaplayer@file:..":
-  version "1.0.9"
-  dependencies:
-    quasar-mixin-colorize "^1.0.0-alpha.7"
+"@quasar/quasar-app-extension-qmediaplayer@link:..":
+  version "0.0.0"
+  uid ""
 
-"@quasar/quasar-app-extension-qpublish@^1.0.0-alpha.4":
-  version "1.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qpublish/-/quasar-app-extension-qpublish-1.0.0-alpha.4.tgz#16800b55e24892d9435b3f1092bf92d25ba38c73"
-  integrity sha512-uO8E97r+iPv4LEMP1Qf8owPeNp7GS2l08zr0L6gEGTS4ryLV1smBz2lBvDG59pk31N1dJWfCxIM5lo9lPumAAw==
+"@quasar/quasar-app-extension-qpublish@^1.0.0-alpha.5":
+  version "1.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qpublish/-/quasar-app-extension-qpublish-1.0.0-alpha.5.tgz#ee4ade92b69b41114d94d9dff9c99d113fab6d8d"
+  integrity sha512-Ity//otADASULVdgqn4lXtFavg8dHssrnLQ6n5/FWSAs3O7PtHqvUGklU0dzgxv+j+2sbTV4Bi+XFg4gKpKqPQ==
   dependencies:
     quasar-mixin-colorize "^1.0.0-alpha.6"
 
@@ -6420,10 +6419,10 @@ quasar-mixin-colorize@^1.0.0-alpha.4, quasar-mixin-colorize@^1.0.0-alpha.6:
   resolved "https://registry.yarnpkg.com/quasar-mixin-colorize/-/quasar-mixin-colorize-1.0.0-alpha.6.tgz#6cd5cdb62d37bf3bde6b740f4ca4d70bf55bfeaf"
   integrity sha512-4G4OFMCv+4tXQ74hMV7V8RA/UhWdj1WDxE7hryjj7p9RDXO9hiGKLDTOR86MtGbkSglIBvNwBsAO6yaKxktiuQ==
 
-quasar-mixin-colorize@^1.0.0-alpha.7:
-  version "1.0.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/quasar-mixin-colorize/-/quasar-mixin-colorize-1.0.0-alpha.7.tgz#8f3347e0cc4726966a1c1cc8e9302c040f0080bd"
-  integrity sha512-DZWkbLTvIs3phnfrrdFwN1uEDNZLRwYzYJTVRtQ+muiewOpyz6tmJVN1uXXm0xAXeVotLfUUJMPOhDXPZZ3QQA==
+quasar-mixin-colorize@^1.0.0-alpha.9:
+  version "1.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/quasar-mixin-colorize/-/quasar-mixin-colorize-1.0.0-alpha.9.tgz#e19c433a5b3f40c4ce4ab5c6e8506f7cb6eb83bb"
+  integrity sha512-xg49b7Z68D2+zdDOgq/XntKKAd2Anl1kIsLI3dKS26CCNGARB1JjPH9+tKd+r2MCcMf3R6qf775/vPKbsDZ4BQ==
 
 quasar@^1.0.5:
   version "1.0.5"

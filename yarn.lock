@@ -1144,10 +1144,10 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-quasar-mixin-colorize@^1.0.0-alpha.8:
-  version "1.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/quasar-mixin-colorize/-/quasar-mixin-colorize-1.0.0-alpha.8.tgz#db62edd20b4adf0c4bafa1b6921ff85235cba337"
-  integrity sha512-LJhgkaLlFJNmkrdZn0yLVLV9OeU1tiVi8cvdMTJzYmQfUFNrWU1fn/Kq1m6gM60ErCFSCtpisltZq2UlhVDlJA==
+quasar-mixin-colorize@^1.0.0-alpha.9:
+  version "1.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/quasar-mixin-colorize/-/quasar-mixin-colorize-1.0.0-alpha.9.tgz#e19c433a5b3f40c4ce4ab5c6e8506f7cb6eb83bb"
+  integrity sha512-xg49b7Z68D2+zdDOgq/XntKKAd2Anl1kIsLI3dKS26CCNGARB1JjPH9+tKd+r2MCcMf3R6qf775/vPKbsDZ4BQ==
 
 read-pkg-up@^2.0.0:
   version "2.0.0"
