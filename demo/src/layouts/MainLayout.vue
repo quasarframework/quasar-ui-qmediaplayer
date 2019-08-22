@@ -13,9 +13,9 @@
         </q-btn>
 
         <q-toolbar-title v-if="$q.screen.width > 500">
-          QMediaPlayer
+          QMediaPlayer <span class="text-subtitle2">v{{ version }}</span>
           <q-tooltip v-if="$q.screen.width < 1077">
-            QMediaPlayer
+            QMediaPlayer <span class="text-subtitle2">v{{ version }}</span>
           </q-tooltip>
         </q-toolbar-title>
 
@@ -80,6 +80,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { scroll } from 'quasar'
+import { version } from '@quasar/quasar-app-extension-qmediaplayer/package.json'
 
 export default {
   name: 'MyLayout',
@@ -88,6 +89,7 @@ export default {
   },
   data () {
     return {
+      version: version,
       leftDrawerOpen: this.$q.platform.is.desktop,
       rightDrawerOpen: this.$q.platform.is.desktop,
       activeToc: 0

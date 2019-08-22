@@ -46,6 +46,6 @@
     "eslint-plugin-vue": "^5.2.3"
   },
   "dependencies": {
-    "quasar-mixin-colorize": "^1.0.0-alpha.8"
+    "quasar-mixin-colorize": "^1.0.0-alpha.9"
   }
 }

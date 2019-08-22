@@ -321,6 +321,10 @@ export default function (ssrContext) {
         deep: true
       },
 
+      source () {
+        this.__updateSources()
+      },
+
       tracks: {
         handler () {
           this.__updateTracks()
