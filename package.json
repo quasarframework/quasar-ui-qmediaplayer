@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-app-extension-qmediaplayer",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "QMediaPlayer is an HTML5 audio/video app extension for Quasar",
   "author": "Jeff Galbraith <jeff@quasar.dev>",
   "main": "src/index.js",
@@ -40,9 +40,9 @@
   },
   "devDependencies": {
     "@vue/eslint-config-standard": "^4.0.0",
-    "babel-eslint": "^10.0.2",
-    "eslint": "^6.2.1",
-    "eslint-loader": "^2.2.1",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.2.2",
+    "eslint-loader": "^3.0.0",
     "eslint-plugin-vue": "^5.2.3"
   },
   "dependencies": {
