@@ -502,12 +502,22 @@ export default function (ssrContext) {
             this.state.showBigPlayButton = true
             this.state.playing = false
           } else {
-            this.$media.play().then(() => {
+            const hasPromise = typeof this.$media.play() !== "undefined"
+            if (hasPromise) {
+              this.$media.play()
+                .then(() => {
+                  this.state.showBigPlayButton = false
+                  this.state.playing = true
+                  this.__mouseLeaveVideo()
+                }).catch((e) => {
+              })
+            } else {
+              // IE11 + EDGE
+              this.$media.play()
               this.state.showBigPlayButton = false
               this.state.playing = true
               this.__mouseLeaveVideo()
-            })
-              .catch((e) => {})
+            }
           }
         }
       },
@@ -882,7 +892,10 @@ export default function (ssrContext) {
           // player must not be running
           this.$media.pause()
           this.$media.src = ''
-          this.$media.currentTime = 0
+          if (this.$media.currentTime) {
+            // otherwise IE11 has exception error
+            this.$media.currentTime = 0
+          }
           let childNodes = this.$media.childNodes
           for (let index = childNodes.length - 1; index >= 0; --index) {
             if (childNodes[index].tagName === 'SOURCE') {
