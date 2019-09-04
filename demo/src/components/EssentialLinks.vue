@@ -9,15 +9,6 @@
         <q-item-label caption>Documentation</q-item-label>
       </q-item-section>
     </q-item>
-    <q-item clickable to="/demo">
-      <q-item-section avatar>
-        <q-icon name="bolt" />
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>QMediaPlayer demo</q-item-label>
-        <q-item-label caption>Interactively play with properties</q-item-label>
-      </q-item-section>
-    </q-item>
     <q-item clickable to="/examples">
       <q-item-section avatar>
         <q-icon name="bolt" />
@@ -25,6 +16,15 @@
       <q-item-section>
         <q-item-label>QMediaPlayer examples</q-item-label>
         <q-item-label caption>Examples of how to do it</q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item clickable to="/demo">
+      <q-item-section avatar>
+        <q-icon name="bolt" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>QMediaPlayer demo</q-item-label>
+        <q-item-label caption>Interactively play with properties</q-item-label>
       </q-item-section>
     </q-item>
     <q-separator />
@@ -44,6 +44,15 @@
       <q-item-section>
         <q-item-label>QMarkdown home</q-item-label>
         <q-item-label caption>@quasar/qmarkdown</q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item clickable tag="a" target="_blank" href="https://twitter.com/jgalbraith64">
+      <q-item-section avatar>
+        <q-icon name="fab fa-twitter"></q-icon>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>Jeff's Twitter</q-item-label>
+        <q-item-label caption>@jgalbraith64</q-item-label>
       </q-item-section>
     </q-item>
     <q-separator />
@@ -90,15 +99,6 @@
       <q-item-section>
         <q-item-label>Twitter</q-item-label>
         <q-item-label caption>@quasarframework</q-item-label>
-      </q-item-section>
-    </q-item>
-    <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/app-extension-qmediaplayer">
-      <q-item-section avatar>
-        <q-icon name="movie"></q-icon>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>QMediaPlayer home</q-item-label>
-        <q-item-label caption>@quasar/app-extension-qmediaplayer</q-item-label>
       </q-item-section>
     </q-item>
   </q-list>
