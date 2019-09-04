@@ -502,15 +502,15 @@ export default function (ssrContext) {
             this.state.showBigPlayButton = true
             this.state.playing = false
           } else {
-            const hasPromise = typeof this.$media.play() !== 'undefined'
+            const hasPromise = typeof this.$media.play() !== "undefined"
             if (hasPromise) {
               this.$media.play()
                 .then(() => {
                   this.state.showBigPlayButton = false
                   this.state.playing = true
                   this.__mouseLeaveVideo()
-                })
-                .catch((e) => {})
+                }).catch((e) => {
+              })
             } else {
               // IE11 + EDGE
               this.$media.play()

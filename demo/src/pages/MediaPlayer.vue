@@ -166,7 +166,7 @@ export default {
           poster: 'statics/media/sintel/sintel-poster2.jpeg',
           sources: [
             {
-              src: 'https://ftp.halifax.rwth-aachen.de/blender/demo/movies/Sintel.2010.1080p.mkv',
+              src: 'https://peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
               type: 'video/mp4'
             }
           ],
