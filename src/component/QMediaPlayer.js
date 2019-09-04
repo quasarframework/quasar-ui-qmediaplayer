@@ -1316,7 +1316,6 @@ export default function (ssrContext) {
         return slot || h(QSlider, {
           staticClass: 'col',
           style: {
-            width: '100%',
             margin: '0 0.5rem'
           },
           props: {
