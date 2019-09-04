@@ -12,7 +12,7 @@ export default {
     return {
       sources: [
         {
-          src: 'https://ftp.nluug.nl/pub/graphics/blender/demo/movies/ToS/ToS-4k-1920.mov',
+          src: 'https://ftp.halifax.rwth-aachen.de/blender/demo/movies/Sintel.2010.1080p.mkv',
           type: 'video/mp4'
         }
       ]
