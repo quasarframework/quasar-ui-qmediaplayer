@@ -6,5 +6,6 @@
     "sort": true
   },
   "@quasar/qribbon": {},
-  "@quasar/qpublish": {}
+  "@quasar/qpublish": {},
+  "@quasar/colorize": {}
 }
