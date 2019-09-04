@@ -4,7 +4,7 @@ import Vue from 'vue'
 import './media-player.styl'
 
 // Utils
-import { Colorize } from 'quasar-mixin-colorize'
+import Colorize from '@quasar/quasar-app-extension-colorize/src/colorize.js'
 
 import {
   QSlider,
