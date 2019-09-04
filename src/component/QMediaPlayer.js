@@ -4,7 +4,7 @@ import Vue from 'vue'
 import './media-player.styl'
 
 // Utils
-import { Colorize } from 'quasar-mixin-colorize'
+import Colorize from '@quasar/quasar-app-extension-colorize/src/colorize.js'
 
 import {
   QSlider,
@@ -502,15 +502,15 @@ export default function (ssrContext) {
             this.state.showBigPlayButton = true
             this.state.playing = false
           } else {
-            const hasPromise = typeof this.$media.play() !== "undefined"
+            const hasPromise = typeof this.$media.play() !== 'undefined'
             if (hasPromise) {
               this.$media.play()
                 .then(() => {
                   this.state.showBigPlayButton = false
                   this.state.playing = true
                   this.__mouseLeaveVideo()
-                }).catch((e) => {
-              })
+                })
+                .catch((e) => {})
             } else {
               // IE11 + EDGE
               this.$media.play()
@@ -1316,7 +1316,6 @@ export default function (ssrContext) {
         return slot || h(QSlider, {
           staticClass: 'col',
           style: {
-            width: '100%',
             margin: '0 0.5rem'
           },
           props: {

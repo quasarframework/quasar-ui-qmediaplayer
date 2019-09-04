@@ -3,7 +3,12 @@
     <div>
       <q-markdown>
 > Music courtesy of [Free Music Archive](http://freemusicarchive.org/music/Dee_Yan-Key/years_and_years_ago/01--Dee_Yan-Key-Driving_Home)
-> Videos and subtitles courtesy of [Blender Organization](https://mango.blender.org/download)
+> Videos and subtitles courtesy of [Blender Organization](https://mango.blender.org/download) and [here](https://durian.blender.org/download/)
+
+::: warning
+The videos are remotely hosted and may have issues loading depending where you live
+:::
+
       </q-markdown>
       <example-title title="Basic" />
       <example-card title="Audio - Basic" name="AudioBasic" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioBasic.vue').default)" />

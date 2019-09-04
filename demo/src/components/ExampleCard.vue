@@ -72,31 +72,6 @@ import { copyHeading, slugify } from 'assets/page-utils'
 export default {
   name: 'ExampleCard',
 
-  components: {
-    AudioBasic: () => import('../examples/AudioBasic'),
-    VideoBasic: () => import('../examples/VideoBasic'),
-    AudioColor: () => import('../examples/AudioColor'),
-    VideoColor: () => import('../examples/VideoColor'),
-    AudioBackgroundColor: () => import('../examples/AudioBackgroundColor'),
-    VideoBackgroundColor: () => import('../examples/VideoBackgroundColor'),
-    VideoPoster: () => import('../examples/VideoPoster'),
-    AudioDark: () => import('../examples/AudioDark'),
-    VideoDark: () => import('../examples/VideoDark'),
-    AudioHideVolumeSlider: () => import('../examples/AudioHideVolumeSlider'),
-    VideoHideVolumeSlider: () => import('../examples/VideoHideVolumeSlider'),
-    AudioHideVolumeSliderDense: () => import('../examples/AudioHideVolumeSliderDense'),
-    VideoHideVolumeSliderDense: () => import('../examples/VideoHideVolumeSliderDense'),
-    AudioDense: () => import('../examples/AudioDense'),
-    VideoDense: () => import('../examples/VideoDense'),
-    VideoMobileMode: () => import('../examples/VideoMobileMode'),
-    AudioSource: () => import('../examples/AudioSource'),
-    VideoSource: () => import('../examples/VideoSource'),
-    VideoTracks: () => import('../examples/VideoTracks'),
-    VideoTrackLanguage: () => import('../examples/VideoTrackLanguage'),
-    VideoLanguage: () => import('../examples/VideoLanguage'),
-    VideoIconSet: () => import('../examples/VideoIconSet')
-  },
-
   props: {
     title: {
       type: String,
