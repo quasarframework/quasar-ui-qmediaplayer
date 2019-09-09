@@ -14,6 +14,12 @@ To add this App Extension to your Quasar application, run the following (in your
 ```shell
 quasar ext add @quasar/qmediaplayer
 ```
+
+QCalendar has a dependency on the `@quasar/colorize` app extension and this will also need to be installed.
+```
+quasar ext add @quasar/colorize
+```
+
 # Uninstall
 To remove this App Extension from your Quasar application, run the following (in your Quasar app folder):
 
