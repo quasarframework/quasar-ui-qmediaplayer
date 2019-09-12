@@ -409,7 +409,9 @@ export default function (ssrContext) {
 
       'state.currentTime' (val) {
         if (this.$media && this.state.playReady) {
-          this.state.remainingTime = timeParse(this.$media.duration - this.$media.currentTime)
+          if (isFinite(this.$media.duration)) {
+            this.state.remainingTime = timeParse(this.$media.duration - this.$media.currentTime)
+          }
           this.state.displayTime = timeParse(this.$media.currentTime)
         }
       }
@@ -565,7 +567,7 @@ export default function (ssrContext) {
 
       setCurrentTime (seconds) {
         if (this.state.playReady) {
-          if (this.$media && seconds >= 0 && seconds <= this.$media.duration) {
+          if (this.$media && isFinite(this.$media.duration) && seconds >= 0 && seconds <= this.$media.duration) {
             this.state.currentTime = Math.floor(seconds)
             this.$media.currentTime = Math.floor(seconds)
           }
@@ -681,9 +683,11 @@ export default function (ssrContext) {
         } else if (event.type === 'canplaythrough') {
           // console.log('canplaythrough')
         } else if (event.type === 'durationchange') {
-          this.state.duration = Math.floor(this.$media.duration)
-          this.state.durationTime = timeParse(this.$media.duration)
-          this.$emit('duration', this.$media.duration)
+          if (isFinite(this.$media.duration)) {
+            this.state.duration = Math.floor(this.$media.duration)
+            this.state.durationTime = timeParse(this.$media.duration)
+            this.$emit('duration', this.$media.duration)
+          }
         } else if (event.type === 'emptied') {
         } else if (event.type === 'ended') {
           this.state.playing = false
@@ -1341,11 +1345,38 @@ export default function (ssrContext) {
       },
 
       __renderDurationTime (h) {
+        if (this.$media === void 0) return
+
         let slot = this.$slots.durationTime
+        const isInfinity = this.$media !== void 0 && !isFinite(this.$media.duration)
 
         return slot || h('span', {
-          staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
-        }, this.state.durationTime)
+          staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color,
+          style: {
+            width: isInfinity ? '30px' : 'auto'
+          }
+        }, [
+          this.$media && isInfinity !== true && this.state.durationTime,
+          this.$media && isInfinity === true && this.__renderInfinitySvg(h)
+        ])
+      },
+
+      __renderInfinitySvg (h) {
+        return h('svg', {
+          attrs: {
+            height: '16',
+            viewbox: '0 0 16 16'
+          }
+        }, [
+          h('path', {
+            attrs: {
+              fill: 'none',
+              stroke: '#ffffff',
+              strokeWidth: '2',
+              d: 'M8,8 C16,0 16,16 8,8 C0,0 0,16 8,8z'
+            }
+          })
+        ])
       },
 
       __renderSettingsMenu (h) {
