@@ -1271,7 +1271,7 @@ export default function (ssrContext) {
       __renderLoader (h) {
         if (this.spinnerSize === void 0) {
           if (this.isVideo) this.state.spinnerSize = '5em'
-          else this.state.spinnerSize = '3em'
+          else this.state.spinnerSize = '1.5em'
         } else {
           this.state.spinnerSize = this.spinnerSize
         }
