@@ -71,6 +71,8 @@ It is preferable to use the property `sources` rather than `source` so the brows
       <example-title title="Source (Blob)" />
       <q-markdown>
 The examples below show how you can query your user for local audio or video files and inject them into QMediaPlayer using the `loadFileBlob` method, which expectes a [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList).
+
+Note: These examples have `autoplay` turned on.
       </q-markdown>
       <example-card title="Audio - Source (Blob)" name="AudioSourceBlob" :tag-parts="getTagParts(require('!!raw-loader!../examples/AudioSourceBlob.vue').default)" />
       <example-card title="Video - Source (Blob)" name="VideoSourceBlob" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoSourceBlob.vue').default)" />
