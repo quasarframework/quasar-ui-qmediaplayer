@@ -418,6 +418,27 @@ export default function (ssrContext) {
     },
 
     methods: {
+      loadFileBlob (fileList) {
+        if (fileList && this.$media) {
+          if (Object.prototype.toString.call(fileList) === '[object FileList]') {
+            let reader = new FileReader()
+            let self = this
+            reader.onload = (event) => {
+              self.$media.src = event.target.result
+              self.__reset()
+              self.__addSourceEventListeners()
+              self.$media.load()
+              self.state.loading = false
+            }
+            reader.readAsDataURL(fileList[0])
+            return true
+          } else {
+            console.error('QMediaPlayer: addBlob method requires a FileList')
+          }
+        }
+        return false
+      },
+
       showControls () {
         if (this.timer.hideControlsTimer) {
           clearTimeout(this.timer.hideControlsTimer)
@@ -913,20 +934,22 @@ export default function (ssrContext) {
       __addSources () {
         if (this.$media) {
           let loaded = false
-          if (this.source !== void 0 && this.source.length > 0) {
+          if (this.source && this.source.length > 0) {
             this.$media.src = this.source
             loaded = true
           } else {
-            this.sources.forEach((source) => {
-              let s = document.createElement('SOURCE')
-              s.src = source.src ? source.src : ''
-              s.type = source.type ? source.type : ''
-              this.$media.appendChild(s)
-              if (!loaded && source.src) {
-                this.$media.src = source.src
-                loaded = true
-              }
-            })
+            if (this.sources.length > 0) {
+              this.sources.forEach((source) => {
+                let s = document.createElement('SOURCE')
+                s.src = source.src ? source.src : ''
+                s.type = source.type ? source.type : ''
+                this.$media.appendChild(s)
+                if (!loaded && source.src) {
+                  this.$media.src = source.src
+                  loaded = true
+                }
+              })
+            }
           }
           this.__reset()
           this.__addSourceEventListeners()
@@ -1271,7 +1294,7 @@ export default function (ssrContext) {
       __renderLoader (h) {
         if (this.spinnerSize === void 0) {
           if (this.isVideo) this.state.spinnerSize = '5em'
-          else this.state.spinnerSize = '3em'
+          else this.state.spinnerSize = '1.5em'
         } else {
           this.state.spinnerSize = this.spinnerSize
         }
