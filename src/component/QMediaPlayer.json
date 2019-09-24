@@ -420,6 +420,16 @@
           "desc": "The volume in percent"
         }
       }
+    },
+    "loadFileBlob": {
+      "desc": "Load audio/video using a FileList (only the first item in the list will be used)",
+      "params": {
+        "fileList": {
+          "desc": "Received from input with `type=\"file\"`. [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList)",
+          "required": true,
+          "type": "FileList"
+        }
+      }
     }
   },
   "slots": {
