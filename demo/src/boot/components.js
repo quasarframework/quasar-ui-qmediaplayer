@@ -16,6 +16,8 @@ import VideoDense from '../examples/VideoDense'
 import VideoMobileMode from '../examples/VideoMobileMode'
 import AudioSource from '../examples/AudioSource'
 import VideoSource from '../examples/VideoSource'
+import AudioSourceBlob from '../examples/AudioSourceBlob'
+import VideoSourceBlob from '../examples/VideoSourceBlob'
 import VideoTracks from '../examples/VideoTracks'
 import VideoTrackLanguage from '../examples/VideoTrackLanguage'
 import VideoLanguage from '../examples/VideoLanguage'
@@ -40,6 +42,8 @@ export default ({ Vue }) => {
   Vue.component('VideoMobileMode', VideoMobileMode)
   Vue.component('AudioSource', AudioSource)
   Vue.component('VideoSource', VideoSource)
+  Vue.component('AudioSourceBlob', AudioSourceBlob)
+  Vue.component('VideoSourceBlob', VideoSourceBlob)
   Vue.component('VideoTracks', VideoTracks)
   Vue.component('VideoTrackLanguage', VideoTrackLanguage)
   Vue.component('VideoLanguage', VideoLanguage)
