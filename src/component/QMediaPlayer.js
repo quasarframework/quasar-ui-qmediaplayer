@@ -421,8 +421,8 @@ export default function (ssrContext) {
       loadFileBlob (fileList) {
         if (fileList && this.$media) {
           if (Object.prototype.toString.call(fileList) === '[object FileList]') {
-            let reader = new FileReader()
-            let self = this
+            const reader = new FileReader()
+            const self = this
             reader.onload = (event) => {
               self.$media.src = event.target.result
               self.__reset()
@@ -433,7 +433,7 @@ export default function (ssrContext) {
             reader.readAsDataURL(fileList[0])
             return true
           } else {
-            console.error('QMediaPlayer: addBlob method requires a FileList')
+            console.error('QMediaPlayer: loadFileBlob method requires a FileList')
           }
         }
         return false
