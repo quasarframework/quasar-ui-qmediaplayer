@@ -1,27 +1,27 @@
 export default {
   lang: 'tr',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
-    pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    oldBrowserVideo: "Bu videoyu görebilmek için lütfen JavaScript'i aktifleştirin ve/veya HTML5 videoları destekleyen bir tarayıcıya geçin.",
+    oldBrowserAudio: "Bu sesi dinleyebilmek için lütfen JavaScript'i aktifleştirin ve/veya HTML5 sesleri destekleyen bir tarayıcıya geçin.",
+    pause: 'Durdur',
+    play: 'Oynat',
+    settings: 'Ayarlar',
+    toggleFullscreen: 'Tam ekrana geç',
+    mute: 'Sesi kapat',
+    unmute: 'Sesi aç',
+    speed: 'Hız', // Playback rate
+    language: 'Dil',
+    playbackRate: 'Oynatma Hızı',
+    waitingVideo: 'Video için bekleniyor',
+    waitingAudio: 'Ses için bekleniyor',
     ratePoint5: '.5x',
     rateNormal: 'Normal',
     rate1Point5: '1.5x',
     rate2: '2x',
-    trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    trackLanguageOff: 'Kapalı',
+    noLoadVideo: 'Video yüklenemedi',
+    noLoadAudio: 'Ses yüklenemedi',
+    cannotPlayVideo: 'Video oynatılamıyor',
+    cannotPlayAudio: 'Ses oynatılamıyor'
   }
 }
