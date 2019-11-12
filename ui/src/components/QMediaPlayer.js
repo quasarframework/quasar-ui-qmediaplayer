@@ -663,7 +663,6 @@ export default {
           }
         } else {
           try {
-            console.log(require.resolve(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${set}.js`))
             const iconsSet = require(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${set}.js`).default
             iconsList = iconsSet
           } catch (e) {
