@@ -7,9 +7,10 @@
     />
     <q-markdown>
 # Donate
-If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
+If you appreciate the work that went into this, please consider donating to [Quasar](https://donate.quasar.dev) or [Jeff](https://github.com/sponsors/hawkeye64).
 
 ---
+
 This page created with [QMarkdown](https://quasarframework.github.io/app-extension-qmarkdown), another great Quasar App Extension.
     </q-markdown>
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
@@ -18,13 +19,10 @@ This page created with [QMarkdown](https://quasarframework.github.io/app-extensi
   </hero>
 </template>
 
-<style>
-</style>
-
 <script>
 import Hero from '../components/Hero'
 import markdown from '../markdown/mediaplayer.md'
-import json from '@quasar/quasar-app-extension-qmediaplayer/src/component/QMediaPlayer.json'
+import Api from 'api'
 
 export default {
   name: 'PageIndex',
@@ -36,7 +34,7 @@ export default {
   data () {
     return {
       markdown: markdown,
-      json: json
+      json: Api
     }
   },
 

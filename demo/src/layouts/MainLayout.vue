@@ -12,11 +12,13 @@
           <q-icon name="menu" />
         </q-btn>
 
-        <q-toolbar-title v-if="$q.screen.width > 500">
+        <q-toolbar-title>
           QMediaPlayer <span class="text-subtitle2">v{{ version }}</span>
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-space />
+
+        <div v-if="$q.screen.width > 500">Quasar v{{ $q.version }}</div>
 
         <q-btn
           flat
@@ -77,7 +79,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { scroll } from 'quasar'
-import { version } from '@quasar/quasar-app-extension-qmediaplayer/package.json'
+const { setScrollPosition } = scroll
+import { version } from 'ui'
 
 export default {
   name: 'MyLayout',
@@ -112,16 +115,17 @@ export default {
       const el = document.getElementById(id)
 
       if (el) {
-        this.scrollPage(el)
+        setTimeout(() => {
+          this.scrollPage(el)
+        }, 200)
       }
     },
     scrollPage (el) {
+      // const target = getScrollTarget(el)
       const offset = el.offsetTop - 50
-      scroll.setScrollPosition(window, offset, 500)
+      // setScrollPosition(target, offset, 500)
+      setScrollPosition(window, offset, 500)
     }
   }
 }
 </script>
-
-<style>
-</style>

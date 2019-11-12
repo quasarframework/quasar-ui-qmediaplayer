@@ -1,42 +1,20 @@
-QMediaPlayer (@quasar/qmediaplayer)
+QMediaPlayer (Vue Plugin, UMD and Quasar App Extension)
 ===
 
-![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg)
-![npm (scoped)](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?style=plastic)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/app-extension-qmediaplayer.svg)]()
-[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/app-extension-qmediaplayer.svg)]()
-[![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
+![@quasar/quasar-ui-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer.svg?label=@quasar/quasar-ui-qmediaplayer)
+![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?label=@quasar/quasar-app-extension-qmediaplayer)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/quasar-ui-qmediaplayer.svg)]()
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/quasar-ui-qmediaplayer.svg)]()
 
+# Structure
 
-QMediaPlayer is an `UI App Extension` for [Quasar Framework v1](https://quasar.dev/). It will not work with legacy versions of Quasar Framework.
-
-![QMediaPlayer](https://raw.githubusercontent.com/quasarframework/app-extension-qmediaplayer/dev/demo/src/statics/qmediaplayer.png)
-
-# Demo Project (source)
-Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
-
-# Documentation and Examples
-Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer).
-
-# Install
-To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
-```
-quasar ext add @quasar/qmediaplayer
-```
-
-QCalendar has a dependency on the `@quasar/colorize` app extension and this will also need to be installed.
-```
-quasar ext add @quasar/colorize
-```
-
-# Uninstall
-To remove this App Extension from your Quasar application, run the following (in your Quasar app folder):
-```
-quasar ext remove @quasar/qmediaplayer
-```
-
-# Describe
-You can use `quasar describe QMediaPlayer`
+* [/ui](ui) - standalone npm package
+* [/app-extension](app-extension) - Quasar app extension
+* [/demo](demo) - docs, demo and examples project
+* [live demo](https://quasarframework.github.io/quasar-ui-qmediaplayer/docs) - live docs, demo and examples
 
 # Donate
-If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
+If you appreciate the work that went into this, please consider donating to [Quasar](https://donate.quasar.dev) or [Jeff](https://github.com/sponsors/hawkeye64).
+
+# License
+MIT (c) Jeff Galbraith <jeff@quasar.dev>
