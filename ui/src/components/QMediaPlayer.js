@@ -430,6 +430,7 @@ export default {
           reader.readAsDataURL(fileList[0])
           return true
         } else {
+          /* eslint-disable-next-line no-console */
           console.error('QMediaPlayer: loadFileBlob method requires a FileList')
         }
       }
@@ -623,7 +624,9 @@ export default {
             const selectedLang = window.QMediaPlayer.lang[name]
             langList = selectedLang
           } else {
+            /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: no language loaded called '${lang}'`)
+            /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the language in a script tag before using with UMD')
           }
         } else {
@@ -631,6 +634,7 @@ export default {
             const langSet = require(`@quasar/quasar-ui-qmediaplayer/src/components/lang/${lang}.js`).default
             langList = langSet
           } catch (e) {
+            /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: cannot find language file called '${lang}'`)
           }
         }
@@ -657,7 +661,9 @@ export default {
             const iconsSet = window.QMediaPlayer.iconSet[name]
             iconsList = iconsSet
           } else {
+            /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: no icon set loaded called '${set}'`)
+            /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the icon set in a script tag before using with UMD')
           }
         } else {
@@ -665,6 +671,7 @@ export default {
             const iconsSet = require(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${set}.js`).default
             iconsList = iconsSet
           } catch (e) {
+            /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: cannot find icon set file called '${set}'`)
           }
         }
@@ -765,9 +772,9 @@ export default {
         let error = this.$media.error
         this.$emit('error', error)
       } else if (event.type === 'interruptbegin') {
-        console.log('interruptbegin')
+        // console.log('interruptbegin')
       } else if (event.type === 'interruptend') {
-        console.log('interruptend')
+        // console.log('interruptend')
       } else if (event.type === 'loadeddata') {
         this.state.loading = false
         this.$emit('loaded')
