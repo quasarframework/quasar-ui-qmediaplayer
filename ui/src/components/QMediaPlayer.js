@@ -1117,12 +1117,14 @@ export default {
     __renderOverlayWindow (h) {
       let slot = this.$slots.overlay
 
-      return slot || h('div', {
-        staticClass: 'q-media__overlay-window',
-        on: {
-          click: this.__videoClick
-        }
-      })
+      if (slot) {
+        return h('div', {
+          staticClass: 'q-media__overlay-window',
+          on: {
+            click: this.__videoClick
+          }
+        }, slot)
+      }
     },
 
     __renderErrorWindow (h) {
