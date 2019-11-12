@@ -46,11 +46,11 @@
       <div style="overflow: hidden">
         <transition name="q-transition--scale">
           <q-media-player
-            :key="videoType ? video[videoIndex].sources : audio.sources"
-            :type="videoType ? 'video' : 'audio'"
+            :key="videoType === true ? 'video' : 'audio'"
+            :type="videoType === true ? 'video' : 'audio'"
             :dense="dense"
             :dark="dark"
-            :background-color="darkbg ? 'black' : 'white'"
+            :background-color="darkbg === true ? 'black' : 'white'"
             :mobile-mode="mobileMode"
             :muted="muted"
             :playsinline="playsinline"
@@ -58,9 +58,9 @@
             :radius="radius ? '1rem' : 0"
             :autoplay="autoplay"
             :show-big-play-button="bigPlay"
-            :sources="videoType ? video[videoIndex].sources : audio.sources"
-            :poster="videoType ? video[videoIndex].poster : ''"
-            :tracks="videoType ? video[videoIndex].tracks : []"
+            :sources="videoType === true ? video[videoIndex].sources : audio.sources"
+            :poster="videoType === true ? video[videoIndex].poster : ''"
+            :tracks="videoType === true ? video[videoIndex].tracks : []"
             track-language="English"
             @ended="onEnded"
           >

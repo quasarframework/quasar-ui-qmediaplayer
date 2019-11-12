@@ -94,7 +94,6 @@ module.exports = function (ctx) {
         'Loading',
         'Meta',
         'Notify',
-        'Platform',
         'Screen'
       ]
     },

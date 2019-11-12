@@ -1,12 +1,16 @@
 QMediaPlayer (Vue Plugin, UMD and Quasar App Extension)
 ===
 
-<img src="https://img.shields.io/npm/v/@quasar/quasar-ui.svg?label=@quasar/quasar-ui-qmediaplayer">
-<img src="https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?label=@quasar/quasar-app-extension-qmediaplayer">
+![@quasar/quasar-ui-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer.svg?label=@quasar/quasar-ui-qmediaplayer)
+![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?label=@quasar/quasar-app-extension-qmediaplayer)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/quasar-ui-qmediaplayer.svg)]()
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/quasar-ui-qmediaplayer.svg)]()
 
 # Structure
+
 * [/ui](ui) - standalone npm package
 * [/app-extension](app-extension) - Quasar app extension
+* [/demo](demo) - docs, demo and examples project
 * [live demo](https://quasarframework.github.io/quasar-ui-qmediaplayer/docs) - live docs, demo and examples
 
 # Donate

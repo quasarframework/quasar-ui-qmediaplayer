@@ -2,7 +2,7 @@
   <div>
     <section class="page-header">
       <div class="text-h1 project-name">QMediaPlayer</div>
-      <div class="text-h2 project-tagline"></div>
+      <div class="text-h2 project-tagline">Embeddable HTML5 Media Player for your Quasar App</div>
       <div class="byline">Created and maintained by Jeff Galbraith <a href="https://twitter.com/jgalbraith64" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></div>
       <div class="quasar">A Quasar Framework Component and App Extension</div>
       <div class="donate"><a href="https://github.com/sponsors/hawkeye64" target="_blank" title="Donate"><i class="fas fa-heart" style="color: red"></i></a></div>

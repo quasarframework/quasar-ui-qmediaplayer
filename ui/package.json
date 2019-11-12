@@ -1,8 +1,8 @@
 {
-  "name": "quasar-ui-qmediaplayer",
-  "version": "0.0.1",
+  "name": "@quasar/quasar-ui-qmediaplayer",
+  "version": "1.0.0",
   "author": "Jeff Galbraith <jeff@quasar.dev>",
-  "description": "My awesome component",
+  "description": "QMediaPlayer is an HTML5 audio/video Component and App extension for Quasar",
   "license": "MIT",
   "module": "dist/index.esm.js",
   "main": "dist/index.common.js",
@@ -20,12 +20,18 @@
     "build:css": "node build/script.css.js",
     "build:api": "node build/build.api.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/quasarframework/quasar-ui-qmediaplayer.git"
   },
-  "bugs": "",
-  "homepage": "",
+  "bugs": "https://github.com/quasarframework/quasar-ui-qmediaplayer/issues",
+  "homepage": "https://github.com/quasarframework/quasar-ui-qmediaplayer",
+  "dependencies": {
+    "q-colorize-mixin": "^1.0.0"
+  },
   "devDependencies": {
     "@vue/eslint-config-standard": "^4.0.0",
     "autoprefixer": "^9.7.1",
@@ -49,10 +55,20 @@
     "uglify-es": "^3.3.9",
     "zlib": "^1.0.5"
   },
+  "keywords": [
+    "quasar",
+    "app",
+    "app extension",
+    "extension",
+    "video",
+    "audio",
+    "player",
+    "HTML5 media player",
+    "mediaplayer",
+    "media player",
+    "media"
+  ],
   "browserslist": [
     "last 1 version, not dead, ie >= 11"
-  ],
-  "dependencies": {
-    "q-colorize-mixin": "^1.0.0"
-  }
+  ]
 }
