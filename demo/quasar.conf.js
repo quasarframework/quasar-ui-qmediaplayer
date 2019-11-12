@@ -123,6 +123,7 @@ module.exports = function (ctx) {
 
       chainWebpack (chain) {
         chain.resolve.alias.merge({
+          '@quasar/quasar-ui-qmediaplayer': path.resolve(__dirname, '../ui'),
           'ui': path.resolve(__dirname, '../ui/src/index.js'),
           'sass': path.resolve(__dirname, '../ui/src/index.sass'),
           'api': path.resolve(__dirname, '../ui/dist/api/QMediaPlayer.json')

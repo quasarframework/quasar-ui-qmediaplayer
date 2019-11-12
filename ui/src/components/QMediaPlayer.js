@@ -639,7 +639,6 @@ export default {
       return langList
     },
 
-
     __setupIcons () {
       let iconSetName = this.$q.iconSet.name || 'material-icons'
       let iconSet
