@@ -4,7 +4,7 @@ QMediaPlayer
 [![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer.svg?label=@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-ui-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 
-QMeiaPlayer is a [Quasar](https://quasar.dev) component. It allows you to embed HTML5 video and audio into your Quasar application.
+QMediaPlayer is a [Quasar](https://quasar.dev) component. It allows you to embed HTML5 video and audio into your Quasar application.
 
 # Examples and Documentation
 Can be found [here](https://quasarframework.github.io/quasar-ui-qmediaplayer)

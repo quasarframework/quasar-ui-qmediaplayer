@@ -1,7 +1,7 @@
 QMediaPlayer
 ===
 
-QMeiaPlayer is a [Quasar](https://quasar.dev) component. It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
+QMediaPlayer is a [Quasar](https://quasar.dev) component. It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
 
 ![QMediaPlayer](statics/qmediaplayer.png "QMediaPlayer" =800x800)
 
@@ -189,7 +189,7 @@ If you find you have a need access to use the underlying media player, you can s
 
 ```html
   <q-media-player
-    ref="my-player"
+    ref="myPlayer"
     ...
   />
 ```
@@ -198,9 +198,13 @@ then
 
 ```js
 // in code some where
-this.$refs['my-player'].$media
+this.$refs.myPlayer.$media
 
-// examples to call native functions:
-// this.$refs['my-player'].$media.pause()
-// this.$refs['my-player'].$media.play()
+// examples to call native functions directly:
+// this.$refs.myPlayer.$media.pause()
+// this.$refs.myPlayer.$media.play()
+
+// or via QMediaPlayer
+// this.$refs.myPlayer.pause()
+// this.$refs.myPlayer.play()
 ```

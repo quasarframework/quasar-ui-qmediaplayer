@@ -1,5 +1,6 @@
 // Utils
 import { QColorizeMixin } from 'q-colorize-mixin'
+import canRender from 'quasar/src/mixins/can-render'
 
 import {
   QSlider,
@@ -15,8 +16,6 @@ import {
   ClosePopup,
   Ripple
 } from 'quasar'
-
-import canRender from 'quasar/src/mixins/can-render'
 
 const getMousePosition = function (e, type = 'x') {
   if (type === 'x') {
@@ -618,7 +617,7 @@ export default {
       let langList = {}
       if (lang) {
         // detect if UMD version is installed
-        if (window.QMediaPlayer) {
+        if (window.QMediaPlayer && window.QMediaPlayer.Component) {
           const name = lang.replace(/-([a-z])/g, g => g[1].toUpperCase())
           if (window.QMediaPlayer.lang && window.QMediaPlayer.lang[name]) {
             const selectedLang = window.QMediaPlayer.lang[name]
@@ -652,7 +651,7 @@ export default {
       let iconsList = {}
       if (set) {
         // detect if UMD version is installed
-        if (window.QMediaPlayer) {
+        if (window.QMediaPlayer && window.QMediaPlayer.Component) {
           const name = set.replace(/-([a-z])/g, g => g[1].toUpperCase())
           if (window.QMediaPlayer.iconSet && window.QMediaPlayer.iconSet[name]) {
             const iconsSet = window.QMediaPlayer.iconSet[name]
