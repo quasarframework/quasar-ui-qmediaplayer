@@ -1,0 +1,582 @@
+{
+  "props": {
+    "type": {
+      "type": "String",
+      "category": "behavior",
+      "desc": "Tells the component which player is to be used",
+      "default": "video",
+      "values": [ "video", "audio" ],
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "type=\"video\"",
+        "type=\"audio\""
+      ]
+    },
+    "color": {
+      "type": "String",
+      "category": "style",
+      "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "color=\"primary\"",
+        "color=\"teal-10\""
+      ]
+    },
+    "background-color": {
+      "type": "String",
+      "category": "style",
+      "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "background-color=\"black\"",
+        "background-color=\"teal-10\""
+      ]
+    },
+    "big-play-button-color": {
+      "type": "String",
+      "category": "style",
+      "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
+      "applicable": [ "Video" ],
+      "examples": [
+        "big-play-button-color=\"primary\"",
+        "big-play-button-color=\"teal-10\""
+      ]
+    },
+    "mobile-mode": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "Use mobile logic for handling visibility of controls. This mode is best for mobiles, but can be used on the desktop as well. It prevents the controls from displaying/hiding with mouse hover. Instead, clicks are used to show/hide the controls",
+      "applicable": [ "Video" ]
+    },
+    "sources": {
+      "type": "Array",
+      "category": "model",
+      "desc": "The one or more sources for Video or Audio",
+      "applicable": [ "Audio", "Video" ],
+      "definition": {
+        "src": {
+          "type": "String",
+          "desc": "Path to a source",
+          "examples": [
+            "src='https://your-server/your-video.mov'",
+            "src='https://your-server/your-audio.mp3'"
+          ]
+        },
+        "type": {
+          "type": "String",
+          "desc": "The kind of source",
+          "examples": [
+            "type='video/mp4'",
+            "type='audio/mp3'"
+          ]
+        }
+      },
+      "examples": [
+        ":sources=\"[{ src: 'https://your-server/your-video.mov', type: 'video/mp4' }]\"",
+        ":sources=\"[{ src: 'https://your-server/your-audio.mp3', type: 'audio/mp3' }]\""
+      ]
+    },
+    "source": {
+      "type": "String",
+      "category": "model",
+      "desc": "if this is set, then the `video.src` or `audio.src` will be set directly and the `sources` attribute will be ignored",
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "source=\"https://path/to/the/video.mpeg\""
+      ]
+    },
+    "poster": {
+      "type": "String",
+      "category": "model",
+      "desc": "The poster image to display before the video is loaded",
+      "applicable": [ "Video" ],
+      "examples": [
+        "poster=\"https://path/to/the/image.jpg\""
+      ]
+    },
+    "tracks": {
+      "type": "Array",
+      "category": "model",
+      "desc": "The one or more tracks for subtitle, captions, etc",
+      "applicable": [ "Video" ],
+      "definition": {
+        "src": {
+          "type": "String",
+          "desc": "Path to subtitle, caption, etc",
+          "examples": [
+            "src='https://your-server//path/to/subtitles-en.vtt'"
+          ]
+        },
+        "kind": {
+          "type": "String",
+          "desc": "The kind of track",
+          "examples": [
+            "kind: 'subtitle'",
+            "kind: 'caption'"
+          ]
+        },
+        "srclang": {
+          "type": "String",
+          "desc": "Language identifier",
+          "examples": [
+            "srclang: 'en'",
+            "srclang: 'de'"
+          ]
+        },
+        "label": {
+          "type": "String",
+          "desc": "Label to use for selection purposes",
+          "examples": [
+            "label: 'English'",
+            "label: 'Deutsche'"
+          ]
+        }
+      },
+      "examples": [
+        ":tracks=\"[ { src: 'https://your-server//path/to/subtitles-en.vtt', kind: 'subtitles', srclang: 'en', label: 'English } ]\""
+      ]
+    },
+    "track-language": {
+      "type": "String",
+      "category": "behavior",
+      "desc": "A value that corresponds to the 'label' attribute of the 'tracks' property. This will be the default language",
+      "applicable": [ "Video" ],
+      "examples": [
+        "track-language=\"English\""
+      ]
+    },
+    "preload": {
+      "type": "String",
+      "category": "state",
+      "desc": "Provides a hint to the browser about what the author thinks will lead to the best user experience",
+      "default": "metadata",
+      "values": [ "none", "metadata", "auto" ],
+      "applicable": [ "Video" ],
+      "examples": [
+        "preload=\"metadata\""
+      ]
+    },
+    "dense": {
+      "type": "Boolean",
+      "category": "style",
+      "desc": "When true displays controls window on one line",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "hide-volume-slider": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the volume slider control will be hidden",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "dark": {
+      "type": "Boolean",
+      "category": "style",
+      "desc": "When component is rendered on a dark background",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "radius": {
+      "type": ["Number", "String"],
+      "category": "style",
+      "desc": "Sets the `border-radius` of the media player",
+      "applicable": [ "Audio", "Video" ],
+      "default": "0",
+      "examples": [
+        "4px",
+        "6%"
+      ]
+    },
+    "autoplay": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "Automatically start video/audio when it is ready to play",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "cross-origin": {
+      "type": [ "String", "Null" ],
+      "category": "behavior",
+      "desc": "Whether to use CORS for fetching assets",
+      "values": [ "null", "anonymous", "use-credentials" ],
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "cross-origin=\"anonymous\""
+      ]
+    },
+    "volume": {
+      "type": "Number",
+      "category": "behavior",
+      "desc": "A value from 0-100 (as a percentage)",
+      "default": "60",
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        ":volume=\"50\"",
+        ":volume=\"75\""
+      ]
+    },
+    "muted": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "If the player should be muted",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "playsinline": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "If the player should be inline (see video element playsinline)",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "loop": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "If the player should automatically seek back to the start upon reaching the end of the video",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "show-tooltips": {
+      "type": "Boolean",
+      "category": "state",
+      "desc": "Turns on tooltip support"
+    },
+    "show-big-play-button": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "Show/hide the Big Play Button",
+      "default": "true",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "show-spinner": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "If the spinner should be displayed while video/audio is loading",
+      "default": "true",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "spinner-size": {
+      "type": "String",
+      "category": "state",
+      "desc": "Pass a CSS unit to change spinner size. (Default: ‘5em’ for video, ‘3em’ for audio)",
+      "default": "true",
+      "applicable": ["Audio", "Video" ],
+      "examples": [
+        "spinner-size=\"5em\"",
+        "spinner-size=\"3em\""
+      ]
+    },
+    "controls-display-time": {
+      "type": "Number",
+      "category": "behavior",
+      "desc": "The amount of idle time in milliseconds to wait before hiding the controls",
+      "default": "2000",
+      "applicable": [ "Video" ],
+      "examples": [
+        ":controls-display-time=\"3000\""
+      ]
+    },
+    "no-controls": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "If set to true, the controls will never be displayed",
+      "applicable": [ "Video" ]
+    },
+    "playback-rates": {
+      "type": "Array",
+      "category": "behavior",
+      "desc": "This is an array of one or more objects for playback rate (speed)",
+      "applicable": [ "Video" ],
+      "definition": {
+        "label": {
+          "type": "String",
+          "desc": "The displayed label for user selection",
+          "examples": [ ".5X", "Normal" ]
+        },
+        "value": {
+          "type": "Number",
+          "desc": "The value to use for playback rate",
+          "examples": [ "0.5", "1.0" ]
+        }
+      },
+
+      "default": "[ { label: '.5x', value: 0.5 }, { label: 'Normal', value: 1 }, { label: '1.5x', value: 1.5 }, { label: '2x', value: 2 } ]",
+      "examples": [ ":playback-rates=\"[ { label: '.5x', value: 0.5 } ]\"" ]
+    },
+    "playback-rate": {
+      "type": "Number",
+      "category": "behavior",
+      "desc": "Corresponds to the value in playback-rates",
+      "default": "0.5",
+      "applicable": [ "Video" ],
+      "examples": [ "playback-rate=\"2\"" ]
+    },
+    "content-class": {
+      "type": [ "Array", "String", "Object" ],
+      "category": "style",
+      "desc": "Class definitions to be attributed to the media player container",
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "content-class=\"my-special-class\"",
+        ":content-class=\"{ 'my-special-class': <condition> }\""
+      ]
+    },
+    "content-style": {
+      "type": [ "Array", "String", "Object" ],
+      "category": "style",
+      "desc": "Style definitions to be attributed to the media player container",
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "content-style=\"background-color: #ff0000\"",
+        ":content-style=\"{ backgroundColor: '#ff0000' }\""
+      ]
+    }
+
+  },
+  "events": {
+    "loaded": {
+      "desc": "Emitted when the media has been loaded",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "ready": {
+      "desc": "Emitted when the media is ready to play. You cannot play/pause or setCurrentTime before this event",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "duration": {
+      "desc": "Emitted when the duration of the media has been determined",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "seconds": {
+          "type": "Number",
+          "desc": "The duration in seconds",
+          "examples": [
+            "'6000' - 10 minutes audio or video",
+            "'12000' - 20 minute audio or video"
+          ]
+        }
+      }
+    },
+    "ended": {
+      "desc": "Emitted when the media has finished playing",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "error": {
+      "desc": "Emitted when there is a media error",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "MediaError": {
+          "type": "Object",
+          "desc": "For more information, look up `MediaError` from HTML 5 spec",
+          "__exemption": [ "examples" ]
+        }
+      }
+    },
+    "paused": {
+      "desc": "Emitted when the media is paused",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "playing": {
+      "desc": "Emitted when the media starts playing. This will also emit after a pause or a wait",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "timeupdate": {
+      "desc": "Emitted wenever there is a time update (during play)",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "curTime": {
+          "type": "Number",
+          "desc": "Current play time in seconds",
+          "__exemption": [ "examples" ]
+        },
+        "remaining": {
+          "type": "Number",
+          "desc": "Remaining play time in seconds",
+          "__exemption": [ "examples" ]
+        }
+      }
+    },
+    "fullscreen": {
+      "desc": "Emitted when entering/exiting fullscreen mode",
+      "applicable": [ "Video" ],
+      "params": {
+        "showing": {
+          "type": "Boolean",
+          "desc": "true/false if in fullscreen or not"
+        }
+      }
+    },
+    "waiting": {
+      "desc": "Emitted when the media player goes into a wait state (typically waiting while downloading)",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "showControls": {
+      "desc": "Emitted when the Controls are toggled",
+      "applicable": [ "Video" ],
+      "params": {
+        "showing": {
+          "type": "Boolean",
+          "desc": "true/false if controls are showing or not"
+        }
+      }
+    },
+    "volume": {
+      "desc": "Emitted when the volume changes",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "volume": {
+          "type": "Number",
+          "desc": "The value as a percent",
+          "examples": [
+            "'50' - 50%",
+            "'75' - 75%"
+          ]
+        }
+      }
+    },
+    "muted": {
+      "desc": "Emitted when the mute changes",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "showing": {
+          "type": "Boolean",
+          "desc": "true/false if volume is muted or not"
+        }
+      }
+    }
+  },
+  "methods": {
+    "showControls": {
+      "desc": "Show the controls. Has no effect is already being displayed",
+      "applicable": [ "Video" ]
+    },
+    "hideControls": {
+      "desc": "Hide the controls. Has no effect is already being hidden",
+      "applicable": [ "Video" ]
+    },
+    "toggleControls": {
+      "desc": "Toggle the controls",
+      "applicable": [ "Video" ]
+    },
+    "togglePlay": {
+      "desc": "Toggles between play/pause states",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "toggleMuted": {
+      "desc": "Toggles between mute/unmute states",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "toggleFullscreen": {
+      "desc": "Toggles fullscreen mode",
+      "applicable": [ "Video" ]
+    },
+    "setFullscreen": {
+      "desc": "Turns on fullscreen",
+      "applicable": [ "Video" ]
+    },
+    "exitFullscreen": {
+      "desc": "Turns off fullscreen",
+      "applicable": [ "Video" ]
+    },
+    "currentTime": {
+      "desc": "Returns the current time in seconds",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "setCurrentTime": {
+      "desc": "Set the current time of the video/audio player (in seconds)",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "seconds": {
+          "type": "Number",
+          "required": true,
+          "desc": "The time in seconds",
+          "examples": [
+            "30",
+            "280"
+          ]
+        }
+      }
+    },
+    "setVolume": {
+      "desc": "Sets the volume as a percent (0-100).",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "percent": {
+          "type": "Number",
+          "required": true,
+          "desc": "The volume in percent",
+          "examples": [
+            "50",
+            "75"
+          ]
+        }
+      }
+    },
+    "loadFileBlob": {
+      "desc": "Load audio/video using a FileList (only the first item in the list will be used)",
+      "params": {
+        "FileList": {
+          "desc": "Received from input with `type=\"file\"`. [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList)",
+          "required": true,
+          "type": "FileList",
+          "__exemption": [ "examples" ]
+        }
+      }
+    }
+  },
+  "slots": {
+    "oldbrowser": {
+      "desc": "Slot for replacing the default old browser text",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "overlay": {
+      "desc": "Slot for replacing the default overlay",
+      "applicable": [ "Video" ]
+    },
+    "errorWindow": {
+      "desc": "Slot for replacing the default error window",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "controls": {
+      "desc": "Slot for replacing the default controls can be replaced",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "spinner": {
+      "desc": "Slot for replacing the default spinner/loading icon",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "bigPlayButton": {
+      "desc": "Slot for replacing the default big play button icon",
+      "applicable": [ "Video" ]
+    },
+    "displayTime": {
+      "desc": "Slot for replacing the default display time",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "positionSlider": {
+      "desc": "Slot for replacing the default positioning slider",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "durationTime": {
+      "desc": "Slot for replacing the default duration time",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "play": {
+      "desc": "Slot for replacing the default play icon",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "volume": {
+      "desc": "Slot for replacing the default volume icon",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "volumeSlider": {
+      "desc": "Slot for replacing the default volume slider",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "settings": {
+      "desc": "Slot for replacing the default settings icon",
+      "applicable": [ "Video" ]
+    },
+    "settingsMenu": {
+      "desc": "Slot for replacing the default Settings menu",
+      "applicable": [ "Video" ]
+    },
+    "fullscreen": {
+      "desc": "Slot for replacing the default fullscreen icon",
+      "applicable": [ "Video" ]
+    }
+  }
+}

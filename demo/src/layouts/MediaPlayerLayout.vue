@@ -42,7 +42,7 @@
 
 <script>
 import { openURL } from 'quasar'
-import { version } from '@quasar/quasar-app-extension-qmediaplayer/package.json'
+import { version } from 'ui'
 
 export default {
   name: 'MyLayout',

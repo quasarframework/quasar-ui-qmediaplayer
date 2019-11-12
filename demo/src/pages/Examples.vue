@@ -89,7 +89,7 @@ In the example below, the default language track has been set to French.
 
       <example-title title="Language" />
       <q-markdown>
-Not all languages have been translated. If you can help out, please [PR a language pack](https://github.com/quasarframework/app-extension-qmediaplayer/tree/dev/src/component/lang).
+Not all languages have been translated. If you can help out, please [PR a language pack](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/dev/src/component/lang).
 
 > QMediaPlayer does not have a property to set the language directly. It uses Quasar's internal language support indirectly. When that switches, then QMediaPlayer also switches to that language.
       </q-markdown>

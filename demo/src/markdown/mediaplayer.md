@@ -1,10 +1,7 @@
 QMediaPlayer
 ===
 
-![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg) ![npm (scoped)](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?style=plastic)
-
-
-QMediaPlayer is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
+QMeiaPlayer is a [Quasar](https://quasar.dev) component. It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
 
 ![QMediaPlayer](statics/qmediaplayer.png "QMediaPlayer" =800x800)
 
@@ -13,11 +10,6 @@ To add this App Extension to your Quasar application, run the following (in your
 
 ```shell
 quasar ext add @quasar/qmediaplayer
-```
-
-QCalendar has a dependency on the `@quasar/colorize` app extension and this will also need to be installed.
-```
-quasar ext add @quasar/colorize
 ```
 
 # Uninstall
@@ -31,10 +23,10 @@ quasar ext remove @quasar/qmediaplayer
 You can use `quasar describe QMediaPlayer`
 
 # Interactive Demo
-Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/demo).
+Can be found [here](https://quasarframework.github.io/quasar-ui-qmediaplayer/demo).
 
 # Demo Project (source)
-Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
+Can be found [here](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/master/demo).
 
 # Language Files
 

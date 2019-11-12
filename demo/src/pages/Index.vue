@@ -24,7 +24,7 @@ This page created with [QMarkdown](https://quasarframework.github.io/app-extensi
 <script>
 import Hero from '../components/Hero'
 import markdown from '../markdown/mediaplayer.md'
-import json from '@quasar/quasar-app-extension-qmediaplayer/src/component/QMediaPlayer.json'
+import Api from 'api'
 
 export default {
   name: 'PageIndex',
@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       markdown: markdown,
-      json: json
+      json: Api
     }
   },
 

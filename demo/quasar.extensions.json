@@ -1,11 +1,5 @@
 {
-  "@quasar/qmediaplayer": {},
   "@quasar/qmarkdown": {},
-  "qautomate": {
-    "quasarConfFixMode": "automatic",
-    "sort": true
-  },
   "@quasar/qribbon": {},
-  "@quasar/qpublish": {},
-  "@quasar/colorize": {}
+  "@quasar/qpublish": {}
 }
