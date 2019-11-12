@@ -43,37 +43,42 @@
     </div>
 
     <div class="row flex-center" style="min-height: 2rem;">
-      <q-media-player
-        :type="videoType ? 'video' : 'audio'"
-        :dense="dense"
-        :dark="dark"
-        :background-color="darkbg ? 'black' : 'white'"
-        :mobile-mode="mobileMode"
-        :muted="muted"
-        :playsinline="playsinline"
-        :loop="loop"
-        :radius="radius ? '1rem' : 0"
-        :autoplay="autoplay"
-        :show-big-play-button="bigPlay"
-        :sources="videoType ? video[videoIndex].sources : audio.sources"
-        :poster="videoType ? video[videoIndex].poster : ''"
-        :tracks="videoType ? video[videoIndex].tracks : []"
-        track-language="English"
-        @ended="onEnded"
-      >
-        <template v-if="overlay" v-slot:overlay>
-          <div>
-            <img
-              src="statics/quasar-logo.png"
-              style="width: 30vw; max-width: 50px; opacity: 0.25;"
-            >
-          </div>
-        </template>
-      </q-media-player>
+      <div style="overflow: hidden">
+        <transition name="q-transition--scale">
+          <q-media-player
+            :key="videoType === true ? 'video' : 'audio'"
+            :type="videoType === true ? 'video' : 'audio'"
+            :dense="dense"
+            :dark="dark"
+            :background-color="darkbg === true ? 'black' : 'white'"
+            :mobile-mode="mobileMode"
+            :muted="muted"
+            :playsinline="playsinline"
+            :loop="loop"
+            :radius="radius ? '1rem' : 0"
+            :autoplay="autoplay"
+            :show-big-play-button="bigPlay"
+            :sources="videoType === true ? video[videoIndex].sources : audio.sources"
+            :poster="videoType === true ? video[videoIndex].poster : ''"
+            :tracks="videoType === true ? video[videoIndex].tracks : []"
+            track-language="English"
+            @ended="onEnded"
+          >
+            <template v-if="overlay" v-slot:overlay>
+              <div>
+                <img
+                  src="statics/quasar-logo.png"
+                  style="width: 30vw; max-width: 50px; opacity: 0.25;"
+                >
+              </div>
+            </template>
+          </q-media-player>
+        </transition>
+      </div>
     </div>
     <div class="text-center">
-      <p>Quasar App Extension QMediaPlayer <a href="https://github.com/quasarframework/app-extension-qmediaplayer" target="_blank">home page</a>.</p>
-      <p>This project's <a href="https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo" target="_blank">home page</a>.</p>
+      <p>QMediaPlayer <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer" target="_blank">home page</a>.</p>
+      <p>Demo project's <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/master/demo" target="_blank">home page</a>.</p>
     </div>
 
   </div>

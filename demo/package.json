@@ -1,39 +1,36 @@
 {
-  "name": "quasar-app-extension-qmediaplayer",
+  "name": "qmediaplayer-demo",
   "version": "0.0.3",
   "description": "QMediaPlayer App Extension for Quasar",
   "productName": "QMediaPlayer  docs, examples and demo site",
   "cordovaId": "org.cordova.quasar.app",
-  "author": "Hawkeye64 <jeff@quasar.dev>",
+  "author": "Jeff Galbraith <jeff@quasar.dev>",
   "private": true,
   "scripts": {
-    "build": "quasar build && cp ./src/404.html ./dist/spa",
+    "build-demo": "quasar build && cp ./src/404.html ./dist/spa && rm -rf ../docs && cp -r ./dist/spa/. ../docs",
     "lint": "eslint --ext .js,.vue src",
     "lint-fix": "eslint --ext .js,.vue src --fix",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.3.2",
-    "quasar": "^1.1.4"
+    "@quasar/extras": "^1.3.3",
+    "quasar": "^1.4.3"
   },
   "devDependencies": {
-    "@quasar/app": "^1.1.2",
-    "@quasar/quasar-app-extension-colorize": "^1.0.0-alpha.1",
+    "@quasar/app": "^1.2.3",
     "@quasar/quasar-app-extension-qmarkdown": "^1.0.0-beta.21",
-    "@quasar/quasar-app-extension-qmediaplayer": "link:../.",
     "@quasar/quasar-app-extension-qpublish": "^1.0.0-alpha.7",
-    "@quasar/quasar-app-extension-qribbon": "^1.0.0-beta.6",
+    "@quasar/quasar-app-extension-qribbon": "^1.0.0-beta.8",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.3",
     "devtron": "^1.4.0",
-    "electron": "^6.0.10",
+    "electron": "^7.1.1",
     "electron-debug": "^3.0.1",
     "electron-devtools-installer": "^2.2.4",
-    "eslint": "^6.4.0",
+    "eslint": "^6.6.0",
     "eslint-loader": "^3.0.2",
-    "eslint-plugin-quasar": "^1.0.0-alpha.11",
-    "eslint-plugin-vue": "^5.2.3",
-    "quasar-app-extension-qautomate": "^1.0.0-alpha.5"
+    "eslint-plugin-quasar": "^1.0.0-alpha.17",
+    "eslint-plugin-vue": "^6.0.0"
   },
   "engines": {
     "node": ">= 8.9.0",
@@ -41,8 +38,9 @@
     "yarn": ">= 1.6.0"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 10"
-  ]
+    "last 1 version, not dead, ie >= 11"
+  ],
+  "resolutions": {
+    "ajv": "6.8.1"
+  }
 }

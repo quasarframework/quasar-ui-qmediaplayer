@@ -1,58 +1,38 @@
 // Configuration for your app
 
+const path = require('path')
+
 module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'components'
+      'components',
+      'qmediaplayer'
     ],
+
     css: [
-      'app.styl'
+      'app.sass'
     ],
+
     extras: [
-      'roboto-font',
-      'material-icons', // optional, you are not bound to it
       'ionicons-v4',
       'mdi-v3',
       'fontawesome-v5',
       'eva-icons',
-      'themify'
+      'themify',
+      // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
+
+      'roboto-font',
+      'material-icons' // optional, you are not bound to it
     ],
-    supportIE: false,
-    build: {
-      scopeHoisting: true,
-      vueRouterMode: 'history',
-      publicPath: 'app-extension-qmediaplayer',
-      // vueCompiler: true,
-      // gzip: true,
-      // analyze: true,
-      // extractCSS: false,
-      extendWebpack (cfg) {
-        cfg.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /node_modules/,
-          options: {
-            formatter: require('eslint').CLIEngine.getFormatter('stylish')
-          }
-        })
-      }
-    },
-    devServer: {
-      // https: true,
-      // port: 8080,
-      open: true, // opens browser window automatically
-      watchOptions: {
-        ignored: [
-          'node_modules',
-          '!node_modules/@quasar/quasar-app-extension-qmediaplayer'
-        ]
-      }
-    },
-    // framework: 'all' --- includes everything; for dev only!
+
     framework: {
+      // iconSet: 'ionicons-v4',
+      // lang: 'de', // Quasar language
+
+      // all: true, // --- includes everything; for dev only!
+
       components: [
         'QAvatar',
         'QBadge',
@@ -99,14 +79,14 @@ module.exports = function (ctx) {
         'QToolbarTitle',
         'QTooltip'
       ],
+
       directives: [
         'ClosePopup',
         'Ripple',
         'Scroll',
         'TouchSwipe'
       ],
-      // iconSet: 'fontawesome-v5', // requires icon library to be specified in "extras" section too,
-      // lang: 'de', // Tell Quasar which language pack to use for its own components
+
       // Quasar plugins
       plugins: [
         'AppFullscreen',
@@ -114,17 +94,61 @@ module.exports = function (ctx) {
         'Loading',
         'Meta',
         'Notify',
-        'Platform',
         'Screen'
       ]
-      // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
-      // i18n: 'de' // Quasar language
     },
+
+    supportIE: true,
+
+    build: {
+      scopeHoisting: true,
+      vueRouterMode: 'history',
+      publicPath: 'quasar-ui-qmediaplayer',
+      // vueCompiler: true,
+      // gzip: true,
+      // analyze: true,
+      // extractCSS: false,
+      extendWebpack (cfg) {
+        cfg.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /node_modules/,
+          options: {
+            formatter: require('eslint').CLIEngine.getFormatter('stylish')
+          }
+        })
+      },
+
+      chainWebpack (chain) {
+        chain.resolve.alias.merge({
+          '@quasar/quasar-ui-qmediaplayer': path.resolve(__dirname, '../ui'),
+          'ui': path.resolve(__dirname, '../ui/src/index.js'),
+          'sass': path.resolve(__dirname, '../ui/src/index.sass'),
+          'api': path.resolve(__dirname, '../ui/dist/api/QMediaPlayer.json')
+        })
+      }
+    },
+
+    devServer: {
+      // https: true,
+      // port: 8080,
+      open: true, // opens browser window automatically
+      watchOptions: {
+        ignored: [
+          'node_modules',
+          '!node_modules/@quasar/quasar-app-extension-qmediaplayer'
+        ]
+      }
+    },
+
     // animations: 'all' --- includes all animations
     animations: [],
+
     ssr: {
       pwa: false
     },
+
     pwa: {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {},
@@ -165,14 +189,18 @@ module.exports = function (ctx) {
         ]
       }
     },
+
     cordova: {
       // id: 'org.cordova.quasar.app'
     },
+
     electron: {
       // bundler: 'builder', // or 'packager'
+
       extendWebpack (cfg) {
         // do something with Electron process Webpack cfg
       },
+
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
 
@@ -185,6 +213,7 @@ module.exports = function (ctx) {
         // Window only
         // win32metadata: { ... }
       },
+
       builder: {
         // https://www.electron.build/configuration/configuration
 

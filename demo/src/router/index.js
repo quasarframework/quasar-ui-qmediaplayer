@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 
 export default function (/* { store, ssrContext } */) {
   const Router = new VueRouter({
-    scrollBehavior: () => ({ y: 0 }),
+    scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
 
     // Leave these as is and change from quasar.conf.js instead!

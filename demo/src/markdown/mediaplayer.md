@@ -1,10 +1,7 @@
 QMediaPlayer
 ===
 
-![official icon](https://img.shields.io/badge/Quasar%201.0-Official%20UI%20App%20Extension-blue.svg) ![npm (scoped)](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?style=plastic)
-
-
-QMediaPlayer is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction). It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
+QMediaPlayer is a [Quasar](https://quasar.dev) component. It is a powerful component that plugs right into your Quasar application and allows you to play HTML5 video and audio.
 
 ![QMediaPlayer](statics/qmediaplayer.png "QMediaPlayer" =800x800)
 
@@ -13,11 +10,6 @@ To add this App Extension to your Quasar application, run the following (in your
 
 ```shell
 quasar ext add @quasar/qmediaplayer
-```
-
-QCalendar has a dependency on the `@quasar/colorize` app extension and this will also need to be installed.
-```
-quasar ext add @quasar/colorize
 ```
 
 # Uninstall
@@ -31,10 +23,10 @@ quasar ext remove @quasar/qmediaplayer
 You can use `quasar describe QMediaPlayer`
 
 # Interactive Demo
-Can be found [here](https://quasarframework.github.io/app-extension-qmediaplayer/demo).
+Can be found [here](https://quasarframework.github.io/quasar-ui-qmediaplayer/demo).
 
 # Demo Project (source)
-Can be found [here](https://github.com/quasarframework/app-extension-qmediaplayer/tree/master/demo).
+Can be found [here](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/master/demo).
 
 # Language Files
 
@@ -59,6 +51,7 @@ We need help translating the language files. They are all currently using Englis
 - русский/Russian ([@Dmitrij-Polyanin](https://github.com/Dmitrij-Polyanin))
 - 日本語 (にほんご) ([@mesqueeb](https://github.com/mesqueeb))
 - 한국어 ([@bichikim](https://github.com/bichikim))
+- Turkish ([@Anaxilaus](https://github.com/Anaxilaus))
 
 
 # Example Code
@@ -196,7 +189,7 @@ If you find you have a need access to use the underlying media player, you can s
 
 ```html
   <q-media-player
-    ref="my-player"
+    ref="myPlayer"
     ...
   />
 ```
@@ -205,9 +198,13 @@ then
 
 ```js
 // in code some where
-this.$refs['my-player'].$media
+this.$refs.myPlayer.$media
 
-// examples to call native functions:
-// this.$refs['my-player'].$media.pause()
-// this.$refs['my-player'].$media.play()
+// examples to call native functions directly:
+// this.$refs.myPlayer.$media.pause()
+// this.$refs.myPlayer.$media.play()
+
+// or via QMediaPlayer
+// this.$refs.myPlayer.pause()
+// this.$refs.myPlayer.play()
 ```
