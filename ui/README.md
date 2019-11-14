@@ -167,7 +167,7 @@ If you need the RTL variant of the CSS, then go for the following (instead of th
 </html>
 ```
 
-[UMD example on Codepen] TBD
+[UMD example on Codepen](https://codepen.io/Hawkeye64/pen/WNNgdYa)
 
 ## Setup
 
