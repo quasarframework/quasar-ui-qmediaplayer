@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-app-extension-qmediaplayer",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "A Quasar App Extension for @quasar/quasar-ui-qmediaplayer",
   "author": "Jeff Galbraith <jeff@quasar.dev>",
   "license": "MIT",
