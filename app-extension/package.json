@@ -41,7 +41,7 @@
     "yarn": ">= 1.6.0"
   },
   "dependencies": {
-    "@quasar/quasar-ui-qmediaplayer": "1.0.1"
+    "@quasar/quasar-ui-qmediaplayer": "1.0.3"
   },
   "devDependencies": {
     "@vue/eslint-config-standard": "^4.0.0",
