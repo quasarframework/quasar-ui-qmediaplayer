@@ -112,7 +112,7 @@ import Hero from '../components/Hero'
 import ExampleTitle from '../components/ExampleTitle'
 import ExampleCard from '../components/ExampleCard'
 import { slugify } from 'assets/page-utils'
-import getTagParts from '@quasar/quasar-app-extension-qmarkdown/src/lib/getTagParts'
+import { getTagParts } from '@quasar/quasar-ui-qmarkdown'
 
 export default {
   name: 'Examples',
@@ -209,12 +209,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-.example-page
-  padding: 16px 46px;
-  font-weight: 300;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-</style>
