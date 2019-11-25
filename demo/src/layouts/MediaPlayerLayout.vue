@@ -16,6 +16,9 @@
           QMediaPlayer <span class="text-subtitle2">v{{ version }}</span>
         </q-toolbar-title>
 
+        <q-space />
+
+        <q-btn flat round @click="$q.dark.toggle()" :icon="$q.dark.isActive ? 'brightness_2' : 'brightness_5'" />
         <div>Quasar v{{ $q.version }}</div>
 
       </q-toolbar>
@@ -24,7 +27,6 @@
     <q-drawer
       v-model="leftDrawerOpen"
       bordered
-      content-class="bg-grey-2"
     >
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
