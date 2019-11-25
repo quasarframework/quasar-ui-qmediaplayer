@@ -14,12 +14,10 @@
 
         <q-toolbar-title v-if="$q.screen.width > 500">
           QMediaPlayer <span class="text-subtitle2">v{{ version }}</span>
-          <q-tooltip v-if="$q.screen.width < 1077">
-            QMediaPlayer <span class="text-subtitle2">v{{ version }}</span>
-          </q-tooltip>
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
+
       </q-toolbar>
     </q-header>
 
