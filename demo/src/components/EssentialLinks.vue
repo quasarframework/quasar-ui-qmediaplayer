@@ -30,7 +30,7 @@
     <q-separator />
     <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/quasar-ui-qmediaplayer">
       <q-item-section avatar>
-        <q-icon name="extension" />
+        <q-icon name="home" />
       </q-item-section>
       <q-item-section>
         <q-item-label>QMediaPlayer home</q-item-label>
@@ -39,7 +39,7 @@
     </q-item>
     <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/quasar-ui-qmarkdown">
       <q-item-section avatar>
-        <q-icon name="extension" />
+        <q-icon name="fab fa-markdown" />
       </q-item-section>
       <q-item-section>
         <q-item-label>QMarkdown home</q-item-label>
@@ -55,6 +55,8 @@
         <q-item-label caption>@jgalbraith64</q-item-label>
       </q-item-section>
     </q-item>
+    <q-separator />
+    <q-item-label header>Quasar</q-item-label>
     <q-separator />
     <q-item clickable tag="a" target="_blank" href="http://quasar.dev">
       <q-item-section avatar>
