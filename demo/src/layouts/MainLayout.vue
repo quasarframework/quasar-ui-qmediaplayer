@@ -40,8 +40,10 @@
     >
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
+        <q-separator />
       </q-list>
       <essential-links />
+      <q-separator />
     </q-drawer>
 
     <q-drawer

@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="glossy">
+  <q-layout view="HHh LpR fFf">
+    <q-header elevated>
       <q-toolbar>
         <q-btn
           flat
@@ -30,6 +30,7 @@
     >
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
+        <q-separator />
       </q-list>
       <essential-links />
     </q-drawer>
