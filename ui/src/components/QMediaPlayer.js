@@ -273,14 +273,14 @@ export default {
     },
 
     selectTracksLanguageList () {
-      let tracksList = []
+      const tracksList = []
       // provide option to turn subtitles/captions/chapters off
-      let track = {}
+      const track = {}
       track.label = this.lang.mediaPlayer.trackLanguageOff
       track.value = 'off'
       tracksList.push(track)
       for (let index = 0; index < this.tracks.length; ++index) {
-        let track = {}
+        const track = {}
         track.label = track.value = this.tracks[index].label
         tracksList.push(track)
       }
@@ -392,7 +392,7 @@ export default {
 
     'state.volume' (val) {
       if (this.$media) {
-        let volume = parseFloat(val / 100.0)
+        const volume = parseFloat(val / 100.0)
         if (this.$media.volume !== volume) {
           this.$media.volume = volume
           this.$emit('volume', val)
@@ -600,7 +600,7 @@ export default {
     },
 
     __setupLang () {
-      let isoName = this.$q.lang.isoName || 'en-us'
+      const isoName = this.$q.lang.isoName || 'en-us'
       let lang
       try {
         // lang = require(`./lang/${isoName}`)
@@ -643,7 +643,7 @@ export default {
     },
 
     __setupIcons () {
-      let iconSetName = this.$q.iconSet.name || 'material-icons'
+      const iconSetName = this.$q.iconSet.name || 'material-icons'
       let iconSet
       try {
         iconSet = this.__loadIconSet(iconSetName)
@@ -680,7 +680,7 @@ export default {
     },
 
     __init () {
-      this.$media = this.$refs['media']
+      this.$media = this.$refs.media
       // set default track language
       this.__updateTrackLanguage()
       this.__updateSources()
@@ -725,7 +725,7 @@ export default {
 
     __addSourceEventListeners () {
       if (this.$media) {
-        let sources = this.$media.querySelectorAll('source')
+        const sources = this.$media.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
           sources[index].addEventListener('error', this.__sourceEventHandler)
         }
@@ -734,7 +734,7 @@ export default {
 
     __removeSourceEventListeners () {
       if (this.$media) {
-        let sources = this.$media.querySelectorAll('source')
+        const sources = this.$media.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
           sources[index].removeEventListener('error', this.__sourceEventHandler)
         }
@@ -769,7 +769,7 @@ export default {
         this.state.playing = false
         this.$emit('ended')
       } else if (event.type === 'error') {
-        let error = this.$media.error
+        const error = this.$media.error
         this.$emit('error', error)
       } else if (event.type === 'interruptbegin') {
         // console.log('interruptbegin')
@@ -821,7 +821,7 @@ export default {
     },
 
     __adjustMenu () {
-      const qmenu = this.$refs['menu']
+      const qmenu = this.$refs.menu
       if (qmenu) {
         setTimeout(() => {
           qmenu.updatePosition()
@@ -976,7 +976,7 @@ export default {
           // otherwise IE11 has exception error
           this.$media.currentTime = 0
         }
-        let childNodes = this.$media.childNodes
+        const childNodes = this.$media.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
           if (childNodes[index].tagName === 'SOURCE') {
             this.$media.removeChild(childNodes[index])
@@ -995,7 +995,7 @@ export default {
         } else {
           if (this.sources.length > 0) {
             this.sources.forEach((source) => {
-              let s = document.createElement('SOURCE')
+              const s = document.createElement('SOURCE')
               s.src = source.src ? source.src : ''
               s.type = source.type ? source.type : ''
               this.$media.appendChild(s)
@@ -1019,7 +1019,7 @@ export default {
 
     __removeTracks () {
       if (this.$media) {
-        let childNodes = this.$media.childNodes
+        const childNodes = this.$media.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
           if (childNodes[index].tagName === 'TRACK') {
             this.$media.removeChild(childNodes[index])
@@ -1032,7 +1032,7 @@ export default {
       // only add tracks to video
       if (this.isVideo && this.$media) {
         this.tracks.forEach((track) => {
-          let t = document.createElement('TRACK')
+          const t = document.createElement('TRACK')
           t.kind = track.kind ? track.kind : ''
           t.label = track.label ? track.label : ''
           t.src = track.src ? track.src : ''
@@ -1052,7 +1052,7 @@ export default {
     },
 
     __renderVideo (h) {
-      let slot = this.$slots.oldbrowser
+      const slot = this.$slots.oldbrowser
 
       return h('video', {
         ref: 'media',
@@ -1073,7 +1073,7 @@ export default {
     },
 
     __renderAudio (h) {
-      let slot = this.$slots.oldbrowser
+      const slot = this.$slots.oldbrowser
 
       // This is on purpose (not using audio tag).
       // The video tag can also play audio and works better if dynamically
@@ -1122,7 +1122,7 @@ export default {
     },
 
     __renderOverlayWindow (h) {
-      let slot = this.$slots.overlay
+      const slot = this.$slots.overlay
 
       if (slot) {
         return h('div', {
@@ -1135,7 +1135,7 @@ export default {
     },
 
     __renderErrorWindow (h) {
-      let slot = this.$slots.errorWindow
+      const slot = this.$slots.errorWindow
 
       return h('div', {
         staticClass: 'q-media__error-window'
@@ -1145,7 +1145,7 @@ export default {
     },
 
     __renderPlayButton (h) {
-      let slot = this.$slots.play
+      const slot = this.$slots.play
 
       return slot || h(QBtn, {
         staticClass: 'q-media__controls--button',
@@ -1166,7 +1166,7 @@ export default {
     },
 
     __renderVideoControls (h) {
-      let slot = this.$slots.controls
+      const slot = this.$slots.controls
 
       return slot || h('div', {
         ref: 'controls',
@@ -1219,7 +1219,7 @@ export default {
     },
 
     __renderAudioControls (h) {
-      let slot = this.$slots.controls
+      const slot = this.$slots.controls
 
       return slot || h('div', {
         ref: 'controls',
@@ -1262,7 +1262,7 @@ export default {
     },
 
     __renderVolumeButton (h) {
-      let slot = this.$slots.volume
+      const slot = this.$slots.volume
 
       return slot || h(QBtn, {
         staticClass: 'q-media__controls--button',
@@ -1286,7 +1286,7 @@ export default {
       if (this.hideVolumeSlider === true) {
         return ''
       }
-      let slot = this.$slots.volumeSlider
+      const slot = this.$slots.volumeSlider
 
       return slot || h(QSlider, {
         staticClass: 'col',
@@ -1311,7 +1311,7 @@ export default {
     },
 
     __renderSettingsButton (h) {
-      let slot = this.$slots.settings
+      const slot = this.$slots.settings
 
       return slot || h(QBtn, {
         staticClass: 'q-media__controls--button',
@@ -1329,7 +1329,7 @@ export default {
     },
 
     __renderFullscreenButton (h) {
-      let slot = this.$slots.fullscreen
+      const slot = this.$slots.fullscreen
 
       return slot || h(QBtn, {
         staticClass: 'q-media__controls--button',
@@ -1356,7 +1356,7 @@ export default {
         this.state.spinnerSize = this.spinnerSize
       }
 
-      let slot = this.$slots.spinner
+      const slot = this.$slots.spinner
 
       return slot || h('div', {
         staticClass: this.isVideo ? 'q-media__loading--video' : 'q-media__loading--audio'
@@ -1371,7 +1371,7 @@ export default {
     },
 
     __renderBigPlayButton (h) {
-      let slot = this.$slots.bigPlayButton
+      const slot = this.$slots.bigPlayButton
 
       return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
         staticClass: 'q-media--big-button'
@@ -1395,7 +1395,7 @@ export default {
     },
 
     __renderCurrentTimeSlider (h) {
-      let slot = this.$slots.positionSlider
+      const slot = this.$slots.positionSlider
 
       return slot || h(QSlider, {
         staticClass: 'col',
@@ -1417,7 +1417,7 @@ export default {
     },
 
     __renderDisplayTime (h) {
-      let slot = this.$slots.displayTime
+      const slot = this.$slots.displayTime
 
       return slot || h('span', {
         staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
@@ -1427,7 +1427,7 @@ export default {
     __renderDurationTime (h) {
       if (this.$media === void 0) return
 
-      let slot = this.$slots.durationTime
+      const slot = this.$slots.durationTime
       const isInfinity = this.$media !== void 0 && !isFinite(this.$media.duration)
 
       return slot || h('span', {
@@ -1460,7 +1460,7 @@ export default {
     },
 
     __renderSettingsMenu (h) {
-      let slot = this.$slots.settingsMenu
+      const slot = this.$slots.settingsMenu
 
       return h(QMenu, {
         ref: 'menu',
