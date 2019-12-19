@@ -1,13 +1,13 @@
-# Quasar App Extension qmediaplayer
+# Quasar App Extension QMediaPlayer
 
-> Add a short description of your App Extension. What does it do? How is it beneficial? Why would someone want to use it?
+The QMediaPlayer app extension allows you to seamlessly add the [QMediaPlayer UI](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/dev/ui) component directly into your Quasar Framework application without the need to write a boot file. See below for installation instructions via the Quasar CLI.
 
 [![npm](https://img.shields.io/npm/v/quasar-quasar-ui-qmediaplayer.svg?label=@quasar/quasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
 
 # Install
 ```bash
-quasar ext add qmediaplayer
+quasar ext add @quasar/qmediaplayer
 ```
 Quasar CLI will retrieve it from NPM and install the extension.
 
@@ -17,14 +17,11 @@ Quasar CLI will retrieve it from NPM and install the extension.
 
 # Uninstall
 ```bash
-quasar ext remove qmediaplayer
+quasar ext remove @quasar/qmediaplayer
 ```
 
-# Info
-> Add longer information here that will help the user of your app extension.
-
-# Other Info
-> Add other information that's not as important to know
+# Live Demo
+* [live demo](https://quasarframework.github.io/quasar-ui-qmediaplayer/docs) - live docs, demo and examples
 
 # Donate
 If you appreciate the work that went into this, please consider donating to [Quasar](https://donate.quasar.dev) or [Jeff](https://github.com/sponsors/hawkeye64).
