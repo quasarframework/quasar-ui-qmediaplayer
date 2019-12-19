@@ -11,10 +11,6 @@ quasar ext add @quasar/qmediaplayer
 ```
 Quasar CLI will retrieve it from NPM and install the extension.
 
-## Prompts
-
-> If your app extension uses prompts, explain them here, otherwise remove this section.
-
 # Uninstall
 ```bash
 quasar ext remove @quasar/qmediaplayer
