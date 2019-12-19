@@ -183,6 +183,12 @@ For more detailed information [go here](https://html.spec.whatwg.org/multipage/m
 ```
 For more detailed information [go here](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/networkState).
 
+## iOS
+If you want to use the `playsinline` property with iOS, you will need to add the following to the `config.xml` for your iOS build:
+```html
+<preference name=""AllowInlineMediaPlayback" value="true" />
+```
+
 # Direct Access
 
 If you find you have a need access to use the underlying media player, you can set up a ref on the QMediaPlayer and access `$media` directly, even capturing and handling events.

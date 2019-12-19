@@ -44,10 +44,10 @@
     "@quasar/quasar-ui-qmediaplayer": "^1.0.16"
   },
   "devDependencies": {
-    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/eslint-config-standard": "^5.0.1",
     "babel-eslint": "^10.0.3",
-    "eslint": "^6.7.1",
-    "eslint-loader": "^3.0.2",
+    "eslint": "^6.7.2",
+    "eslint-loader": "^3.0.3",
     "eslint-plugin-vue": "^6.0.1"
   }
 }
