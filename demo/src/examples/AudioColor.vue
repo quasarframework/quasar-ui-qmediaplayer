@@ -1,9 +1,11 @@
 <template>
-  <q-media-player
-    type="audio"
-    :sources="sources"
-    color="orange-8"
-  />
+  <div style="max-width: 800px; width: 100%;">
+    <q-media-player
+      type="audio"
+      :sources="sources"
+      color="orange-8"
+    />
+  </div>
 </template>
 
 <script>
@@ -12,7 +14,7 @@ export default {
     return {
       sources: [
         {
-          src: 'statics/media/Dee_Yan-Key_-_01_-_Driving_Home.mp3',
+          src: 'statics/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
           type: 'audio/mp3'
         }
       ]

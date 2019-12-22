@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="max-width: 800px; width: 100%;">
     <q-input v-model="media" filled clearable type="file" style="width: 50%;" class="q-pa-md"/>
     <q-media-player
       type="audio"
