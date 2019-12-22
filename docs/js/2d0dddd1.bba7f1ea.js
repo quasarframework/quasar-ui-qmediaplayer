@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["2d0dddd1"],{"82cd":function(n,e,t){"use strict";t.r(e),e["default"]='<template>\n  <q-media-player\n    type="video"\n    source="https://ftp.halifax.rwth-aachen.de/blender/demo/movies/Sintel.2010.1080p.mkv"\n  />\n</template>\n\n<script>\nexport default {\n  data () {\n    return {\n    }\n  }\n}\n<\/script>\n'}}]);
