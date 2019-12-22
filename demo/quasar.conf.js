@@ -125,7 +125,8 @@ module.exports = function (ctx) {
           '@quasar/quasar-ui-qmediaplayer': path.resolve(__dirname, '../ui'),
           'ui': path.resolve(__dirname, '../ui/src/index.js'),
           'sass': path.resolve(__dirname, '../ui/src/index.sass'),
-          'api': path.resolve(__dirname, '../ui/dist/api/QMediaPlayer.json')
+          'api': path.resolve(__dirname, '../ui/dist/api/QMediaPlayer.json'),
+          'examples': path.resolve(__dirname, './src/examples')
         })
       }
     },

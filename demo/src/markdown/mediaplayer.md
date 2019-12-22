@@ -146,7 +146,7 @@ data () {
 audio: {
   sources: [
     {
-      src: 'statics/media/Dee_Yan-Key_-_01_-_Driving_Home.mp3',
+      src: 'statics/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
       type: 'audio/mp3'
     }
   ]
@@ -175,13 +175,24 @@ This enumerated attribute is intended to provide a hint to the browser about wha
 For more detailed information [go here](https://html.spec.whatwg.org/multipage/media.html#attr-media-preload).
 
 ## networkState
+You can capture the `networkState` with the `@networkState` event.
 ```js
-  const unsigned short NETWORK_EMPTY = 0;
-  const unsigned short NETWORK_IDLE = 1;
-  const unsigned short NETWORK_LOADING = 2;
-  const unsigned short NETWORK_NO_SOURCE = 3;
+  NETWORK_EMPTY = 0
+  NETWORK_IDLE = 1
+  NETWORK_LOADING = 2
+  NETWORK_NO_SOURCE = 3
 ```
 For more detailed information [go here](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/networkState).
+
+## MediaError
+You can capture the `MediaError` with the `@error` event.
+```js
+  MEDIA_ERR_ABORTED = 1
+  MEDIA_ERR_NETWORK = 2
+  MEDIA_ERR_DECODE = 3
+  MEDIA_ERR_SRC_NOT_SUPPORTED = 4
+```
+For more detailed information [go here](https://developer.mozilla.org/en-US/docs/Web/API/MediaError).
 
 ## iOS
 If you want to use the `playsinline` property with iOS, you will need to add the following to the `config.xml` for your iOS build:

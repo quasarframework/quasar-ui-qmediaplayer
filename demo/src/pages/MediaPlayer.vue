@@ -3,7 +3,7 @@
 
     <div class="row flex-center">
       <p>This page is intended to test multiple scenarios of QMediaPlayer.</p>
-      <p>Music courtesy of <a href="http://freemusicarchive.org/music/Dee_Yan-Key/years_and_years_ago/01--Dee_Yan-Key-Driving_Home" target="blank">Free Music Archive</a></p>
+      <p>Music courtesy of <a href="https://freemusicarchive.org/music/Scott_Holmes/Inspiring__Upbeat_Music/Scott_Holmes_-_Upbeat_Party" target="blank">Free Music Archive</a></p>
       <p style="text-align: center;">Videos and subtitles courtesy of <a href="https://mango.blender.org/download/" target="blank">Blender Organization</a>.</p>
     </div>
 
@@ -111,7 +111,7 @@ export default {
       audio: {
         sources: [
           {
-            src: 'statics/media/Dee_Yan-Key_-_01_-_Driving_Home.mp3',
+            src: 'statics/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
             type: 'audio/mp3'
           }
         ]
