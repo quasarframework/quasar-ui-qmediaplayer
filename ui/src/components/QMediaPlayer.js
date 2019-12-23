@@ -618,7 +618,7 @@ export default {
       let langList = {}
       if (lang) {
         // detect if UMD version is installed
-        if (window.QMediaPlayer && window.QMediaPlayer.Component) {
+        if (window && window.QMediaPlayer && window.QMediaPlayer.Component) {
           const name = lang.replace(/-([a-z])/g, g => g[1].toUpperCase())
           if (window.QMediaPlayer.lang && window.QMediaPlayer.lang[name]) {
             const selectedLang = window.QMediaPlayer.lang[name]
@@ -655,7 +655,7 @@ export default {
       let iconsList = {}
       if (set) {
         // detect if UMD version is installed
-        if (window.QMediaPlayer && window.QMediaPlayer.Component) {
+        if (window && window.QMediaPlayer && window.QMediaPlayer.Component) {
           const name = set.replace(/-([a-z])/g, g => g[1].toUpperCase())
           if (window.QMediaPlayer.iconSet && window.QMediaPlayer.iconSet[name]) {
             const iconsSet = window.QMediaPlayer.iconSet[name]
@@ -699,8 +699,10 @@ export default {
       if (this.crossOrigin) {
         this.$media.setAttribute('crossorigin', this.crossOrigin)
       }
-      // make sure "controls" is turned off
-      this.$media.controls = false
+      if (this.$media) {
+        // make sure "controls" is turned off
+        this.$media.controls = false
+      }
       // set up event listeners on video
       this.__addMediaEventListeners()
       this.__addSourceEventListeners()
