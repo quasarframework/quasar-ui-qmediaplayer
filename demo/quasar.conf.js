@@ -7,7 +7,6 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'components',
       'qmediaplayer'
     ],
 
