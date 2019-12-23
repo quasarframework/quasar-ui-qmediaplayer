@@ -12,7 +12,7 @@ export default {
     return {
       sources: [
         {
-          src: 'https://ftp.nluug.nl/pub/graphics/blender/demo/movies/ToS/ToS-4k-1920.mov',
+          src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
           type: 'video/mp4'
         }
       ],

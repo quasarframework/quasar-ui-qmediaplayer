@@ -12,7 +12,7 @@ export default {
     return {
       sources: [
         {
-          src: 'https://ftp.halifax.rwth-aachen.de/blender/demo/movies/Sintel.2010.1080p.mkv',
+          src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
           type: 'video/mp4'
         }
       ]

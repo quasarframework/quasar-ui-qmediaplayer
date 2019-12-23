@@ -123,7 +123,7 @@ export default {
           poster: 'statics/media/TearsOfSteel/TearsOfSteel.jpeg',
           sources: [
             {
-              src: 'https://ftp.nluug.nl/pub/graphics/blender/demo/movies/ToS/ToS-4k-1920.mov',
+              src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
               type: 'video/mp4'
             }
           ],
@@ -171,7 +171,7 @@ export default {
           poster: 'statics/media/sintel/sintel-poster2.jpeg',
           sources: [
             {
-              src: 'https://ftp.halifax.rwth-aachen.de/blender/demo/movies/Sintel.2010.1080p.mkv',
+              src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
               type: 'video/mp4'
             }
           ],
