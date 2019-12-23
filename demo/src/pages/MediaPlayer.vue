@@ -111,7 +111,7 @@ export default {
       audio: {
         sources: [
           {
-            src: 'statics/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
+            src: 'https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/src/statics/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
             type: 'audio/mp3'
           }
         ]

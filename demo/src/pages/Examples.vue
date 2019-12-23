@@ -9,17 +9,13 @@
 The videos are remotely hosted and may have issues loading depending where you live
 :::
 
-::: info
-The audio examples below have codepen links turned off because of cross-origin issues related to playing audo from a remote server
-:::
-
       </q-markdown>
       <example-title title="Basic" />
-      <example-viewer title="Audio - Basic" file="AudioBasic" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Basic" file="AudioBasic" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Basic" file="VideoBasic" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
       <example-title title="Color" />
-      <example-viewer title="Audio - Color" file="AudioColor" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Color" file="AudioColor" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Color" file="VideoColor" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths">
         <q-markdown>
 ::: tip
@@ -29,7 +25,7 @@ The color of the Big Play Button can also be changed independently
       </example-viewer>
 
       <example-title title="Background Color" />
-      <example-viewer title="Audio - Background Color" file="AudioBackgroundColor" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Background Color" file="AudioBackgroundColor" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Background Color" file="VideoBackgroundColor" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths">
         <q-markdown>
 ::: info
@@ -42,20 +38,20 @@ The background color of the video view is only visible until the video is loaded
       <example-viewer title="Video - Poster" file="VideoPoster" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
       <example-title title="Dark" />
-      <example-viewer title="Audio - Dark" file="AudioDark" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Dark" file="AudioDark" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Dark" file="VideoDark" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
       <example-title title="Dense" />
-      <example-viewer title="Audio - Dense" file="AudioDense" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Dense" file="AudioDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Dense" file="VideoDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
       <example-title title="Hide Volume Slider" />
       <q-markdown>
 The `hide-volumn-slider` property is available to hide the volume slider control, which is more applicable to mobile devices, but can also be used for desktops as well.
       </q-markdown>
-      <example-viewer title="Audio - Hide Volume Slider" file="AudioHideVolumeSlider" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Hide Volume Slider" file="AudioHideVolumeSlider" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Hide Volume Slider" file="VideoHideVolumeSlider" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
-      <example-viewer title="Audio - Hide Volume Slider (Dense)" file="AudioHideVolumeSliderDense" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Hide Volume Slider (Dense)" file="AudioHideVolumeSliderDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Hide Volume Slider (Dense)" file="VideoHideVolumeSliderDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
       <example-title title="Mobile Mode" />
@@ -69,7 +65,7 @@ The `mobile-mode` property is available to turn off the hover effect that displa
       <q-markdown>
 It is preferable to use the property `sources` rather than `source` so the browser can have the associated type of media file, rather than relying on the extension.
       </q-markdown>
-      <example-viewer title="Audio - Source" file="AudioSource" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Source" file="AudioSource" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Source" file="VideoSource" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
       <example-title title="Source (Blob)" />
@@ -78,7 +74,7 @@ The examples below show how you can query your user for local audio or video fil
 
 Note: These examples have `autoplay` turned on.
       </q-markdown>
-      <example-viewer title="Audio - Source (Blob)" file="AudioSourceBlob" no-edit :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio - Source (Blob)" file="AudioSourceBlob" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Source (Blob)" file="VideoSourceBlob" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
       <example-title title="Tracks" />
@@ -101,8 +97,10 @@ Not all languages have been translated. If you can help out, please [PR a langua
 
       <example-title title="Icon Set" />
       <q-markdown>
-> QMediaPlayer does not have a property to set the icon set directly. It uses Quasar's internal icon set support indirectly. When that switches, then QMediaPlayer also switches to that icon set.
+> QMediaPlayer does not have a property to set the icon set directly. It uses Quasar's internal icon set support indirectly. When that switches, then QMediaPlayer also switches to the corresponding icon set.
+In the examples below, when the icon set is changed, you will notice that all media player on this page also change their icon set.
       </q-markdown>
+      <example-viewer title="Audio - Icon Set" file="AudioIconSet" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Icon Set" file="VideoIconSet" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
     </div>
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
