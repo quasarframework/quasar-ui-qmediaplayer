@@ -1,7 +1,7 @@
 <template>
   <q-media-player
     type="video"
-    source="https://ftp.halifax.rwth-aachen.de/blender/demo/movies/Sintel.2010.1080p.mkv"
+    source="http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4"
   />
 </template>
 
