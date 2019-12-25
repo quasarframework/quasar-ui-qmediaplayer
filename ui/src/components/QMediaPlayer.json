@@ -54,7 +54,7 @@
     "sources": {
       "type": "Array",
       "category": "model",
-      "desc": "The one or more sources for Video or Audio",
+      "desc": "The one or more sources for Video or Audio. The browser will pick the best one to play based on available codecs on the client's system",
       "applicable": [ "Audio", "Video" ],
       "definition": {
         "src": {
@@ -453,6 +453,22 @@
     "toggleControls": {
       "desc": "Toggle the controls",
       "applicable": [ "Video" ]
+    },
+    "play": {
+      "desc": "Initiate play of the media, but only if it can be played at the time of the call. You should call this after the `ready` event. Note: this is not always successful unless it is followed by a user action (click or touch)",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "pause": {
+      "desc": "Initiate pause of the media, but only if it is curently being played",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "mute": {
+      "desc": "Mutes the audio",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "unmute": {
+      "desc": "Unmutes the audio",
+      "applicable": [ "Audio", "Video" ]
     },
     "togglePlay": {
       "desc": "Toggles between play/pause states",

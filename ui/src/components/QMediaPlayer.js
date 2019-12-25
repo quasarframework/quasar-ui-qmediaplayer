@@ -516,6 +516,51 @@ export default {
       }
     },
 
+    play () {
+      if (this.$media && this.state.playReady) {
+        const hasPromise = typeof this.$media.play() !== 'undefined'
+        if (hasPromise) {
+          this.$media.play()
+            .then(() => {
+              this.state.showBigPlayButton = false
+              this.state.playing = true
+              this.__mouseLeaveVideo()
+            })
+            .catch((e) => {})
+        } else {
+          // IE11 + EDGE support
+          this.$media.play()
+          this.state.showBigPlayButton = false
+          this.state.playing = true
+          this.__mouseLeaveVideo()
+        }
+      }
+    },
+
+    pause () {
+      if (this.$media && this.state.playReady) {
+        if (this.state.playing) {
+          this.$media.pause()
+          this.state.showBigPlayButton = true
+          this.state.playing = false
+        }
+      }
+    },
+
+    mute () {
+      this.state.muted = true
+      if (this.$media) {
+        this.$media.muted = this.state.muted === true
+      }
+    },
+
+    unmute () {
+      this.state.muted = false
+      if (this.$media) {
+        this.$media.muted = this.state.muted !== true
+      }
+    },
+
     togglePlay () {
       if (this.$media && this.state.playReady) {
         if (this.state.playing) {
@@ -533,7 +578,7 @@ export default {
               })
               .catch((e) => {})
           } else {
-            // IE11 + EDGE
+            // IE11 + EDGE support
             this.$media.play()
             this.state.showBigPlayButton = false
             this.state.playing = true
