@@ -368,6 +368,17 @@
         }
       }
     },
+    "networkState": {
+      "desc": "Emitted when there is a network state error",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "state": {
+          "type": "Number",
+          "desc": "0 (NETWORK_EMPTY) There is no data yet. Also, readyState is HAVE_NOTHING. 1 (NETWORK_IDLE) HTMLMediaElement is active and has selected a resource, but is not using the network. 2 (NETWORK_LOADING) The browser is downloading HTMLMediaElement data. 3 (NETWORK_NO_SOURCE) No HTMLMediaElement src found.",
+          "__exemption": [ "examples" ]
+        }
+      }
+    },
     "paused": {
       "desc": "Emitted when the media is paused",
       "applicable": [ "Audio", "Video" ]
