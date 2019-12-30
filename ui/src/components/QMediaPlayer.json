@@ -454,11 +454,11 @@
   },
   "methods": {
     "showControls": {
-      "desc": "Show the controls. Has no effect is already being displayed",
+      "desc": "Show the controls. Has no effect if already being displayed",
       "applicable": [ "Video" ]
     },
     "hideControls": {
-      "desc": "Hide the controls. Has no effect is already being hidden",
+      "desc": "Hide the controls. Has no effect if already being hidden",
       "applicable": [ "Video" ]
     },
     "toggleControls": {
@@ -503,8 +503,12 @@
     },
     "currentTime": {
       "desc": "Returns the current time in seconds",
-      "applicable": [ "Audio", "Video" ]
-    },
+      "applicable": [ "Audio", "Video" ],
+      "returns": {
+        "type": "Number",
+        "desc": "-1 if not ready, otherwise the current time in seconds",
+        "__exemption": [ "examples" ]
+      }    },
     "setCurrentTime": {
       "desc": "Set the current time of the video/audio player (in seconds)",
       "applicable": [ "Audio", "Video" ],
@@ -544,6 +548,11 @@
           "type": "FileList",
           "__exemption": [ "examples" ]
         }
+      },
+      "returns": {
+        "type": "Boolean",
+        "desc": "true if successful, otherwise false",
+        "__exemption": [ "examples" ]
       }
     }
   },
