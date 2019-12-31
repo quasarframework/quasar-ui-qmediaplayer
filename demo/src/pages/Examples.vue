@@ -117,7 +117,6 @@ In the examples below, when the icon set is changed, you will notice that all me
 import Hero from '../components/Hero'
 import ExampleTitle from '../components/ExampleTitle'
 import { slugify } from 'assets/page-utils'
-import { getTagParts } from '@quasar/quasar-ui-qmarkdown'
 import { version } from 'ui'
 
 export default {
@@ -210,7 +209,6 @@ export default {
   },
 
   methods: {
-    getTagParts,
     addToToc (name, level = 1) {
       let n = name
       if (level > 1) {
