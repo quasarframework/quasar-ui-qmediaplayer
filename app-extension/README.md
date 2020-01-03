@@ -2,7 +2,7 @@
 
 The QMediaPlayer app extension allows you to seamlessly add the [QMediaPlayer UI](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/dev/ui) component directly into your Quasar Framework application without the need to write a boot file. See below for installation instructions via the Quasar CLI.
 
-[![npm](https://img.shields.io/npm/v/quasar-quasar-ui-qmediaplayer.svg?label=@quasar/quasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
+![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?label=@quasar/quasar-app-extension-qmediaplayer)
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
 
 # Install
