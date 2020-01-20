@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="HHh LpR fFf">
+  <q-layout view="HHh LpR fFf" @scroll="onScroll">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -37,6 +37,8 @@
     <q-drawer
       v-model="leftDrawerOpen"
       bordered
+      aria-label="Menu"
+      class="menu"
     >
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
@@ -50,6 +52,8 @@
       v-model="rightDrawerOpen"
       side="right"
       bordered
+      aria-label="Table of Contents"
+      class="toc"
     >
       <q-scroll-area class="fit">
         <q-list dense>
@@ -126,6 +130,35 @@ export default {
       const offset = el.offsetTop - 50
       // setScrollPosition(target, offset, 500)
       setScrollPosition(window, offset, 500)
+    },
+    onScroll ({ position }) {
+      if (this.scrollingPage !== true) {
+        this.updateActiveToc(position)
+      }
+    },
+    updateActiveToc (position) {
+      const toc = this.toc
+      let last
+
+      for (const i in toc) {
+        const section = toc[i]
+        const item = document.getElementById(section.id)
+
+        if (item === null) {
+          continue
+        }
+
+        if (item.offsetTop >= position + 100) {
+          if (last === void 0) {
+            last = section.id
+          }
+          break
+        }
+      }
+
+      if (last !== void 0) {
+        this.activeToc = last
+      }
     }
   }
 }
