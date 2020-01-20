@@ -75,7 +75,7 @@ export default {
     crossOrigin: {
       type: [String, null],
       default: null,
-      validator: v => [null, 'anonymous', 'use-credentials'].includes(v)
+      validator: v => v === null || ['anonymous', 'use-credentials'].includes(v)
     },
     volume: {
       type: Number,

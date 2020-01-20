@@ -27,6 +27,10 @@ module.exports = function (ctx) {
     ],
 
     framework: {
+      config: {
+        dark: 'auto'
+      },
+
       // iconSet: 'ionicons-v4',
       // lang: 'de', // Quasar language
 

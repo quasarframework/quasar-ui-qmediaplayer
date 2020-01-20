@@ -27,6 +27,8 @@
     <q-drawer
       v-model="leftDrawerOpen"
       bordered
+      aria-label="Menu"
+      class="menu"
     >
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
