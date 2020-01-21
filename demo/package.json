@@ -13,12 +13,12 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.4.2",
+    "@quasar/extras": "^1.5.0",
     "quasar": "^1.7.4"
   },
   "devDependencies": {
     "@quasar/app": "^1.5.2",
-    "@quasar/quasar-app-extension-qmarkdown": "^1.0.16",
+    "@quasar/quasar-app-extension-qmarkdown": "^1.0.20",
     "@quasar/quasar-app-extension-qribbon": "^1.0.0-beta.14",
     "@vue/eslint-config-standard": "^5.1.0",
     "babel-eslint": "^10.0.3",
@@ -34,8 +34,8 @@
     "eslint-plugin-quasar": "^1.0.0-alpha.18",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.1.2",
-    "quasar-app-extension-example-viewer": "^0.0.14",
-    "quasar-app-extension-json-api-viewer": "^1.0.6"
+    "quasar-app-extension-example-viewer": "^0.0.19",
+    "quasar-app-extension-json-api-viewer": "^1.0.12"
   },
   "engines": {
     "node": ">= 8.9.0",
