@@ -514,7 +514,8 @@
       "params": {
         "rate": {
           "type": "Number",
-          "desc": "The rate value"
+          "desc": "The rate value",
+          "__exemption": [ "examples" ]
         }
       }
     },
@@ -524,7 +525,8 @@
       "params": {
         "lang": {
           "type": "String",
-          "desc": "The track language value"
+          "desc": "The track language value",
+          "__exemption": [ "examples" ]
         }
       }
     }
