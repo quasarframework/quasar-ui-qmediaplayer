@@ -805,6 +805,7 @@ export default {
         this.$emit('ready')
       } else if (event.type === 'canplaythrough') {
         // console.log('canplaythrough')
+        this.$emit('canplaythrough')
       } else if (event.type === 'durationchange') {
         if (isFinite(this.$media.duration)) {
           this.state.duration = Math.floor(this.$media.duration)
@@ -812,6 +813,7 @@ export default {
           this.$emit('duration', this.$media.duration)
         }
       } else if (event.type === 'emptied') {
+        this.$emit('emptied')
       } else if (event.type === 'ended') {
         this.state.playing = false
         this.$emit('ended')
@@ -824,7 +826,7 @@ export default {
         // console.log('interruptend')
       } else if (event.type === 'loadeddata') {
         this.state.loading = false
-        this.$emit('loaded')
+        this.$emit('loadeddata')
       } else if (event.type === 'loadedmetadata') {
         // tracks can only be programatically added after 'loadedmetadata' event
         this.state.metadataLoaded = true
@@ -832,12 +834,18 @@ export default {
         // set default track language
         this.__updateTrackLanguage()
         this.__toggleCaptions()
-      } else if (event.type === 'loadedstart') {
+        this.$emit('loadedmetadata')
+      } else if (event.type === 'stalled') {
+        this.$emit('stalled')
+      } else if (event.type === 'suspend') {
+        this.$emit('suspend')
+      } else if (event.type === 'loadstart') {
+        this.$emit('loadstart')
       } else if (event.type === 'pause') {
         this.state.playing = false
         this.$emit('paused')
       } else if (event.type === 'play') {
-        // console.log('play')
+        this.$emit('play')
       } else if (event.type === 'playing') {
         this.state.playing = true
         this.$emit('playing')

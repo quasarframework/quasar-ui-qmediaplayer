@@ -331,13 +331,40 @@
 
   },
   "events": {
-    "loaded": {
-      "desc": "Emitted when the media has been loaded",
-      "applicable": [ "Audio", "Video" ]
+    "mediaPlayer": {
+      "desc": "Emitted when the media element has been created",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "mediaElement": {
+          "type": "MediaElement",
+          "desc": "The MediaElement object",
+          "examples": [
+            "@mediaElement=\"me => $media = me\""
+          ]
+        }
+      }
     },
     "ready": {
       "desc": "Emitted when the media is ready to play. You cannot play/pause or setCurrentTime before this event",
       "applicable": [ "Audio", "Video" ]
+    },
+    "canplay": {
+      "desc": "Emmitted when the user agent can play the media, but estimates that not enough data has been loaded to play the media up to its end without having to stop for further buffering of content",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "canplaythrough": {
+      "desc": "Emmitted when the user agent can play the media, and estimates that enough data has been loaded to play the media up to its end without having to stop for further buffering of content",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.18"
+    },
+    "abort": {
+      "desc": "Emitted when the resource was not fully loaded, but not as the result of an error",
+      "applicable": [ "Audio", "Video" ]
+    },
+    "emptied": {
+      "desc": "Emitted when the media has become empty; for example, when the media has already been loaded (or partially loaded), and the `HTMLMediaElement.load()` method is called to reload it",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.18"
     },
     "duration": {
       "desc": "Emitted when the duration of the media has been determined",
@@ -380,12 +407,27 @@
       }
     },
     "paused": {
-      "desc": "Emitted when the media is paused",
+      "desc": "Emitted when the media player is paused",
       "applicable": [ "Audio", "Video" ]
     },
     "playing": {
       "desc": "Emitted when the media starts playing. This will also emit after a pause or a wait",
       "applicable": [ "Audio", "Video" ]
+    },
+    "play": {
+      "desc": "Emitted when the paused property is changed from true to false, as a result of the `HTMLMediaElement.play()` method, or the autoplay attribute",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.18"
+    },
+    "stalled": {
+      "desc": "Emitted when the user agent is trying to fetch media data, but data is unexpectedly not forthcoming",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.18"
+    },
+    "suspend": {
+      "desc": "Emitted when the media data loading has been suspended",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.18"
     },
     "timeupdate": {
       "desc": "Emitted wenever there is a time update (during play)",
@@ -414,8 +456,23 @@
       }
     },
     "waiting": {
-      "desc": "Emitted when the media player goes into a wait state (typically waiting while downloading)",
+      "desc": "Emitted when playback has stopped because of a temporary lack of data",
       "applicable": [ "Audio", "Video" ]
+    },
+    "loadeddata": {
+      "desc": "Emitted when the browser has started to load a resource",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.18"
+    },
+    "loadedmetadata": {
+      "desc": "Emitted when the metadata has been loaded",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.18"
+    },
+    "loadstart": {
+      "desc": "Emitted when the browser has started to load a resource",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.18"
     },
     "showControls": {
       "desc": "Emitted when the Controls are toggled",
@@ -448,6 +505,26 @@
         "showing": {
           "type": "Boolean",
           "desc": "true/false if volume is muted or not"
+        }
+      }
+    },
+    "playbackRate": {
+      "desc": "Emitted when the playback rate changes",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "rate": {
+          "type": "Number",
+          "desc": "The rate value"
+        }
+      }
+    },
+    "trackLanguage": {
+      "desc": "Emitted when the track language changes",
+      "applicable": [ "Audio", "Video" ],
+      "params": {
+        "lang": {
+          "type": "String",
+          "desc": "The track language value"
         }
       }
     }
