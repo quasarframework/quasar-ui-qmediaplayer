@@ -17,6 +17,7 @@ createFolder('dist')
 createFolder('dist/icon-set')
 createFolder('dist/lang')
 createFolder('dist/api')
+createFolder('dist/vetur')
 
 // require('./script.javascript')
 runJob(join(__dirname, './script.javascript'))
