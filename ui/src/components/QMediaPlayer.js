@@ -561,7 +561,8 @@ export default {
       }
     },
 
-    togglePlay () {
+    togglePlay (e) {
+      this.__stopAndPrevent(e)
       if (this.$media && this.state.playReady) {
         if (this.state.playing) {
           this.$media.pause()
@@ -588,15 +589,17 @@ export default {
       }
     },
 
-    toggleMuted () {
+    toggleMuted (e) {
+      this.__stopAndPrevent(e)
       this.state.muted = !this.state.muted
       if (this.$media) {
         this.$media.muted = this.state.muted === true
       }
     },
 
-    toggleFullscreen () {
+    toggleFullscreen (e) {
       if (this.isVideo) {
+        this.__stopAndPrevent(e)
         if (this.state.inFullscreen) {
           this.exitFullscreen()
         } else {
@@ -641,6 +644,13 @@ export default {
     setVolume (volume) {
       if (volume >= 0 && volume <= 100) {
         this.state.volume = volume
+      }
+    },
+
+    __stopAndPrevent (e) {
+      if (e) {
+        e.cancelable !== false && e.preventDefault()
+        e.stopPropagation()
       }
     },
 
@@ -884,15 +894,16 @@ export default {
       }
     },
 
-    __videoClick () {
-      if (this.mobileMode) {
-        this.toggleControls()
-      } else {
+    __videoClick (e) {
+      this.__stopAndPrevent(e)
+      if (this.mobileMode !== true) {
         this.togglePlay()
       }
+      this.toggleControls()
     },
 
-    __bigButtonClick () {
+    __bigButtonClick (e) {
+      this.__stopAndPrevent(e)
       if (this.mobileMode) {
         this.hideControls()
       }
@@ -1223,7 +1234,10 @@ export default {
       return slot || h('div', {
         ref: 'controls',
         staticClass: 'q-media__controls',
-        class: this.videoControlsClasses
+        class: this.videoControlsClasses,
+        on: {
+          click: this.__stopAndPrevent
+        }
       }, [
         // dense
         this.dense && h('div', {
@@ -1557,7 +1571,8 @@ export default {
                     clickable: true
                   },
                   on: {
-                    click: () => {
+                    click: (e) => {
+                      this.__stopAndPrevent(e)
                       this.__playbackRateChanged(rate.value)
                     }
                   },
@@ -1616,7 +1631,8 @@ export default {
                     clickable: true
                   },
                   on: {
-                    click: (event) => {
+                    click: (e) => {
+                      this.__stopAndPrevent(e)
                       this.__trackLanguageChanged(language.value)
                     }
                   },
