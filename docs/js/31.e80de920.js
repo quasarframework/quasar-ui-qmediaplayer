@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[31],{"82cd":function(n,e,t){"use strict";t.r(e),e["default"]='<template>\n  <q-media-player\n    type="video"\n    source="http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4"\n  />\n</template>\n\n<script>\nexport default {\n  data () {\n    return {\n    }\n  }\n}\n<\/script>\n'}}]);

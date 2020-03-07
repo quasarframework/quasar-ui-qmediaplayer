@@ -95,6 +95,9 @@ Not all languages have been translated. If you can help out, please [PR a langua
       </q-markdown>
       <example-viewer title="Video - Language" file="VideoLanguage" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
+      <example-title title="Slot" />
+      <example-viewer title="Video - Slot" file="VideoSlot" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
       <example-title title="Icon Set" />
       <q-markdown>
 > QMediaPlayer does not have a property to set the icon set directly. It uses Quasar's internal icon set support indirectly. When that switches, then QMediaPlayer also switches to the corresponding icon set.
@@ -188,6 +191,9 @@ export default {
 
     this.addToToc('Language')
     this.addToToc('Video - Language', 2)
+
+    this.addToToc('Slot')
+    this.addToToc('Video - Slot', 2)
 
     this.addToToc('Icon Set')
     this.addToToc('Audio - Icon Set', 2)

@@ -561,7 +561,8 @@ export default {
       }
     },
 
-    togglePlay () {
+    togglePlay (e) {
+      this.__stopAndPrevent(e)
       if (this.$media && this.state.playReady) {
         if (this.state.playing) {
           this.$media.pause()
@@ -588,15 +589,17 @@ export default {
       }
     },
 
-    toggleMuted () {
+    toggleMuted (e) {
+      this.__stopAndPrevent(e)
       this.state.muted = !this.state.muted
       if (this.$media) {
         this.$media.muted = this.state.muted === true
       }
     },
 
-    toggleFullscreen () {
+    toggleFullscreen (e) {
       if (this.isVideo) {
+        this.__stopAndPrevent(e)
         if (this.state.inFullscreen) {
           this.exitFullscreen()
         } else {
@@ -610,16 +613,20 @@ export default {
       if (!this.isVideo || this.state.inFullscreen) {
         return
       }
-      this.state.inFullscreen = true
-      this.$q.fullscreen.request()
+      if (this.$q.fullscreen !== void 0) {
+        this.state.inFullscreen = true
+        this.$q.fullscreen.request()
+      }
     },
 
     exitFullscreen () {
       if (!this.isVideo || !this.state.inFullscreen) {
         return
       }
-      this.state.inFullscreen = false
-      this.$q.fullscreen.exit()
+      if (this.$q.fullscreen !== void 0) {
+        this.state.inFullscreen = false
+        this.$q.fullscreen.exit()
+      }
     },
 
     currentTime () {
@@ -641,6 +648,13 @@ export default {
     setVolume (volume) {
       if (volume >= 0 && volume <= 100) {
         this.state.volume = volume
+      }
+    },
+
+    __stopAndPrevent (e) {
+      if (e) {
+        e.cancelable !== false && e.preventDefault()
+        e.stopPropagation()
       }
     },
 
@@ -884,15 +898,16 @@ export default {
       }
     },
 
-    __videoClick () {
-      if (this.mobileMode) {
-        this.toggleControls()
-      } else {
+    __videoClick (e) {
+      this.__stopAndPrevent(e)
+      if (this.mobileMode !== true) {
         this.togglePlay()
       }
+      this.toggleControls()
     },
 
-    __bigButtonClick () {
+    __bigButtonClick (e) {
+      this.__stopAndPrevent(e)
       if (this.mobileMode) {
         this.hideControls()
       }
@@ -1181,10 +1196,7 @@ export default {
 
       if (slot) {
         return h('div', {
-          staticClass: 'q-media__overlay-window',
-          on: {
-            click: this.__videoClick
-          }
+          staticClass: 'q-media__overlay-window'
         }, slot)
       }
     },
@@ -1226,7 +1238,10 @@ export default {
       return slot || h('div', {
         ref: 'controls',
         staticClass: 'q-media__controls',
-        class: this.videoControlsClasses
+        class: this.videoControlsClasses,
+        on: {
+          click: this.__stopAndPrevent
+        }
       }, [
         // dense
         this.dense && h('div', {
@@ -1242,7 +1257,7 @@ export default {
           this.__renderCurrentTimeSlider(h),
           this.__renderDurationTime(h),
           this.__renderSettingsButton(h),
-          this.__renderFullscreenButton(h)
+          this.$q.fullscreen !== void 0 && this.__renderFullscreenButton(h)
         ]),
         // sparse
         !this.dense && h('div', {
@@ -1267,7 +1282,7 @@ export default {
           ]),
           h('div', [
             this.__renderSettingsButton(h),
-            this.__renderFullscreenButton(h)
+            this.$q.fullscreen !== void 0 && this.__renderFullscreenButton(h)
           ])
         ])
       ])
@@ -1560,7 +1575,8 @@ export default {
                     clickable: true
                   },
                   on: {
-                    click: () => {
+                    click: (e) => {
+                      this.__stopAndPrevent(e)
                       this.__playbackRateChanged(rate.value)
                     }
                   },
@@ -1619,7 +1635,8 @@ export default {
                     clickable: true
                   },
                   on: {
-                    click: (event) => {
+                    click: (e) => {
+                      this.__stopAndPrevent(e)
                       this.__trackLanguageChanged(language.value)
                     }
                   },
@@ -1666,7 +1683,8 @@ export default {
       on: {
         mousemove: this.__mouseEnterVideo,
         mouseenter: this.__mouseEnterVideo,
-        mouseleave: this.__mouseLeaveVideo
+        mouseleave: this.__mouseLeaveVideo,
+        click: this.__videoClick
       }
     }, this.canRender === true ? [
       this.isVideo && this.__renderVideo(h),

@@ -3,6 +3,7 @@
     <q-media-player
       type="video"
       :sources="sources"
+      mobile-mode
       style="max-width: 600px; width: 100%;"
     ></q-media-player>
   </q-page>

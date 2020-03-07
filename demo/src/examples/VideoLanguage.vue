@@ -82,7 +82,7 @@ export default {
   watch: {
     lang (lang) {
       // dynamic import, so loading on demand only
-      import(`quasar/lang/${lang}`).then(lang => {
+      import('quasar/lang/' + lang).then(lang => {
         this.$q.lang.set(lang.default)
       })
     }
