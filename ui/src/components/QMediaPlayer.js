@@ -613,16 +613,20 @@ export default {
       if (!this.isVideo || this.state.inFullscreen) {
         return
       }
-      this.state.inFullscreen = true
-      this.$q.fullscreen.request()
+      if (this.$q.fullscreen !== void 0) {
+        this.state.inFullscreen = true
+        this.$q.fullscreen.request()
+      }
     },
 
     exitFullscreen () {
       if (!this.isVideo || !this.state.inFullscreen) {
         return
       }
-      this.state.inFullscreen = false
-      this.$q.fullscreen.exit()
+      if (this.$q.fullscreen !== void 0) {
+        this.state.inFullscreen = false
+        this.$q.fullscreen.exit()
+      }
     },
 
     currentTime () {
@@ -1253,7 +1257,7 @@ export default {
           this.__renderCurrentTimeSlider(h),
           this.__renderDurationTime(h),
           this.__renderSettingsButton(h),
-          this.__renderFullscreenButton(h)
+          this.$q.fullscreen !== void 0 && this.__renderFullscreenButton(h)
         ]),
         // sparse
         !this.dense && h('div', {
@@ -1278,7 +1282,7 @@ export default {
           ]),
           h('div', [
             this.__renderSettingsButton(h),
-            this.__renderFullscreenButton(h)
+            this.$q.fullscreen !== void 0 && this.__renderFullscreenButton(h)
           ])
         ])
       ])
