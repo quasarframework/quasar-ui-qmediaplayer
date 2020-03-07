@@ -1181,10 +1181,7 @@ export default {
 
       if (slot) {
         return h('div', {
-          staticClass: 'q-media__overlay-window',
-          on: {
-            click: this.__videoClick
-          }
+          staticClass: 'q-media__overlay-window'
         }, slot)
       }
     },
@@ -1666,7 +1663,8 @@ export default {
       on: {
         mousemove: this.__mouseEnterVideo,
         mouseenter: this.__mouseEnterVideo,
-        mouseleave: this.__mouseLeaveVideo
+        mouseleave: this.__mouseLeaveVideo,
+        click: this.__videoClick
       }
     }, this.canRender === true ? [
       this.isVideo && this.__renderVideo(h),
