@@ -639,8 +639,7 @@ export default {
     setCurrentTime (seconds) {
       if (this.state.playReady) {
         if (this.$media && isFinite(this.$media.duration) && seconds >= 0 && seconds <= this.$media.duration) {
-          this.state.currentTime = Math.floor(seconds)
-          this.$media.currentTime = Math.floor(seconds)
+          this.state.currentTime = this.$media.currentTime = seconds
         }
       }
     },
@@ -822,7 +821,7 @@ export default {
         this.$emit('canplaythrough')
       } else if (event.type === 'durationchange') {
         if (isFinite(this.$media.duration)) {
-          this.state.duration = Math.floor(this.$media.duration)
+          this.state.duration = this.$media.duration
           this.state.durationTime = timeParse(this.$media.duration)
           this.$emit('duration', this.$media.duration)
         }
@@ -867,7 +866,7 @@ export default {
       } else if (event.type === 'ratechange') {
       } else if (event.type === 'seeked') {
       } else if (event.type === 'timeupdate') {
-        this.state.currentTime = Math.floor(this.$media.currentTime)
+        this.state.currentTime = this.$media.currentTime
         this.$emit('timeupdate', this.$media.currentTime, this.state.remainingTime)
       } else if (event.type === 'volumechange') {
       } else if (event.type === 'waiting') {
@@ -958,8 +957,7 @@ export default {
       this.showControls()
       if (this.$media && this.$media.duration && val && val > 0 && val <= this.state.duration) {
         if (this.$media.currentTime !== val) {
-          this.state.currentTime = val
-          this.$media.currentTime = val
+          this.state.currentTime = this.$media.currentTime = val
         }
       }
     },
