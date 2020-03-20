@@ -171,6 +171,13 @@
       "desc": "When true the volume slider control will be hidden",
       "applicable": [ "Audio", "Video" ]
     },
+    "hide-play-btn": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the play/pause button will be hidden",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.21"
+    },
     "dark": {
       "type": "Boolean",
       "category": "style",

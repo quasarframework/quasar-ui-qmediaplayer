@@ -83,6 +83,7 @@ export default {
       validator: v => v >= 0 && v <= 100
     },
     hideVolumeSlider: Boolean,
+    hidePlayBtn: Boolean,
     preload: {
       type: String,
       default: 'metadata',
@@ -1210,6 +1211,8 @@ export default {
     },
 
     __renderPlayButton (h) {
+      if (this.hidePlayBtn === true) return
+
       const slot = this.$slots.play
 
       return slot || h(QBtn, {
