@@ -36,7 +36,7 @@ Vue.use(Plugin)
 <style src="@quasar/quasar-ui-qmediaplayer/dist/index.css"></style>
 
 <script>
-import { Component as QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
 
 export default {
   components: {
@@ -62,7 +62,7 @@ Vue.use(Plugin)
 <style src="@quasar/quasar-ui-qmediaplayer/dist/index.css"></style>
 
 <script>
-import { Component as QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
 
 export default {
   components: {

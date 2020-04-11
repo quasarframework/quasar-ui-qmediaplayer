@@ -1,16 +1,16 @@
 import { version } from '../package.json'
-import Component from './components/QMediaPlayer'
+import QMediaPlayer from './components/QMediaPlayer'
 
 export {
   version,
-  Component
+  QMediaPlayer
 }
 
 export default {
   version,
-  Component,
+  QMediaPlayer,
 
   install (Vue) {
-    Vue.component(Component.name, Component)
+    Vue.component(QMediaPlayer.name, QMediaPlayer)
   }
 }
