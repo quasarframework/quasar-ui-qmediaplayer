@@ -211,10 +211,12 @@ export default {
   },
 
   mounted () {
-    this.__init()
-    if (this.$media) {
-      this.$emit('mediaPlayer', this.$media)
-    }
+    this.$nextTick(function () {
+      this.__init()
+      if (this.$media) {
+        this.$emit('mediaPlayer', this.$media)
+      }
+    })
   },
 
   beforeDestroy () {
