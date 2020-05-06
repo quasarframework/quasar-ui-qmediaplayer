@@ -222,6 +222,13 @@
         ":volume=\"75\""
       ]
     },
+    "no-video": {
+      "type": "Boolean",
+      "addedIn": "v1.0.23",
+      "category": "behavior",
+      "desc": "If the player should be forced to use <audio> element when `type` is `audio`",
+      "applicable": [ "Audio" ]
+    },
     "muted": {
       "type": "Boolean",
       "category": "behavior",
