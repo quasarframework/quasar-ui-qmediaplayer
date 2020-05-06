@@ -47,7 +47,7 @@ The background color of the video view is only visible until the video is loaded
 
       <example-title title="No Video (on audio)" />
       <q-markdown>
-QMediaPlayer uses the `video` tag, even for audio. This decision was made bause of issues when dynamically switching between `audio` and `video`.
+QMediaPlayer uses the `video` tag, even for audio. This decision was made because of issues when dynamically switching between `audio` and `video` elements.
 
 The problem now is if you want to just play the audio of a video file, then the `audio` element **must** be used.
 
