@@ -45,6 +45,16 @@ The background color of the video view is only visible until the video is loaded
       <example-viewer title="Audio - Dense" file="AudioDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Dense" file="VideoDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
+      <example-title title="No Video (on audio)" />
+      <q-markdown>
+QMediaPlayer uses the `video` tag, even for audio. This decision was made bause of issues when dynamically switching between `audio` and `video`.
+
+The problem now is if you want to just play the audio of a video file, then the `audio` element **must** be used.
+
+You can now do this by using the `type="audio"` along with `no-video` properties.
+      </q-markdown>
+      <example-viewer title="Audio - No Video" file="AudioNoVideo" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
       <example-title title="Hide Volume Slider" />
       <q-markdown>
 The `hide-volumn-slider` property is available to hide the volume slider control, which is more applicable to mobile devices, but can also be used for desktops as well.
@@ -167,6 +177,9 @@ export default {
     this.addToToc('Dense')
     this.addToToc('Audio - Dense', 2)
     this.addToToc('Video - Dense', 2)
+
+    this.addToToc('No Video (on audio)')
+    this.addToToc('Audio - No Video', 2)
 
     this.addToToc('Hide Volume Slider')
     this.addToToc('Audio - Hide Volume Slider', 2)

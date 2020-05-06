@@ -89,6 +89,7 @@ export default {
       default: 'metadata',
       validator: v => ['none', 'metadata', 'auto'].includes(v)
     },
+    noVideo: Boolean,
     muted: Boolean,
     playsinline: Boolean,
     loop: Boolean,
@@ -1149,7 +1150,10 @@ export default {
       // This is on purpose (not using audio tag).
       // The video tag can also play audio and works better if dynamically
       // switching between video and audio on the same component.
-      return h('video', {
+      // That being said, if audio is truly needed, use the 'nop-video'
+      // property to force the <audio> tag.
+
+      return h(this.noVideo === true ? 'audio' : 'video', {
         ref: 'media',
         staticClass: 'q-media--player',
         class: this.contentClass,
