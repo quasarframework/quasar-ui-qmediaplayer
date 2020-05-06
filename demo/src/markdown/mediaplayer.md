@@ -218,7 +218,7 @@ If you want to use the `playsinline` property with iOS, you will need to add the
 
 # Direct Access
 
-If you find you have a need access to use the underlying media player, you can set up a ref on the QMediaPlayer and access `$media` directly, even capturing and handling events.
+If you find you have a need access to the underlying media player, you can set up a `ref` on QMediaPlayer and access `$media` directly, even capturing and handling your own events.
 
 ```html
   <q-media-player
