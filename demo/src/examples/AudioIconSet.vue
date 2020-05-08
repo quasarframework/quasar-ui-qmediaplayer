@@ -36,7 +36,7 @@ export default {
         { label: 'Fontawesome', value: 'fontawesome-v5' },
         { label: 'Ion Icons', value: 'ionicons-v4' },
         { label: 'Material Icons', value: 'material-icons' },
-        { label: 'MDI', value: 'mdi-v3' },
+        { label: 'MDI', value: 'mdi-v4' },
         { label: 'Themify', value: 'themify' }
       ]
     }
@@ -56,7 +56,7 @@ export default {
         case 'material-icons':
           this.changeIconSetToMaterialIcons()
           break
-        case 'mdi-v3':
+        case 'mdi-v4':
           this.changeIconSetToMDI()
           break
         case 'themify':
@@ -83,7 +83,7 @@ export default {
       this.$q.iconSet = require('quasar/icon-set/material-icons.js').default
     },
     changeIconSetToMDI () {
-      this.$q.iconSet = require('quasar/icon-set/mdi-v3.js').default
+      this.$q.iconSet = require('quasar/icon-set/mdi-v4.js').default
     },
     changeIconSetToThemify () {
       this.$q.iconSet = require('quasar/icon-set/themify.js').default
