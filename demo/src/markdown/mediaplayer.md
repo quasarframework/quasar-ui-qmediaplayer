@@ -93,7 +93,7 @@ data () {
       poster: 'statics/media/TearsOfSteel/TearsOfSteel.jpeg',
       sources: [
         {
-          src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
+          src: 'http://ftp.nluug.nl/pub/graphics/blender/demo/movies/ToS/tears_of_steel_720p.mov',
           type: 'video/mp4'
         }
       ],
