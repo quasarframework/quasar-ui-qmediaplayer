@@ -256,7 +256,6 @@ export default {
 
   methods: {
     setSource () {
-      debugger
       if (this.videoType) {
         this.sources.splice(0, this.sources.length, ...this.video[this.videoIndex].sources)
         this.tracks.splice(0, this.tracks.length, ...this.video[this.videoIndex].tracks)
