@@ -221,9 +221,8 @@ export default {
   },
 
   beforeDestroy () {
+    // make sure noScroll is not left in unintended state
     this.exitFullscreen()
-
-    // TODO: clear all timers
 
     document.body.removeEventListener('mousemove', this.__mouseMoveAction)
 
@@ -620,6 +619,7 @@ export default {
       if (this.$q.fullscreen !== void 0) {
         this.state.inFullscreen = true
         this.$q.fullscreen.request()
+        document.body.classList.add('no-scroll')
       }
     },
 
@@ -630,6 +630,7 @@ export default {
       if (this.$q.fullscreen !== void 0) {
         this.state.inFullscreen = false
         this.$q.fullscreen.exit()
+        document.body.classList.remove('no-scroll')
       }
     },
 
