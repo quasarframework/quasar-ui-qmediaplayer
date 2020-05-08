@@ -58,9 +58,9 @@
             :radius="radius ? '1rem' : 0"
             :autoplay="autoplay"
             :show-big-play-button="bigPlay"
-            :sources="videoType === true ? video[videoIndex].sources : audio.sources"
-            :poster="videoType === true ? video[videoIndex].poster : ''"
-            :tracks="videoType === true ? video[videoIndex].tracks : []"
+            :sources="this.sources"
+            :poster="this.poster"
+            :tracks="this.tracks"
             track-language="English"
             @ended="onEnded"
           >
@@ -107,6 +107,8 @@ export default {
 
       videoIndex: 0,
       sources: [],
+      tracks: [],
+      poster: '',
 
       audio: {
         sources: [
@@ -254,10 +256,15 @@ export default {
 
   methods: {
     setSource () {
+      debugger
       if (this.videoType) {
-        this.sources = [...this.video[this.videoIndex].sources]
+        this.sources.splice(0, this.sources.length, ...this.video[this.videoIndex].sources)
+        this.tracks.splice(0, this.tracks.length, ...this.video[this.videoIndex].tracks)
+        this.poster = this.video[this.videoIndex].poster
       } else {
-        this.sources = [...this.audio.sources]
+        this.sources.splice(0, this.sources.length, ...this.audio.sources)
+        this.tracks.splice(0, this.tracks.length)
+        this.poster = ''
       }
     },
     onEnded () {
