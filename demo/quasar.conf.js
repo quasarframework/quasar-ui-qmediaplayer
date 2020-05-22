@@ -55,8 +55,6 @@ module.exports = function (/* ctx */) {
         dark: 'auto'
       },
 
-
-
       // Quasar plugins
       plugins: [
         'AppFullscreen',
@@ -101,11 +99,10 @@ module.exports = function (/* ctx */) {
 
       chainWebpack (chain) {
         chain.resolve.alias.merge({
+          ui: path.resolve(__dirname, '../ui/src/index.js'),
           '@quasar/quasar-ui-qmediaplayer': path.resolve(__dirname, '../ui'),
-          'ui': path.resolve(__dirname, '../ui/src/index.js'),
-          'sass': path.resolve(__dirname, '../ui/src/index.sass'),
-          'api': path.resolve(__dirname, '../ui/dist/api/QMediaPlayer.json'),
-          'examples': path.resolve(__dirname, './src/examples')
+          sass: path.resolve(__dirname, '../ui/src/index.sass'),
+          examples: path.resolve(__dirname, './src/examples')
         })
       }
     },
