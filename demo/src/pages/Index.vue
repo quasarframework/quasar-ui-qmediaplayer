@@ -26,7 +26,7 @@ This page created with [QMarkdown](https://quasarframework.github.io/quasar-ui-q
 <script>
 import Hero from '../components/Hero'
 import markdown from '../markdown/mediaplayer.md'
-import Api from 'api'
+import Api from '@quasar/quasar-ui-qmediaplayer/dist/api/QMediaPlayer.json'
 
 export default {
   name: 'PageIndex',

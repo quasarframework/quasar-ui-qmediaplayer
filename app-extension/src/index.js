@@ -12,6 +12,7 @@ function extendConf (conf) {
 
   // make sure app extension files & ui package gets transpiled
   conf.build.transpileDependencies.push(/quasar-app-extension-qmediaplayer[\\/]src/)
+  conf.build.transpileDependencies.push(/quasar-ui-qmediaplayer[\\/]src/)
 
   // make sure these plugins are in the build
   conf.framework.plugins.push('AppFullscreen')
@@ -25,7 +26,7 @@ module.exports = function (api) {
   // hard dependencies, as in a minimum version of the "quasar"
   // package or a minimum version of "@quasar/app" CLI
   api.compatibleWith('quasar', '^1.5.0')
-  api.compatibleWith('@quasar/app', '^1.3.0')
+  api.compatibleWith('@quasar/app', '^1.3.0') // needed for describe to work properly
 
   // Uncomment the line below if you provide a JSON API for your component
   api.registerDescribeApi('QMediaPlayer', '~@quasar/quasar-ui-qmediaplayer/dist/api/QMediaPlayer.json')

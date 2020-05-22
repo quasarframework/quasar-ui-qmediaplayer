@@ -16,11 +16,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "bugs": "https://github.com/quasarframework/quasar-ui-qmediaplayer/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/quasarframework/quasar-ui-qmediaplayer.git"
   },
-  "bugs": "https://github.com/quasarframework/quasar-ui-qmediaplayer/issues",
   "homepage": "https://github.com/quasarframework/quasar-ui-qmediaplayer",
   "keywords": [
     "quasar",
@@ -46,7 +46,7 @@
   "devDependencies": {
     "@vue/eslint-config-standard": "^5.1.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-vue": "^6.2.2"
   }
