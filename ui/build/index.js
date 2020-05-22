@@ -8,7 +8,7 @@ const { green, blue } = require('chalk')
 
 console.log()
 
-require('./script.app-ext').syncAppExt()
+require('./script.app-ext.js').syncAppExt()
 require('./script.clean.js')
 
 console.log(` 📦 Building ${green('v' + require('../package.json').version)}...${parallel ? blue(' [multi-threaded]') : ''}\n`)
@@ -20,5 +20,6 @@ createFolder('dist/api')
 createFolder('dist/vetur')
 
 // require('./script.javascript')
-runJob(join(__dirname, './script.javascript'))
-runJob(join(__dirname, './script.css'))
+// require('./script.css')
+runJob(join(__dirname, './script.javascript.js'))
+runJob(join(__dirname, './script.css.js'))

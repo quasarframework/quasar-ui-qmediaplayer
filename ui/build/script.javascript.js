@@ -5,7 +5,8 @@ const rollup = require('rollup')
 const uglify = require('uglify-es')
 const buble = require('@rollup/plugin-buble')
 const json = require('@rollup/plugin-json')
-const nodeResolve = require('@rollup/plugin-node-resolve')
+const cjs = require('@rollup/plugin-commonjs')
+const { nodeResolve } = require('@rollup/plugin-node-resolve')
 
 const buildConf = require('./config')
 const buildUtils = require('./utils')
@@ -14,12 +15,21 @@ const bubleConfig = {
   objectAssign: 'Object.assign'
 }
 
-const rollupPlugins = [
-  nodeResolve({
+const nodeResolveConfig = {
     extensions: ['.js'],
     preferBuiltins: false
-  }),
+}
+
+const cjsConfig = {
+  include: [
+    /node_modules/
+  ]
+}
+
+const rollupPlugins = [
+  nodeResolve(nodeResolveConfig),
   json(),
+  cjs(cjsConfig),
   buble(bubleConfig)
 ]
 
@@ -27,10 +37,10 @@ const builds = [
   {
     rollup: {
       input: {
-        input: resolve(`entry/index.esm.js`)
+        input: resolve('entry/index.esm.js')
       },
       output: {
-        file: resolve(`../dist/index.esm.js`),
+        file: resolve('../dist/index.esm.js'),
         format: 'es'
       }
     },
@@ -42,10 +52,10 @@ const builds = [
   {
     rollup: {
       input: {
-        input: resolve(`entry/index.common.js`)
+        input: resolve('entry/index.common.js')
       },
       output: {
-        file: resolve(`../dist/index.common.js`),
+        file: resolve('../dist/index.common.js'),
         format: 'cjs'
       }
     },
@@ -57,11 +67,11 @@ const builds = [
   {
     rollup: {
       input: {
-        input: resolve(`entry/index.umd.js`)
+        input: resolve('entry/index.umd.js')
       },
       output: {
         name: 'QMediaPlayer',
-        file: resolve(`../dist/index.umd.js`),
+        file: resolve('../dist/index.umd.js'),
         format: 'umd'
       }
     },
@@ -89,6 +99,7 @@ function resolve (_path) {
   return path.resolve(__dirname, _path)
 }
 
+// eslint-disable-next-line no-unused-vars
 function addAssets (builds, type, injectName) {
   const
     files = fs.readdirSync(resolve('../../ui/src/components/' + type)),
@@ -188,6 +199,7 @@ function buildEntry (config) {
 }
 
 function injectVueRequirement (code) {
+  // eslint-disable-next-line
   const index = code.indexOf(`Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue`)
 
   if (index === -1) {
