@@ -25,10 +25,10 @@ module.exports = {
   ],
 
   globals: {
-    'ga': true, // Google Analytics
-    'cordova': true,
-    '__statics': true,
-    'process': true
+    ga: true, // Google Analytics
+    cordova: true,
+    __statics: true,
+    process: true
   },
 
   // add your custom rules here
@@ -58,6 +58,6 @@ module.exports = {
     // allow console.log during development only
     // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    // 'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }
