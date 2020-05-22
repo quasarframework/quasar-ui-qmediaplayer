@@ -1,4 +1,4 @@
-QMediaPlayer (@quasar/qmediaplayer)
+QMediaPlayer
 ===
 
 [![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer.svg?label=@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
@@ -169,6 +169,8 @@ If you need the RTL variant of the CSS, then go for the following (instead of th
 
 [UMD example on Codepen](https://codepen.io/Hawkeye64/pen/WNNgdYa)
 
+# Building the Projects
+
 ## Setup
 
 In both the `ui` and `ui/dev` folders:
@@ -177,7 +179,9 @@ In both the `ui` and `ui/dev` folders:
 $ yarn
 ```
 
-# Developing
+## Developing
+
+In the `ui` folder
 
 ```bash
 # start dev in SPA mode
@@ -199,7 +203,7 @@ $ yarn dev:android
 $ yarn dev:electron
 ```
 
-# Building package
+## Building package
 ```bash
 $ yarn build
 
