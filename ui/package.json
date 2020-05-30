@@ -59,10 +59,10 @@
     "open": "^7.0.4",
     "postcss": "^7.0.31",
     "postcss-rtl": "^1.7.3",
-    "quasar": "^1.11.3",
+    "quasar": "^1.12.2",
     "quasar-json-api": "^0.0.21",
     "rimraf": "^3.0.2",
-    "rollup": "^2.10.9",
+    "rollup": "^2.11.2",
     "uglify-es": "^3.3.9",
     "zlib": "^1.0.5"
   },
