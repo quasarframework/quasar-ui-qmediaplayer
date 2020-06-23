@@ -8,7 +8,7 @@ $max-z-index : 5900
 
   &--player
     width: 100%
-    height: 100%
+    // height: 100%
     vertical-align: bottom
     align-self: flex-end
 
@@ -25,7 +25,7 @@ $max-z-index : 5900
     align-self: flex-end
 
   &__error-window
-    position: absolute;
+    position: absolute
     left: 0
     top: 0
     width: 100%
@@ -37,7 +37,7 @@ $max-z-index : 5900
     transition: height 0.25s ease-in
 
   &__overlay-window
-    position: absolute;
+    position: absolute
     left: 0
     top: 0
     width: 100%
@@ -46,7 +46,7 @@ $max-z-index : 5900
 
   &__loading
     &--video
-      position: absolute;
+      position: absolute
       left: 50%
       margin-left: -1.5rem
       bottom: 50%
@@ -57,7 +57,7 @@ $max-z-index : 5900
       background: transparent
 
     &--audio
-      position: absolute;
+      position: absolute
       left: 50%
       margin-left: -0.5rem
       bottom: 50%
@@ -98,6 +98,9 @@ $max-z-index : 5900
     background: rgba(0, 0, 0, 0.40)
     width: 100%
     overflow: hidden
+
+    &--no-controls-overlay
+      position: relative!important
 
     &--row
       height: 40px

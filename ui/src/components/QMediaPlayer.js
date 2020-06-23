@@ -50,6 +50,12 @@ export default {
   mixins: [QColorizeMixin, canRender],
 
   props: {
+    contentStyle: {
+      type: String
+    },
+    contentClass: {
+      type: String
+    },
     type: {
       type: String,
       required: false,
@@ -108,6 +114,10 @@ export default {
     },
     spinnerSize: String,
     noControls: Boolean,
+    noControlsOverlay: {
+      type: Boolean,
+      default: false
+    },
     controlsDisplayTime: {
       type: Number,
       default: 2000
@@ -207,8 +217,9 @@ export default {
   beforeMount () {
     this.__setupLang()
     this.__setupIcons()
-
-    document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
+    if (!this.noControlsOverlay || this.isAudio) {
+      document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
+    }
   },
 
   mounted () {
@@ -239,7 +250,8 @@ export default {
     classes () {
       return {
         'q-media__fullscreen': this.state.inFullscreen,
-        'q-media__fullscreen--window': this.state.inFullscreen
+        'q-media__fullscreen--window': this.state.inFullscreen,
+        'q-media__controls--no-controls-overlay': this.noControlsOverlay
       }
     },
 
@@ -247,14 +259,16 @@ export default {
       return {
         'q-media__controls--dense': (this.state.showControls || this.mobileMode) && this.dense,
         'q-media__controls--standard': (this.state.showControls || this.mobileMode) && !this.dense,
-        'q-media__controls--hidden': !this.state.showControls
+        'q-media__controls--hidden': !this.state.showControls,
+        'q-media__controls--no-controls-overlay': this.noControlsOverlay
       }
     },
 
     audioControlsClasses () {
       return {
         'q-media__controls--dense': this.dense,
-        'q-media__controls--standard': !this.dense
+        'q-media__controls--standard': !this.dense,
+        'q-media__controls--no-controls-overlay': this.noControlsOverlay
       }
     },
 
@@ -306,6 +320,10 @@ export default {
         }
       })
       return caption
+    },
+
+    controlsHeight () {
+      return this.$refs.controls.clientHeight
     }
   },
 
@@ -441,6 +459,9 @@ export default {
     },
 
     showControls () {
+      if (this.noControlsOverlay) {
+        return
+      }
       if (this.timer.hideControlsTimer) {
         clearTimeout(this.timer.hideControlsTimer)
         this.timer.hideControlsTimer = null
@@ -464,6 +485,9 @@ export default {
     },
 
     hideControls () {
+      if (this.noControlsOverlay) {
+        return
+      }
       if (this.timer.hideControlsTimer) {
         clearTimeout(this.timer.hideControlsTimer)
       }
@@ -475,6 +499,10 @@ export default {
     },
 
     toggleControls () {
+      if (this.noControlsOverlay) {
+        return
+      }
+
       if (this.state.showControls) {
         this.hideControls()
       } else {
@@ -483,7 +511,7 @@ export default {
     },
 
     __reset () {
-      if (this.timer.hideControlsTimer) {
+      if (this.timer.hideControlsTimer && !this.noControlsOverlay) {
         clearTimeout(this.timer.hideControlsTimer)
       }
       this.timer.hideControlsTimer = null
@@ -529,7 +557,8 @@ export default {
               this.state.playing = true
               this.__mouseLeaveVideo()
             })
-            .catch((e) => {})
+            .catch((e) => {
+            })
         } else {
           // IE11 + EDGE support
           this.$media.play()
@@ -580,7 +609,8 @@ export default {
                 this.state.playing = true
                 this.__mouseLeaveVideo()
               })
-              .catch((e) => {})
+              .catch((e) => {
+              })
           } else {
             // IE11 + EDGE support
             this.$media.play()
@@ -620,6 +650,15 @@ export default {
         this.state.inFullscreen = true
         this.$q.fullscreen.request()
         document.body.classList.add('no-scroll')
+        if ((this.$refs.controls || this.$slots.controls) && this.noControlsOverlay) {
+          setTimeout(() => {
+            // to get the right window height, we need to wait. Is there a better way? IE need cssText
+            // IE11 window.outerHeight returns the size of the current browser window and not the screen
+            this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
+          }, 100)
+        } else {
+          this.$refs.media.style.cssText = 'height: 100%'
+        }
       }
     },
 
@@ -631,6 +670,7 @@ export default {
         this.state.inFullscreen = false
         this.$q.fullscreen.exit()
         document.body.classList.remove('no-scroll')
+        this.$refs.media.style.cssText = this.contentStyle || 'height: auto'
       }
     },
 
@@ -668,7 +708,8 @@ export default {
       try {
         // lang = require(`./lang/${isoName}`)
         lang = this.__loadLang(isoName)
-      } catch (e) {}
+      } catch (e) {
+      }
 
       if (lang !== void 0 && lang.lang !== void 0) {
         this.lang.mediaPlayer = { ...lang.mediaPlayer }
@@ -710,7 +751,8 @@ export default {
       let iconSet
       try {
         iconSet = this.__loadIconSet(iconSetName)
-      } catch (e) {}
+      } catch (e) {
+      }
       iconSet !== void 0 && iconSet.name !== void 0 && (this.iconSet.mediaPlayer = { ...iconSet.mediaPlayer })
     },
 
@@ -1243,6 +1285,17 @@ export default {
 
     __renderVideoControls (h) {
       const slot = this.$slots.controls
+      if (slot) {
+        // we need to know the controls height for fullscreen, stop propagation to video component
+        return h('div', {
+          ref: 'controls',
+          on: {
+            click: this.__stopAndPrevent
+          }
+        },
+        slot
+        )
+      }
 
       return slot || h('div', {
         ref: 'controls',
