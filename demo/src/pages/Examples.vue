@@ -86,6 +86,13 @@ Not all languages have been translated. If you can help out, please [PR a langua
 > QMediaPlayer does not have a property to set the icon set directly. It uses Quasar's internal icon set support indirectly. When that switches, then QMediaPlayer also switches to that icon set.
       </q-markdown>
       <example-card title="Video - Icon Set" name="VideoIconSet" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoIconSet.vue').default)" />
+
+      <example-title title="Video - start time" />
+      <q-markdown>
+> You can define the audio/video start using a `#t=` parameter. Example: `ToS-4k-1920.mov#t=30` to start at time 00:30.
+      </q-markdown>
+      <example-card title="Video - Start time" name="VideoStartTime" :tag-parts="getTagParts(require('!!raw-loader!../examples/VideoStartTime.vue').default)" />
+
     </div>
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="primary" />

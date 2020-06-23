@@ -1,0 +1,21 @@
+<template>
+  <q-media-player
+    type="video"
+    :sources="sources"
+  />
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      sources: [
+        {
+          src: 'https://ftp.nluug.nl/pub/graphics/blender/demo/movies/ToS/ToS-4k-1920.mov#t=30',
+          type: 'video/mp4'
+        }
+      ]
+    }
+  }
+}
+</script>

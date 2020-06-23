@@ -94,7 +94,8 @@ export default {
     VideoTracks: () => import('../examples/VideoTracks'),
     VideoTrackLanguage: () => import('../examples/VideoTrackLanguage'),
     VideoLanguage: () => import('../examples/VideoLanguage'),
-    VideoIconSet: () => import('../examples/VideoIconSet')
+    VideoIconSet: () => import('../examples/VideoIconSet'),
+    VideoStartTime: () => import('../examples/VideoStartTime')
   },
 
   props: {
