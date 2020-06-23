@@ -819,6 +819,7 @@ export default {
         this.$emit('abort')
       } else if (event.type === 'canplay') {
         this.state.playReady = true
+        this.state.displayTime = timeParse(this.$media.currentTime)
         this.__mouseEnterVideo()
         this.$emit('ready')
       } else if (event.type === 'canplaythrough') {
