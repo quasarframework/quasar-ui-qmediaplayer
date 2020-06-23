@@ -18,7 +18,7 @@ module.exports = function (ctx) {
       'eva-icons',
       'themify'
     ],
-    supportIE: false,
+    supportIE: true,
     build: {
       scopeHoisting: true,
       vueRouterMode: 'history',
