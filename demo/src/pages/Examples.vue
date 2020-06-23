@@ -115,6 +115,18 @@ In the examples below, when the icon set is changed, you will notice that all me
       </q-markdown>
       <example-viewer title="Audio - Icon Set" file="AudioIconSet" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Icon Set" file="VideoIconSet" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
+      <example-title title="Video - Start time" />
+      <q-markdown>
+> You can define the audio/video start using a `#t=` parameter. Example: `ElephantsDream.mp4#t=10` to start at time at 01:30.
+::: warning
+Internet Explorer 11 ignores the start time parameter
+:::
+
+      </q-markdown>
+      <example-viewer title="Video - Start time" file="VideoStartTime" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
+      <div style="height: 100px"><!-- do not cover arrow up button for the last example when the right drawer is opened --></div>
     </div>
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn
