@@ -134,6 +134,10 @@ export default {
     radius: {
       type: [Number, String],
       default: 0
+    },
+    seekable: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -1487,7 +1491,7 @@ export default {
           dark: this.dark,
           min: 0.01,
           max: this.state.duration ? this.state.duration : 1,
-          disable: !this.state.playReady
+          disable: !this.state.playReady || !this.seekable
         },
         on: {
           input: this.__videoCurrentTimeChanged
