@@ -651,8 +651,17 @@ export default {
         this.$q.fullscreen.request()
         document.body.classList.add('no-scroll')
         if ((this.$refs.controls || this.$slots.controls) && this.noControlsOverlay) {
-          // IE11 needs cssText to set height, window.outerHeight returns the size of the current browser window and not the screen
-          this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
+          // IE11 needs cssText to set height
+          const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
+          if (isIE11) {
+            // IE11 always returns screen.height of the primary screen.
+            // timeout to get the correct window.outerHeight
+            setTimeout(() => {
+              this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
+            }, 200)
+          } else {
+            this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
+          }
         } else {
           this.$refs.media.style.cssText = 'height: 100%'
         }
