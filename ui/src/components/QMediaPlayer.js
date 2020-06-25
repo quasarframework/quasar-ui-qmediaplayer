@@ -651,11 +651,8 @@ export default {
         this.$q.fullscreen.request()
         document.body.classList.add('no-scroll')
         if ((this.$refs.controls || this.$slots.controls) && this.noControlsOverlay) {
-          setTimeout(() => {
-            // to get the right window height, we need to wait. Is there a better way? IE need cssText
-            // IE11 window.outerHeight returns the size of the current browser window and not the screen
-            this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
-          }, 100)
+          // IE11 needs cssText to set height, window.outerHeight returns the size of the current browser window and not the screen
+          this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
         } else {
           this.$refs.media.style.cssText = 'height: 100%'
         }

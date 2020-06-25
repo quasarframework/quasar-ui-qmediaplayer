@@ -1,8 +1,9 @@
 <template>
   <q-media-player
-    :sources="sources"
-    color="primary"
+    id="noControlsOverlay"
     :no-controls-overlay="true"
+    :sources="sources"
+    color="white"
     type="video"
   />
 </template>
@@ -21,3 +22,8 @@ export default {
   }
 }
 </script>
+<style style="sass">
+  #noControlsOverlay .q-media__controls {
+    background: teal;
+  }
+</style>
