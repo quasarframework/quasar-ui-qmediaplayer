@@ -1503,7 +1503,7 @@ export default {
       const slot = this.$slots.bigPlayButton
 
       return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
-        staticClass: 'q-media--big-button'
+        staticClass: this.noControlsOverlay ? 'q-media--big-button q-media--big-button-no-control-overlay' : 'q-media--big-button'
       }), [
         h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
           props: {
