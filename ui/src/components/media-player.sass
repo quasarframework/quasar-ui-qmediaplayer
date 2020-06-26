@@ -34,7 +34,7 @@ $max-z-index : 5900
     text-align: center
     color: white
     background: rgba(255, 0, 0, 0.25)
-    transition: height 0.25s ease-in
+    transition: height 250ms ease-in
 
   &__overlay-window
     position: absolute
@@ -109,15 +109,16 @@ $max-z-index : 5900
 
     &--standard
       height: 80px !important
-      transition: height 0.25s ease-in
+      transition: height 250ms ease-in
+      z-index: 6000
 
     &--dense
       height: 40px !important
-      transition: height 0.25s ease-in
+      transition: height 250ms ease-in
 
     &--hidden
       height: 0 !important
-      transition: height 0.25s ease-out
+      transition: height 250ms ease-out
 
     &--button
       //max-width: 40px !important // IE11 button issue
