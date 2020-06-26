@@ -81,9 +81,9 @@ $max-z-index : 5900
     border-radius: 1.5rem
     opacity: 1.0
     font-size: 3rem
-    z-index: 6000
+    z-index: $max-z-index
 
-    &-no-control-overlay
+    &-no-controls-overlay
       margin-bottom: 0!important
 
     &:hover
@@ -112,12 +112,12 @@ $max-z-index : 5900
     &--standard
       height: 80px !important
       transition: height 250ms ease-in
-      z-index: 6000
+      z-index: $max-z-index
 
     &--dense
       height: 40px !important
       transition: height 250ms ease-in
-      z-index: 6000
+      z-index: $max-z-index
 
     &--hidden
       height: 0 !important

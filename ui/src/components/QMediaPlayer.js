@@ -217,7 +217,7 @@ export default {
   beforeMount () {
     this.__setupLang()
     this.__setupIcons()
-    if (!this.noControlsOverlay || this.isAudio) {
+    if (!this.noControlsOverlay) {
       document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
     }
   },
@@ -250,8 +250,7 @@ export default {
     classes () {
       return {
         'q-media__fullscreen': this.state.inFullscreen,
-        'q-media__fullscreen--window': this.state.inFullscreen,
-        'q-media__controls--no-controls-overlay': this.noControlsOverlay
+        'q-media__fullscreen--window': this.state.inFullscreen
       }
     },
 
@@ -432,6 +431,10 @@ export default {
         }
         this.state.displayTime = timeParse(this.$media.currentTime)
       }
+    },
+
+    noControlsOverlay (val) {
+      // TODO manage showing hiding controls dynamically
     }
   },
 
@@ -650,18 +653,21 @@ export default {
         this.state.inFullscreen = true
         this.$q.fullscreen.request()
         document.body.classList.add('no-scroll')
-        if ((this.$refs.controls || this.$slots.controls) && this.noControlsOverlay) {
+        if (this.noControlsOverlay) {
+          // (this.$refs.controls || this.$slots.controls) &&
           // IE11 needs cssText to set height
-          const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
-          if (isIE11) {
-            // IE11 always returns screen.height of the primary screen.
-            // timeout to get the correct window.outerHeight
-            setTimeout(() => {
-              this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
-            }, 200)
-          } else {
-            this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
-          }
+          // const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
+          // if (isIE11) {
+          // IE11 always returns screen.height of the primary screen.
+          // Safari has also problem with correct height
+          // timeout gets the correct window.outerHeight most of the time except Safari o iMac
+          // iPad when jumps out of the fullscreen on its own. I can't confirm it was before
+          setTimeout(() => {
+            this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
+          }, 200)
+          // } else {
+          //   this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
+          // }
         } else {
           this.$refs.media.style.cssText = 'height: 100%'
         }
@@ -1512,7 +1518,7 @@ export default {
       const slot = this.$slots.bigPlayButton
 
       return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
-        staticClass: this.noControlsOverlay ? 'q-media--big-button q-media--big-button-no-control-overlay' : 'q-media--big-button'
+        staticClass: this.noControlsOverlay ? 'q-media--big-button q-media--big-button-no-controls-overlay' : 'q-media--big-button'
       }), [
         h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
           props: {
