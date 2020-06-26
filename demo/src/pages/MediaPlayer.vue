@@ -37,13 +37,14 @@
             <q-toggle v-model="videoType" label="Video"></q-toggle>
             <q-btn label="Next Video" :disable="!videoType" @click="nextVideo"></q-btn>
             <q-toggle v-model="autoplay" label="Autoplay"></q-toggle>
+            <q-toggle v-model="noControlsOverlay" label="No Controls Overlay"></q-toggle>
           </div>
         </q-card-section>
       </q-card>
     </div>
 
     <div class="row flex-center" style="min-height: 2rem;">
-      <div style="overflow: hidden">
+<!--      <div style="overflow: hidden">-->
         <transition name="q-transition--scale">
           <q-media-player
             :key="videoType === true ? 'video' : 'audio'"
@@ -57,6 +58,7 @@
             :loop="loop"
             :radius="radius ? '1rem' : 0"
             :autoplay="autoplay"
+            :no-controls-overlay="noControlsOverlay"
             :show-big-play-button="bigPlay"
             :sources="this.sources"
             :poster="this.poster"
@@ -74,7 +76,7 @@
             </template>
           </q-media-player>
         </transition>
-      </div>
+<!--      </div>-->
     </div>
     <div class="text-center">
       <p>QMediaPlayer <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer" target="_blank">home page</a>.</p>
@@ -104,6 +106,7 @@ export default {
       bigPlay: true,
       radius: false,
       overlay: false,
+      noControlsOverlay: true,
 
       videoIndex: 0,
       sources: [],
