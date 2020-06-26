@@ -25,7 +25,7 @@ $max-z-index : 5900
     align-self: flex-end
 
   &__error-window
-    position: absolute;
+    position: absolute
     left: 0
     top: 0
     width: 100%
@@ -34,10 +34,10 @@ $max-z-index : 5900
     text-align: center
     color: white
     background: rgba(255, 0, 0, 0.25)
-    transition: height 0.25s ease-in
+    transition: height 250ms ease-in
 
   &__overlay-window
-    position: absolute;
+    position: absolute
     left: 0
     top: 0
     width: 100%
@@ -46,7 +46,7 @@ $max-z-index : 5900
 
   &__loading
     &--video
-      position: absolute;
+      position: absolute
       left: 50%
       margin-left: -1.5rem
       bottom: 50%
@@ -81,6 +81,7 @@ $max-z-index : 5900
     border-radius: 1.5rem
     opacity: 1.0
     font-size: 3rem
+    z-index: 6000
 
     &:hover
       background: rgba(255, 255, 255, 0.15)
@@ -104,15 +105,17 @@ $max-z-index : 5900
 
     &--standard
       height: 80px !important
-      transition: height 0.25s ease-in
+      transition: all 250ms ease-in
+      z-index: 6000
 
     &--dense
       height: 40px !important
-      transition: height 0.25s ease-in
+      transition: height 250ms ease-in
+      z-index: 6000
 
     &--hidden
       height: 0 !important
-      transition: height 0.25s ease-out
+      transition: height 250ms ease-out
 
     &--button
       max-width: 40px !important
@@ -153,4 +156,4 @@ video::-webkit-media-controls
   display: none !important
 
 video::-webkit-media-controls-enclosure
-  display: none !important;
+  display: none !important

@@ -118,7 +118,7 @@ In the examples below, when the icon set is changed, you will notice that all me
 
       <example-title title="Video - Start time" />
       <q-markdown>
-> You can define the audio/video start using a `#t=` parameter. Example: `ElephantsDream.mp4#t=10` to start at time at 01:30.
+> You can define the audio/video start using a `#t=` parameter. Example: `ElephantsDream.mp4#t=10` to start at time at 01:30. Mobile mode is switched on.
 ::: warning
 Internet Explorer 11 ignores the start time parameter
 :::
