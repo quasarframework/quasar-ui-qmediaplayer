@@ -126,7 +126,20 @@ Internet Explorer 11 ignores the start time parameter
       </q-markdown>
       <example-viewer title="Video - Start time" file="VideoStartTime" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
+      <example-title title="Video/Audio - Not to cover a video with control panel" />
+      <q-markdown>
+ > If you want to show default or custom control panel all the time without covering the audio/video. Example `no-controls-overlay`.
+     </q-markdown>
+      <example-viewer title="Video - no-controls-overlay" file="VideoNoControlsOverlay" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
+      <q-markdown>
+ > You can use slot for custom controls.
+     </q-markdown>
+      <example-viewer title="Video - controls slot and custom content style" file="VideoNoControlsOverlaySlot" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Audio as Video - no-controls-overlay with slot" file="AudioNoControlsOverlaySlot" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
       <div style="height: 100px"><!-- do not cover arrow up button for the last example when the right drawer is opened --></div>
+
     </div>
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn

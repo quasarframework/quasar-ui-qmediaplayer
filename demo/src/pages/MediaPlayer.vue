@@ -37,6 +37,7 @@
             <q-toggle v-model="videoType" label="Video"></q-toggle>
             <q-btn label="Next Video" :disable="!videoType" @click="nextVideo"></q-btn>
             <q-toggle v-model="autoplay" label="Autoplay"></q-toggle>
+            <q-toggle v-model="noControlsOverlay" label="No Controls Overlay"></q-toggle>
           </div>
         </q-card-section>
       </q-card>
@@ -57,6 +58,7 @@
             :loop="loop"
             :radius="radius ? '1rem' : 0"
             :autoplay="autoplay"
+            :no-controls-overlay="noControlsOverlay"
             :show-big-play-button="bigPlay"
             :sources="this.sources"
             :poster="this.poster"
@@ -104,6 +106,7 @@ export default {
       bigPlay: true,
       radius: false,
       overlay: false,
+      noControlsOverlay: true,
 
       videoIndex: 0,
       sources: [],
