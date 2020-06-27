@@ -24,6 +24,13 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/MediaPlayer.vue') }
     ]
+  },
+  {
+    path: '/demoNCO',
+    component: () => import('layouts/MediaPlayerLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/MediaPlayerNCO.vue') }
+    ]
   }
 ]
 

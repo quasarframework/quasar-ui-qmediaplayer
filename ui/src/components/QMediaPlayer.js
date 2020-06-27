@@ -253,6 +253,12 @@ export default {
         'q-media__fullscreen--window': this.state.inFullscreen
       }
     },
+    renderVideoClasses () {
+      return {
+        'q-media--player--no-controls-overlay--standard': !this.dense && this.noControlsOverlay && this.state.inFullscreen,
+        'q-media--player--no-controls-overlay--dense': this.dense && this.noControlsOverlay && this.state.inFullscreen
+      }
+    },
 
     videoControlsClasses () {
       return {
@@ -653,7 +659,9 @@ export default {
         this.state.inFullscreen = true
         this.$q.fullscreen.request()
         document.body.classList.add('no-scroll')
-        if (this.noControlsOverlay) {
+        if (this.noControlsOverlay && this.$slots.controls) {
+          console.log('we have a custom slot')
+          // only for custom controls slot
           // (this.$refs.controls || this.$slots.controls) &&
           // IE11 needs cssText to set height
           // const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
@@ -663,13 +671,14 @@ export default {
           // timeout gets the correct window.outerHeight most of the time except Safari o iMac
           // iPad when jumps out of the fullscreen on its own. I can't confirm it was before
           setTimeout(() => {
+            // works for all browser
             this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
           }, 200)
           // } else {
           //   this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
           // }
         } else {
-          this.$refs.media.style.cssText = 'height: 100%'
+          // this.$refs.media.style.cssText = 'height: 100%'
         }
       }
     },
@@ -682,7 +691,8 @@ export default {
         this.state.inFullscreen = false
         this.$q.fullscreen.exit()
         document.body.classList.remove('no-scroll')
-        this.$refs.media.style.cssText = this.contentStyle || 'height: auto'
+        this.$refs.media.style.height = null // remove height when back from fullscreen
+        this.$refs.media.style.cssText = this.contentStyle // IE11 requires
       }
     },
 
@@ -1185,7 +1195,7 @@ export default {
       return h('video', {
         ref: 'media',
         staticClass: 'q-media--player',
-        class: this.contentClass,
+        class: this.renderVideoClasses, // this.contentClass
         style: this.contentStyle,
         attrs: {
           poster: this.poster,
