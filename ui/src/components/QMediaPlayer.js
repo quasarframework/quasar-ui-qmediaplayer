@@ -659,26 +659,28 @@ export default {
         this.state.inFullscreen = true
         this.$q.fullscreen.request()
         document.body.classList.add('no-scroll')
+        // IE11 needs cssText to set height
         if (this.noControlsOverlay && this.$slots.controls) {
-          console.log('we have a custom slot')
-          // only for custom controls slot
-          // (this.$refs.controls || this.$slots.controls) &&
-          // IE11 needs cssText to set height
-          // const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
-          // if (isIE11) {
-          // IE11 always returns screen.height of the primary screen.
-          // Safari has also problem with correct height
-          // timeout gets the correct window.outerHeight most of the time except Safari o iMac
-          // iPad when jumps out of the fullscreen on its own. I can't confirm it was before
-          setTimeout(() => {
-            // works for all browser
-            this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
-          }, 200)
-          // } else {
-          //   this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
-          // }
+          // we have a custom controls slot
+          const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
+          if (isIE11) {
+            // IE11 always returns screen.height of the primary screen.
+            // Safari has also problem with correct height
+            // timeout gets the correct window.outerHeight most of the time except Safari o iMac
+            setTimeout(() => {
+              // works for IE11 on secondary screen, sometimes wrong height calculation for few pixels
+              console.log(window.outerHeight, this.controlsHeight)
+              this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
+            }, 400)
+          } else {
+            // correct height for chrome on secondary screen
+            this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
+          }
         } else {
-          // this.$refs.media.style.cssText = 'height: 100%'
+          // must be for non no-control-overlay and fullscreen to align video vertically
+          if (!this.noControlsOverlay) {
+            this.$refs.media.style.cssText = 'height: 100%'
+          }
         }
       }
     },
