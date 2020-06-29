@@ -659,12 +659,22 @@ export default {
         this.state.inFullscreen = true
         this.$q.fullscreen.request()
         document.body.classList.add('no-scroll')
+        // NOTE To get the correct height of player depends on how many media players are on the page.
+        /*
+         Problematic is example page where all original videos are not loaded when on localhost,
+         that's why new videos targeting to google storage are stored.
+         */
+        // If the computer is slow it has a problem with correction height calculation when switching to fullscreen.
+        // Correct performance is on page demoNCO where the video is switched to fullscreen in all browsers fluently.
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
         // IE11 needs cssText to set height
         if (this.noControlsOverlay && this.$slots.controls) {
+          // iPhone Safari - sometimes when switched to fullscreen, native control panels appears and user is not able to exit back to page
           // we have a custom controls slot
           const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
-          if (isIE11) {
+          if (isIE11 || isSafari) {
             // IE11 always returns screen.height of the primary screen.
+            // Safari on iPad(landscape mode only) doesn't calculate correctly
             // Safari has also problem with correct height
             // timeout gets the correct window.outerHeight most of the time except Safari o iMac
             setTimeout(() => {
@@ -678,8 +688,12 @@ export default {
           }
         } else {
           // must be for non no-control-overlay and fullscreen to align video vertically
-          if (!this.noControlsOverlay) {
+          if (!this.noControlsOverlay && !isSafari) {
+            // if used in Safari iPad landscape mode video and control panel are out of the screen
             this.$refs.media.style.cssText = 'height: 100%'
+          } else {
+            // Safari iMac - shows the video to fullscreen correctly
+            // Safari iPad landscape - the whole video is visible but aligned to the top, not to center
           }
         }
       }
