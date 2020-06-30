@@ -674,6 +674,7 @@ export default {
         // If the computer is slow it has a problem with correction height calculation when switching to fullscreen.
         // Correct performance is on page demoNCO where the video is switched to fullscreen in all browsers fluently.
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+        // Quasar Platform.is returns undefined - Platform was imported on the beginning
         // IE11 needs cssText to set height
         if (this.state.noControlsOverlay && this.$slots.controls) {
           // iPhone Safari - sometimes when switched to fullscreen, native control panels appears and user is not able to exit back to page
@@ -686,7 +687,6 @@ export default {
             // timeout gets the correct window.outerHeight most of the time except Safari o iMac
             setTimeout(() => {
               // works for IE11 on secondary screen, sometimes wrong height calculation for few pixels
-              console.log(window.outerHeight, this.controlsHeight)
               this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
             }, 400)
           } else {
@@ -699,6 +699,11 @@ export default {
             // if used in Safari iPad landscape mode video and control panel are out of the screen
             this.$refs.media.style.cssText = 'height: 100%'
           } else {
+            // if (isSafari && !this.state.noControlsOverlay && this.$slots.controls) {
+            // fixed the video height in render function
+            // iPad Safari - remains problem with aligned video to the top and not to the screen center (could be also in iMac but depends on screen ration)
+            //   console.log('safari fullscreen with custom slot but no-controls-overlay = false', this.state.noControlsOverlay)
+            // }
             // Safari iMac - shows the video to fullscreen correctly
             // Safari iPad landscape - the whole video is visible but aligned to the top, not to center
           }
@@ -1219,8 +1224,8 @@ export default {
       return h('video', {
         ref: 'media',
         staticClass: 'q-media--player',
-        class: this.renderVideoClasses, // this.contentClass
-        style: this.contentStyle,
+        class: this.renderVideoClasses, // this.contentClass // TODO merge custom contentClass with renderVideoClasses
+        style: !this.state.inFullscreen ? this.contentStyle : '', // if not inFullscreen Safari + cutom slot + fullscreen shows video with contentStyle
         attrs: {
           poster: this.poster,
           preload: this.preload,
