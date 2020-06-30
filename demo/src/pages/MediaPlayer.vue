@@ -106,7 +106,7 @@ export default {
       bigPlay: true,
       radius: false,
       overlay: false,
-      noControlsOverlay: true,
+      noControlsOverlay: false,
 
       videoIndex: 0,
       sources: [],
