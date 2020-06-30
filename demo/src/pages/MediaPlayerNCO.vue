@@ -40,6 +40,7 @@
             <q-toggle label="Video" v-model="videoType"></q-toggle>
             <q-btn :disable="!videoType" @click="nextVideo" label="Next Video"></q-btn>
             <q-toggle label="Autoplay" v-model="autoplay"></q-toggle>
+            <q-toggle v-model="noControlsOverlay" label="No Controls Overlay"></q-toggle>
           </div>
         </q-card-section>
       </q-card>
@@ -58,6 +59,7 @@
             :loop="loop"
             :mobile-mode="true"
             :muted="muted"
+            :no-controls-overlay="noControlsOverlay"
             :playsinline="playsinline"
             :poster="this.poster"
             :radius="radius ? '1rem' : 0"
@@ -93,7 +95,7 @@
             :loop="loop"
             :mobile-mode="mobileMode"
             :muted="muted"
-            :no-controls-overlay="true"
+            :no-controls-overlay="noControlsOverlay"
             :playsinline="playsinline"
             :poster="this.poster"
             :radius="radius ? '1rem' : 0"
@@ -120,7 +122,7 @@
           :loop="loop"
           :mobile-mode="mobileMode"
           :muted="muted"
-          :no-controls-overlay="true"
+          :no-controls-overlay="noControlsOverlay"
           :playsinline="playsinline"
           :poster="this.poster"
           :radius="radius ? '1rem' : 0"
