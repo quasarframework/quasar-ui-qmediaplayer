@@ -673,8 +673,7 @@ export default {
          */
         // If the computer is slow it has a problem with correction height calculation when switching to fullscreen.
         // Correct performance is on page demoNCO where the video is switched to fullscreen in all browsers fluently.
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-        // Quasar Platform.is returns undefined - Platform was imported on the beginning
+        const isSafari = this.$q.platform.is.safari
         // IE11 needs cssText to set height
         if (this.state.noControlsOverlay && this.$slots.controls) {
           // iPhone Safari - sometimes when switched to fullscreen, native control panels appears and user is not able to exit back to page
