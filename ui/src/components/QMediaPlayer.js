@@ -664,12 +664,12 @@ export default {
       }
       if (this.$q.fullscreen !== void 0) {
         this.state.inFullscreen = true
-        this.$q.fullscreen.request()
+        this.$q.fullscreen.request() // NOTE error Not capable - on iPhone Safari
         document.body.classList.add('no-scroll')
         // NOTE To get the correct height of player depends on how many media players are on the page.
         /*
          Problematic is example page where all original videos are not loaded when on localhost,
-         that's why new videos targeting to google storage are stored.
+         that's why new videos are targeting to google storage.
          */
         // If the computer is slow it has a problem with correction height calculation when switching to fullscreen.
         // Correct performance is on page demoNCO where the video is switched to fullscreen in all browsers fluently.
