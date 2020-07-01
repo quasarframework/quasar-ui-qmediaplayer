@@ -719,8 +719,7 @@ export default {
         this.state.inFullscreen = false
         this.$q.fullscreen.exit()
         document.body.classList.remove('no-scroll')
-        this.$refs.media.style.height = null // remove height when back from fullscreen
-        this.$refs.media.style.cssText = this.contentStyle // IE11 requires
+        this.$refs.media.style.cssText = this.contentStyle // set the requested style
       }
     },
 
