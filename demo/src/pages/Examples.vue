@@ -111,7 +111,7 @@ Not all languages have been translated. If you can help out, please [PR a langua
       <example-title title="Icon Set" />
       <q-markdown>
 > QMediaPlayer does not have a property to set the icon set directly. It uses Quasar's internal icon set support indirectly. When that switches, then QMediaPlayer also switches to the corresponding icon set.
-In the examples below, when the icon set is changed, you will notice that all media player on this page also change their icon set.
+In the examples below, when the icon set is changed, you will notice that all media players on this page also change their icon set.
       </q-markdown>
       <example-viewer title="Audio - Icon Set" file="AudioIconSet" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Icon Set" file="VideoIconSet" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
@@ -223,6 +223,9 @@ export default {
     this.addToToc('Icon Set')
     this.addToToc('Audio - Icon Set', 2)
     this.addToToc('Video - Icon Set', 2)
+
+    this.addToToc('Video - Start time')
+    this.addToToc('Video - Start time', 2)
 
     this.toc = this.tempToc
   },
