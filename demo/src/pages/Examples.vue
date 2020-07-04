@@ -118,9 +118,17 @@ In the examples below, when the icon set is changed, you will notice that all me
 
       <example-title title="Video - Start time" />
       <q-markdown>
-> You can define the audio/video start using a `#t=` parameter. Example: `ElephantsDream.mp4#t=10` to start at time at 01:30.
+> You can define the audio/video media time fragment using a `#t=` parameter. It accepts a start and end time (optional) and can be given in seconds or real time.
+>
+> Example: `ElephantsDream.mp4#t=90` (seconds) to start at time at 01:30.
+> Example: `ElephantsDream.mp4#t=,90` (seconds) to start at time at 0 and stop at 01:30.
+>
+> The _real time_ is given in _hours:minutes:seconds_. Example: `ElephantsDream.mp4#t=00:01:05` to start at time at 01:05 or `ElephantsDream.mp4#t=00:01:05,00:02:05` to start at 1:05 and end at 2:05.
+>
+> Note: to play framments, you need to make sure **Range Requests** are supported by your server: check for `Accept Ranges: bytes`. It's on by default for Apache and many other servers, but worth checking.
+
 ::: warning
-Internet Explorer 11 ignores the start time parameter
+Internet Explorer 11 ignores the start time fragment parameter
 :::
 
       </q-markdown>
