@@ -118,7 +118,7 @@ In the examples below, when the icon set is changed, you will notice that all me
 
       <example-title title="Video - Start time" />
       <q-markdown>
-> You can define the audio/video media time fragment using a `#t=` parameter. It accepts a start and end time (optional) and can be given in seconds or real time.
+> You can define the audio/video media time fragment using a `#t=` parameter. It accepts a start and an end time (optional) and can be given in seconds or real time.
 >
 > Example: `ElephantsDream.mp4#t=90` (seconds) to start at time at 01:30.
 > Example: `ElephantsDream.mp4#t=,90` (seconds) to start at time at 0 and stop at 01:30.
