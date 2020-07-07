@@ -6,7 +6,7 @@ QMediaPlayer
 
 QMediaPlayer is a [Quasar](https://quasar.dev) component. It allows you to embed HTML5 video and audio into your Quasar application.
 
-![QMediaPlayer](https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/src/qmediaplayer.png)
+![QMediaPlayer](https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/public/qmediaplayer.png)
 
 # Examples and Documentation
 Can be found [here](https://quasarframework.github.io/quasar-ui-qmediaplayer)
