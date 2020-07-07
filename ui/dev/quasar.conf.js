@@ -75,6 +75,7 @@ module.exports = function (ctx) {
       open: true // opens browser window automatically
     },
 
+    // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
       iconSet: 'material-icons', // Quasar icon set
       lang: 'en-us', // Quasar language pack
