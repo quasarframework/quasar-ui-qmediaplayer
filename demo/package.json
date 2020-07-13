@@ -2,7 +2,7 @@
   "name": "qmediaplayer-demo",
   "version": "0.0.3",
   "description": "QMediaPlayer App Extension for Quasar",
-  "productName": "QMediaPlayer  docs, examples and demo site",
+  "productName": "QMediaPlayer docs, examples and demo site",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Jeff Galbraith <jeff@quasar.dev>",
   "private": true,
