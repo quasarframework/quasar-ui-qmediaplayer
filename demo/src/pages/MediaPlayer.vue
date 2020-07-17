@@ -263,7 +263,8 @@ export default {
         this.sources.splice(0, this.sources.length, ...this.video[this.videoIndex].sources)
         this.tracks.splice(0, this.tracks.length, ...this.video[this.videoIndex].tracks)
         this.poster = this.video[this.videoIndex].poster
-      } else {
+      }
+      else {
         this.sources.splice(0, this.sources.length, ...this.audio.sources)
         this.tracks.splice(0, this.tracks.length)
         this.poster = ''
@@ -277,7 +278,8 @@ export default {
     nextVideo () {
       if (this.videoIndex === 0) {
         this.videoIndex = 1
-      } else {
+      }
+      else {
         this.videoIndex = 0
       }
       this.setSource()

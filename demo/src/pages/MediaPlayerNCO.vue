@@ -84,7 +84,7 @@
     </div>
     <div class="row flex-center" style="min-height: 2rem;">
       <div class="clolumn">
-      no-control-overlay
+      no-controls-overlay
         <transition name="q-transition--scale">
           <q-media-player
             :autoplay="autoplay"
@@ -112,7 +112,7 @@
     </div>
     <div class="row flex-center" style="min-height: 2rem;">
       <div class="column">
-      no-control-overlay, custom controls, custom height:130px
+      no-controls-overlay, custom controls, custom height:130px
       <transition name="q-transition--scale">
         <q-media-player
           :autoplay="autoplay"
@@ -337,7 +337,8 @@ export default {
         this.sources.splice(0, this.sources.length, ...this.video[this.videoIndex].sources)
         this.tracks.splice(0, this.tracks.length, ...this.video[this.videoIndex].tracks)
         this.poster = this.video[this.videoIndex].poster
-      } else {
+      }
+      else {
         this.sources.splice(0, this.sources.length, ...this.audio.sources)
         this.tracks.splice(0, this.tracks.length)
         this.poster = ''
@@ -351,7 +352,8 @@ export default {
     nextVideo () {
       if (this.videoIndex === 0) {
         this.videoIndex = 1
-      } else {
+      }
+      else {
         this.videoIndex = 0
       }
       this.setSource()
