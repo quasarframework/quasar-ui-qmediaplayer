@@ -678,20 +678,23 @@ export default {
         if (this.state.noControlsOverlay && this.$slots.controls) {
           // iPhone Safari - sometimes when switched to fullscreen, native control panels appears and user is not able to exit back to page
           // we have a custom controls slot
-          const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
-          if (isIE11 || isSafari) {
-            // IE11 always returns screen.height of the primary screen.
-            // Safari on iPad(landscape mode only) doesn't calculate correctly
-            // Safari has also problem with correct height
-            // timeout gets the correct window.outerHeight most of the time except Safari o iMac
-            setTimeout(() => {
-              // works for IE11 on secondary screen, sometimes wrong height calculation for few pixels
-              this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
-            }, 400)
-          } else {
-            // correct height for chrome on secondary screen
+          // const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
+          // if (isIE11 || isSafari) {
+          //   // IE11 always returns screen.height of the primary screen.
+          //   // Safari on iPad(landscape mode only) doesn't calculate correctly
+          //   // Safari has also problem with correct height
+          //   // timeout gets the correct window.outerHeight most of the time except Safari o iMac
+          //   setTimeout(() => {
+          //     // works for IE11 on secondary screen, sometimes wrong height calculation for few pixels
+          //     this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
+          //   }, 400)
+          // } else {
+          //   console.log('---auto calculated height---', this.controlsHeight, screen.height, `height: ${screen.height - this.controlsHeight}px!important`)
+          // correct height for chrome needs to wait as well
+          setTimeout(() => {
             this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
-          }
+          }, 200)
+          // }
         } else {
           // must be for non no-control-overlay and fullscreen to align video vertically
           if (!this.state.noControlsOverlay && !isSafari) {
