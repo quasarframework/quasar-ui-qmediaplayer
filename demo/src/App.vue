@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
@@ -9,6 +9,3 @@ export default {
   name: 'App'
 }
 </script>
-
-<style>
-</style>

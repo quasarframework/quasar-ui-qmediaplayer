@@ -111,35 +111,30 @@ Not all languages have been translated. If you can help out, please [PR a langua
       <example-title title="Icon Set" />
       <q-markdown>
 > QMediaPlayer does not have a property to set the icon set directly. It uses Quasar's internal icon set support indirectly. When that switches, then QMediaPlayer also switches to the corresponding icon set.
-In the examples below, when the icon set is changed, you will notice that all media player on this page also change their icon set.
+In the examples below, when the icon set is changed, you will notice that all media players on this page also change their icon set.
       </q-markdown>
       <example-viewer title="Audio - Icon Set" file="AudioIconSet" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Icon Set" file="VideoIconSet" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
       <example-title title="Video - Start time" />
       <q-markdown>
-> You can define the audio/video start using a `#t=` parameter. Example: `ElephantsDream.mp4#t=10` to start at time at 01:30. Mobile mode is switched on.
+> You can define the audio/video media time fragment using a `#t=` parameter. It accepts a start and an end time (optional) and can be given in seconds or real time.
+>
+> Example: `ElephantsDream.mp4#t=90` (seconds) to start at time at 01:30.
+> Example: `ElephantsDream.mp4#t=,90` (seconds) to start at time at 0 and stop at 01:30.
+>
+> The _real time_ is given in _hours:minutes:seconds_. Example: `ElephantsDream.mp4#t=00:01:05` to start at time at 01:05 or `ElephantsDream.mp4#t=00:01:05,00:02:05` to start at 1:05 and end at 2:05.
+>
+> Note: to play framments, you need to make sure **Range Requests** are supported by your server: check for `Accept Ranges: bytes`. It's on by default for Apache and many other servers, but worth checking.
+
 ::: warning
-Internet Explorer 11 ignores the start time parameter
+Internet Explorer 11 ignores the start time fragment parameter
 :::
 
       </q-markdown>
       <example-viewer title="Video - Start time" file="VideoStartTime" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
-      <example-title title="Video/Audio - Not to cover a video with control panel" />
-      <q-markdown>
- > If you want to show default or custom control panel all the time without covering the audio/video. Example `no-controls-overlay`.
-     </q-markdown>
-      <example-viewer title="Video - no-controls-overlay" file="VideoNoControlsOverlay" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
-
-      <q-markdown>
- > You can use slot for custom controls.
-     </q-markdown>
-      <example-viewer title="Video - controls slot and custom content style" file="VideoNoControlsOverlaySlot" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
-      <example-viewer title="Audio as Video - no-controls-overlay with slot" file="AudioNoControlsOverlaySlot" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
-
       <div style="height: 100px"><!-- do not cover arrow up button for the last example when the right drawer is opened --></div>
-
     </div>
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn
@@ -236,6 +231,9 @@ export default {
     this.addToToc('Icon Set')
     this.addToToc('Audio - Icon Set', 2)
     this.addToToc('Video - Icon Set', 2)
+
+    this.addToToc('Video - Start time')
+    this.addToToc('Video - Start time', 2)
 
     this.toc = this.tempToc
   },

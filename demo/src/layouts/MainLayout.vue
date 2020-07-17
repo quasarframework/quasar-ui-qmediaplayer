@@ -1,5 +1,6 @@
 <template>
   <q-layout view="HHh LpR fFf" @scroll="onScroll">
+
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -12,7 +13,7 @@
           <q-icon name="menu" />
         </q-btn>
 
-        <q-toolbar-title>
+        <q-toolbar-title v-if="$q.screen.width > 500">
           QMediaPlayer <span class="text-subtitle2">v{{ version }}</span>
         </q-toolbar-title>
 
@@ -88,7 +89,7 @@ const { setScrollPosition } = scroll
 import { version } from 'ui'
 
 export default {
-  name: 'MyLayout',
+  name: 'MainLayout',
   components: {
     'essential-links': () => import('../components/EssentialLinks')
   },
