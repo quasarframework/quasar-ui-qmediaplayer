@@ -1,6 +1,6 @@
 <template>
   <q-media-player
-    :no-controls-overlay="true"
+    :bottom-controls="true"
     :sources="sources"
     @playing="isPlaying = true"
     @paused="isPlaying = false"

@@ -1,7 +1,7 @@
 <template>
   <q-media-player
-    id="noControlsOverlay"
-    :no-controls-overlay="true"
+    id="bottomControls"
+    :bottom-controls="true"
     :sources="sources"
     color="white"
     type="video"
@@ -23,7 +23,7 @@ export default {
 }
 </script>
 <style style="sass">
-  #noControlsOverlay .q-media__controls {
+  #bottomControls .q-media__controls {
     background: teal;
   }
 </style>

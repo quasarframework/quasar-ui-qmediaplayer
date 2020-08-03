@@ -1,7 +1,7 @@
 <template>
   <q-media-player
     content-style="height: 100px; width: 100px"
-    no-controls-overlay
+    bottom-controls
     :sources="sources"
     ref="qmp"
     type="video"
@@ -11,7 +11,7 @@
            style="top: 0; left: 0; position: absolute">
         <div class="column q-ma-md q-pa-sm  bg-amber-3" style="position:absolute;">
           We are playing the audio in video type player to test the <code>
-          no-controls-overlay
+          bottom-controls
         </code>
         </div>
       </div>

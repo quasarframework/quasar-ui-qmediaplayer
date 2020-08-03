@@ -40,7 +40,7 @@
             <q-toggle label="Video" v-model="videoType"></q-toggle>
             <q-btn :disable="!videoType" @click="nextVideo" label="Next Video"></q-btn>
             <q-toggle label="Autoplay" v-model="autoplay"></q-toggle>
-            <q-toggle v-model="noControlsOverlay" label="No Controls Overlay"></q-toggle>
+            <q-toggle v-model="bottomControls" label="Bottom Controls"></q-toggle>
           </div>
         </q-card-section>
       </q-card>
@@ -59,7 +59,7 @@
             :loop="loop"
             :mobile-mode="true"
             :muted="muted"
-            :no-controls-overlay="noControlsOverlay"
+            :bottom-controls="bottomControls"
             :playsinline="playsinline"
             :poster="this.poster"
             :radius="radius ? '1rem' : 0"
@@ -84,7 +84,7 @@
     </div>
     <div class="row flex-center" style="min-height: 2rem;">
       <div class="clolumn">
-      no-controls-overlay
+      bottom-controls
         <transition name="q-transition--scale">
           <q-media-player
             :autoplay="autoplay"
@@ -95,7 +95,7 @@
             :loop="loop"
             :mobile-mode="mobileMode"
             :muted="muted"
-            :no-controls-overlay="noControlsOverlay"
+            :bottom-controls="bottomControls"
             :playsinline="playsinline"
             :poster="this.poster"
             :radius="radius ? '1rem' : 0"
@@ -112,7 +112,7 @@
     </div>
     <div class="row flex-center" style="min-height: 2rem;">
       <div class="column">
-      no-controls-overlay, custom controls, custom height:130px
+      bottom-controls, custom controls, custom height:130px
       <transition name="q-transition--scale">
         <q-media-player
           :autoplay="autoplay"
@@ -122,7 +122,7 @@
           :loop="loop"
           :mobile-mode="mobileMode"
           :muted="muted"
-          :no-controls-overlay="noControlsOverlay"
+          :bottom-controls="bottomControls"
           :playsinline="playsinline"
           :poster="this.poster"
           :radius="radius ? '1rem' : 0"
@@ -181,7 +181,7 @@ export default {
       bigPlay: true,
       radius: false,
       overlay: false,
-      noControlsOverlay: true,
+      bottomControls: true,
       isPlaying: false,
       videoIndex: 0,
       sources: [],

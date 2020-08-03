@@ -114,7 +114,7 @@ export default {
     },
     spinnerSize: String,
     noControls: Boolean,
-    noControlsOverlay: {
+    bottomControls: {
       type: Boolean,
       default: false
     },
@@ -186,7 +186,7 @@ export default {
         showBigPlayButton: true,
         metadataLoaded: false,
         spinnerSize: '5em',
-        noControlsOverlay: false
+        bottomControls: false
       },
       allEvents: [
         'abort',
@@ -218,7 +218,7 @@ export default {
   beforeMount () {
     this.__setupLang()
     this.__setupIcons()
-    if (!this.noControlsOverlay) {
+    if (!this.bottomControls) {
       document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
     }
   },
@@ -256,8 +256,8 @@ export default {
     },
     renderVideoClasses () {
       return {
-        'q-media--player--no-controls-overlay--standard': !this.dense && this.state.noControlsOverlay && this.state.inFullscreen,
-        'q-media--player--no-controls-overlay--dense': this.dense && this.state.noControlsOverlay && this.state.inFullscreen
+        'q-media--player--bottom-controls--standard': !this.dense && this.state.bottomControls && this.state.inFullscreen,
+        'q-media--player--bottom-controls--dense': this.dense && this.state.bottomControls && this.state.inFullscreen
       }
     },
 
@@ -266,7 +266,7 @@ export default {
         'q-media__controls--dense': !this.$slots.controls && ((this.state.showControls || this.mobileMode) && this.dense),
         'q-media__controls--standard': !this.$slots.controls && ((this.state.showControls || this.mobileMode) && !this.dense),
         'q-media__controls--hidden': !this.state.showControls,
-        'q-media__controls--no-controls-overlay': this.state.noControlsOverlay
+        'q-media__controls--bottom-controls': this.state.bottomControls
       }
     },
 
@@ -274,7 +274,7 @@ export default {
       return {
         'q-media__controls--dense': this.dense,
         'q-media__controls--standard': !this.dense,
-        'q-media__controls--no-controls-overlay': this.state.noControlsOverlay
+        'q-media__controls--bottom-controls': this.state.bottomControls
       }
     },
 
@@ -440,8 +440,8 @@ export default {
       }
     },
 
-    noControlsOverlay (val) {
-      this.state.noControlsOverlay = val
+    bottomControls (val) {
+      this.state.bottomControls = val
       if (val) {
         this.state.showControls = true
         document.body.removeEventListener('mousemove', this.__mouseMoveAction, false)
@@ -475,7 +475,7 @@ export default {
     },
 
     showControls () {
-      if (this.state.noControlsOverlay) {
+      if (this.state.bottomControls) {
         return
       }
       if (this.timer.hideControlsTimer) {
@@ -501,7 +501,7 @@ export default {
     },
 
     hideControls () {
-      if (this.state.noControlsOverlay) {
+      if (this.state.bottomControls) {
         return
       }
       if (this.timer.hideControlsTimer) {
@@ -515,7 +515,7 @@ export default {
     },
 
     toggleControls () {
-      if (this.state.noControlsOverlay) {
+      if (this.state.bottomControls) {
         return
       }
 
@@ -527,7 +527,7 @@ export default {
     },
 
     __reset () {
-      if (this.timer.hideControlsTimer && !this.state.noControlsOverlay) {
+      if (this.timer.hideControlsTimer && !this.state.bottomControls) {
         clearTimeout(this.timer.hideControlsTimer)
       }
       this.timer.hideControlsTimer = null
@@ -675,7 +675,7 @@ export default {
         // Correct performance is on page demoNCO where the video is switched to fullscreen in all browsers fluently.
         const isSafari = this.$q.platform.is.safari
         // IE11 needs cssText to set height
-        if (this.state.noControlsOverlay && this.$slots.controls) {
+        if (this.state.bottomControls && this.$slots.controls) {
           // iPhone Safari - sometimes when switched to fullscreen, native control panels appears and user is not able to exit back to page
           // we have a custom controls slot
           // const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
@@ -697,7 +697,7 @@ export default {
           // }
         } else {
           // must be for non no-control-overlay and fullscreen to align video vertically
-          if (!this.state.noControlsOverlay && !isSafari) {
+          if (!this.state.bottomControls && !isSafari) {
             // if used in Safari iPad landscape mode video and control panel are out of the screen
             this.$refs.media.style.cssText = 'height: 100%'
           } else {
@@ -837,7 +837,7 @@ export default {
 
     __init () {
       this.$media = this.$refs.media
-      this.state.noControlsOverlay = this.noControlsOverlay
+      this.state.bottomControls = this.bottomControls
       // set default track language
       this.__updateTrackLanguage()
       this.__updateSources()
@@ -1564,7 +1564,7 @@ export default {
       const slot = this.$slots.bigPlayButton
 
       return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
-        staticClass: this.state.noControlsOverlay ? 'q-media--big-button q-media--big-button-no-controls-overlay' : 'q-media--big-button'
+        staticClass: this.state.bottomControls ? 'q-media--big-button q-media--big-button-bottom-controls' : 'q-media--big-button'
       }), [
         h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
           props: {

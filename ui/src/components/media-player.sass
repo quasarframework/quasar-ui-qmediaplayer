@@ -12,10 +12,10 @@ $max-z-index : 5900
     vertical-align: bottom
     align-self: flex-end
 
-    &--no-controls-overlay--standard
+    &--bottom-controls--standard
       height: calc(100vh - 80px)
 
-    &--no-controls-overlay--dense
+    &--bottom-controls--dense
       height: calc(100vh - 40px)
 
   &__audio--standard
@@ -89,7 +89,7 @@ $max-z-index : 5900
     font-size: 3rem
     z-index: 1000 // not to cover drawer from sides
 
-    &-no-controls-overlay
+    &-bottom-controls
       // margin-bottom: 0!important // doesn't show at the screen center in Safari
       // needs to be aligned for fullscreen and controls at the bottom
 
@@ -111,7 +111,7 @@ $max-z-index : 5900
     overflow: hidden
     z-index: 1 // Safari - not to cover the video by custom slot
 
-    &--no-controls-overlay
+    &--bottom-controls
       position: relative!important
 
     &--row

@@ -293,7 +293,7 @@
       "desc": "If set to true, the controls will never be displayed",
       "applicable": [ "Video" ]
     },
-    "no-controls-overlay": {
+    "bottom-controls": {
       "type": "Boolean",
       "category": "behavior",
       "desc": "If set to true, the controls will not cover the video",
