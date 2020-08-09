@@ -7,7 +7,7 @@
     <template v-slot:overlay>
       <div>
         <img
-          src="statics/quasar-logo.png"
+          src="quasar-logo.png"
           style="width: 30vw; max-width: 50px; opacity: 0.25;"
         >
       </div>
@@ -19,7 +19,7 @@
 export default {
   data () {
     return {
-      poster: 'statics/media/TearsOfSteel/TearsOfSteel.jpeg',
+      poster: 'media/TearsOfSteel/TearsOfSteel.jpeg',
       sources: [
         {
           src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',

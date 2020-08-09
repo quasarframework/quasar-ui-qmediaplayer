@@ -1230,7 +1230,8 @@ export default {
           textColor: this.color,
           size: '1rem',
           disable: !this.state.playReady,
-          flat: true
+          flat: true,
+          padding: '4px'
         },
         on: {
           click: this.togglePlay
@@ -1350,7 +1351,8 @@ export default {
           textColor: this.color,
           size: '1rem',
           disable: !this.state.playReady,
-          flat: true
+          flat: true,
+          padding: '4px'
         },
         on: {
           click: this.toggleMuted
@@ -1399,7 +1401,8 @@ export default {
           textColor: this.color,
           size: '1rem',
           disable: !this.state.playReady,
-          flat: true
+          flat: true,
+          padding: '4px'
         }
       }, [
         this.showTooltips && !this.settingsMenuVisible && h(QTooltip, this.lang.mediaPlayer.settings),
@@ -1417,7 +1420,8 @@ export default {
           textColor: this.color,
           size: '1rem',
           disable: !this.state.playReady,
-          flat: true
+          flat: true,
+          padding: '4px'
         },
         on: {
           click: this.toggleFullscreen
