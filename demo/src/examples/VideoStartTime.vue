@@ -2,6 +2,7 @@
   <q-media-player
     :sources="sources"
     type="video"
+    mobile-mode
   />
 </template>
 

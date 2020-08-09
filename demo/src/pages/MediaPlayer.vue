@@ -43,7 +43,7 @@
     </div>
 
     <div class="row flex-center" style="min-height: 2rem;">
-      <div style="overflow: hidden">
+<!--      <div style="overflow: hidden">-->
         <transition name="q-transition--scale">
           <q-media-player
             :key="videoType === true ? 'video' : 'audio'"
@@ -74,7 +74,7 @@
             </template>
           </q-media-player>
         </transition>
-      </div>
+<!--      </div>-->
     </div>
     <div class="text-center">
       <p>QMediaPlayer <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer" target="_blank">home page</a>.</p>
