@@ -1489,7 +1489,7 @@ export default {
           value: this.state.currentTime,
           color: this.color,
           dark: this.dark,
-          min: 0.01,
+          min: 0,
           max: this.state.duration ? this.state.duration : 1,
           disable: !this.state.playReady
         },
