@@ -13,14 +13,14 @@
     "dev:electron": "quasar dev -m electron"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.2",
+    "@quasar/extras": "^1.9.3",
     "core-js": "^3.6.5",
     "quasar": "^1.12.13"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.6",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.5.0",
+    "eslint": "^7.6.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.0",
