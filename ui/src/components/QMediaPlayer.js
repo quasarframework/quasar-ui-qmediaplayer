@@ -1132,7 +1132,7 @@ export default {
         ref: 'media',
         staticClass: 'q-media--player',
         class: this.contentClass,
-        style: this.contentStyle,
+        style: { ...this.contentStyle, height: 'auto' },
         attrs: {
           poster: this.poster,
           preload: this.preload,
