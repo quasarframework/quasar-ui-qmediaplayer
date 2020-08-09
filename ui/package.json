@@ -34,7 +34,7 @@
   "bugs": "https://github.com/quasarframework/quasar-ui-qmediaplayer/issues",
   "homepage": "https://github.com/quasarframework/quasar-ui-qmediaplayer",
   "dependencies": {
-    "q-colorize-mixin": "^1.0.6"
+    "q-colorize-mixin": "^1.0.9"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
