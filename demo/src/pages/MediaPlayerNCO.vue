@@ -3,40 +3,43 @@
 
     <div class="row flex-center">
       <p>This page is intended to test multiple scenarios of QMediaPlayer.</p>
-      <p>Music courtesy of <a href="https://freemusicarchive.org/music/Scott_Holmes/Inspiring__Upbeat_Music/Scott_Holmes_-_Upbeat_Party" target="blank">Free Music Archive</a></p>
-      <p style="text-align: center;">Videos and subtitles courtesy of <a href="https://mango.blender.org/download/" target="blank">Blender Organization</a>.</p>
+      <p>Music courtesy of <a
+        href="https://freemusicarchive.org/music/Scott_Holmes/Inspiring__Upbeat_Music/Scott_Holmes_-_Upbeat_Party"
+        target="blank">Free Music Archive</a></p>
+      <p style="text-align: center;">Videos and subtitles courtesy of <a href="https://mango.blender.org/download/"
+                                                                         target="blank">Blender Organization</a>.</p>
     </div>
 
     <div class="row flex-center">
-      <q-item tag="label" class="q-my-sm bg-blue-grey-6 shadow-1" :dark="!darkbg" style="border-radius: 30px">
+      <q-item :dark="!darkbg" class="q-my-sm bg-blue-grey-6 shadow-1" style="border-radius: 30px" tag="label">
         <q-item-section>
           <q-item-label>Dark background (audio)</q-item-label>
         </q-item-section>
 
         <q-item-section side>
-          <q-toggle v-model="darkbg" color="blue-grey-2" :dark="darkbg"></q-toggle>
+          <q-toggle :dark="darkbg" color="blue-grey-2" v-model="darkbg"></q-toggle>
         </q-item-section>
       </q-item>
 
       <q-card class="q-mx-auto" style="max-width: 800px; width: 100%; max-width: 90vw;">
         <q-card-section class="text-center">
           <div class="row flex-center q-gutter-sm">
-            <q-toggle v-model="dense" label="Dense"></q-toggle>
-            <q-toggle v-model="dark" label="Dark"></q-toggle>
-            <q-toggle v-model="radius" label="Radius"></q-toggle>
-            <q-toggle v-model="muted" label="Muted"></q-toggle>
-            <q-toggle v-model="playsinline" label="Plays Inline"></q-toggle>
-            <q-toggle v-model="loop" label="Loop"></q-toggle>
+            <q-toggle label="Dense" v-model="dense"></q-toggle>
+            <q-toggle label="Dark" v-model="dark"></q-toggle>
+            <q-toggle label="Radius" v-model="radius"></q-toggle>
+            <q-toggle label="Muted" v-model="muted"></q-toggle>
+            <q-toggle label="Plays Inline" v-model="playsinline"></q-toggle>
+            <q-toggle label="Loop" v-model="loop"></q-toggle>
           </div>
           <div class="row flex-center q-gutter-sm">
-            <q-toggle v-model="bigPlay" label="Big Play Button" :disable="!videoType"></q-toggle>
-            <q-toggle v-model="overlay" label="Overlay" :disable="!videoType"></q-toggle>
-            <q-toggle v-model="mobileMode" label="Mobile Mode" :disable="!videoType"></q-toggle>
+            <q-toggle :disable="!videoType" label="Big Play Button" v-model="bigPlay"></q-toggle>
+            <q-toggle :disable="!videoType" label="Overlay" v-model="overlay"></q-toggle>
+            <q-toggle :disable="!videoType" label="Mobile Mode" v-model="mobileMode"></q-toggle>
           </div>
           <div class="row flex-center q-gutter-sm">
-            <q-toggle v-model="videoType" label="Video"></q-toggle>
-            <q-btn label="Next Video" :disable="!videoType" @click="nextVideo"></q-btn>
-            <q-toggle v-model="autoplay" label="Autoplay"></q-toggle>
+            <q-toggle label="Video" v-model="videoType"></q-toggle>
+            <q-btn :disable="!videoType" @click="nextVideo" label="Next Video"></q-btn>
+            <q-toggle label="Autoplay" v-model="autoplay"></q-toggle>
             <q-toggle v-model="bottomControls" label="Bottom Controls"></q-toggle>
           </div>
         </q-card-section>
@@ -44,43 +47,115 @@
     </div>
 
     <div class="row flex-center" style="min-height: 2rem;">
-<!--      <div style="overflow: hidden">-->
+      <div class="column">
+        standard, mobileMode
         <transition name="q-transition--scale">
           <q-media-player
-            :key="videoType === true ? 'video' : 'audio'"
-            :type="videoType === true ? 'video' : 'audio'"
-            :dense="dense"
-            :dark="dark"
-            :background-color="darkbg === true ? 'black' : 'white'"
-            :mobile-mode="mobileMode"
-            :muted="muted"
-            :playsinline="playsinline"
-            :loop="loop"
-            :radius="radius ? '1rem' : 0"
             :autoplay="autoplay"
+            :background-color="darkbg === true ? 'black' : 'white'"
+            :dark="dark"
+            :dense="dense"
+            :key="videoType === true ? 'video' : 'audio'"
+            :loop="loop"
+            :mobile-mode="true"
+            :muted="muted"
             :bottom-controls="bottomControls"
+            :playsinline="playsinline"
+            :poster="this.poster"
+            :radius="radius ? '1rem' : 0"
             :show-big-play-button="bigPlay"
             :sources="this.sources"
-            :poster="this.poster"
             :tracks="this.tracks"
-            track-language="English"
+            :type="videoType === true ? 'video' : 'audio'"
             @ended="onEnded"
+            track-language="English"
           >
             <template v-if="overlay" v-slot:overlay>
               <div>
                 <img
-                  src="quasar-logo.png"
+                  src="statics/quasar-logo.png"
                   style="width: 30vw; max-width: 50px; opacity: 0.25;"
                 >
               </div>
             </template>
           </q-media-player>
         </transition>
-<!--      </div>-->
+      </div>
+    </div>
+    <div class="row flex-center" style="min-height: 2rem;">
+      <div class="clolumn">
+      bottom-controls
+        <transition name="q-transition--scale">
+          <q-media-player
+            :autoplay="autoplay"
+            :background-color="darkbg === true ? 'black' : 'white'"
+            :dark="dark"
+            :dense="dense"
+            :key="videoType === true ? 'video' : 'audio'"
+            :loop="loop"
+            :mobile-mode="mobileMode"
+            :muted="muted"
+            :bottom-controls="bottomControls"
+            :playsinline="playsinline"
+            :poster="this.poster"
+            :radius="radius ? '1rem' : 0"
+            :show-big-play-button="bigPlay"
+            :sources="this.sources"
+            :tracks="this.tracks"
+            :type="videoType === true ? 'video' : 'audio'"
+            @ended="onEnded"
+            track-language="English"
+          >
+          </q-media-player>
+        </transition>
+      </div>
+    </div>
+    <div class="row flex-center" style="min-height: 2rem;">
+      <div class="column">
+      bottom-controls, custom controls, custom height:130px
+      <transition name="q-transition--scale">
+        <q-media-player
+          :autoplay="autoplay"
+          :dark="dark"
+          :dense="dense"
+          :key="videoType === true ? 'video' : 'audio'"
+          :loop="loop"
+          :mobile-mode="mobileMode"
+          :muted="muted"
+          :bottom-controls="bottomControls"
+          :playsinline="playsinline"
+          :poster="this.poster"
+          :radius="radius ? '1rem' : 0"
+          :show-big-play-button="bigPlay"
+          :sources="this.sources"
+          :tracks="this.tracks"
+          :type="videoType === true ? 'video' : 'audio'"
+          @ended="onEnded"
+          @paused="isPlaying = false"
+          @playing="isPlaying = true"
+          background-color="teal-3"
+          content-style="height: 130px;"
+          ref="qmp"
+          track-language="English"
+        >
+          <template v-slot:controls>
+            <div class="column text-white bg-teal q-pa-md q-mt-xs">
+              <div class="row">
+                <q-btn size="xl" class="q-ml-sm" :icon="isPlaying ? 'stop': 'play_arrow'" @click="$refs.qmp.togglePlay()" outline></q-btn>
+                <q-space></q-space>
+                <q-btn @click="$refs.qmp.toggleFullscreen()" flat icon="fullscreen"></q-btn>
+              </div>
+            </div>
+          </template>
+        </q-media-player>
+      </transition>
+      </div>
     </div>
     <div class="text-center">
-      <p>QMediaPlayer <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer" target="_blank">home page</a>.</p>
-      <p>Demo project's <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/master/demo" target="_blank">home page</a>.</p>
+      <p>QMediaPlayer <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer" target="_blank">home page</a>.
+      </p>
+      <p>Demo project's <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/master/demo"
+                           target="_blank">home page</a>.</p>
     </div>
 
   </div>
@@ -106,8 +181,8 @@ export default {
       bigPlay: true,
       radius: false,
       overlay: false,
-      bottomControls: false,
-
+      bottomControls: true,
+      isPlaying: false,
       videoIndex: 0,
       sources: [],
       tracks: [],
@@ -116,7 +191,7 @@ export default {
       audio: {
         sources: [
           {
-            src: 'https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/public/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
+            src: 'https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/src/statics/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
             type: 'audio/mp3'
           }
         ]
@@ -128,7 +203,7 @@ export default {
           poster: 'media/TearsOfSteel/TearsOfSteel.jpeg',
           sources: [
             {
-              src: 'http://ftp.nluug.nl/pub/graphics/blender/demo/movies/ToS/tears_of_steel_720p.mov',
+              src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4#t=200',
               type: 'video/mp4'
             }
           ],
@@ -218,7 +293,7 @@ export default {
               label: 'Nederlands'
             },
             {
-              src: 'media/sintel/sintel-pt.vtt',
+              src: '/media/sintel/sintel-pt.vtt',
               kind: 'subtitles',
               srclang: 'pt',
               label: 'Português'
@@ -248,8 +323,7 @@ export default {
   mounted () {
   },
 
-  computed: {
-  },
+  computed: {},
 
   watch: {
     videoType (val) {

@@ -50,6 +50,12 @@ export default {
   mixins: [QColorizeMixin, canRender],
 
   props: {
+    contentStyle: {
+      type: String
+    },
+    contentClass: {
+      type: String
+    },
     type: {
       type: String,
       required: false,
@@ -108,6 +114,10 @@ export default {
     },
     spinnerSize: String,
     noControls: Boolean,
+    bottomControls: {
+      type: Boolean,
+      default: false
+    },
     controlsDisplayTime: {
       type: Number,
       default: 2000
@@ -175,7 +185,8 @@ export default {
         trackLanguage: 'Off',
         showBigPlayButton: true,
         metadataLoaded: false,
-        spinnerSize: '5em'
+        spinnerSize: '5em',
+        bottomControls: false
       },
       allEvents: [
         'abort',
@@ -207,8 +218,9 @@ export default {
   beforeMount () {
     this.__setupLang()
     this.__setupIcons()
-
-    document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
+    if (!this.bottomControls) {
+      document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
+    }
   },
 
   mounted () {
@@ -242,19 +254,27 @@ export default {
         'q-media__fullscreen--window': this.state.inFullscreen
       }
     },
+    renderVideoClasses () {
+      return {
+        'q-media--player--bottom-controls--standard': !this.dense && this.state.bottomControls && this.state.inFullscreen,
+        'q-media--player--bottom-controls--dense': this.dense && this.state.bottomControls && this.state.inFullscreen
+      }
+    },
 
     videoControlsClasses () {
       return {
-        'q-media__controls--dense': (this.state.showControls || this.mobileMode) && this.dense,
-        'q-media__controls--standard': (this.state.showControls || this.mobileMode) && !this.dense,
-        'q-media__controls--hidden': !this.state.showControls
+        'q-media__controls--dense': !this.$slots.controls && ((this.state.showControls || this.mobileMode) && this.dense),
+        'q-media__controls--standard': !this.$slots.controls && ((this.state.showControls || this.mobileMode) && !this.dense),
+        'q-media__controls--hidden': !this.state.showControls,
+        'q-media__controls--bottom-controls': this.state.bottomControls
       }
     },
 
     audioControlsClasses () {
       return {
         'q-media__controls--dense': this.dense,
-        'q-media__controls--standard': !this.dense
+        'q-media__controls--standard': !this.dense,
+        'q-media__controls--bottom-controls': this.state.bottomControls
       }
     },
 
@@ -306,6 +326,10 @@ export default {
         }
       })
       return caption
+    },
+
+    controlsHeight () {
+      return this.$refs.controls.clientHeight
     }
   },
 
@@ -414,6 +438,16 @@ export default {
         }
         this.state.displayTime = timeParse(this.$media.currentTime)
       }
+    },
+
+    bottomControls (val) {
+      this.state.bottomControls = val
+      if (val) {
+        this.state.showControls = true
+        document.body.removeEventListener('mousemove', this.__mouseMoveAction, false)
+      } else {
+        document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
+      }
     }
   },
 
@@ -441,6 +475,9 @@ export default {
     },
 
     showControls () {
+      if (this.state.bottomControls) {
+        return
+      }
       if (this.timer.hideControlsTimer) {
         clearTimeout(this.timer.hideControlsTimer)
         this.timer.hideControlsTimer = null
@@ -464,6 +501,9 @@ export default {
     },
 
     hideControls () {
+      if (this.state.bottomControls) {
+        return
+      }
       if (this.timer.hideControlsTimer) {
         clearTimeout(this.timer.hideControlsTimer)
       }
@@ -475,6 +515,10 @@ export default {
     },
 
     toggleControls () {
+      if (this.state.bottomControls) {
+        return
+      }
+
       if (this.state.showControls) {
         this.hideControls()
       } else {
@@ -483,7 +527,7 @@ export default {
     },
 
     __reset () {
-      if (this.timer.hideControlsTimer) {
+      if (this.timer.hideControlsTimer && !this.state.bottomControls) {
         clearTimeout(this.timer.hideControlsTimer)
       }
       this.timer.hideControlsTimer = null
@@ -529,7 +573,8 @@ export default {
               this.state.playing = true
               this.__mouseLeaveVideo()
             })
-            .catch((e) => {})
+            .catch((e) => {
+            })
         } else {
           // IE11 + EDGE support
           this.$media.play()
@@ -580,7 +625,8 @@ export default {
                 this.state.playing = true
                 this.__mouseLeaveVideo()
               })
-              .catch((e) => {})
+              .catch((e) => {
+              })
           } else {
             // IE11 + EDGE support
             this.$media.play()
@@ -618,8 +664,52 @@ export default {
       }
       if (this.$q.fullscreen !== void 0) {
         this.state.inFullscreen = true
-        this.$q.fullscreen.request()
+        this.$q.fullscreen.request() // NOTE error Not capable - on iPhone Safari
         document.body.classList.add('no-scroll')
+        // NOTE To get the correct height of player depends on how many media players are on the page.
+        /*
+         Problematic is example page where all original videos are not loaded when on localhost,
+         that's why new videos are targeting to google storage.
+         */
+        // If the computer is slow it has a problem with correction height calculation when switching to fullscreen.
+        // Correct performance is on page demoNCO where the video is switched to fullscreen in all browsers fluently.
+        const isSafari = this.$q.platform.is.safari
+        // IE11 needs cssText to set height
+        if (this.state.bottomControls && this.$slots.controls) {
+          // iPhone Safari - sometimes when switched to fullscreen, native control panels appears and user is not able to exit back to page
+          // we have a custom controls slot
+          // const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
+          // if (isIE11 || isSafari) {
+          //   // IE11 always returns screen.height of the primary screen.
+          //   // Safari on iPad(landscape mode only) doesn't calculate correctly
+          //   // Safari has also problem with correct height
+          //   // timeout gets the correct window.outerHeight most of the time except Safari o iMac
+          //   setTimeout(() => {
+          //     // works for IE11 on secondary screen, sometimes wrong height calculation for few pixels
+          //     this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
+          //   }, 400)
+          // } else {
+          //   console.log('---auto calculated height---', this.controlsHeight, screen.height, `height: ${screen.height - this.controlsHeight}px!important`)
+          // correct height for chrome needs to wait as well
+          setTimeout(() => {
+            this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
+          }, 200)
+          // }
+        } else {
+          // must be for non no-control-overlay and fullscreen to align video vertically
+          if (!this.state.bottomControls && !isSafari) {
+            // if used in Safari iPad landscape mode video and control panel are out of the screen
+            this.$refs.media.style.cssText = 'height: 100%'
+          } else {
+            // if (isSafari && !this.state.noControlsOverlay && this.$slots.controls) {
+            // fixed the video height in render function
+            // iPad Safari - remains problem with aligned video to the top and not to the screen center (could be also in iMac but depends on screen ration)
+            //   console.log('safari fullscreen with custom slot but no-controls-overlay = false', this.state.noControlsOverlay)
+            // }
+            // Safari iMac - shows the video to fullscreen correctly
+            // Safari iPad landscape - the whole video is visible but aligned to the top, not to center
+          }
+        }
       }
     },
 
@@ -631,6 +721,7 @@ export default {
         this.state.inFullscreen = false
         this.$q.fullscreen.exit()
         document.body.classList.remove('no-scroll')
+        this.$refs.media.style.cssText = this.contentStyle // set the requested style
       }
     },
 
@@ -668,7 +759,8 @@ export default {
       try {
         // lang = require(`./lang/${isoName}`)
         lang = this.__loadLang(isoName)
-      } catch (e) {}
+      } catch (e) {
+      }
 
       if (lang !== void 0 && lang.lang !== void 0) {
         this.lang.mediaPlayer = { ...lang.mediaPlayer }
@@ -710,7 +802,8 @@ export default {
       let iconSet
       try {
         iconSet = this.__loadIconSet(iconSetName)
-      } catch (e) {}
+      } catch (e) {
+      }
       iconSet !== void 0 && iconSet.name !== void 0 && (this.iconSet.mediaPlayer = { ...iconSet.mediaPlayer })
     },
 
@@ -744,6 +837,7 @@ export default {
 
     __init () {
       this.$media = this.$refs.media
+      this.state.bottomControls = this.bottomControls
       // set default track language
       this.__updateTrackLanguage()
       this.__updateSources()
@@ -1131,8 +1225,8 @@ export default {
       return h('video', {
         ref: 'media',
         staticClass: 'q-media--player',
-        class: this.contentClass,
-        style: this.contentStyle,
+        class: this.renderVideoClasses, // this.contentClass // TODO merge custom contentClass with renderVideoClasses
+        style: !this.state.inFullscreen ? this.contentStyle : '', // if not inFullscreen Safari + cutom slot + fullscreen shows video with contentStyle
         attrs: {
           poster: this.poster,
           preload: this.preload,
@@ -1244,6 +1338,19 @@ export default {
 
     __renderVideoControls (h) {
       const slot = this.$slots.controls
+      if (slot) {
+        // we need to know the controls height for fullscreen, stop propagation to video component
+        return h('div', {
+          ref: 'controls',
+          staticClass: 'q-media__controls',
+          class: this.videoControlsClasses,
+          on: {
+            click: this.__stopAndPrevent
+          }
+        },
+        slot
+        )
+      }
 
       return slot || h('div', {
         ref: 'controls',
@@ -1457,7 +1564,7 @@ export default {
       const slot = this.$slots.bigPlayButton
 
       return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
-        staticClass: 'q-media--big-button'
+        staticClass: this.state.bottomControls ? 'q-media--big-button q-media--big-button-bottom-controls' : 'q-media--big-button'
       }), [
         h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
           props: {
