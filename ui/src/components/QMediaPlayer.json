@@ -293,6 +293,12 @@
       "desc": "If set to true, the controls will never be displayed",
       "applicable": [ "Video" ]
     },
+    "bottom-controls": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "If set to true, the controls will not cover the video",
+      "applicable": [ "Video", "Audio" ]
+    },
     "playback-rates": {
       "type": "Array",
       "category": "behavior",
