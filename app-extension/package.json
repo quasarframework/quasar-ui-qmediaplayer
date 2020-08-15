@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-app-extension-qmediaplayer",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "A Quasar App Extension for @quasar/quasar-ui-qmediaplayer",
   "author": "Jeff Galbraith <jeff@quasar.dev>",
   "license": "MIT",
@@ -41,7 +41,7 @@
     "yarn": ">= 1.6.0"
   },
   "dependencies": {
-    "@quasar/quasar-ui-qmediaplayer": "^1.0.27"
+    "@quasar/quasar-ui-qmediaplayer": "^1.0.28"
   },
   "devDependencies": {
     "@vue/eslint-config-standard": "^5.1.2",
