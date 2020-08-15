@@ -64,6 +64,11 @@ The `hide-volumn-slider` property is available to hide the volume slider control
       <example-viewer title="Audio - Hide Volume Slider (Dense)" file="AudioHideVolumeSliderDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Hide Volume Slider (Dense)" file="VideoHideVolumeSliderDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
+      <example-title title="Bottom Controls" />
+      <example-viewer title="Audio - Bottom Controls" file="AudioBottomControls" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Video - Bottom Controls" file="VideoBottomControls" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Video - Bottom Controls Slot" file="VideoBottomControlsSlot" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
       <example-title title="Mobile Mode" />
       <example-viewer title="Video - Mobile Mode" file="VideoMobileMode" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths">
         <q-markdown>
@@ -206,6 +211,11 @@ export default {
     this.addToToc('Video - Hide Volume Slider', 2)
     this.addToToc('Audio - Hide Volume Slider (Dense)', 2)
     this.addToToc('Video - Hide Volume Slider (Dense)', 2)
+
+    this.addToToc('Bottom Controls')
+    this.addToToc('Audio - Bottom Controls', 2)
+    this.addToToc('Video - Bottom Controls', 2)
+    this.addToToc('Video - Bottom Controls Slot', 2)
 
     this.addToToc('Mobile Mode')
     this.addToToc('Video - Mobile Mode', 2)

@@ -37,13 +37,14 @@
             <q-toggle v-model="videoType" label="Video"></q-toggle>
             <q-btn label="Next Video" :disable="!videoType" @click="nextVideo"></q-btn>
             <q-toggle v-model="autoplay" label="Autoplay"></q-toggle>
+            <q-toggle v-model="bottomControls" label="Bottom Controls"></q-toggle>
           </div>
         </q-card-section>
       </q-card>
     </div>
 
     <div class="row flex-center" style="min-height: 2rem;">
-      <div style="overflow: hidden">
+<!--      <div style="overflow: hidden">-->
         <transition name="q-transition--scale">
           <q-media-player
             :key="videoType === true ? 'video' : 'audio'"
@@ -57,6 +58,7 @@
             :loop="loop"
             :radius="radius ? '1rem' : 0"
             :autoplay="autoplay"
+            :bottom-controls="bottomControls"
             :show-big-play-button="bigPlay"
             :sources="this.sources"
             :poster="this.poster"
@@ -74,7 +76,7 @@
             </template>
           </q-media-player>
         </transition>
-      </div>
+<!--      </div>-->
     </div>
     <div class="text-center">
       <p>QMediaPlayer <a href="https://github.com/quasarframework/quasar-ui-qmediaplayer" target="_blank">home page</a>.</p>
@@ -104,6 +106,7 @@ export default {
       bigPlay: true,
       radius: false,
       overlay: false,
+      bottomControls: false,
 
       videoIndex: 0,
       sources: [],
@@ -260,7 +263,8 @@ export default {
         this.sources.splice(0, this.sources.length, ...this.video[this.videoIndex].sources)
         this.tracks.splice(0, this.tracks.length, ...this.video[this.videoIndex].tracks)
         this.poster = this.video[this.videoIndex].poster
-      } else {
+      }
+      else {
         this.sources.splice(0, this.sources.length, ...this.audio.sources)
         this.tracks.splice(0, this.tracks.length)
         this.poster = ''
@@ -274,7 +278,8 @@ export default {
     nextVideo () {
       if (this.videoIndex === 0) {
         this.videoIndex = 1
-      } else {
+      }
+      else {
         this.videoIndex = 0
       }
       this.setSource()
