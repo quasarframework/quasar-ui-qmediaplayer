@@ -1230,8 +1230,8 @@ export default {
       return h('video', {
         ref: 'media',
         staticClass: 'q-media--player',
-        class: this.renderVideoClasses, // this.contentClass // TODO merge custom contentClass with renderVideoClasses
-        style: !this.state.inFullscreen ? { ...this.contentStyle, height: 'auto' } : '', // if not inFullscreen Safari + cutom slot + fullscreen shows video with contentStyle
+        class: this.__renderVideoClasses, // this.contentClass // TODO merge custom contentClass with renderVideoClasses
+        style: !this.state.inFullscreen ? { ...this.contentStyle, height: '100%' } : '', // if not inFullscreen Safari + custom slot + fullscreen shows video with contentStyle
         attrs: {
           poster: this.poster,
           preload: this.preload,
