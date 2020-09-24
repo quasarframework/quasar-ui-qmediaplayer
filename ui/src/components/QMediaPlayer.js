@@ -1205,7 +1205,7 @@ export default {
 
     __bigButtonPositionHeight () {
       if (this.$refs.media) {
-        return this.$refs.media.clientTop + (this.$refs.media.clientHeight / 2).toFixed(2) + 'px'
+        return this.$refs.media.clientTop + (this.$refs.media.clientHeight / 2).toFixed(2) - 16 + 'px'
       }
       return '50%'
     },
