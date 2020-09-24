@@ -242,20 +242,20 @@ export default {
   },
 
   computed: {
-    classes () {
+    __classes () {
       return {
         'q-media__fullscreen': this.state.inFullscreen,
         'q-media__fullscreen--window': this.state.inFullscreen
       }
     },
-    renderVideoClasses () {
+    __renderVideoClasses () {
       return {
         'q-media--player--bottom-controls--standard': !this.dense && this.state.bottomControls && this.state.inFullscreen,
         'q-media--player--bottom-controls--dense': this.dense && this.state.bottomControls && this.state.inFullscreen
       }
     },
 
-    videoControlsClasses () {
+    __videoControlsClasses () {
       return {
         'q-media__controls--dense': !this.$slots.controls && ((this.state.showControls || this.mobileMode) && this.dense),
         'q-media__controls--standard': !this.$slots.controls && ((this.state.showControls || this.mobileMode) && !this.dense),
@@ -264,7 +264,7 @@ export default {
       }
     },
 
-    audioControlsClasses () {
+    __audioControlsClasses () {
       return {
         'q-media__controls--dense': this.dense,
         'q-media__controls--standard': !this.dense,
@@ -272,14 +272,14 @@ export default {
       }
     },
 
-    videoWidth () {
-      if (this.$el) {
-        return this.$el.getBoundingClientRect().width
-      }
-      return 0
-    },
+    // videoWidth () {
+    //   if (this.$el) {
+    //     return this.$el.getBoundingClientRect().width
+    //   }
+    //   return 0
+    // },
 
-    volumeIcon () {
+    __volumeIcon () {
       if (this.state.volume > 1 && this.state.volume < 70 && !this.state.muted) {
         return this.iconSet.mediaPlayer.volumeDown
       } else if (this.state.volume >= 70 && !this.state.muted) {
@@ -289,7 +289,7 @@ export default {
       }
     },
 
-    selectTracksLanguageList () {
+    __selectTracksLanguageList () {
       const tracksList = []
       // provide option to turn subtitles/captions/chapters off
       const track = {}
@@ -304,15 +304,15 @@ export default {
       return tracksList
     },
 
-    isAudio () {
+    __isAudio () {
       return this.type === 'audio'
     },
 
-    isVideo () {
+    __isVideo () {
       return this.type === 'video'
     },
 
-    settingsPlaybackCaption () {
+    __settingsPlaybackCaption () {
       let caption = ''
       this.state.playbackRates.forEach((rate) => {
         if (rate.value === this.state.playbackRate) {
@@ -322,7 +322,7 @@ export default {
       return caption
     },
 
-    controlsHeight () {
+    __controlsHeight () {
       return this.$refs.controls.clientHeight
     }
   },
@@ -388,7 +388,7 @@ export default {
 
     '$q.fullscreen.isActive' (val) {
       // user pressed F11/ESC to exit fullscreen
-      if (!val && this.isVideo && this.state.inFullscreen) {
+      if (!val && this.__isVideo && this.state.inFullscreen) {
         this.exitFullscreen()
       }
     },
@@ -406,7 +406,7 @@ export default {
     },
 
     'state.showControls' (val) {
-      if (this.isVideo && !this.noControls) {
+      if (this.__isVideo && !this.noControls) {
         this.$emit('showControls', val)
       }
     },
@@ -478,7 +478,7 @@ export default {
       }
       this.state.showControls = true
       this.__checkCursor()
-      if (this.controlsDisplayTime !== -1 && !this.mobileMode && this.isVideo) {
+      if (this.controlsDisplayTime !== -1 && !this.mobileMode && this.__isVideo) {
         this.timer.hideControlsTimer = setTimeout(() => {
           if (!this.__showingMenu()) {
             this.state.showControls = false
@@ -541,7 +541,7 @@ export default {
     },
 
     __showCaptions (lang) {
-      if (this.$media && this.isVideo) {
+      if (this.$media && this.__isVideo) {
         for (let index = 0; index < this.$media.textTracks.length; ++index) {
           if (this.$media.textTracks[index].label === lang) {
             this.$media.textTracks[index].mode = 'showing'
@@ -638,7 +638,7 @@ export default {
     },
 
     toggleFullscreen (e) {
-      if (this.isVideo) {
+      if (this.__isVideo) {
         this.__stopAndPrevent(e)
         if (this.state.inFullscreen) {
           this.exitFullscreen()
@@ -650,7 +650,7 @@ export default {
     },
 
     setFullscreen () {
-      if (!this.isVideo || this.state.inFullscreen) {
+      if (!this.__isVideo || this.state.inFullscreen) {
         return
       }
       if (this.$q.fullscreen !== void 0) {
@@ -671,23 +671,9 @@ export default {
         const isSafari = this.$q.platform.is.safari
         // IE11 needs cssText to set height
         if (this.state.bottomControls && this.$slots.controls) {
-          // iPhone Safari - sometimes when switched to fullscreen, native control panels appears and user is not able to exit back to page
-          // we have a custom controls slot
-          // const isIE11 = !!window.MSInputMethodContext && !!document.documentMode
-          // if (isIE11 || isSafari) {
-          //   // IE11 always returns screen.height of the primary screen.
-          //   // Safari on iPad(landscape mode only) doesn't calculate correctly
-          //   // Safari has also problem with correct height
-          //   // timeout gets the correct window.outerHeight most of the time except Safari o iMac
-          //   setTimeout(() => {
-          //     // works for IE11 on secondary screen, sometimes wrong height calculation for few pixels
-          //     this.$refs.media.style.cssText = `height: ${window.outerHeight - this.controlsHeight}px!important`
-          //   }, 400)
-          // } else {
-          //   console.log('---auto calculated height---', this.controlsHeight, screen.height, `height: ${screen.height - this.controlsHeight}px!important`)
           // correct height for chrome needs to wait as well
           setTimeout(() => {
-            this.$refs.media.style.cssText = `height: ${screen.height - this.controlsHeight}px!important`
+            this.$refs.media.style.cssText = `height: ${screen.height - this.__controlsHeight}px!important`
           }, 200)
           // }
         } else {
@@ -709,7 +695,7 @@ export default {
     },
 
     exitFullscreen () {
-      if (!this.isVideo || !this.state.inFullscreen) {
+      if (!this.__isVideo || !this.state.inFullscreen) {
         return
       }
       if (this.$q.fullscreen !== void 0) {
@@ -901,7 +887,7 @@ export default {
     __sourceEventHandler (event) {
       const NETWORK_NO_SOURCE = 3
       if (this.$media && this.$media.networkState === NETWORK_NO_SOURCE) {
-        this.state.errorText = this.isVideo ? this.lang.mediaPlayer.noLoadVideo : this.lang.mediaPlayer.noLoadAudio
+        this.state.errorText = this.__isVideo ? this.lang.mediaPlayer.noLoadVideo : this.lang.mediaPlayer.noLoadAudio
       }
       this.$emit('networkState', event)
     },
@@ -1016,19 +1002,19 @@ export default {
     },
 
     __mouseEnterVideo (e) {
-      if (!this.bottomControls && !this.mobileMode && !this.isAudio) {
+      if (!this.bottomControls && !this.mobileMode && !this.__isAudio) {
         this.showControls()
       }
     },
 
     __mouseLeaveVideo (e) {
-      if (!this.bottomControls && !this.mobileMode && !this.isAudio) {
+      if (!this.bottomControls && !this.mobileMode && !this.__isAudio) {
         this.hideControls()
       }
     },
 
     __mouseMoveAction (e) {
-      if (!this.bottomControls && !this.mobileMode && !this.isAudio) {
+      if (!this.bottomControls && !this.mobileMode && !this.__isAudio) {
         this.__showControlsIfValid(e)
       }
     },
@@ -1196,7 +1182,7 @@ export default {
 
     __addTracks () {
       // only add tracks to video
-      if (this.isVideo && this.$media) {
+      if (this.__isVideo && this.$media) {
         this.tracks.forEach((track) => {
           const t = document.createElement('TRACK')
           t.kind = track.kind ? track.kind : ''
@@ -1219,7 +1205,7 @@ export default {
 
     __bigButtonPositionHeight () {
       if (this.$refs.media) {
-        return this.$refs.media.clientTop + (this.$refs.media.clientHeight / 2).toFixed(2) + 'px'
+        return this.$refs.media.clientTop + (this.$refs.media.clientHeight / 2).toFixed(2) - 16 + 'px'
       }
       return '50%'
     },
@@ -1230,8 +1216,8 @@ export default {
       return h('video', {
         ref: 'media',
         staticClass: 'q-media--player',
-        class: this.renderVideoClasses, // this.contentClass // TODO merge custom contentClass with renderVideoClasses
-        style: !this.state.inFullscreen ? { ...this.contentStyle, height: 'auto' } : '', // if not inFullscreen Safari + cutom slot + fullscreen shows video with contentStyle
+        class: this.__renderVideoClasses, // this.contentClass // TODO merge custom contentClass with renderVideoClasses
+        style: !this.state.inFullscreen ? { ...this.contentStyle, height: '100%' } : '', // if not inFullscreen Safari + custom slot + fullscreen shows video with contentStyle
         attrs: {
           poster: this.poster,
           preload: this.preload,
@@ -1241,7 +1227,7 @@ export default {
           muted: this.mute === true
         }
       }, [
-        this.isVideo && (slot || h('p', this.lang.mediaPlayer.oldBrowserVideo))
+        this.__isVideo && (slot || h('p', this.lang.mediaPlayer.oldBrowserVideo))
       ])
     },
 
@@ -1267,7 +1253,7 @@ export default {
           muted: this.mute === true
         }
       }, [
-        this.isAudio && (slot || h('p', this.lang.mediaPlayer.oldBrowserAudio))
+        this.__isAudio && (slot || h('p', this.lang.mediaPlayer.oldBrowserAudio))
       ])
     },
 
@@ -1348,7 +1334,7 @@ export default {
         return h('div', {
           ref: 'controls',
           staticClass: 'q-media__controls',
-          class: this.videoControlsClasses,
+          class: this.__videoControlsClasses,
           on: {
             click: this.__stopAndPrevent
           }
@@ -1360,7 +1346,7 @@ export default {
       return slot || h('div', {
         ref: 'controls',
         staticClass: 'q-media__controls',
-        class: this.videoControlsClasses,
+        class: this.__videoControlsClasses,
         on: {
           click: this.__stopAndPrevent
         }
@@ -1416,7 +1402,7 @@ export default {
       return slot || h('div', {
         ref: 'controls',
         staticClass: 'q-media__controls',
-        class: this.audioControlsClasses
+        class: this.__audioControlsClasses
       }, [
         this.dense && h('div', {
           staticClass: 'q-media__controls--row row col content-start items-center'
@@ -1459,7 +1445,7 @@ export default {
       return slot || h(QBtn, {
         staticClass: 'q-media__controls--button',
         props: {
-          icon: this.volumeIcon,
+          icon: this.__volumeIcon,
           textColor: this.color,
           size: '1rem',
           disable: !this.state.playReady,
@@ -1545,7 +1531,7 @@ export default {
 
     __renderLoader (h) {
       if (this.spinnerSize === void 0) {
-        if (this.isVideo) this.state.spinnerSize = '5em'
+        if (this.__isVideo) this.state.spinnerSize = '3em'
         else this.state.spinnerSize = '1.5em'
       } else {
         this.state.spinnerSize = this.spinnerSize
@@ -1554,7 +1540,7 @@ export default {
       const slot = this.$slots.spinner
 
       return slot || h('div', {
-        staticClass: this.isVideo ? 'q-media__loading--video' : 'q-media__loading--audio'
+        staticClass: this.__isVideo ? 'q-media__loading--video' : 'q-media__loading--audio'
       }, [
         h(QSpinner, {
           props: {
@@ -1682,7 +1668,7 @@ export default {
               expandSeparator: true,
               icon: this.iconSet.mediaPlayer.speed,
               label: this.lang.mediaPlayer.speed,
-              caption: this.settingsPlaybackCaption
+              caption: this.__settingsPlaybackCaption
             },
             on: {
               show: this.__adjustMenu,
@@ -1736,7 +1722,7 @@ export default {
             ])
           ]),
           // first item is 'Off' and doesn't count unless more are added
-          this.selectTracksLanguageList.length > 1 && h(QExpansionItem, {
+          this.__selectTracksLanguageList.length > 1 && h(QExpansionItem, {
             props: {
               group: 'settings-menu',
               expandSeparator: true,
@@ -1754,7 +1740,7 @@ export default {
                 highlight: true
               }
             }, [
-              this.selectTracksLanguageList.map((language) => {
+              this.__selectTracksLanguageList.map((language) => {
                 return h(QItem, {
                   attrs: {
                     key: language.value
@@ -1803,10 +1789,10 @@ export default {
   render (h) {
     return h('div', {
       staticClass: 'q-media bg-' + this.backgroundColor,
-      class: this.classes,
+      class: this.__classes,
       style: {
         borderRadius: !this.state.inFullscreen ? this.radius : 0,
-        height: this.isVideo ? 'auto' : this.dense ? '40px' : '80px'
+        height: this.__isVideo ? 'auto' : this.dense ? '40px' : '80px'
       },
       on: {
         mousemove: this.__mouseMoveAction,
@@ -1815,14 +1801,14 @@ export default {
         click: this.__videoClick
       }
     }, this.canRender === true ? [
-      this.isVideo && this.__renderVideo(h),
-      this.isAudio && this.__renderAudio(h),
+      this.__isVideo && this.__renderVideo(h),
+      this.__isAudio && this.__renderAudio(h),
       this.__renderOverlayWindow(h),
       this.state.errorText && this.__renderErrorWindow(h),
-      this.isVideo && !this.noControls && !this.state.errorText && this.__renderVideoControls(h),
-      this.isAudio && !this.noControls && !this.state.errorText && this.__renderAudioControls(h),
+      this.__isVideo && !this.noControls && !this.state.errorText && this.__renderVideoControls(h),
+      this.__isAudio && !this.noControls && !this.state.errorText && this.__renderAudioControls(h),
       this.showSpinner && this.state.loading && !this.state.playReady && !this.state.errorText && this.__renderLoader(h),
-      this.isVideo && this.showBigPlayButton && this.state.playReady && !this.state.playing && this.__renderBigPlayButton(h)
+      this.__isVideo && this.showBigPlayButton && this.state.playReady && !this.state.playing && this.__renderBigPlayButton(h)
     ] : void 0)
   }
 }
