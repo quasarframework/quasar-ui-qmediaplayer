@@ -37,7 +37,8 @@ export default {
         { label: 'Ion Icons', value: 'ionicons-v4' },
         { label: 'Material Icons', value: 'material-icons' },
         { label: 'MDI', value: 'mdi-v4' },
-        { label: 'Themify', value: 'themify' }
+        { label: 'Themify', value: 'themify' },
+        { label: 'Line Awesome', value: 'line-awesome' }
       ]
     }
   },
@@ -61,6 +62,9 @@ export default {
           break
         case 'themify':
           this.changeIconSetToThemify()
+          break
+        case 'line-awesome':
+          this.changeIconSetToLineAwesome()
           break
       }
     }
@@ -87,6 +91,9 @@ export default {
     },
     changeIconSetToThemify () {
       this.$q.iconSet = require('quasar/icon-set/themify.js').default
+    },
+    changeIconSetToLineAwesome () {
+      this.$q.iconSet = require('quasar/icon-set/line-awesome.js').default
     }
   }
 }
