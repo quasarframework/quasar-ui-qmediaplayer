@@ -178,6 +178,13 @@
       "applicable": [ "Audio", "Video" ],
       "addedIn": "v1.0.21"
     },
+    "disabled-seek": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the seek-to-position slider will be disabled",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.1.0"
+    },
     "dark": {
       "type": "Boolean",
       "category": "style",

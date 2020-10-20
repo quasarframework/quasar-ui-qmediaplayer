@@ -84,6 +84,7 @@ export default {
     },
     hideVolumeSlider: Boolean,
     hidePlayBtn: Boolean,
+    disabledSeek: Boolean,
     preload: {
       type: String,
       default: 'metadata',
@@ -1641,7 +1642,7 @@ export default {
           dark: this.dark,
           min: 0,
           max: this.state.duration ? this.state.duration : 1,
-          disable: !this.state.playReady
+          disable: !this.state.playReady || this.disabledSeek
         },
         on: {
           input: this.__videoCurrentTimeChanged
