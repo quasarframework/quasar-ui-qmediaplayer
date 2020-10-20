@@ -171,6 +171,13 @@
       "desc": "When true the volume slider control will be hidden",
       "applicable": [ "Audio", "Video" ]
     },
+    "hide-volume-btn": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the volume button will be hidden, as will the volume-slider",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.1.0"
+    },
     "hide-play-btn": {
       "type": "Boolean",
       "category": "behavior",

@@ -83,6 +83,7 @@ export default {
       validator: v => v >= 0 && v <= 100
     },
     hideVolumeSlider: Boolean,
+    hideVolumeBtn: Boolean,
     hidePlayBtn: Boolean,
     disabledSeek: Boolean,
     preload: {
@@ -1489,6 +1490,9 @@ export default {
     },
 
     __renderVolumeButton (h) {
+      if (this.hideVolumeBtn === true) {
+        return ''
+      }
       const slot = this.$slots.volume
 
       return slot || h(QBtn, {
@@ -1511,7 +1515,7 @@ export default {
     },
 
     __renderVolumeSlider (h) {
-      if (this.hideVolumeSlider === true) {
+      if (this.hideVolumeSlider === true || this.hideVolumeBtn === true) {
         return ''
       }
       const slot = this.$slots.volumeSlider
