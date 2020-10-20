@@ -171,12 +171,26 @@
       "desc": "When true the volume slider control will be hidden",
       "applicable": [ "Audio", "Video" ]
     },
+    "hide-volume-btn": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the volume button will be hidden, as will the volume-slider",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.1.0"
+    },
     "hide-play-btn": {
       "type": "Boolean",
       "category": "behavior",
       "desc": "When true the play/pause button will be hidden",
       "applicable": [ "Audio", "Video" ],
       "addedIn": "v1.0.21"
+    },
+    "disabled-seek": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the seek-to-position slider will be disabled",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.1.0"
     },
     "dark": {
       "type": "Boolean",

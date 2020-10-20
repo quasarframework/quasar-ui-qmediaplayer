@@ -13,21 +13,21 @@
     "dev:electron": "quasar dev -m electron"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.4",
+    "@quasar/extras": "^1.9.9",
     "core-js": "^3.6.5",
-    "quasar": "^1.12.13"
+    "quasar": "^1.14.2"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.6",
+    "@quasar/app": "^2.1.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.7.0",
+    "eslint": "^7.11.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-loader": "^4.0.2",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-vue": "^6.2.2"
+    "eslint-plugin-vue": "^7.1.0"
   },
   "browserslist": [
     "last 1 version, not dead, ie >= 11"

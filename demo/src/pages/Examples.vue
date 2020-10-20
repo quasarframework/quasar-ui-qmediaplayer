@@ -64,6 +64,10 @@ The `hide-volumn-slider` property is available to hide the volume slider control
       <example-viewer title="Audio - Hide Volume Slider (Dense)" file="AudioHideVolumeSliderDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Hide Volume Slider (Dense)" file="VideoHideVolumeSliderDense" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
+      <example-title title="Disabled Seek" />
+      <example-viewer title="Audio - Disabled Seek" file="AudioDisabledSeek" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Video - Disabled Seek" file="VideoDisabledSeek" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
       <example-title title="Bottom Controls" />
       <example-viewer title="Audio - Bottom Controls" file="AudioBottomControls" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Bottom Controls" file="VideoBottomControls" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
@@ -212,6 +216,10 @@ export default {
     this.addToToc('Audio - Hide Volume Slider (Dense)', 2)
     this.addToToc('Video - Hide Volume Slider (Dense)', 2)
 
+    this.addToToc('Disabled Seek')
+    this.addToToc('Audio - Disabled Seek', 2)
+    this.addToToc('Video - Disabled Seek', 2)
+
     this.addToToc('Bottom Controls')
     this.addToToc('Audio - Bottom Controls', 2)
     this.addToToc('Video - Bottom Controls', 2)
@@ -263,7 +271,10 @@ export default {
   methods: {
     addToToc (name, level = 1) {
       let n = name
-      if (level > 1) {
+      if (level === 1) {
+        n = 'title-' + n
+      }
+      else {
         n = 'example-' + n
       }
       const slug = slugify(n)
