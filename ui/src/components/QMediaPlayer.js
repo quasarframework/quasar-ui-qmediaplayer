@@ -221,6 +221,7 @@ export default {
     this.$nextTick(function () {
       this.__init()
       if (this.$media) {
+        // eslint-disable-next-line vue/custom-event-name-casing
         this.$emit('mediaPlayer', this.$media)
       }
     })
@@ -282,9 +283,11 @@ export default {
     __volumeIcon () {
       if (this.state.volume > 1 && this.state.volume < 70 && !this.state.muted) {
         return this.iconSet.mediaPlayer.volumeDown
-      } else if (this.state.volume >= 70 && !this.state.muted) {
+      }
+      else if (this.state.volume >= 70 && !this.state.muted) {
         return this.iconSet.mediaPlayer.volumeUp
-      } else {
+      }
+      else {
         return this.iconSet.mediaPlayer.volumeOff
       }
     },
@@ -396,17 +399,20 @@ export default {
     'state.playbackRate' (val) {
       if (val && this.$media) {
         this.$media.playbackRate = parseFloat(val)
+        // eslint-disable-next-line vue/custom-event-name-casing
         this.$emit('playbackRate', val)
       }
     },
 
     'state.trackLanguage' (val) {
       this.__toggleCaptions()
+      // eslint-disable-next-line vue/custom-event-name-casing
       this.$emit('trackLanguage', val)
     },
 
     'state.showControls' (val) {
       if (this.__isVideo && !this.noControls) {
+        // eslint-disable-next-line vue/custom-event-name-casing
         this.$emit('showControls', val)
       }
     },
@@ -457,7 +463,8 @@ export default {
           }
           reader.readAsDataURL(fileList[0])
           return true
-        } else {
+        }
+        else {
           /* eslint-disable-next-line no-console */
           console.error('QMediaPlayer: loadFileBlob method requires a FileList')
         }
@@ -484,7 +491,8 @@ export default {
             this.state.showControls = false
             this.timer.hideControlsTimer = null
             this.__checkCursor()
-          } else {
+          }
+          else {
             this.showControls()
           }
         }, this.controlsDisplayTime)
@@ -512,7 +520,8 @@ export default {
 
       if (this.state.showControls) {
         this.hideControls()
-      } else {
+      }
+      else {
         this.showControls()
       }
     },
@@ -546,7 +555,8 @@ export default {
           if (this.$media.textTracks[index].label === lang) {
             this.$media.textTracks[index].mode = 'showing'
             this.$media.textTracks[index].oncuechange = this.__cueChanged
-          } else {
+          }
+          else {
             this.$media.textTracks[index].mode = 'hidden'
             this.$media.textTracks[index].oncuechange = null
           }
@@ -566,7 +576,8 @@ export default {
             })
             .catch((e) => {
             })
-        } else {
+        }
+        else {
           // IE11 + EDGE support
           this.$media.play()
           this.state.showBigPlayButton = false
@@ -607,7 +618,8 @@ export default {
           this.$media.pause()
           this.state.showBigPlayButton = true
           this.state.playing = false
-        } else {
+        }
+        else {
           const hasPromise = typeof this.$media.play() !== 'undefined'
           if (hasPromise) {
             this.$media.play()
@@ -618,7 +630,8 @@ export default {
               })
               .catch((e) => {
               })
-          } else {
+          }
+          else {
             // IE11 + EDGE support
             this.$media.play()
             this.state.showBigPlayButton = false
@@ -642,7 +655,8 @@ export default {
         this.__stopAndPrevent(e)
         if (this.state.inFullscreen) {
           this.exitFullscreen()
-        } else {
+        }
+        else {
           this.setFullscreen()
         }
         this.$emit('fullscreen', this.state.inFullscreen)
@@ -676,12 +690,14 @@ export default {
             this.$refs.media.style.cssText = `height: ${screen.height - this.__controlsHeight}px!important`
           }, 200)
           // }
-        } else {
+        }
+        else {
           // must be for non no-control-overlay and fullscreen to align video vertically
           if (!this.state.bottomControls && !isSafari) {
             // if used in Safari iPad landscape mode video and control panel are out of the screen
             this.$refs.media.style.cssText = 'height: 100%'
-          } else {
+          }
+          else {
             // if (isSafari && !this.state.noControlsOverlay && this.$slots.controls) {
             // fixed the video height in render function
             // iPad Safari - remains problem with aligned video to the top and not to the screen center (could be also in iMac but depends on screen ration)
@@ -743,8 +759,8 @@ export default {
       try {
         // lang = require(`./lang/${isoName}`)
         lang = this.__loadLang(isoName)
-      } catch (e) {
       }
+      catch (e) {}
 
       if (lang !== void 0 && lang.lang !== void 0) {
         this.lang.mediaPlayer = { ...lang.mediaPlayer }
@@ -762,17 +778,20 @@ export default {
           if (window.QMediaPlayer.lang && window.QMediaPlayer.lang[name]) {
             const selectedLang = window.QMediaPlayer.lang[name]
             langList = selectedLang
-          } else {
+          }
+          else {
             /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: no language loaded called '${lang}'`)
             /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the language in a script tag before using with UMD')
           }
-        } else {
+        }
+        else {
           try {
             const langSet = require(`@quasar/quasar-ui-qmediaplayer/src/components/lang/${lang}.js`).default
             langList = langSet
-          } catch (e) {
+          }
+          catch (e) {
             /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: cannot find language file called '${lang}'`)
           }
@@ -786,8 +805,8 @@ export default {
       let iconSet
       try {
         iconSet = this.__loadIconSet(iconSetName)
-      } catch (e) {
       }
+      catch (e) {}
       iconSet !== void 0 && iconSet.name !== void 0 && (this.iconSet.mediaPlayer = { ...iconSet.mediaPlayer })
     },
 
@@ -800,17 +819,20 @@ export default {
           if (window.QMediaPlayer.iconSet && window.QMediaPlayer.iconSet[name]) {
             const iconsSet = window.QMediaPlayer.iconSet[name]
             iconsList = iconsSet
-          } else {
+          }
+          else {
             /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: no icon set loaded called '${set}'`)
             /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the icon set in a script tag before using with UMD')
           }
-        } else {
+        }
+        else {
           try {
             const iconsSet = require(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${set}.js`).default
             iconsList = iconsSet
-          } catch (e) {
+          }
+          catch (e) {
             /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: cannot find icon set file called '${set}'`)
           }
@@ -889,42 +911,53 @@ export default {
       if (this.$media && this.$media.networkState === NETWORK_NO_SOURCE) {
         this.state.errorText = this.__isVideo ? this.lang.mediaPlayer.noLoadVideo : this.lang.mediaPlayer.noLoadAudio
       }
+      // eslint-disable-next-line vue/custom-event-name-casing
       this.$emit('networkState', event)
     },
 
     __mediaEventHandler (event) {
       if (event.type === 'abort') {
         this.$emit('abort')
-      } else if (event.type === 'canplay') {
+      }
+      else if (event.type === 'canplay') {
         this.state.playReady = true
         this.state.displayTime = timeParse(this.$media.currentTime)
         this.__mouseEnterVideo()
         this.$emit('ready')
-      } else if (event.type === 'canplaythrough') {
+      }
+      else if (event.type === 'canplaythrough') {
         // console.log('canplaythrough')
         this.$emit('canplaythrough')
-      } else if (event.type === 'durationchange') {
+      }
+      else if (event.type === 'durationchange') {
         if (isFinite(this.$media.duration)) {
           this.state.duration = this.$media.duration
           this.state.durationTime = timeParse(this.$media.duration)
           this.$emit('duration', this.$media.duration)
         }
-      } else if (event.type === 'emptied') {
+      }
+      else if (event.type === 'emptied') {
         this.$emit('emptied')
-      } else if (event.type === 'ended') {
+      }
+      else if (event.type === 'ended') {
         this.state.playing = false
         this.$emit('ended')
-      } else if (event.type === 'error') {
+      }
+      else if (event.type === 'error') {
         const error = this.$media.error
         this.$emit('error', error)
-      } else if (event.type === 'interruptbegin') {
+      }
+      else if (event.type === 'interruptbegin') {
         // console.log('interruptbegin')
-      } else if (event.type === 'interruptend') {
+      }
+      else if (event.type === 'interruptend') {
         // console.log('interruptend')
-      } else if (event.type === 'loadeddata') {
+      }
+      else if (event.type === 'loadeddata') {
         this.state.loading = false
         this.$emit('loadeddata')
-      } else if (event.type === 'loadedmetadata') {
+      }
+      else if (event.type === 'loadedmetadata') {
         // tracks can only be programatically added after 'loadedmetadata' event
         this.state.metadataLoaded = true
         this.__updateTracks()
@@ -932,28 +965,40 @@ export default {
         this.__updateTrackLanguage()
         this.__toggleCaptions()
         this.$emit('loadedmetadata')
-      } else if (event.type === 'stalled') {
+      }
+      else if (event.type === 'stalled') {
         this.$emit('stalled')
-      } else if (event.type === 'suspend') {
+      }
+      else if (event.type === 'suspend') {
         this.$emit('suspend')
-      } else if (event.type === 'loadstart') {
+      }
+      else if (event.type === 'loadstart') {
         this.$emit('loadstart')
-      } else if (event.type === 'pause') {
+      }
+      else if (event.type === 'pause') {
         this.state.playing = false
         this.$emit('paused')
-      } else if (event.type === 'play') {
+      }
+      else if (event.type === 'play') {
         this.$emit('play')
-      } else if (event.type === 'playing') {
+      }
+      else if (event.type === 'playing') {
         this.state.playing = true
         this.$emit('playing')
-      } else if (event.type === 'progress') {
-      } else if (event.type === 'ratechange') {
-      } else if (event.type === 'seeked') {
-      } else if (event.type === 'timeupdate') {
+      }
+      else if (event.type === 'progress') {
+      }
+      else if (event.type === 'ratechange') {
+      }
+      else if (event.type === 'seeked') {
+      }
+      else if (event.type === 'timeupdate') {
         this.state.currentTime = this.$media.currentTime
         this.$emit('timeupdate', this.$media.currentTime, this.state.remainingTime)
-      } else if (event.type === 'volumechange') {
-      } else if (event.type === 'waiting') {
+      }
+      else if (event.type === 'volumechange') {
+      }
+      else if (event.type === 'waiting') {
         this.$emit('waiting')
       }
     },
@@ -966,7 +1011,8 @@ export default {
       if (this.state.inFullscreen && this.state.playing && !this.state.showControls) {
         this.$el.classList.remove('cursor-inherit')
         this.$el.classList.add('cursor-none')
-      } else {
+      }
+      else {
         this.$el.classList.remove('cursor-none')
         this.$el.classList.add('cursor-inherit')
       }
@@ -1097,7 +1143,8 @@ export default {
     __updatePlaybackRates () {
       if (this.playbackRates && this.playbackRates.length > 0) {
         this.state.playbackRates = [...this.playbackRates]
-      } else {
+      }
+      else {
         this.state.playbackRates.splice(0, this.state.playbackRates.length)
         this.state.playbackRates.push({ label: this.lang.mediaPlayer.ratePoint5, value: 0.5 })
         this.state.playbackRates.push({ label: this.lang.mediaPlayer.rateNormal, value: 1 })
@@ -1144,7 +1191,8 @@ export default {
         if (this.source && this.source.length > 0) {
           this.$media.src = this.source
           loaded = true
-        } else {
+        }
+        else {
           if (this.sources.length > 0) {
             this.sources.forEach((source) => {
               const s = document.createElement('SOURCE')
@@ -1533,7 +1581,8 @@ export default {
       if (this.spinnerSize === void 0) {
         if (this.__isVideo) this.state.spinnerSize = '3em'
         else this.state.spinnerSize = '1.5em'
-      } else {
+      }
+      else {
         this.state.spinnerSize = this.spinnerSize
       }
 
