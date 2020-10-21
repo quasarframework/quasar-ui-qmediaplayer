@@ -85,6 +85,7 @@ export default {
     hideVolumeSlider: Boolean,
     hideVolumeBtn: Boolean,
     hidePlayBtn: Boolean,
+    hideSettingsBtn: Boolean,
     disabledSeek: Boolean,
     preload: {
       type: String,
@@ -142,7 +143,9 @@ export default {
       default: 0
     },
     contentStyle: [String, Object, Array],
-    contentClass: [String, Object, Array]
+    contentClass: [String, Object, Array],
+    contentWidth: Number,
+    contentHeight: Number
   },
 
   data () {
@@ -252,10 +255,9 @@ export default {
       }
     },
     __renderVideoClasses () {
-      return {
-        'q-media--player--bottom-controls--standard': !this.dense && this.state.bottomControls && this.state.inFullscreen,
-        'q-media--player--bottom-controls--dense': this.dense && this.state.bottomControls && this.state.inFullscreen
-      }
+      return 'q-media--player' +
+        (!this.dense && this.state.bottomControls && this.state.inFullscreen ? ' q-media--player--bottom-controls--standard' : '') +
+        (this.dense && this.state.bottomControls && this.state.inFullscreen ? ' q-media--player--bottom-controls--dense' : '')
     },
 
     __videoControlsClasses () {
@@ -1265,16 +1267,18 @@ export default {
 
       return h('video', {
         ref: 'media',
-        staticClass: 'q-media--player',
-        class: this.__renderVideoClasses, // this.contentClass // TODO merge custom contentClass with renderVideoClasses
-        style: !this.state.inFullscreen ? { ...this.contentStyle, height: 'auto' } : '', // if not inFullscreen Safari + custom slot + fullscreen shows video with contentStyle
+        staticClass: this.__renderVideoClasses,
+        class: this.contentClass,
+        style: !this.state.inFullscreen ? this.contentStyle : '', // if not inFullscreen Safari + custom slot + fullscreen shows video with contentStyle
         attrs: {
           poster: this.poster,
           preload: this.preload,
           playsinline: this.playsinline === true,
           loop: this.loop === true,
           autoplay: this.autoplay === true,
-          muted: this.mute === true
+          muted: this.mute === true,
+          width: this.contentWidth || undefined,
+          height: this.contentHeight || undefined
         }
       }, [
         this.__isVideo && (slot || h('p', this.lang.mediaPlayer.oldBrowserVideo))
@@ -1300,7 +1304,9 @@ export default {
           playsinline: this.playsinline === true,
           loop: this.loop === true,
           autoplay: this.autoplay === true,
-          muted: this.mute === true
+          muted: this.mute === true,
+          width: this.contentWidth || undefined,
+          height: this.contentHeight || undefined
         }
       }, [
         this.__isAudio && (slot || h('p', this.lang.mediaPlayer.oldBrowserAudio))
@@ -1491,7 +1497,7 @@ export default {
 
     __renderVolumeButton (h) {
       if (this.hideVolumeBtn === true) {
-        return ''
+        return
       }
       const slot = this.$slots.volume
 
@@ -1516,7 +1522,7 @@ export default {
 
     __renderVolumeSlider (h) {
       if (this.hideVolumeSlider === true || this.hideVolumeBtn === true) {
-        return ''
+        return
       }
       const slot = this.$slots.volumeSlider
 
@@ -1543,6 +1549,10 @@ export default {
     },
 
     __renderSettingsButton (h) {
+      if (this.hideSettingsBtn === true) {
+        return
+      }
+
       const slot = this.$slots.settings
 
       return slot || h(QBtn, {

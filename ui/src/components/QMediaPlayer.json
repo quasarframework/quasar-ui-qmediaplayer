@@ -185,6 +185,13 @@
       "applicable": [ "Audio", "Video" ],
       "addedIn": "v1.0.21"
     },
+    "hide-settings-btn": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the settings button will be hidden",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.2.0"
+    },
     "disabled-seek": {
       "type": "Boolean",
       "category": "behavior",
@@ -345,7 +352,7 @@
     "content-class": {
       "type": [ "Array", "String", "Object" ],
       "category": "style",
-      "desc": "Class definitions to be attributed to the media player container",
+      "desc": "Class definitions to be applied directly to the video tag",
       "applicable": [ "Audio", "Video" ],
       "examples": [
         "content-class=\"my-special-class\"",
@@ -355,11 +362,31 @@
     "content-style": {
       "type": [ "Array", "String", "Object" ],
       "category": "style",
-      "desc": "Style definitions to be attributed to the media player container",
+      "desc": "Style definitions to be applied directly to the video tag",
       "applicable": [ "Audio", "Video" ],
       "examples": [
         "content-style=\"background-color: #ff0000\"",
         ":content-style=\"{ backgroundColor: '#ff0000' }\""
+      ]
+    },
+    "content-width": {
+      "addedIn": "v1.2.0",
+      "type": "Number",
+      "category": "style",
+      "desc": "Width attribute applied directly to the video tag. This can only be a number. The Video Element always assumes it is in pixels",
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "content-width=\"300\""
+      ]
+    },
+    "content-height": {
+      "addedIn": "v1.2.0",
+      "type": "Number",
+      "category": "style",
+      "desc": "Height attribute applied directly to the video tag. This can only be a number. The Video Element always assumes it is in pixels",
+      "applicable": [ "Audio", "Video" ],
+      "examples": [
+        "content-height=\"300\""
       ]
     }
 
