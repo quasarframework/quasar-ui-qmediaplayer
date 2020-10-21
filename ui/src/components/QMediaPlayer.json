@@ -185,6 +185,13 @@
       "applicable": [ "Audio", "Video" ],
       "addedIn": "v1.0.21"
     },
+    "hide-settings-btn": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the settings button will be hidden",
+      "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.2.0"
+    },
     "disabled-seek": {
       "type": "Boolean",
       "category": "behavior",

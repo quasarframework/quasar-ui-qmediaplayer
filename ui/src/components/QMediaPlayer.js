@@ -85,6 +85,7 @@ export default {
     hideVolumeSlider: Boolean,
     hideVolumeBtn: Boolean,
     hidePlayBtn: Boolean,
+    hideSettingsBtn: Boolean,
     disabledSeek: Boolean,
     preload: {
       type: String,
@@ -1490,7 +1491,7 @@ export default {
 
     __renderVolumeButton (h) {
       if (this.hideVolumeBtn === true) {
-        return ''
+        return
       }
       const slot = this.$slots.volume
 
@@ -1515,7 +1516,7 @@ export default {
 
     __renderVolumeSlider (h) {
       if (this.hideVolumeSlider === true || this.hideVolumeBtn === true) {
-        return ''
+        return
       }
       const slot = this.$slots.volumeSlider
 
@@ -1542,6 +1543,10 @@ export default {
     },
 
     __renderSettingsButton (h) {
+      if (this.hideSettingsBtn === true) {
+        return
+      }
+
       const slot = this.$slots.settings
 
       return slot || h(QBtn, {
