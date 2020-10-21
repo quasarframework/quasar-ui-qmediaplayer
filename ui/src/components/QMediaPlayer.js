@@ -143,7 +143,9 @@ export default {
       default: 0
     },
     contentStyle: [String, Object, Array],
-    contentClass: [String, Object, Array]
+    contentClass: [String, Object, Array],
+    contentWidth: Number,
+    contentHeight: Number
   },
 
   data () {
@@ -1274,7 +1276,9 @@ export default {
           playsinline: this.playsinline === true,
           loop: this.loop === true,
           autoplay: this.autoplay === true,
-          muted: this.mute === true
+          muted: this.mute === true,
+          width: this.contentWidth || undefined,
+          height: this.contentHeight || undefined
         }
       }, [
         this.__isVideo && (slot || h('p', this.lang.mediaPlayer.oldBrowserVideo))
@@ -1300,7 +1304,9 @@ export default {
           playsinline: this.playsinline === true,
           loop: this.loop === true,
           autoplay: this.autoplay === true,
-          muted: this.mute === true
+          muted: this.mute === true,
+          width: this.contentWidth || undefined,
+          height: this.contentHeight || undefined
         }
       }, [
         this.__isAudio && (slot || h('p', this.lang.mediaPlayer.oldBrowserAudio))
