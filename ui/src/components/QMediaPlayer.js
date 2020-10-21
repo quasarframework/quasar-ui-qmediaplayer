@@ -252,10 +252,9 @@ export default {
       }
     },
     __renderVideoClasses () {
-      return {
-        'q-media--player--bottom-controls--standard': !this.dense && this.state.bottomControls && this.state.inFullscreen,
-        'q-media--player--bottom-controls--dense': this.dense && this.state.bottomControls && this.state.inFullscreen
-      }
+      return 'q-media--player' +
+        (!this.dense && this.state.bottomControls && this.state.inFullscreen ? ' q-media--player--bottom-controls--standard' : '') +
+        (this.dense && this.state.bottomControls && this.state.inFullscreen ? ' q-media--player--bottom-controls--dense' : '')
     },
 
     __videoControlsClasses () {
@@ -1265,8 +1264,8 @@ export default {
 
       return h('video', {
         ref: 'media',
-        staticClass: 'q-media--player',
-        class: this.__renderVideoClasses, // this.contentClass // TODO merge custom contentClass with renderVideoClasses
+        staticClass: this.__renderVideoClasses,
+        class: this.contentClass,
         style: !this.state.inFullscreen ? { ...this.contentStyle, height: 'auto' } : '', // if not inFullscreen Safari + custom slot + fullscreen shows video with contentStyle
         attrs: {
           poster: this.poster,
