@@ -28,7 +28,7 @@ export default {
       isPlaying: false,
       sources: [
         {
-          src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4#t=300',
+          src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4#t=300',
           type: 'video/mp4'
         }
       ]
