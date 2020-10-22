@@ -1349,7 +1349,7 @@ export default {
 
       if (slot) {
         return h('div', {
-          staticClass: 'q-media__overlay-window'
+          staticClass: 'q-media__overlay-window fit'
         }, slot)
       }
     },
