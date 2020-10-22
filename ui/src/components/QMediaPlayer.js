@@ -1257,7 +1257,12 @@ export default {
 
     __bigButtonPositionHeight () {
       if (this.$refs.media) {
-        return this.$refs.media.clientTop + (this.$refs.media.clientHeight / 2).toFixed(2) - 16 + 'px'
+        // top of video
+        return this.$refs.media.clientTop +
+          // height of video / 2
+          (this.$refs.media.clientHeight / 2).toFixed(2) -
+          // big button is 48px -- so 1/2 of that
+          24 + 'px'
       }
       return '50%'
     },
