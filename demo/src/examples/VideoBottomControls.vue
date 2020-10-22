@@ -14,7 +14,7 @@ export default {
     return {
       sources: [
         {
-          src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4#t=100',
+          src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4#t=100',
           type: 'video/mp4'
         }
       ]

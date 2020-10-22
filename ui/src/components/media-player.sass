@@ -49,7 +49,7 @@ $max-z-index : 5900
     right: 0
     height: auto
     background: transparent
-    z-index: 1000
+    z-index: 1
 
   &__loading
     &--video
@@ -111,7 +111,7 @@ $max-z-index : 5900
     right: 0
     background: rgba(0, 0, 0, 0.40)
     overflow: hidden
-    z-index: 1 // Safari - not to cover the video by custom slot
+    z-index: 2
 
     &--bottom-controls
       position: relative!important
@@ -122,12 +122,12 @@ $max-z-index : 5900
     &--standard
       height: 80px !important
       transition: height 250ms ease-in
-      z-index: 1 // not to cover drawer on mall screen
+      z-index: 2
 
     &--dense
       height: 40px !important
       transition: height 250ms ease-in
-      z-index: 1 // not to cover drawer on mall screen
+      z-index: 2
 
     &--hidden
       height: 0 !important
