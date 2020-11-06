@@ -58,7 +58,7 @@
     "fs-extra": "^9.0.1",
     "node-sass": "^4.14.1",
     "open": "^7.3.0",
-    "postcss": "^7.0.32",
+    "postcss": "^8.1.6",
     "postcss-rtl": "^1.7.3",
     "quasar": "^1.14.2",
     "quasar-json-api": "^1.0.1",
