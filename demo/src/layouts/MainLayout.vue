@@ -1,19 +1,17 @@
 <template>
   <q-layout view="HHh LpR fFf" @scroll="onScroll">
-
     <q-header elevated>
       <q-toolbar>
         <q-btn
           flat
           dense
           round
+          icon="menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
           aria-label="Menu"
-        >
-          <q-icon name="menu" />
-        </q-btn>
+        />
 
-        <q-toolbar-title v-if="$q.screen.width > 500">
+        <q-toolbar-title>
           QMediaPlayer <span class="text-subtitle2">v{{ version }}</span>
         </q-toolbar-title>
 
@@ -37,6 +35,7 @@
 
     <q-drawer
       v-model="leftDrawerOpen"
+      show-if-above
       bordered
       aria-label="Menu"
       class="menu"
@@ -46,11 +45,12 @@
         <q-separator />
       </q-list>
       <essential-links />
-      <q-separator />
     </q-drawer>
 
     <q-drawer
+      ref="drawer"
       v-model="rightDrawerOpen"
+      show-if-above
       side="right"
       bordered
       aria-label="Table of Contents"
@@ -77,7 +77,9 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <transition name="fade">
+        <router-view />
+      </transition>
     </q-page-container>
   </q-layout>
 </template>
@@ -149,15 +151,15 @@ export default {
           continue
         }
 
-        if (item.offsetTop >= position + 100) {
-          if (last === void 0) {
+        if (item.offsetTop >= position + 50) {
+          if (last === undefined) {
             last = section.id
           }
           break
         }
       }
 
-      if (last !== void 0) {
+      if (last !== undefined) {
         this.activeToc = last
       }
     }
