@@ -7,11 +7,15 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module' // Allows for the use of imports
+    sourceType: 'module', // Allows for the use of imports
+    ecmaFeatures: {
+      jsx: true
+    }
   },
 
   env: {
-    browser: true
+    browser: true,
+    es6: true
   },
 
   // Rules order is important, please avoid shuffling them
@@ -19,18 +23,19 @@ module.exports = {
     // Base ESLint recommended rules
     // 'eslint:recommended',
 
-
     // Uncomment any of the lines below to choose desired strictness,
     // but leave only one uncommented!
     // See https://eslint.vuejs.org/rules/#available-rules
     'plugin:vue/essential', // Priority A: Essential (Error Prevention)
     // 'plugin:vue/strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     // 'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
+
     'plugin:quasar/standard',
 
     'standard'
   ],
 
+  // required to lint *.vue files
   plugins: [
     // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
     // required to lint *.vue files
@@ -51,7 +56,6 @@ module.exports = {
   rules: {
     // allow async-await
     'generator-star-spacing': 'off',
-
     // allow paren-less arrow functions
     'arrow-parens': 'off',
     'one-var': 'off',
@@ -68,8 +72,8 @@ module.exports = {
 
     'brace-style': [2, 'stroustrup', { allowSingleLine: false }],
 
-    'vue/no-mutating-props': 'off',
-    'vue/custom-event-name-casing': 'off',
+    'quasar/no-invalid-props': 'error',
+    'quasar/no-invalid-qfield-usage': 'error',
 
     'vue/no-deprecated-slot-attribute': 'off', // Vue 3?
     'vue/no-deprecated-slot-scope-attribute': 'off', // Vue 3?
@@ -84,7 +88,8 @@ module.exports = {
     'quasar/no-legacy-properties': 'error',
 
     'no-void': 'off',
-
+    // allow console.log during development only
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
