@@ -6,6 +6,7 @@
   "license": "MIT",
   "module": "dist/index.esm.js",
   "main": "dist/index.common.js",
+  "typings": "dist/types/index.d.ts",
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "lint-fix": "eslint --ext .js,.vue src --fix",
@@ -33,42 +34,9 @@
   },
   "bugs": "https://github.com/quasarframework/quasar-ui-qmediaplayer/issues",
   "homepage": "https://github.com/quasarframework/quasar-ui-qmediaplayer",
-  "dependencies": {
-    "@quasar/extras": "^1.9.9",
-    "q-colorize-mixin": "^1.0.9"
-  },
-  "devDependencies": {
-    "@rollup/plugin-buble": "^0.21.3",
-    "@rollup/plugin-commonjs": "^15.1.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "@vue/eslint-config-standard": "^5.1.2",
-    "autoprefixer": "^9.8.6",
-    "babel-eslint": "^10.1.0",
-    "chalk": "^4.1.0",
-    "cssnano": "^4.1.10",
-    "eslint": "^7.11.0",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-quasar": "^1.0.0",
-    "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-vue": "^7.1.0",
-    "fs-extra": "^9.0.1",
-    "node-sass": "^4.14.1",
-    "open": "^7.3.0",
-    "postcss": "^7.0.32",
-    "postcss-rtl": "^1.7.3",
-    "quasar": "^1.14.2",
-    "quasar-json-api": "^1.0.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.32.0",
-    "uglify-es": "^3.3.9",
-    "zlib": "^1.0.5"
-  },
   "keywords": [
     "quasar",
+    "quasarframework",
     "app",
     "app extension",
     "extension",
@@ -80,6 +48,43 @@
     "media player",
     "media"
   ],
+  "vetur": {
+    "tags": "dist/vetur/tags.json",
+    "attributes": "dist/vetur/attributes.json"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.9.10",
+    "q-colorize-mixin": "^1.0.10"
+  },
+  "devDependencies": {
+    "@rollup/plugin-buble": "^0.21.3",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "autoprefixer": "^9.8.6",
+    "babel-eslint": "^10.1.0",
+    "chalk": "^4.1.0",
+    "cssnano": "^4.1.10",
+    "eslint": "^7.13.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-quasar": "^1.0.0",
+    "eslint-plugin-standard": "^4.1.0",
+    "eslint-plugin-vue": "^7.1.0",
+    "fs-extra": "^9.0.1",
+    "sass": "^1.29.0",
+    "open": "^7.3.0",
+    "postcss": "^7.0.35",
+    "postcss-rtl": "^1.7.3",
+    "quasar": "^1.14.5",
+    "quasar-json-api": "^1.2.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.33.3",
+    "uglify-es": "^3.3.9",
+    "zlib": "^1.0.5"
+  },
   "browserslist": [
     "last 1 version, not dead, ie >= 11"
   ]
