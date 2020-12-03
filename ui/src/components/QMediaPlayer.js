@@ -1274,7 +1274,7 @@ export default {
         ref: 'media',
         staticClass: this.__renderVideoClasses,
         class: this.contentClass,
-        style: !this.state.inFullscreen ? this.contentStyle : '', // if not inFullscreen Safari + custom slot + fullscreen shows video with contentStyle
+        style: !this.state.inFullscreen ? this.contentStyle : '',
         attrs: {
           poster: this.poster,
           preload: this.preload,

@@ -80,9 +80,6 @@ addAssets(builds, 'icon-set', 'iconSet')
 addAssets(builds, 'lang', 'lang')
 
 build(builds)
-  .then(() => {
-    // require('./build.api.js')
-  })
 
 /**
  * Helpers
@@ -192,7 +189,7 @@ function buildEntry (config) {
 }
 
 function injectVueRequirement (code) {
-  // eslint-disable-next-line
+  // eslint-disable-next-line quotes
   const index = code.indexOf(`Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue`)
 
   if (index === -1) {
