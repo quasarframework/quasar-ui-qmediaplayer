@@ -73,6 +73,9 @@ The `hide-volumn-slider` property is available to hide the volume slider control
       <example-viewer title="Video - Bottom Controls" file="VideoBottomControls" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
       <example-viewer title="Video - Bottom Controls Slot" file="VideoBottomControlsSlot" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
+      <example-title title="Behavior" />
+      <example-viewer title="Portrait" file="VideoPortrait" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
       <example-title title="Mobile Mode" />
       <example-viewer title="Video - Mobile Mode" file="VideoMobileMode" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths">
         <q-markdown>
@@ -224,6 +227,9 @@ export default {
     this.addToToc('Audio - Bottom Controls', 2)
     this.addToToc('Video - Bottom Controls', 2)
     this.addToToc('Video - Bottom Controls Slot', 2)
+
+    this.addToToc('Behavior')
+    this.addToToc('Portrait', 2)
 
     this.addToToc('Mobile Mode')
     this.addToToc('Video - Mobile Mode', 2)

@@ -27,7 +27,9 @@
         <q-item-label caption>Interactively play with properties</q-item-label>
       </q-item-section>
     </q-item>
+
     <q-separator />
+
     <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/quasar-ui-qmediaplayer">
       <q-item-section avatar>
         <q-icon name="home" />
