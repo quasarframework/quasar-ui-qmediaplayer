@@ -1410,7 +1410,7 @@ export default {
         )
       }
 
-      return slot || h('div', {
+      return h('div', {
         ref: 'controls',
         staticClass: 'q-media__controls',
         class: this.__videoControlsClasses,
