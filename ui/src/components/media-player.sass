@@ -5,6 +5,8 @@ $max-z-index : 5900
   min-width: 230px !important
   min-height: 40px !important
   overflow: hidden !important
+  display: flex
+  flex-direction: column
 
   &--player
     width: 100%
@@ -13,10 +15,10 @@ $max-z-index : 5900
     align-self: flex-end
 
     &--bottom-controls--standard
-      max-height: calc(100vh - 80px)
+      height: calc(100vh - 80px)
 
     &--bottom-controls--dense
-      max-height: calc(100vh - 40px)
+      height: calc(100vh - 40px)
 
   &__audio--standard
     width: 100%
