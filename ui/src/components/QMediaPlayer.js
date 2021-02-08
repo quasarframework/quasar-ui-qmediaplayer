@@ -233,8 +233,11 @@ export default {
   },
 
   beforeDestroy () {
-    // make sure noScroll is not left in unintended state
+    // make sure not still in fullscreen
     this.exitFullscreen()
+
+    // make sure noScroll is not left in unintended state
+    document.body.classList.remove('no-scroll')
 
     document.body.removeEventListener('mousemove', this.__mouseMoveAction)
 
