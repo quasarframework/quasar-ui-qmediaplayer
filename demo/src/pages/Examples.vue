@@ -146,6 +146,11 @@ Internet Explorer 11 ignores the start time fragment parameter
       </q-markdown>
       <example-viewer title="Video - Start time" file="VideoStartTime" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
 
+      <example-title title="Plays Inline" />
+      <example-viewer title="Audio - playsinline" file="AudioPlaysinline" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Video - playsinline" file="VideoPlaysinline" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+      <example-viewer title="Video - playsinline/bottom-controls" file="VideoPlaysinlineBottomControls" :location-url="locationUrl" :js-paths="jsPaths" :css-paths="cssPaths" />
+
       <div style="height: 100px"><!-- do not cover arrow up button for the last example when the right drawer is opened --></div>
     </div>
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
@@ -258,6 +263,11 @@ export default {
 
     this.addToToc('Video - Start time')
     this.addToToc('Video - Start time', 2)
+
+    this.addToToc('Plays Inline')
+    this.addToToc('Audio - playsinline', 2)
+    this.addToToc('Video - playsinline', 2)
+    this.addToToc('Video - playsinline/bottom-controls', 2)
 
     this.toc = this.tempToc
   },
