@@ -280,6 +280,34 @@ export default {
       }
     },
 
+    __contentStyle () {
+      const style = {}
+      if (this.state.inFullscreen !== true) {
+        if (this.contentStyle !== void 0) {
+          if (typeof this.contentStyle === 'string') {
+            const parts = this.contentStyle.replace(/\s+/g, '').split(';')
+            parts.forEach(part => {
+              if (part !== '') {
+                const data = part.split(':')
+                style[data[0]] = data[1]
+              }
+            })
+          }
+          else {
+            Object.assign(style, this.contentStyle)
+          }
+        }
+        if (this.bottomControls === true && style.height === void 0) {
+          // const size = this.dense === true ? 40 : 80
+          style.height = `calc(100% - ${this.__controlsHeight}px)`
+        }
+        if (style.height === void 0) {
+          style.height = '100%'
+        }
+      }
+      return style
+    },
+
     // videoWidth () {
     //   if (this.$el) {
     //     return this.$el.getBoundingClientRect().width
@@ -333,7 +361,10 @@ export default {
     },
 
     __controlsHeight () {
-      return this.$refs.controls.clientHeight
+      if (this.$refs.controls) {
+        return this.$refs.controls.clientHeight
+      }
+      return this.dense ? 40 : 80
     }
   },
 
@@ -681,39 +712,6 @@ export default {
         this.$nextTick(() => {
           this.$forceUpdate()
         })
-
-        // // NOTE To get the correct height of player depends on how many media players are on the page.
-        // /*
-        //  Problematic is example page where all original videos are not loaded when on localhost,
-        //  that's why new videos are targeting to google storage.
-        //  */
-        // // If the computer is slow it has a problem with correction height calculation when switching to fullscreen.
-        // // Correct performance is on page demoNCO where the video is switched to fullscreen in all browsers fluently.
-        const isSafari = this.$q.platform.is.safari
-        // IE11 needs cssText to set height
-        if (this.state.bottomControls && this.$slots.controls) {
-          // correct height for chrome needs to wait as well
-          setTimeout(() => {
-            this.$refs.media.style.cssText = `height: ${screen.height - this.__controlsHeight}px!important`
-          }, 200)
-          // }
-        }
-        else {
-          // must be for non no-control-overlay and fullscreen to align video vertically
-          if (!this.state.bottomControls && !isSafari) {
-            // if used in Safari iPad landscape mode video and control panel are out of the screen
-            this.$refs.media.style.cssText = 'height: 100%'
-          }
-          else {
-            // if (isSafari && !this.state.noControlsOverlay && this.$slots.controls) {
-            // fixed the video height in render function
-            // iPad Safari - remains problem with aligned video to the top and not to the screen center (could be also in iMac but depends on screen ration)
-            //   console.log('safari fullscreen with custom slot but no-controls-overlay = false', this.state.noControlsOverlay)
-            // }
-            // Safari iMac - shows the video to fullscreen correctly
-            // Safari iPad landscape - the whole video is visible but aligned to the top, not to center
-          }
-        }
       }
     },
 
@@ -725,7 +723,6 @@ export default {
         this.state.inFullscreen = false
         this.$q.fullscreen.exit()
         document.body.classList.remove('no-scroll')
-        // this.$refs.media.style.cssText = this.contentStyle // set the requested style
         this.$nextTick(() => {
           this.$forceUpdate()
         })
@@ -994,16 +991,20 @@ export default {
         this.$emit('playing')
       }
       else if (event.type === 'progress') {
+        //
       }
       else if (event.type === 'ratechange') {
+        //
       }
       else if (event.type === 'seeked') {
+        //
       }
       else if (event.type === 'timeupdate') {
         this.state.currentTime = this.$media.currentTime
         this.$emit('timeupdate', this.$media.currentTime, this.state.remainingTime)
       }
       else if (event.type === 'volumechange') {
+        //
       }
       else if (event.type === 'waiting') {
         this.$emit('waiting')
@@ -1277,7 +1278,9 @@ export default {
         ref: 'media',
         staticClass: this.__renderVideoClasses,
         class: this.contentClass,
-        style: !this.state.inFullscreen ? this.contentStyle : '',
+        style: {
+          ...this.__contentStyle
+        },
         attrs: {
           poster: this.poster,
           preload: this.preload,
@@ -1627,7 +1630,7 @@ export default {
       const slot = this.$slots.bigPlayButton
 
       return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
-        staticClass: this.state.bottomControls ? 'q-media--big-button q-media--big-button-bottom-controls' : 'q-media--big-button',
+        staticClass: this.state.bottomControls === true ? 'q-media--big-button q-media--big-button-bottom-controls' : 'q-media--big-button',
         style: {
           top: this.__bigButtonPositionHeight()
         }
