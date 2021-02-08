@@ -1875,15 +1875,17 @@ export default {
         mouseleave: this.__mouseLeaveVideo,
         click: this.__videoClick
       }
-    }, this.canRender === true ? [
-      this.__isVideo && this.__renderVideo(h),
-      this.__isAudio && this.__renderAudio(h),
-      this.__renderOverlayWindow(h),
-      this.state.errorText && this.__renderErrorWindow(h),
-      this.__isVideo && !this.noControls && !this.state.errorText && this.__renderVideoControls(h),
-      this.__isAudio && !this.noControls && !this.state.errorText && this.__renderAudioControls(h),
-      this.showSpinner && this.state.loading && !this.state.playReady && !this.state.errorText && this.__renderLoader(h),
-      this.__isVideo && this.showBigPlayButton && this.state.playReady && !this.state.playing && this.__renderBigPlayButton(h)
-    ] : void 0)
+    }, this.canRender === true
+      ? [
+          this.__isVideo && this.__renderVideo(h),
+          this.__isAudio && this.__renderAudio(h),
+          this.__renderOverlayWindow(h),
+          this.state.errorText && this.__renderErrorWindow(h),
+          this.__isVideo && !this.noControls && !this.state.errorText && this.__renderVideoControls(h),
+          this.__isAudio && !this.noControls && !this.state.errorText && this.__renderAudioControls(h),
+          this.showSpinner && this.state.loading && !this.state.playReady && !this.state.errorText && this.__renderLoader(h),
+          this.__isVideo && this.showBigPlayButton && this.state.playReady && !this.state.playing && this.__renderBigPlayButton(h)
+        ]
+      : void 0)
   }
 }
