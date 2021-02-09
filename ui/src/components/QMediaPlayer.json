@@ -190,7 +190,14 @@
       "category": "behavior",
       "desc": "When true the settings button will be hidden",
       "applicable": [ "Audio", "Video" ],
-      "addedIn": "v1.2.0"
+      "addedIn": "v1.0.2"
+    },
+    "hide-fullscreen-btn": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the fullscreen button will be hidden",
+      "applicable": [ "Video" ],
+      "addedIn": "v1.1.6"
     },
     "disabled-seek": {
       "type": "Boolean",
@@ -370,7 +377,7 @@
       ]
     },
     "content-width": {
-      "addedIn": "v1.2.0",
+      "addedIn": "v1.0.2",
       "type": "Number",
       "category": "style",
       "desc": "Width attribute applied directly to the video tag. This can only be a number. The Video Element always assumes it is in pixels",
@@ -380,7 +387,7 @@
       ]
     },
     "content-height": {
-      "addedIn": "v1.2.0",
+      "addedIn": "v1.0.2",
       "type": "Number",
       "category": "style",
       "desc": "Height attribute applied directly to the video tag. This can only be a number. The Video Element always assumes it is in pixels",

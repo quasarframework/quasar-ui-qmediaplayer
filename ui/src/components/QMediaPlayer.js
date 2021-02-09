@@ -86,6 +86,7 @@ export default {
     hideVolumeBtn: Boolean,
     hidePlayBtn: Boolean,
     hideSettingsBtn: Boolean,
+    hideFullscreenBtn: Boolean,
     disabledSeek: Boolean,
     preload: {
       type: String,
@@ -716,7 +717,7 @@ export default {
     },
 
     exitFullscreen () {
-      if (!this.__isVideo || !this.state.inFullscreen) {
+      if (this.hideFullscreenBtn === true || !this.__isVideo || !this.state.inFullscreen) {
         return
       }
       if (this.$q.fullscreen !== void 0) {
