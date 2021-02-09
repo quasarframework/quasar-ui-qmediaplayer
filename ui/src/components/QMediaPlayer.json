@@ -52,6 +52,7 @@
       "applicable": [ "Video" ]
     },
     "native-controls": {
+      "addedIn": "v1.2.0",
       "type": "Boolean",
       "category": "behavior",
       "desc": "Use this property if, for some reason, you have a need to show the native controls",
@@ -203,7 +204,7 @@
       "category": "behavior",
       "desc": "When true the fullscreen button will be hidden",
       "applicable": [ "Video" ],
-      "addedIn": "v1.1.6"
+      "addedIn": "v1.2.0"
     },
     "disabled-seek": {
       "type": "Boolean",
