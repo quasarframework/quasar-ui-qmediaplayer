@@ -51,6 +51,13 @@
       "desc": "Use mobile logic for handling visibility of controls. This mode is best for mobiles, but can be used on the desktop as well. It prevents the controls from displaying/hiding with mouse hover. Instead, clicks are used to show/hide the controls",
       "applicable": [ "Video" ]
     },
+    "native-controls": {
+      "addedIn": "v1.2.0",
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "Use this property if, for some reason, you have a need to show the native controls",
+      "applicable": [ "Audio", "Video" ]
+    },
     "sources": {
       "type": "Array",
       "category": "model",
@@ -190,6 +197,13 @@
       "category": "behavior",
       "desc": "When true the settings button will be hidden",
       "applicable": [ "Audio", "Video" ],
+      "addedIn": "v1.0.2"
+    },
+    "hide-fullscreen-btn": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true the fullscreen button will be hidden",
+      "applicable": [ "Video" ],
       "addedIn": "v1.2.0"
     },
     "disabled-seek": {
@@ -370,7 +384,7 @@
       ]
     },
     "content-width": {
-      "addedIn": "v1.2.0",
+      "addedIn": "v1.0.2",
       "type": "Number",
       "category": "style",
       "desc": "Width attribute applied directly to the video tag. This can only be a number. The Video Element always assumes it is in pixels",
@@ -380,7 +394,7 @@
       ]
     },
     "content-height": {
-      "addedIn": "v1.2.0",
+      "addedIn": "v1.0.2",
       "type": "Number",
       "category": "style",
       "desc": "Height attribute applied directly to the video tag. This can only be a number. The Video Element always assumes it is in pixels",
