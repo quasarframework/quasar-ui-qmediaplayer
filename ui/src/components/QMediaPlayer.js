@@ -112,6 +112,7 @@ export default {
     },
     spinnerSize: String,
     noControls: Boolean,
+    nativeControls: Boolean,
     bottomControls: {
       type: Boolean,
       default: false
@@ -450,7 +451,7 @@ export default {
     },
 
     'state.showControls' (val) {
-      if (this.__isVideo && !this.noControls) {
+      if (this.__isVideo && !this.state.noControls) {
         // eslint-disable-next-line vue/custom-event-name-casing
         this.$emit('showControls', val)
       }
@@ -483,6 +484,13 @@ export default {
       this.state.bottomControls = val
       if (val) {
         this.state.showControls = true
+      }
+    },
+
+    noControls (val) {
+      this.state.noControls = val
+      if (this.nativeControls === true) {
+        this.state.noControls = true
       }
     }
   },
@@ -519,7 +527,7 @@ export default {
         clearTimeout(this.timer.hideControlsTimer)
         this.timer.hideControlsTimer = null
       }
-      if (this.noControls) {
+      if (this.state.noControls) {
         return
       }
       this.state.showControls = true
@@ -703,7 +711,7 @@ export default {
     },
 
     setFullscreen () {
-      if (!this.__isVideo || this.state.inFullscreen) {
+      if (this.hideFullscreenBtn === true || !this.__isVideo || this.state.inFullscreen) {
         return
       }
       if (this.$q.fullscreen !== void 0) {
@@ -849,6 +857,10 @@ export default {
     __init () {
       this.$media = this.$refs.media
       this.state.bottomControls = this.bottomControls
+      this.state.noControls = this.noControls
+      if (this.nativeControls === true) {
+        this.state.noControls = true
+      }
       // set default track language
       this.__updateTrackLanguage()
       this.__updateSources()
@@ -1275,6 +1287,23 @@ export default {
     __renderVideo (h) {
       const slot = this.$slots.oldbrowser
 
+      const attrs = {
+        poster: this.poster,
+        preload: this.preload,
+        playsinline: this.playsinline === true,
+        loop: this.loop === true,
+        autoplay: this.autoplay === true,
+        muted: this.mute === true,
+        width: this.contentWidth || undefined,
+        height: this.contentHeight || undefined
+      }
+
+      this.$nextTick(() => {
+        if (this.$refs.media && this.nativeControls === true) {
+          this.$refs.media.controls = true
+        }
+      })
+
       return h('video', {
         ref: 'media',
         staticClass: this.__renderVideoClasses,
@@ -1282,16 +1311,7 @@ export default {
         style: {
           ...this.__contentStyle
         },
-        attrs: {
-          poster: this.poster,
-          preload: this.preload,
-          playsinline: this.playsinline === true,
-          loop: this.loop === true,
-          autoplay: this.autoplay === true,
-          muted: this.mute === true,
-          width: this.contentWidth || undefined,
-          height: this.contentHeight || undefined
-        }
+        attrs
       }, [
         this.__isVideo && (slot || h('p', this.lang.mediaPlayer.oldBrowserVideo))
       ])
@@ -1299,6 +1319,22 @@ export default {
 
     __renderAudio (h) {
       const slot = this.$slots.oldbrowser
+
+      const attrs = {
+        preload: this.preload,
+        playsinline: this.playsinline === true,
+        loop: this.loop === true,
+        autoplay: this.autoplay === true,
+        muted: this.mute === true,
+        width: this.contentWidth || undefined,
+        height: this.contentHeight || undefined
+      }
+
+      this.$nextTick(() => {
+        if (this.$refs.media && this.nativeControls === true) {
+          this.$refs.media.controls = true
+        }
+      })
 
       // This is on purpose (not using audio tag).
       // The video tag can also play audio and works better if dynamically
@@ -1311,15 +1347,7 @@ export default {
         staticClass: 'q-media--player',
         class: this.contentClass,
         style: this.contentStyle,
-        attrs: {
-          preload: this.preload,
-          playsinline: this.playsinline === true,
-          loop: this.loop === true,
-          autoplay: this.autoplay === true,
-          muted: this.mute === true,
-          width: this.contentWidth || undefined,
-          height: this.contentHeight || undefined
-        }
+        attrs
       }, [
         this.__isAudio && (slot || h('p', this.lang.mediaPlayer.oldBrowserAudio))
       ])
@@ -1433,7 +1461,7 @@ export default {
           this.__renderCurrentTimeSlider(h),
           this.__renderDurationTime(h),
           this.__renderSettingsButton(h),
-          this.$q.fullscreen !== void 0 && this.__renderFullscreenButton(h)
+          this.$q.fullscreen !== void 0 && this.hideFullscreenBtn !== true && this.__renderFullscreenButton(h)
         ]),
         // sparse
         !this.dense && h('div', {
@@ -1458,7 +1486,7 @@ export default {
           ]),
           h('div', [
             this.__renderSettingsButton(h),
-            this.$q.fullscreen !== void 0 && this.__renderFullscreenButton(h)
+            this.$q.fullscreen !== void 0 && this.hideFullscreenBtn !== true && this.__renderFullscreenButton(h)
           ])
         ])
       ])
@@ -1882,8 +1910,8 @@ export default {
           this.__isAudio && this.__renderAudio(h),
           this.__renderOverlayWindow(h),
           this.state.errorText && this.__renderErrorWindow(h),
-          this.__isVideo && !this.noControls && !this.state.errorText && this.__renderVideoControls(h),
-          this.__isAudio && !this.noControls && !this.state.errorText && this.__renderAudioControls(h),
+          this.__isVideo && !this.state.noControls && !this.state.errorText && this.__renderVideoControls(h),
+          this.__isAudio && !this.state.noControls && !this.state.errorText && this.__renderAudioControls(h),
           this.showSpinner && this.state.loading && !this.state.playReady && !this.state.errorText && this.__renderLoader(h),
           this.__isVideo && this.showBigPlayButton && this.state.playReady && !this.state.playing && this.__renderBigPlayButton(h)
         ]

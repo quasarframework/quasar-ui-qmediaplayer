@@ -51,6 +51,12 @@
       "desc": "Use mobile logic for handling visibility of controls. This mode is best for mobiles, but can be used on the desktop as well. It prevents the controls from displaying/hiding with mouse hover. Instead, clicks are used to show/hide the controls",
       "applicable": [ "Video" ]
     },
+    "native-controls": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "Use this property if, for some reason, you have a need to show the native controls",
+      "applicable": [ "Audio", "Video" ]
+    },
     "sources": {
       "type": "Array",
       "category": "model",
