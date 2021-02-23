@@ -876,13 +876,9 @@ export default {
       // set playback rate default
       this.__updatePlaybackRate()
       // does user want cors?
-      if (this.crossOrigin) {
-        this.$media.setAttribute('crossorigin', this.crossOrigin)
-      }
-      if (this.$media) {
-        // make sure "controls" is turned off
-        this.$media.controls = false
-      }
+      this.crossOrigin && this.$media && this.$media.setAttribute('crossorigin', this.crossOrigin)
+      // make sure "controls" is turned off
+      this.$media && (this.$media.controls = false)
       // set up event listeners on video
       this.__addMediaEventListeners()
       this.__addSourceEventListeners()
