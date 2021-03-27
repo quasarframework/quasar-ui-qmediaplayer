@@ -1,8 +1,28 @@
+import {
+  h,
+  computed,
+  defineComponent,
+  // getCurrentInstance,
+  // onBeforeUpdate,
+  onMounted,
+  onBeforeMount,
+  onBeforeUnmount,
+  nextTick,
+  forceUpdate,
+  reactive,
+  ref,
+  // Transition,
+  watch
+  // withDirectives
+} from 'vue'
+
+import { useRoute } from 'vue-router'
+
 // Utils
-import { QColorizeMixin } from 'q-colorize-mixin'
-import canRender from 'quasar/src/mixins/can-render'
+import { useColorizeProps, useColorize } from 'q-colorize-mixin'
 
 import {
+  useQuasar,
   QSlider,
   QBtn,
   QTooltip,
@@ -39,7 +59,7 @@ const timeParse = (sec) => {
   return padTime(min) + ':' + padTime(sec)
 }
 
-export default {
+export default defineComponent({
   name: 'QMediaPlayer',
 
   directives: {
@@ -47,9 +67,8 @@ export default {
     Ripple
   },
 
-  mixins: [QColorizeMixin, canRender],
-
   props: {
+    ...useColorizeProps(),
     type: {
       type: String,
       required: false,
@@ -144,26 +163,60 @@ export default {
       type: [Number, String],
       default: 0
     },
-    contentStyle: [String, Object, Array],
-    contentClass: [String, Object, Array],
+    contentStyle: [String, Object],
+    contentClass: [String, Object],
     contentWidth: Number,
     contentHeight: Number
   },
 
-  data () {
-    return {
-      lang: {
+  emits: [
+    'mediaPlayer',
+    'playbackRate',
+    'trackLanguage',
+    'showControls',
+    'volume',
+    'muted',
+    'fullscreen',
+    'networkState',
+    'abort',
+    'ready',
+    'canplaythrough',
+    'duration',
+    'emptied',
+    'ended',
+    'error',
+    'loadeddata',
+    'loadedmetadata',
+    'stalled',
+    'suspend',
+    'loadstart',
+    'paused',
+    'play',
+    'playing',
+    'timeupdate',
+    'waiting'
+  ],
+
+  setup (props, { slots, emit, expose }) {
+    const
+      $q = useQuasar(),
+      $route = useRoute(),
+      canRender = ref(false),
+      lang = reactive({
         mediaPlayer: {}
-      },
-      iconSet: {
+      }),
+      iconSet = reactive({
         mediaPlayer: {}
-      },
-      $media: null, // the actual video/audio player
-      timer: {
-        // timer used to hide control during mouse inactivity
+      }),
+      $media = ref(null), // $ref - the actual video/audio player
+      controls = ref(null), // $ref
+      menu = ref(null), // $ref
+      // media = ref(null), // $ref
+      timer = reactive({
+      // timer used to hide control during mouse inactivity
         hideControlsTimer: null
-      },
-      state: {
+      }),
+      state = reactive({
         errorText: null,
         controls: false,
         showControls: true,
@@ -190,8 +243,9 @@ export default {
         metadataLoaded: false,
         spinnerSize: '5em',
         bottomControls: false
-      },
-      allEvents: [
+      }),
+      settingsMenuVisible = ref(false),
+      allEvents = [
         'abort',
         'canplay',
         'canplaythrough',
@@ -213,579 +267,572 @@ export default {
         'timeupdate',
         'volumechange',
         'waiting'
-      ],
-      settingsMenuVisible: false
-    }
-  },
+      ]
 
-  beforeMount () {
-    this.__setupLang()
-    this.__setupIcons()
-    document.body.addEventListener('mousemove', this.__mouseMoveAction, false)
-  },
+    // Composition
+    const {
+      setTextColor,
+      setBorderColor
+    } = useColorize()
 
-  mounted () {
-    this.$nextTick(function () {
-      this.__init()
-      if (this.$media) {
-        // eslint-disable-next-line vue/custom-event-name-casing
-        this.$emit('mediaPlayer', this.$media)
+    // Computed
+
+    const __classes = computed(() => {
+      return {
+        'q-media__fullscreen': state.inFullscreen,
+        'q-media__fullscreen--window': state.inFullscreen
       }
     })
-  },
 
-  beforeDestroy () {
-    // make sure not still in fullscreen
-    this.exitFullscreen()
-
-    // make sure noScroll is not left in unintended state
-    document.body.classList.remove('no-scroll')
-
-    document.body.removeEventListener('mousemove', this.__mouseMoveAction)
-
-    this.__removeSourceEventListeners()
-    this.__removeMediaEventListeners()
-
-    // make sure no memory leaks
-    this.__removeTracks()
-    this.__removeSources()
-    this.$media = null
-  },
-
-  computed: {
-    __classes () {
-      return {
-        'q-media__fullscreen': this.state.inFullscreen,
-        'q-media__fullscreen--window': this.state.inFullscreen
-      }
-    },
-    __renderVideoClasses () {
+    const __renderVideoClasses = computed(() => {
       return 'q-media--player' +
-        (!this.dense && this.state.bottomControls && this.state.inFullscreen ? ' q-media--player--bottom-controls--standard' : '') +
-        (this.dense && this.state.bottomControls && this.state.inFullscreen ? ' q-media--player--bottom-controls--dense' : '')
-    },
+      (!props.dense && state.bottomControls && state.inFullscreen ? ' q-media--player--bottom-controls--standard' : '') +
+      (props.dense && state.bottomControls && state.inFullscreen ? ' q-media--player--bottom-controls--dense' : '')
+    })
 
-    __videoControlsClasses () {
+    const __videoControlsClasses = computed(() => {
       return {
-        'q-media__controls--dense': !this.$slots.controls && ((this.state.showControls || this.mobileMode) && this.dense),
-        'q-media__controls--standard': !this.$slots.controls && ((this.state.showControls || this.mobileMode) && !this.dense),
-        'q-media__controls--hidden': !this.state.showControls,
-        'q-media__controls--bottom-controls': this.state.bottomControls
+        'q-media__controls--dense': !slots.controls && ((state.showControls || props.mobileMode) && props.dense),
+        'q-media__controls--standard': !slots.controls && ((state.showControls || props.mobileMode) && !props.dense),
+        'q-media__controls--hidden': !state.showControls,
+        'q-media__controls--bottom-controls': state.bottomControls
       }
-    },
+    })
 
-    __audioControlsClasses () {
+    const __audioControlsClasses = computed(() => {
       return {
-        'q-media__controls--dense': this.dense,
-        'q-media__controls--standard': !this.dense,
-        'q-media__controls--bottom-controls': this.state.bottomControls
+        'q-media__controls--dense': props.dense,
+        'q-media__controls--standard': !props.dense,
+        'q-media__controls--bottom-controls': state.bottomControls
       }
-    },
+    })
 
-    __contentStyle () {
+    const __contentStyle = computed(() => {
       const style = {}
-      if (this.state.inFullscreen !== true) {
-        if (this.contentStyle !== void 0) {
-          if (typeof this.contentStyle === 'string') {
-            const parts = this.contentStyle.replace(/\s+/g, '').split(';')
-            parts.forEach(part => {
-              if (part !== '') {
-                const data = part.split(':')
-                style[data[0]] = data[1]
-              }
-            })
-          }
-          else {
-            Object.assign(style, this.contentStyle)
-          }
-        }
-        if (this.bottomControls === true && style.height === void 0) {
-          // const size = this.dense === true ? 40 : 80
-          style.height = `calc(100% - ${this.__controlsHeight}px)`
+      if (state.inFullscreen !== true) {
+        Object.assign(style, __mergeClassOrStyle('style', props.contentStyle))
+        if (props.bottomControls === true && style.height === void 0) {
+        // const size = props.dense === true ? 40 : 80
+          style.height = `calc(100% - ${__controlsHeight.value}px)`
         }
         if (style.height === void 0) {
           style.height = '100%'
         }
       }
       return style
-    },
+    })
 
-    // videoWidth () {
-    //   if (this.$el) {
-    //     return this.$el.getBoundingClientRect().width
-    //   }
-    //   return 0
-    // },
-
-    __volumeIcon () {
-      if (this.state.volume > 1 && this.state.volume < 70 && !this.state.muted) {
-        return this.iconSet.mediaPlayer.volumeDown
+    const __volumeIcon = computed(() => {
+      if (state.volume > 1 && state.volume < 70 && !state.muted) {
+        return iconSet.mediaPlayer.volumeDown
       }
-      else if (this.state.volume >= 70 && !this.state.muted) {
-        return this.iconSet.mediaPlayer.volumeUp
+      else if (state.volume >= 70 && !state.muted) {
+        return iconSet.mediaPlayer.volumeUp
       }
       else {
-        return this.iconSet.mediaPlayer.volumeOff
+        return iconSet.mediaPlayer.volumeOff
       }
-    },
+    })
 
-    __selectTracksLanguageList () {
+    const __selectTracksLanguageList = computed(() => {
       const tracksList = []
       // provide option to turn subtitles/captions/chapters off
       const track = {}
-      track.label = this.lang.mediaPlayer.trackLanguageOff
+      track.label = lang.mediaPlayer.trackLanguageOff
       track.value = 'off'
       tracksList.push(track)
-      for (let index = 0; index < this.tracks.length; ++index) {
+      for (let index = 0; index < props.tracks.length; ++index) {
         const track = {}
-        track.label = track.value = this.tracks[index].label
+        track.label = track.value = props.tracks[index].label
         tracksList.push(track)
       }
       return tracksList
-    },
+    })
 
-    __isAudio () {
-      return this.type === 'audio'
-    },
+    const __isMediaAvailable = computed(() => $media.volume !== undefined)
 
-    __isVideo () {
-      return this.type === 'video'
-    },
+    const __isAudio = computed(() => {
+      return props.type === 'audio'
+    })
 
-    __settingsPlaybackCaption () {
+    const __isVideo = computed(() => {
+      return props.type === 'video'
+    })
+
+    const __settingsPlaybackCaption = computed(() => {
       let caption = ''
-      this.state.playbackRates.forEach((rate) => {
-        if (rate.value === this.state.playbackRate) {
+      state.playbackRates.forEach((rate) => {
+        if (rate.value === state.playbackRate) {
           caption = rate.label
         }
       })
       return caption
-    },
+    })
 
-    __controlsHeight () {
-      if (this.$refs.controls) {
-        return this.$refs.controls.clientHeight
+    const __controlsHeight = computed(() => {
+      if (controls.value) {
+        return controls.value.clientHeight
       }
-      return this.dense ? 40 : 80
-    }
-  },
+      return props.dense ? 40 : 80
+    })
 
-  watch: {
-    poster () {
-      this.__updatePoster()
+    // Watches
+
+    watch(() => props.poster, () => {
+      __updatePoster()
+    })
+
+    watch(() => props.sources, () => {
+      __updateSources()
     },
+    { deep: true }
+    )
 
-    sources: {
-      handler () {
-        this.__updateSources()
-      },
-      deep: true
+    watch(() => props.source, () => {
+      __updateSources()
+    })
+
+    watch(() => props.tracks, () => {
+      __updateTracks()
     },
+    { deep: true }
+    )
 
-    source () {
-      this.__updateSources()
-    },
+    watch(() => props.volume, () => {
+      __updateVolume()
+    })
 
-    tracks: {
-      handler () {
-        this.__updateTracks()
-      },
-      deep: true
-    },
+    watch(() => props.muted, () => {
+      __updateMuted()
+    })
 
-    volume () {
-      this.__updateVolume()
-    },
+    watch(() => props.trackLanguage, () => {
+      __updateTrackLanguage()
+    })
 
-    muted () {
-      this.__updateMuted()
-    },
+    watch(() => props.showBigPlayButton, () => {
+      __updateBigPlayButton()
+    })
 
-    trackLanguage () {
-      this.__updateTrackLanguage()
-    },
+    watch(() => props.playbackRates, () => {
+      __updatePlaybackRates()
+    })
 
-    showBigPlayButton () {
-      this.__updateBigPlayButton()
-    },
+    watch(() => props.playbackRate, () => {
+      __updatePlaybackRate()
+    })
 
-    playbackRates () {
-      this.__updatePlaybackRates()
-    },
+    watch(() => $route, val => {
+      exitFullscreen()
+    })
 
-    playbackRate () {
-      this.__updatePlaybackRate()
-    },
+    watch(() => $q.lang.isoName, val => {
+      __setupLang()
+    })
 
-    $route (val) {
-      this.exitFullscreen()
-    },
+    watch(() => $q.iconSet.name, val => {
+      __setupIcons()
+    })
 
-    '$q.lang.isoName' (val) {
-      this.__setupLang()
-    },
-
-    '$q.iconSet.name' (val) {
-      this.__setupIcons()
-    },
-
-    '$q.fullscreen.isActive' (val) {
-      // user pressed F11/ESC to exit fullscreen
-      if (!val && this.__isVideo && this.state.inFullscreen) {
-        this.exitFullscreen()
+    watch(() => $q.fullscreen.isActive, val => {
+    // user pressed F11/ESC to exit fullscreen
+      if (!val && __isVideo.value && state.inFullscreen) {
+        exitFullscreen()
       }
-    },
+    })
 
-    'state.playbackRate' (val) {
-      if (val && this.$media) {
-        this.$media.playbackRate = parseFloat(val)
+    watch(() => state.playbackRate, val => {
+      if (val && __isMediaAvailable.value === true) {
+        $media.playbackRate = parseFloat(val)
         // eslint-disable-next-line vue/custom-event-name-casing
-        this.$emit('playbackRate', val)
+        emit('playbackRate', val)
       }
-    },
+    })
 
-    'state.trackLanguage' (val) {
-      this.__toggleCaptions()
+    watch(() => state.trackLanguage, val => {
+      __toggleCaptions()
       // eslint-disable-next-line vue/custom-event-name-casing
-      this.$emit('trackLanguage', val)
-    },
+      emit('trackLanguage', val)
+    })
 
-    'state.showControls' (val) {
-      if (this.__isVideo && !this.state.noControls) {
-        // eslint-disable-next-line vue/custom-event-name-casing
-        this.$emit('showControls', val)
+    watch(() => state.showControls, val => {
+      if (__isVideo.value && !state.noControls) {
+      // eslint-disable-next-line vue/custom-event-name-casing
+        emit('showControls', val)
       }
-    },
+    })
 
-    'state.volume' (val) {
-      if (this.$media) {
+    watch(() => state.volume, val => {
+      if (__isMediaAvailable.value === true) {
         const volume = parseFloat(val / 100.0)
-        if (this.$media.volume !== volume) {
-          this.$media.volume = volume
-          this.$emit('volume', val)
+        if ($media.volume !== volume) {
+          $media.volume = volume
+          emit('volume', val)
         }
       }
-    },
+    })
 
-    'state.muted' (val) {
-      this.$emit('muted', val)
-    },
+    watch(() => state.muted, val => {
+      emit('muted', val)
+    })
 
-    'state.currentTime' (val) {
-      if (this.$media && this.state.playReady) {
-        if (isFinite(this.$media.duration)) {
-          this.state.remainingTime = timeParse(this.$media.duration - this.$media.currentTime)
+    watch(() => state.currentTime, val => {
+      if (__isMediaAvailable.value === true && state.playReady) {
+        if (isFinite($media.duration)) {
+          state.remainingTime = timeParse($media.duration - $media.currentTime)
         }
-        this.state.displayTime = timeParse(this.$media.currentTime)
+        state.displayTime = timeParse($media.currentTime)
       }
-    },
+    })
 
-    bottomControls (val) {
-      this.state.bottomControls = val
+    watch(() => props.bottomControls, val => {
+      state.bottomControls = val
       if (val) {
-        this.state.showControls = true
+        state.showControls = true
       }
-    },
+    })
 
-    noControls (val) {
-      this.state.noControls = val
-      if (this.nativeControls === true) {
-        this.state.noControls = true
+    watch(() => props.noControls, val => {
+      state.noControls = val
+      if (props.nativeControls === true) {
+        state.noControls = true
       }
-    }
-  },
+    })
 
-  methods: {
-    loadFileBlob (fileList) {
-      if (fileList && this.$media) {
+    onBeforeMount(() => {
+      canRender.value = window !== undefined // SSR
+      if (canRender.value === true) {
+        __setupLang()
+        __setupIcons()
+        document.body.addEventListener('mousemove', __mouseMoveAction, false)
+      }
+    })
+
+    onMounted(() => {
+      if (canRender.value === true) {
+        nextTick(function () {
+          __init()
+          if (__isMediaAvailable.value === true) {
+          // eslint-disable-next-line vue/custom-event-name-casing
+            emit('mediaPlayer', $media)
+          }
+        })
+      }
+    })
+
+    onBeforeUnmount(() => {
+      if (canRender.value === true) {
+      // make sure not still in fullscreen
+        exitFullscreen()
+
+        // make sure noScroll is not left in unintended state
+        document.body.classList.remove('no-scroll')
+
+        document.body.removeEventListener('mousemove', __mouseMoveAction)
+
+        __removeSourceEventListeners()
+        __removeMediaEventListeners()
+
+        // make sure no memory leaks
+        __removeTracks()
+        __removeSources()
+        $media.value = null
+      }
+    })
+
+    // Public Methods
+
+    function loadFileBlob (fileList) {
+      if (fileList && __isMediaAvailable.value === true) {
         if (Object.prototype.toString.call(fileList) === '[object FileList]') {
           const reader = new FileReader()
-          const self = this
           reader.onload = (event) => {
-            self.$media.src = event.target.result
-            self.__reset()
-            self.__addSourceEventListeners()
-            self.$media.load()
-            self.state.loading = false
+            $media.src = event.target.result
+            __reset()
+            __addSourceEventListeners()
+            $media.load()
+            state.loading = false
           }
           reader.readAsDataURL(fileList[0])
           return true
         }
         else {
-          /* eslint-disable-next-line no-console */
+        /* eslint-disable-next-line no-console */
           console.error('QMediaPlayer: loadFileBlob method requires a FileList')
         }
       }
       return false
-    },
+    }
 
-    showControls () {
-      if (this.state.bottomControls) {
+    function showControls () {
+      if (state.bottomControls) {
         return
       }
-      if (this.timer.hideControlsTimer) {
-        clearTimeout(this.timer.hideControlsTimer)
-        this.timer.hideControlsTimer = null
+      if (timer.hideControlsTimer) {
+        clearTimeout(timer.hideControlsTimer)
+        timer.hideControlsTimer = null
       }
-      if (this.state.noControls) {
+      if (state.noControls) {
         return
       }
-      this.state.showControls = true
-      this.__checkCursor()
-      if (this.controlsDisplayTime !== -1 && !this.mobileMode && this.__isVideo) {
-        this.timer.hideControlsTimer = setTimeout(() => {
-          if (!this.__showingMenu()) {
-            this.state.showControls = false
-            this.timer.hideControlsTimer = null
-            this.__checkCursor()
+      state.showControls = true
+      __checkCursor()
+      if (props.controlsDisplayTime !== -1 && !props.mobileMode && __isVideo.value) {
+        timer.hideControlsTimer = setTimeout(() => {
+          if (!__showingMenu()) {
+            state.showControls = false
+            timer.hideControlsTimer = null
+            __checkCursor()
           }
           else {
-            this.showControls()
+            showControls()
           }
-        }, this.controlsDisplayTime)
+        }, props.controlsDisplayTime)
       }
-    },
+    }
 
-    hideControls () {
-      if (this.state.bottomControls) {
+    function hideControls () {
+      if (state.bottomControls) {
         return
       }
-      if (this.timer.hideControlsTimer) {
-        clearTimeout(this.timer.hideControlsTimer)
+      if (timer.hideControlsTimer) {
+        clearTimeout(timer.hideControlsTimer)
       }
-      if (this.controlsDisplayTime !== -1) {
-        this.state.showControls = false
-        this.__checkCursor()
+      if (props.controlsDisplayTime !== -1) {
+        state.showControls = false
+        __checkCursor()
       }
-      this.timer.hideControlsTimer = null
-    },
+      timer.hideControlsTimer = null
+    }
 
-    toggleControls () {
-      if (this.state.bottomControls) {
+    function toggleControls () {
+      if (state.bottomControls) {
         return
       }
 
-      if (this.state.showControls) {
-        this.hideControls()
+      if (state.showControls) {
+        hideControls()
       }
       else {
-        this.showControls()
+        showControls()
       }
-    },
+    }
 
-    __reset () {
-      if (this.timer.hideControlsTimer && !this.state.bottomControls) {
-        clearTimeout(this.timer.hideControlsTimer)
-      }
-      this.timer.hideControlsTimer = null
-      this.state.errorText = null
-      this.state.currentTime = 0.01
-      this.state.durationTime = '00:00'
-      this.state.remainingTime = '00:00'
-      this.state.displayTime = '00:00'
-      this.state.duration = 1
-      this.state.playReady = false
-      this.state.playing = false
-      this.state.loading = true
-      this.state.metadataLoaded = false
-      this.__updateTrackLanguage()
-      this.showControls()
-    },
-
-    __toggleCaptions () {
-      this.__showCaptions(this.state.trackLanguage)
-    },
-
-    __showCaptions (lang) {
-      if (this.$media && this.__isVideo) {
-        for (let index = 0; index < this.$media.textTracks.length; ++index) {
-          if (this.$media.textTracks[index].label === lang) {
-            this.$media.textTracks[index].mode = 'showing'
-            this.$media.textTracks[index].oncuechange = this.__cueChanged
-          }
-          else {
-            this.$media.textTracks[index].mode = 'hidden'
-            this.$media.textTracks[index].oncuechange = null
-          }
-        }
-      }
-    },
-
-    play () {
-      if (this.$media && this.state.playReady) {
-        const hasPromise = typeof this.$media.play() !== 'undefined'
+    function play () {
+      if (__isMediaAvailable.value === true && state.playReady) {
+        const hasPromise = typeof $media.play() !== 'undefined'
         if (hasPromise) {
-          this.$media.play()
+          $media.play()
             .then(() => {
-              this.state.showBigPlayButton = false
-              this.state.playing = true
-              this.__mouseLeaveVideo()
+              state.showBigPlayButton = false
+              state.playing = true
+              __mouseLeaveVideo()
             })
             .catch((e) => {
             })
         }
         else {
-          // IE11 + EDGE support
-          this.$media.play()
-          this.state.showBigPlayButton = false
-          this.state.playing = true
-          this.__mouseLeaveVideo()
+        // IE11 + EDGE support
+          $media.play()
+          state.showBigPlayButton = false
+          state.playing = true
+          __mouseLeaveVideo()
         }
       }
-    },
+    }
 
-    pause () {
-      if (this.$media && this.state.playReady) {
-        if (this.state.playing) {
-          this.$media.pause()
-          this.state.showBigPlayButton = true
-          this.state.playing = false
+    function pause () {
+      if (__isMediaAvailable.value === true && state.playReady) {
+        if (state.playing) {
+          $media.pause()
+          state.showBigPlayButton = true
+          state.playing = false
         }
       }
-    },
+    }
 
-    mute () {
-      this.state.muted = true
-      if (this.$media) {
-        this.$media.muted = this.state.muted === true
+    function mute () {
+      state.muted = true
+      if (__isMediaAvailable.value === true) {
+        $media.muted = state.muted === true
       }
-    },
+    }
 
-    unmute () {
-      this.state.muted = false
-      if (this.$media) {
-        this.$media.muted = this.state.muted !== true
+    function unmute () {
+      state.muted = false
+      if (__isMediaAvailable.value === true) {
+        $media.muted = state.muted !== true
       }
-    },
+    }
 
-    togglePlay (e) {
-      this.__stopAndPrevent(e)
-      if (this.$media && this.state.playReady) {
-        if (this.state.playing) {
-          this.$media.pause()
-          this.state.showBigPlayButton = true
-          this.state.playing = false
+    function togglePlay (e) {
+      __stopAndPrevent(e)
+      if (__isMediaAvailable.value === true && state.playReady) {
+        if (state.playing) {
+          $media.pause()
+          state.showBigPlayButton = true
+          state.playing = false
         }
         else {
-          const hasPromise = typeof this.$media.play() !== 'undefined'
+          const hasPromise = typeof $media.play() !== 'undefined'
           if (hasPromise) {
-            this.$media.play()
+            $media.play()
               .then(() => {
-                this.state.showBigPlayButton = false
-                this.state.playing = true
-                this.__mouseLeaveVideo()
+                state.showBigPlayButton = false
+                state.playing = true
+                __mouseLeaveVideo()
               })
               .catch((e) => {
               })
           }
           else {
-            // IE11 + EDGE support
-            this.$media.play()
-            this.state.showBigPlayButton = false
-            this.state.playing = true
-            this.__mouseLeaveVideo()
+          // IE11 + EDGE support
+            $media.play()
+            state.showBigPlayButton = false
+            state.playing = true
+            __mouseLeaveVideo()
           }
         }
       }
-    },
+    }
 
-    toggleMuted (e) {
-      this.__stopAndPrevent(e)
-      this.state.muted = !this.state.muted
-      if (this.$media) {
-        this.$media.muted = this.state.muted === true
+    function toggleMuted (e) {
+      __stopAndPrevent(e)
+      state.muted = !state.muted
+      if (__isMediaAvailable.value === true) {
+        $media.muted = state.muted === true
       }
-    },
+    }
 
-    toggleFullscreen (e) {
-      if (this.__isVideo) {
-        this.__stopAndPrevent(e)
-        if (this.state.inFullscreen) {
-          this.exitFullscreen()
+    function toggleFullscreen (e) {
+      if (__isVideo.value) {
+        __stopAndPrevent(e)
+        if (state.inFullscreen) {
+          exitFullscreen()
         }
         else {
-          this.setFullscreen()
+          setFullscreen()
         }
-        this.$emit('fullscreen', this.state.inFullscreen)
+        emit('fullscreen', state.inFullscreen)
       }
-    },
+    }
 
-    setFullscreen () {
-      if (this.hideFullscreenBtn === true || !this.__isVideo || this.state.inFullscreen) {
+    function setFullscreen () {
+      if (props.hideFullscreenBtn === true || !__isVideo.value || state.inFullscreen) {
         return
       }
-      if (this.$q.fullscreen !== void 0) {
-        this.state.inFullscreen = true
-        this.$q.fullscreen.request() // NOTE error Not capable - on iPhone Safari
+      if ($q.fullscreen !== void 0) {
+        state.inFullscreen = true
+        $q.fullscreen.request() // NOTE error Not capable - on iPhone Safari
         document.body.classList.add('no-scroll')
-        this.$nextTick(() => {
-          this.$forceUpdate()
+        nextTick(() => {
+          forceUpdate()
         })
       }
-    },
+    }
 
-    exitFullscreen () {
-      if (this.hideFullscreenBtn === true || !this.__isVideo || !this.state.inFullscreen) {
+    function exitFullscreen () {
+      if (props.hideFullscreenBtn === true || !__isVideo.value || !state.inFullscreen) {
         return
       }
-      if (this.$q.fullscreen !== void 0) {
-        this.state.inFullscreen = false
-        this.$q.fullscreen.exit()
+      if ($q.fullscreen !== void 0) {
+        state.inFullscreen = false
+        $q.fullscreen.exit()
         document.body.classList.remove('no-scroll')
-        this.$nextTick(() => {
-          this.$forceUpdate()
+        nextTick(() => {
+          forceUpdate()
         })
       }
-    },
+    }
 
-    currentTime () {
-      if (this.$media && this.state.playReady) {
-        return this.$media.currentTime
+    function currentTime () {
+      if (__isMediaAvailable.value === true && state.playReady) {
+        return $media.currentTime
       }
       return -1
-    },
+    }
 
-    setCurrentTime (seconds) {
-      if (this.state.playReady) {
-        if (this.$media && isFinite(this.$media.duration) && seconds >= 0 && seconds <= this.$media.duration) {
-          this.state.currentTime = this.$media.currentTime = seconds
+    function setCurrentTime (seconds) {
+      if (state.playReady) {
+        if (__isMediaAvailable.value === true && isFinite($media.duration) && seconds >= 0 && seconds <= $media.duration) {
+          state.currentTime = $media.currentTime = seconds
         }
       }
-    },
+    }
 
-    setVolume (volume) {
+    function setVolume (volume) {
       if (volume >= 0 && volume <= 100) {
-        this.state.volume = volume
+        state.volume = volume
       }
-    },
+    }
 
-    __stopAndPrevent (e) {
+    // Private Methods
+
+    function __reset () {
+      if (timer.hideControlsTimer && !state.bottomControls) {
+        clearTimeout(timer.hideControlsTimer)
+      }
+      timer.hideControlsTimer = null
+      state.errorText = null
+      state.currentTime = 0.01
+      state.durationTime = '00:00'
+      state.remainingTime = '00:00'
+      state.displayTime = '00:00'
+      state.duration = 1
+      state.playReady = false
+      state.playing = false
+      state.loading = true
+      state.metadataLoaded = false
+      __updateTrackLanguage()
+      showControls()
+    }
+
+    function __toggleCaptions () {
+      __showCaptions(state.trackLanguage)
+    }
+
+    function __showCaptions (lang) {
+      if (__isMediaAvailable.value === true && __isVideo.value) {
+        for (let index = 0; index < $media.textTracks.length; ++index) {
+          if ($media.textTracks[index].label === lang) {
+            $media.textTracks[index].mode = 'showing'
+            $media.textTracks[index].oncuechange = __cueChanged
+          }
+          else {
+            $media.textTracks[index].mode = 'hidden'
+            $media.textTracks[index].oncuechange = null
+          }
+        }
+      }
+    }
+
+    function __stopAndPrevent (e) {
       if (e) {
         e.cancelable !== false && e.preventDefault()
         e.stopPropagation()
       }
-    },
+    }
 
-    __setupLang () {
-      const isoName = this.$q.lang.isoName || 'en-us'
+    function __setupLang () {
+      const isoName = $q.lang.isoName || 'en-us'
       let lang
       try {
-        // lang = require(`./lang/${isoName}`)
-        lang = this.__loadLang(isoName)
+      // lang = require(`./lang/${isoName}`)
+        lang = __loadLang(isoName)
       }
-      catch (e) {}
+      catch (e) { }
 
       if (lang !== void 0 && lang.lang !== void 0) {
-        this.lang.mediaPlayer = { ...lang.mediaPlayer }
-        this.__updatePlaybackRates()
-        this.__updateTrackLanguage()
+        lang.mediaPlayer = { ...lang.mediaPlayer }
+        __updatePlaybackRates()
+        __updateTrackLanguage()
       }
-    },
+    }
 
-    __loadLang (lang) {
+    function __loadLang (lang) {
       let langList = {}
       if (lang) {
-        // detect if UMD version is installed
+      // detect if UMD version is installed
         if (window && window.QMediaPlayer && window.QMediaPlayer.Component) {
           const name = lang.replace(/-([a-z])/g, g => g[1].toUpperCase())
           if (window.QMediaPlayer.lang && window.QMediaPlayer.lang[name]) {
@@ -793,7 +840,7 @@ export default {
             langList = selectedLang
           }
           else {
-            /* eslint-disable-next-line no-console */
+          /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: no language loaded called '${lang}'`)
             /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the language in a script tag before using with UMD')
@@ -805,28 +852,28 @@ export default {
             langList = langSet
           }
           catch (e) {
-            /* eslint-disable-next-line no-console */
+          /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: cannot find language file called '${lang}'`)
           }
         }
       }
       return langList
-    },
+    }
 
-    __setupIcons () {
-      const iconSetName = this.$q.iconSet.name || 'material-icons'
-      let iconSet
+    function __setupIcons () {
+      const iconSetName = $q.iconSet.name || 'material-icons'
+      let icnSet
       try {
-        iconSet = this.__loadIconSet(iconSetName)
+        icnSet = __loadIconSet(iconSetName)
       }
-      catch (e) {}
-      iconSet !== void 0 && iconSet.name !== void 0 && (this.iconSet.mediaPlayer = { ...iconSet.mediaPlayer })
-    },
+      catch (e) { }
+      icnSet !== void 0 && icnSet.name !== void 0 && (iconSet.mediaPlayer = { ...iconSet.mediaPlayer })
+    }
 
-    __loadIconSet (set) {
+    function __loadIconSet (set) {
       let iconsList = {}
       if (set) {
-        // detect if UMD version is installed
+      // detect if UMD version is installed
         if (window && window.QMediaPlayer && window.QMediaPlayer.Component) {
           const name = set.replace(/-([a-z])/g, g => g[1].toUpperCase())
           if (window.QMediaPlayer.iconSet && window.QMediaPlayer.iconSet[name]) {
@@ -834,7 +881,7 @@ export default {
             iconsList = iconsSet
           }
           else {
-            /* eslint-disable-next-line no-console */
+          /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: no icon set loaded called '${set}'`)
             /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the icon set in a script tag before using with UMD')
@@ -846,186 +893,214 @@ export default {
             iconsList = iconsSet
           }
           catch (e) {
-            /* eslint-disable-next-line no-console */
+          /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: cannot find icon set file called '${set}'`)
           }
         }
       }
       return iconsList
-    },
+    }
 
-    __init () {
-      this.$media = this.$refs.media
-      this.state.bottomControls = this.bottomControls
-      this.state.noControls = this.noControls
-      if (this.nativeControls === true) {
-        this.state.noControls = true
+    function __init () {
+      state.bottomControls = props.bottomControls
+      state.noControls = props.noControls
+      if (props.nativeControls === true) {
+        state.noControls = true
       }
       // set default track language
-      this.__updateTrackLanguage()
-      this.__updateSources()
-      this.__updateTracks()
+      __updateTrackLanguage()
+      __updateSources()
+      __updateTracks()
       // set big play button
-      this.__updateBigPlayButton()
+      __updateBigPlayButton()
       // set the volume
-      this.__updateVolume()
+      __updateVolume()
       // set muted
-      this.__updateMuted()
+      __updateMuted()
       // set playback rates
-      this.__updatePlaybackRates()
+      __updatePlaybackRates()
       // set playback rate default
-      this.__updatePlaybackRate()
+      __updatePlaybackRate()
       // does user want cors?
-      this.crossOrigin && this.$media && this.$media.setAttribute('crossorigin', this.crossOrigin)
+      props.crossOrigin && __isMediaAvailable.value === true && $media.setAttribute('crossorigin', props.crossOrigin)
       // make sure "controls" is turned off
-      this.$media && (this.$media.controls = false)
+      __isMediaAvailable.value === true && ($media.controls = false)
       // set up event listeners on video
-      this.__addMediaEventListeners()
-      this.__addSourceEventListeners()
-      this.__toggleCaptions()
-    },
+      __addMediaEventListeners()
+      __addSourceEventListeners()
+      __toggleCaptions()
+    }
 
-    __addMediaEventListeners () {
-      if (this.$media) {
-        this.allEvents.forEach((event) => {
-          this.$media.addEventListener(event, this.__mediaEventHandler)
+    function __addMediaEventListeners () {
+      if (__isMediaAvailable.value === true) {
+        allEvents.forEach((event) => {
+          $media.addEventListener(event, __mediaEventHandler)
         })
       }
-    },
+    }
 
-    __removeMediaEventListeners () {
-      if (this.$media) {
-        this.allEvents.forEach((event) => {
-          this.$media.removeEventListener(event, this.__mediaEventHandler)
+    function __removeMediaEventListeners () {
+      if (__isMediaAvailable.value === true) {
+        allEvents.forEach((event) => {
+          $media.removeEventListener(event, __mediaEventHandler)
         })
       }
-    },
+    }
 
-    __addSourceEventListeners () {
-      if (this.$media) {
-        const sources = this.$media.querySelectorAll('source')
+    function __addSourceEventListeners () {
+      if (__isMediaAvailable.value === true) {
+        const sources = $media.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
-          sources[index].addEventListener('error', this.__sourceEventHandler)
+          sources[index].addEventListener('error', __sourceEventHandler)
         }
       }
-    },
+    }
 
-    __removeSourceEventListeners () {
-      if (this.$media) {
-        const sources = this.$media.querySelectorAll('source')
+    function __removeSourceEventListeners () {
+      if (__isMediaAvailable.value === true) {
+        const sources = $media.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
-          sources[index].removeEventListener('error', this.__sourceEventHandler)
+          sources[index].removeEventListener('error', __sourceEventHandler)
         }
       }
-    },
+    }
 
-    __sourceEventHandler (event) {
+    function __sourceEventHandler (event) {
       const NETWORK_NO_SOURCE = 3
-      if (this.$media && this.$media.networkState === NETWORK_NO_SOURCE) {
-        this.state.errorText = this.__isVideo ? this.lang.mediaPlayer.noLoadVideo : this.lang.mediaPlayer.noLoadAudio
+      if (__isMediaAvailable.value === true && $media.networkState === NETWORK_NO_SOURCE) {
+        state.errorText = __isVideo.value ? lang.mediaPlayer.noLoadVideo : lang.mediaPlayer.noLoadAudio
       }
       // eslint-disable-next-line vue/custom-event-name-casing
-      this.$emit('networkState', event)
-    },
+      emit('networkState', event)
+    }
 
-    __mediaEventHandler (event) {
+    function __mediaEventHandler (event) {
       if (event.type === 'abort') {
-        this.$emit('abort')
+        emit('abort')
       }
       else if (event.type === 'canplay') {
-        this.state.playReady = true
-        this.state.displayTime = timeParse(this.$media.currentTime)
-        this.__mouseEnterVideo()
-        this.$emit('ready')
+        state.playReady = true
+        state.displayTime = timeParse($media.currentTime)
+        __mouseEnterVideo()
+        emit('ready')
       }
       else if (event.type === 'canplaythrough') {
-        // console.log('canplaythrough')
-        this.$emit('canplaythrough')
+      // console.log('canplaythrough')
+        emit('canplaythrough')
       }
       else if (event.type === 'durationchange') {
-        if (isFinite(this.$media.duration)) {
-          this.state.duration = this.$media.duration
-          this.state.durationTime = timeParse(this.$media.duration)
-          this.$emit('duration', this.$media.duration)
+        if (isFinite($media.duration)) {
+          state.duration = $media.duration
+          state.durationTime = timeParse($media.duration)
+          emit('duration', $media.duration)
         }
       }
       else if (event.type === 'emptied') {
-        this.$emit('emptied')
+        emit('emptied')
       }
       else if (event.type === 'ended') {
-        this.state.playing = false
-        this.$emit('ended')
+        state.playing = false
+        emit('ended')
       }
       else if (event.type === 'error') {
-        const error = this.$media.error
-        this.$emit('error', error)
+        const error = $media.error
+        emit('error', error)
       }
       else if (event.type === 'interruptbegin') {
-        // console.log('interruptbegin')
+      // console.log('interruptbegin')
       }
       else if (event.type === 'interruptend') {
-        // console.log('interruptend')
+      // console.log('interruptend')
       }
       else if (event.type === 'loadeddata') {
-        this.state.loading = false
-        this.$emit('loadeddata')
+        state.loading = false
+        emit('loadeddata')
       }
       else if (event.type === 'loadedmetadata') {
-        // tracks can only be programatically added after 'loadedmetadata' event
-        this.state.metadataLoaded = true
-        this.__updateTracks()
+      // tracks can only be programatically added after 'loadedmetadata' event
+        state.metadataLoaded = true
+        __updateTracks()
         // set default track language
-        this.__updateTrackLanguage()
-        this.__toggleCaptions()
-        this.$emit('loadedmetadata')
+        __updateTrackLanguage()
+        __toggleCaptions()
+        emit('loadedmetadata')
       }
       else if (event.type === 'stalled') {
-        this.$emit('stalled')
+        emit('stalled')
       }
       else if (event.type === 'suspend') {
-        this.$emit('suspend')
+        emit('suspend')
       }
       else if (event.type === 'loadstart') {
-        this.$emit('loadstart')
+        emit('loadstart')
       }
       else if (event.type === 'pause') {
-        this.state.playing = false
-        this.$emit('paused')
+        state.playing = false
+        emit('paused')
       }
       else if (event.type === 'play') {
-        this.$emit('play')
+        emit('play')
       }
       else if (event.type === 'playing') {
-        this.state.playing = true
-        this.$emit('playing')
+        state.playing = true
+        emit('playing')
       }
       else if (event.type === 'progress') {
-        //
+      //
       }
       else if (event.type === 'ratechange') {
-        //
+      //
       }
       else if (event.type === 'seeked') {
-        //
+      //
       }
       else if (event.type === 'timeupdate') {
-        this.state.currentTime = this.$media.currentTime
-        this.$emit('timeupdate', this.$media.currentTime, this.state.remainingTime)
+        state.currentTime = $media.currentTime
+        emit('timeupdate', $media.currentTime, state.remainingTime)
       }
       else if (event.type === 'volumechange') {
-        //
+      //
       }
       else if (event.type === 'waiting') {
-        this.$emit('waiting')
+        emit('waiting')
       }
-    },
+    }
+
+    function __mergeClassOrStyle (type, val) {
+      const child = {}
+      if (val !== undefined) {
+        if (typeof val === 'string') {
+          if (type === 'style') {
+            const parts = val.replace(/\s+/g, '').split(';')
+            parts.forEach(part => {
+              if (part !== '') {
+                const data = part.split(':')
+                child[data[0]] = data[1]
+              }
+            })
+          }
+          else if (type === 'class') {
+            const parts = val.split(' ')
+            parts.forEach(part => {
+              if (part.replace(/\s+/g, '') !== '') {
+                child[part] = true
+              }
+            })
+          }
+        }
+        else {
+          Object.assign(child, val)
+        }
+      }
+      return child
+    }
 
     // for future functionality
-    __cueChanged (data) {
-    },
+    function __cueChanged (data) {
+    }
 
-    __checkCursor () {
-      if (this.state.inFullscreen && this.state.playing && !this.state.showControls) {
+    function __checkCursor () {
+      if (state.inFullscreen && state.playing && !state.showControls) {
         this.$el.classList.remove('cursor-inherit')
         this.$el.classList.add('cursor-none')
       }
@@ -1033,58 +1108,58 @@ export default {
         this.$el.classList.remove('cursor-none')
         this.$el.classList.add('cursor-inherit')
       }
-    },
+    }
 
-    __adjustMenu () {
-      const qmenu = this.$refs.menu
+    function __adjustMenu () {
+      const qmenu = menu.value
       if (qmenu) {
         setTimeout(() => {
           qmenu.updatePosition()
         }, 350)
       }
-    },
+    }
 
-    __videoClick (e) {
-      this.__stopAndPrevent(e)
-      if (this.mobileMode !== true) {
-        this.togglePlay()
+    function __videoClick (e) {
+      __stopAndPrevent(e)
+      if (props.mobileMode !== true) {
+        togglePlay()
       }
-      this.toggleControls()
-    },
+      toggleControls()
+    }
 
-    __bigButtonClick (e) {
-      this.__stopAndPrevent(e)
-      if (this.mobileMode) {
-        this.hideControls()
+    function __bigButtonClick (e) {
+      __stopAndPrevent(e)
+      if (props.mobileMode) {
+        hideControls()
       }
-      this.togglePlay()
-    },
+      togglePlay()
+    }
 
-    __settingsMenuShowing (val) {
-      this.settingsMenuVisible = val
-    },
+    function __settingsMenuShowing (val) {
+      settingsMenuVisible.value = val
+    }
 
-    __mouseEnterVideo (e) {
-      if (!this.bottomControls && !this.mobileMode && !this.__isAudio) {
-        this.showControls()
+    function __mouseEnterVideo (e) {
+      if (!props.bottomControls && !props.mobileMode && !__isAudio.value) {
+        showControls()
       }
-    },
+    }
 
-    __mouseLeaveVideo (e) {
-      if (!this.bottomControls && !this.mobileMode && !this.__isAudio) {
-        this.hideControls()
+    function __mouseLeaveVideo (e) {
+      if (!props.bottomControls && !props.mobileMode && !__isAudio.value) {
+        hideControls()
       }
-    },
+    }
 
-    __mouseMoveAction (e) {
-      if (!this.bottomControls && !this.mobileMode && !this.__isAudio) {
-        this.__showControlsIfValid(e)
+    function __mouseMoveAction (e) {
+      if (!props.bottomControls && !props.mobileMode && !__isAudio.value) {
+        __showControlsIfValid(e)
       }
-    },
+    }
 
-    __showControlsIfValid (e) {
-      if (this.__showingMenu()) {
-        this.showControls()
+    function __showControlsIfValid (e) {
+      if (__showingMenu()) {
+        showControls()
         return true
       }
       const x = getMousePosition(e, 'x')
@@ -1092,243 +1167,247 @@ export default {
       const pos = this.$el.getBoundingClientRect()
       if (!pos) return false
       if (x > pos.left && x < pos.left + pos.width) {
-        if (y > pos.top + pos.height - (this.dense ? 40 : 80) && y < pos.top + pos.height) {
-          this.showControls()
+        if (y > pos.top + pos.height - (props.dense ? 40 : 80) && y < pos.top + pos.height) {
+          showControls()
           return true
         }
       }
       return false
-    },
+    }
 
-    __videoCurrentTimeChanged (val) {
-      this.showControls()
-      if (this.$media && this.$media.duration && val && val > 0 && val <= this.state.duration) {
-        if (this.$media.currentTime !== val) {
-          this.state.currentTime = this.$media.currentTime = val
+    function __videoCurrentTimeChanged (val) {
+      showControls()
+      if (__isMediaAvailable.value === true && $media.duration && val && val > 0 && val <= state.duration) {
+        if ($media.currentTime !== val) {
+          state.currentTime = $media.currentTime = val
         }
       }
-    },
+    }
 
-    __volumePercentChanged (val) {
-      this.showControls()
-      this.state.volume = val
-    },
+    function __volumePercentChanged (val) {
+      showControls()
+      state.volume = val
+    }
 
-    __trackLanguageChanged (language) {
-      if (this.state.trackLanguage !== language) {
-        this.state.trackLanguage = language
+    function __trackLanguageChanged (language) {
+      if (state.trackLanguage !== language) {
+        state.trackLanguage = language
       }
-    },
+    }
 
-    __playbackRateChanged (rate) {
-      if (this.state.playbackRate !== rate) {
-        this.state.playbackRate = rate
+    function __playbackRateChanged (rate) {
+      if (state.playbackRate !== rate) {
+        state.playbackRate = rate
       }
-    },
+    }
 
-    __showingMenu () {
-      return this.settingsMenuVisible
-    },
+    function __showingMenu () {
+      return settingsMenuVisible.value
+    }
 
-    __updateBigPlayButton () {
-      if (this.state.showBigPlayButton !== this.showBigPlayButton) {
-        this.state.showBigPlayButton = this.showBigPlayButton
+    function __updateBigPlayButton () {
+      if (state.showBigPlayButton !== props.showBigPlayButton) {
+        state.showBigPlayButton = props.showBigPlayButton
       }
-    },
+    }
 
-    __updateVolume () {
-      if (this.state.volume !== this.volume) {
-        this.state.volume = this.volume
+    function __updateVolume () {
+      if (state.volume !== props.volume) {
+        state.volume = props.volume
       }
-    },
+    }
 
-    __updateMuted () {
-      if (this.state.muted !== this.muted) {
-        this.state.muted = this.muted
-        if (this.$media) {
-          this.$media.muted = this.state.muted
+    function __updateMuted () {
+      if (state.muted !== props.muted) {
+        state.muted = props.muted
+        if (__isMediaAvailable.value === true) {
+          $media.muted = state.muted
         }
       }
-    },
+    }
 
-    __updateTrackLanguage () {
-      if (this.state.trackLanguage !== this.trackLanguage || this.lang.mediaPlayer.trackLanguageOff) {
-        this.state.trackLanguage = this.trackLanguage || this.lang.mediaPlayer.trackLanguageOff
+    function __updateTrackLanguage () {
+      if (state.trackLanguage !== props.trackLanguage || lang.mediaPlayer.trackLanguageOff) {
+        state.trackLanguage = props.trackLanguage || lang.mediaPlayer.trackLanguageOff
       }
-    },
+    }
 
-    __updatePlaybackRates () {
-      if (this.playbackRates && this.playbackRates.length > 0) {
-        this.state.playbackRates = [...this.playbackRates]
+    function __updatePlaybackRates () {
+      if (props.playbackRates && props.playbackRates.length > 0) {
+        state.playbackRates = [...props.playbackRates]
       }
       else {
-        this.state.playbackRates.splice(0, this.state.playbackRates.length)
-        this.state.playbackRates.push({ label: this.lang.mediaPlayer.ratePoint5, value: 0.5 })
-        this.state.playbackRates.push({ label: this.lang.mediaPlayer.rateNormal, value: 1 })
-        this.state.playbackRates.push({ label: this.lang.mediaPlayer.rate1Point5, value: 1.5 })
-        this.state.playbackRates.push({ label: this.lang.mediaPlayer.rate2, value: 2 })
+        state.playbackRates.splice(0, state.playbackRates.length)
+        state.playbackRates.push({ label: lang.mediaPlayer.ratePoint5, value: 0.5 })
+        state.playbackRates.push({ label: lang.mediaPlayer.rateNormal, value: 1 })
+        state.playbackRates.push({ label: lang.mediaPlayer.rate1Point5, value: 1.5 })
+        state.playbackRates.push({ label: lang.mediaPlayer.rate2, value: 2 })
       }
-      this.state.trackLanguage = this.lang.mediaPlayer.trackLanguageOff
-    },
+      state.trackLanguage = lang.mediaPlayer.trackLanguageOff
+    }
 
-    __updatePlaybackRate () {
-      if (this.state.playbackRate !== this.playbackRate) {
-        this.state.playbackRate = this.playbackRate
+    function __updatePlaybackRate () {
+      if (state.playbackRate !== props.playbackRate) {
+        state.playbackRate = props.playbackRate
       }
-    },
+    }
 
-    __updateSources () {
-      this.__removeSources()
-      this.__addSources()
-    },
+    function __updateSources () {
+      __removeSources()
+      __addSources()
+    }
 
-    __removeSources () {
-      if (this.$media) {
-        this.__removeSourceEventListeners()
+    function __removeSources () {
+      if (__isMediaAvailable.value === true) {
+        __removeSourceEventListeners()
         // player must not be running
-        this.$media.pause()
-        this.$media.src = ''
-        if (this.$media.currentTime) {
-          // otherwise IE11 has exception error
-          this.$media.currentTime = 0
+        $media.pause()
+        $media.src = ''
+        if ($media.currentTime) {
+        // otherwise IE11 has exception error
+          $media.currentTime = 0
         }
-        const childNodes = this.$media.childNodes
+        const childNodes = $media.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
           if (childNodes[index].tagName === 'SOURCE') {
-            this.$media.removeChild(childNodes[index])
+            $media.removeChild(childNodes[index])
           }
         }
-        this.$media.load()
+        $media.load()
       }
-    },
+    }
 
-    __addSources () {
-      if (this.$media) {
+    function __addSources () {
+      if (__isMediaAvailable.value === true) {
         let loaded = false
-        if (this.source && this.source.length > 0) {
-          this.$media.src = this.source
+        if (props.source && props.source.length > 0) {
+          $media.src = props.source
           loaded = true
         }
         else {
-          if (this.sources.length > 0) {
-            this.sources.forEach((source) => {
+          if (props.sources.length > 0) {
+            props.sources.forEach((source) => {
               const s = document.createElement('SOURCE')
               s.src = source.src ? source.src : ''
               s.type = source.type ? source.type : ''
-              this.$media.appendChild(s)
+              $media.appendChild(s)
               if (!loaded && source.src) {
-                this.$media.src = source.src
+                $media.src = source.src
                 loaded = true
               }
             })
           }
         }
-        this.__reset()
-        this.__addSourceEventListeners()
-        this.$media.load()
+        __reset()
+        __addSourceEventListeners()
+        $media.load()
       }
-    },
+    }
 
-    __updateTracks () {
-      this.__removeTracks()
-      this.__addTracks()
-    },
+    function __updateTracks () {
+      __removeTracks()
+      __addTracks()
+    }
 
-    __removeTracks () {
-      if (this.$media) {
-        const childNodes = this.$media.childNodes
+    function __removeTracks () {
+      if (__isMediaAvailable.value === true) {
+        const childNodes = $media.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
           if (childNodes[index].tagName === 'TRACK') {
-            this.$media.removeChild(childNodes[index])
+            $media.removeChild(childNodes[index])
           }
         }
       }
-    },
+    }
 
-    __addTracks () {
-      // only add tracks to video
-      if (this.__isVideo && this.$media) {
-        this.tracks.forEach((track) => {
+    function __addTracks () {
+    // only add tracks to video
+      if (__isVideo.value && __isMediaAvailable.value === true) {
+        props.tracks.forEach((track) => {
           const t = document.createElement('TRACK')
           t.kind = track.kind ? track.kind : ''
           t.label = track.label ? track.label : ''
           t.src = track.src ? track.src : ''
           t.srclang = track.srclang ? track.srclang : ''
-          this.$media.appendChild(t)
+          $media.appendChild(t)
         })
-        this.$nextTick(() => {
-          this.__toggleCaptions()
+        nextTick(() => {
+          __toggleCaptions()
         })
       }
-    },
+    }
 
-    __updatePoster () {
-      if (this.$media) {
-        this.$media.poster = this.poster
+    function __updatePoster () {
+      if (__isMediaAvailable.value === true) {
+        $media.poster = props.poster
       }
-    },
+    }
 
-    __bigButtonPositionHeight () {
-      if (this.$refs.media) {
-        // top of video
-        return this.$refs.media.clientTop +
-          // height of video / 2
-          (this.$refs.media.clientHeight / 2).toFixed(2) -
-          // big button is 48px -- so 1/2 of that
-          24 + 'px'
+    function __bigButtonPositionHeight () {
+      if ($media.value) {
+      // top of video
+        return $media.value.clientTop +
+        // height of video / 2
+        ($media.value.clientHeight / 2).toFixed(2) -
+        // big button is 48px -- so 1/2 of that
+        24 + 'px'
       }
       return '50%'
-    },
+    }
 
-    __renderVideo (h) {
-      const slot = this.$slots.oldbrowser
+    // Rendering Methods
+
+    function __renderVideo () {
+      const slot = slots.oldbrowser
 
       const attrs = {
-        poster: this.poster,
-        preload: this.preload,
-        playsinline: this.playsinline === true,
-        loop: this.loop === true,
-        autoplay: this.autoplay === true,
-        muted: this.mute === true,
-        width: this.contentWidth || undefined,
-        height: this.contentHeight || undefined
+        poster: props.poster,
+        preload: props.preload,
+        playsinline: props.playsinline === true,
+        loop: props.loop === true,
+        autoplay: props.autoplay === true,
+        muted: props.muted === true,
+        width: props.contentWidth || undefined,
+        height: props.contentHeight || undefined
       }
 
-      this.$nextTick(() => {
-        if (this.$refs.media && this.nativeControls === true) {
-          this.$refs.media.controls = true
+      nextTick(() => {
+        if ($media.value && props.nativeControls === true) {
+          $media.value.controls = true
         }
       })
 
       return h('video', {
-        ref: 'media',
-        staticClass: this.__renderVideoClasses,
-        class: this.contentClass,
-        style: {
-          ...this.__contentStyle
+        ref: $media,
+        class: {
+          ...__renderVideoClasses.value,
+          ...__mergeClassOrStyle('class', props.contentClass)
         },
-        attrs
+        style: {
+          ...__contentStyle.value
+        },
+        ...attrs
       }, [
-        this.__isVideo && (slot || h('p', this.lang.mediaPlayer.oldBrowserVideo))
+        __isVideo.value && (slot || h('p', lang.mediaPlayer.oldBrowserVideo))
       ])
-    },
+    }
 
-    __renderAudio (h) {
-      const slot = this.$slots.oldbrowser
+    function __renderAudio () {
+      const slot = slots.oldbrowser
 
       const attrs = {
-        preload: this.preload,
-        playsinline: this.playsinline === true,
-        loop: this.loop === true,
-        autoplay: this.autoplay === true,
-        muted: this.mute === true,
-        width: this.contentWidth || undefined,
-        height: this.contentHeight || undefined
+        preload: props.preload,
+        playsinline: props.playsinline === true,
+        loop: props.loop === true,
+        autoplay: props.autoplay === true,
+        muted: props.muted === true,
+        width: props.contentWidth || undefined,
+        height: props.contentHeight || undefined
       }
 
-      this.$nextTick(() => {
-        if (this.$refs.media && this.nativeControls === true) {
-          this.$refs.media.controls = true
+      nextTick(() => {
+        if ($media.value && props.nativeControls === true) {
+          $media.value.controls = true
         }
       })
 
@@ -1338,19 +1417,21 @@ export default {
       // That being said, if audio is truly needed, use the 'nop-video'
       // property to force the <audio> tag.
 
-      return h(this.noVideo === true ? 'audio' : 'video', {
-        ref: 'media',
-        staticClass: 'q-media--player',
-        class: this.contentClass,
-        style: this.contentStyle,
+      return h(props.noVideo === true ? 'audio' : 'video', {
+        ref: $media,
+        class: {
+          'q-media--player': true,
+          ...__mergeClassOrStyle('class', props.contentClass)
+        },
+        style: props.contentStyle,
         attrs
       }, [
-        this.__isAudio && (slot || h('p', this.lang.mediaPlayer.oldBrowserAudio))
+        __isAudio.value && (slot || h('p', lang.mediaPlayer.oldBrowserAudio))
       ])
-    },
+    }
 
-    __renderSources (h) {
-      return this.sources.map((source) => {
+    function __renderSources () {
+      return props.sources.map((source) => {
         return h('source', {
           attrs: {
             key: source.src + ':' + source.type,
@@ -1359,10 +1440,10 @@ export default {
           }
         })
       })
-    },
+    }
 
-    __renderTracks (h) {
-      return this.tracks.map((track) => {
+    function __renderTracks () {
+      return props.tracks.map((track) => {
         return h('track', {
           attrs: {
             key: track.src + ':' + track.kind,
@@ -1373,301 +1454,324 @@ export default {
           }
         })
       })
-    },
+    }
 
-    __renderOverlayWindow (h) {
-      const slot = this.$slots.overlay
+    function __renderOverlayWindow () {
+      const slot = slots.overlay
 
       if (slot) {
         return h('div', {
-          staticClass: 'q-media__overlay-window fit'
+          class: 'q-media__overlay-window fit'
         }, slot)
       }
-    },
+    }
 
-    __renderErrorWindow (h) {
-      const slot = this.$slots.errorWindow
+    function __renderErrorWindow () {
+      const slot = slots.errorWindow
 
       return h('div', {
-        staticClass: 'q-media__error-window'
+        class: 'q-media__error-window'
       }, [
-        slot || h('div', this.state.errorText)
+        slot || h('div', state.errorText)
       ])
-    },
+    }
 
-    __renderPlayButton (h) {
-      if (this.hidePlayBtn === true) return
+    function __renderPlayButton () {
+      if (props.hidePlayBtn === true) return
 
-      const slot = this.$slots.play
+      const slot = slots.play
+
+      const properties = {
+        icon: state.playing ? iconSet.mediaPlayer.pause : iconSet.mediaPlayer.play,
+        textColor: props.color,
+        size: '1rem',
+        disable: !state.playReady,
+        flat: true,
+        padding: '4px'
+      }
+
+      const events = {
+        click: togglePlay
+      }
 
       return slot || h(QBtn, {
-        staticClass: 'q-media__controls--button',
-        props: {
-          icon: this.state.playing ? this.iconSet.mediaPlayer.pause : this.iconSet.mediaPlayer.play,
-          textColor: this.color,
-          size: '1rem',
-          disable: !this.state.playReady,
-          flat: true,
-          padding: '4px'
-        },
-        on: {
-          click: this.togglePlay
-        }
+        class: 'q-media__controls--button',
+        ...properties,
+        ...events
       }, [
-        this.showTooltips && this.state.playing && h(QTooltip, this.lang.mediaPlayer.pause),
-        this.showTooltips && !this.state.playing && this.state.playReady && h(QTooltip, this.lang.mediaPlayer.play)
+        props.showTooltips && state.playing && h(QTooltip, lang.mediaPlayer.pause),
+        props.showTooltips && !state.playing && state.playReady && h(QTooltip, lang.mediaPlayer.play)
       ])
-    },
+    }
 
-    __renderVideoControls (h) {
-      const slot = this.$slots.controls
+    function __renderVideoControls () {
+      const slot = slots.controls
+
+      const events = {
+        click: __stopAndPrevent
+      }
+
       if (slot) {
-        // we need to know the controls height for fullscreen, stop propagation to video component
+      // we need to know the controls height for fullscreen, stop propagation to video component
         return h('div', {
-          ref: 'controls',
-          staticClass: 'q-media__controls',
-          class: this.__videoControlsClasses,
-          on: {
-            click: this.__stopAndPrevent
-          }
+          ref: controls,
+          class: {
+            'q-media__controls': true,
+            ...__videoControlsClasses.value
+          },
+          ...events
         },
         slot
         )
       }
 
       return h('div', {
-        ref: 'controls',
-        staticClass: 'q-media__controls',
-        class: this.__videoControlsClasses,
-        on: {
-          click: this.__stopAndPrevent
-        }
+        ref: controls,
+        class: {
+          'q-media__controls': true,
+          ...__videoControlsClasses.value
+        },
+        ...events
       }, [
-        // dense
-        this.dense && h('div', {
-          staticClass: 'q-media__controls--row row col content-start items-center'
+      // dense
+        props.dense && h('div', {
+          class: 'q-media__controls--row row col content-start items-center'
         }, [
           h('div', [
-            this.__renderPlayButton(h),
-            this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingVideo)
+            __renderPlayButton(),
+            props.showTooltips && !state.playReady && h(QTooltip, lang.mediaPlayer.waitingVideo)
           ]),
-          this.__renderVolumeButton(h),
-          this.__renderVolumeSlider(h),
-          this.__renderDisplayTime(h),
-          this.__renderCurrentTimeSlider(h),
-          this.__renderDurationTime(h),
-          this.__renderSettingsButton(h),
-          this.$q.fullscreen !== void 0 && this.hideFullscreenBtn !== true && this.__renderFullscreenButton(h)
+          __renderVolumeButton(),
+          __renderVolumeSlider(),
+          __renderDisplayTime(),
+          __renderCurrentTimeSlider(),
+          __renderDurationTime(),
+          __renderSettingsButton(),
+          $q.fullscreen !== void 0 && props.hideFullscreenBtn !== true && __renderFullscreenButton()
         ]),
         // sparse
-        !this.dense && h('div', {
-          staticClass: 'q-media__controls--row row col items-center justify-between'
+        !props.dense && h('div', {
+          class: 'q-media__controls--row row col items-center justify-between'
         }, [
-          this.__renderDisplayTime(h),
-          this.__renderCurrentTimeSlider(h),
-          this.__renderDurationTime(h)
+          __renderDisplayTime(),
+          __renderCurrentTimeSlider(),
+          __renderDurationTime()
         ]),
-        !this.dense && h('div', {
-          staticClass: 'q-media__controls--row row col content-start items-center'
+        !props.dense && h('div', {
+          class: 'q-media__controls--row row col content-start items-center'
         }, [
           h('div', {
-            staticClass: 'row col'
+            class: 'row col'
           }, [
             h('div', [
-              this.__renderPlayButton(h),
-              this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingVideo)
+              __renderPlayButton(),
+              props.showTooltips && !state.playReady && h(QTooltip, lang.mediaPlayer.waitingVideo)
             ]),
-            this.__renderVolumeButton(h),
-            this.__renderVolumeSlider(h)
+            __renderVolumeButton(),
+            __renderVolumeSlider()
           ]),
           h('div', [
-            this.__renderSettingsButton(h),
-            this.$q.fullscreen !== void 0 && this.hideFullscreenBtn !== true && this.__renderFullscreenButton(h)
+            __renderSettingsButton(),
+            $q.fullscreen !== void 0 && props.hideFullscreenBtn !== true && __renderFullscreenButton()
           ])
         ])
       ])
-    },
+    }
 
-    __renderAudioControls (h) {
-      const slot = this.$slots.controls
+    function __renderAudioControls () {
+      const slot = slots.controls
 
       return slot || h('div', {
-        ref: 'controls',
-        staticClass: 'q-media__controls',
-        class: this.__audioControlsClasses
-      }, [
-        this.dense && h('div', {
-          staticClass: 'q-media__controls--row row col content-start items-center'
-        }, [
-          // dense
-          h('div', [
-            this.__renderPlayButton(h),
-            this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingAudio)
-          ]),
-          this.__renderVolumeButton(h),
-          this.__renderVolumeSlider(h),
-          this.__renderDisplayTime(h),
-          this.__renderCurrentTimeSlider(h),
-          this.__renderDurationTime(h)
-        ]),
-        // sparse
-        !this.dense && h('div', {
-          staticClass: 'q-media__controls--row row col items-center justify-between'
-        }, [
-          this.__renderDisplayTime(h),
-          this.__renderCurrentTimeSlider(h),
-          this.__renderDurationTime(h)
-        ]),
-        !this.dense && h('div', {
-          staticClass: 'q-media__controls--row row col content-start items-center'
-        }, [
-          h('div', [
-            this.__renderPlayButton(h),
-            this.showTooltips && !this.state.playReady && h(QTooltip, this.lang.mediaPlayer.waitingAudio)
-          ]),
-          this.__renderVolumeButton(h),
-          this.__renderVolumeSlider(h)
-        ])
-      ])
-    },
-
-    __renderVolumeButton (h) {
-      if (this.hideVolumeBtn === true) {
-        return
-      }
-      const slot = this.$slots.volume
-
-      return slot || h(QBtn, {
-        staticClass: 'q-media__controls--button',
-        props: {
-          icon: this.__volumeIcon,
-          textColor: this.color,
-          size: '1rem',
-          disable: !this.state.playReady,
-          flat: true,
-          padding: '4px'
-        },
-        on: {
-          click: this.toggleMuted
+        ref: controls,
+        class: {
+          'q-media__controls': true,
+          ...__audioControlsClasses.value
         }
       }, [
-        this.showTooltips && !this.state.muted && h(QTooltip, this.lang.mediaPlayer.mute),
-        this.showTooltips && this.state.muted && h(QTooltip, this.lang.mediaPlayer.unmute)
+        props.dense && h('div', {
+          class: 'q-media__controls--row row col content-start items-center'
+        }, [
+        // dense
+          h('div', [
+            __renderPlayButton(),
+            props.showTooltips && !state.playReady && h(QTooltip, lang.mediaPlayer.waitingAudio)
+          ]),
+          __renderVolumeButton(),
+          __renderVolumeSlider(),
+          __renderDisplayTime(),
+          __renderCurrentTimeSlider(),
+          __renderDurationTime()
+        ]),
+        // sparse
+        !props.dense && h('div', {
+          class: 'q-media__controls--row row col items-center justify-between'
+        }, [
+          __renderDisplayTime(),
+          __renderCurrentTimeSlider(),
+          __renderDurationTime()
+        ]),
+        !props.dense && h('div', {
+          class: 'q-media__controls--row row col content-start items-center'
+        }, [
+          h('div', [
+            __renderPlayButton(),
+            props.showTooltips && !state.playReady && h(QTooltip, lang.mediaPlayer.waitingAudio)
+          ]),
+          __renderVolumeButton(),
+          __renderVolumeSlider()
+        ])
       ])
-    },
+    }
 
-    __renderVolumeSlider (h) {
-      if (this.hideVolumeSlider === true || this.hideVolumeBtn === true) {
+    function __renderVolumeButton () {
+      if (props.hideVolumeBtn === true) {
         return
       }
-      const slot = this.$slots.volumeSlider
+      const slot = slots.volume
+
+      const properties = {
+        icon: __volumeIcon.value,
+        textColor: props.color,
+        size: '1rem',
+        disable: !state.playReady,
+        flat: true,
+        padding: '4px'
+      }
+
+      const events = {
+        click: toggleMuted
+      }
+
+      return slot || h(QBtn, {
+        class: 'q-media__controls--button',
+        ...properties,
+        ...events
+      }, [
+        props.showTooltips && !state.muted && h(QTooltip, lang.mediaPlayer.mute),
+        props.showTooltips && state.muted && h(QTooltip, lang.mediaPlayer.unmute)
+      ])
+    }
+
+    function __renderVolumeSlider () {
+      if (props.hideVolumeSlider === true || props.hideVolumeBtn === true) {
+        return
+      }
+      const slot = slots.volumeSlider
+
+      const properties = {
+        value: state.volume,
+        color: props.color,
+        dark: props.dark,
+        min: 0,
+        max: 100,
+        disable: !state.playReady || state.muted
+      }
+
+      const events = {
+        input: __volumePercentChanged
+      }
 
       return slot || h(QSlider, {
-        staticClass: 'col',
+        class: 'col',
         style: {
           width: '20%',
           margin: '0 0.5rem',
-          minWidth: this.dense ? '20px' : '50px',
-          maxWidth: this.dense ? '50px' : '200px'
+          minWidth: props.dense ? '20px' : '50px',
+          maxWidth: props.dense ? '50px' : '200px'
         },
-        props: {
-          value: this.state.volume,
-          color: this.color,
-          dark: this.dark,
-          min: 0,
-          max: 100,
-          disable: !this.state.playReady || this.state.muted
-        },
-        on: {
-          input: this.__volumePercentChanged
-        }
+        ...properties,
+        ...events
       })
-    },
+    }
 
-    __renderSettingsButton (h) {
-      if (this.hideSettingsBtn === true) {
+    function __renderSettingsButton () {
+      if (props.hideSettingsBtn === true) {
         return
       }
 
-      const slot = this.$slots.settings
+      const slot = slots.settings
 
       return slot || h(QBtn, {
-        staticClass: 'q-media__controls--button',
+        class: 'q-media__controls--button',
         props: {
-          icon: this.iconSet.mediaPlayer.settings,
-          textColor: this.color,
+          icon: iconSet.mediaPlayer.settings,
+          textColor: props.color,
           size: '1rem',
-          disable: !this.state.playReady,
+          disable: !state.playReady,
           flat: true,
           padding: '4px'
         }
       }, [
-        this.showTooltips && !this.settingsMenuVisible && h(QTooltip, this.lang.mediaPlayer.settings),
-        this.__renderSettingsMenu(h)
+        props.showTooltips && !settingsMenuVisible.value && h(QTooltip, lang.mediaPlayer.settings),
+        __renderSettingsMenu()
       ])
-    },
+    }
 
-    __renderFullscreenButton (h) {
-      const slot = this.$slots.fullscreen
+    function __renderFullscreenButton () {
+      const slot = slots.fullscreen
+
+      const events = {
+        click: toggleFullscreen
+      }
 
       return slot || h(QBtn, {
-        staticClass: 'q-media__controls--button',
+        class: 'q-media__controls--button',
         props: {
-          icon: this.state.inFullscreen ? this.iconSet.mediaPlayer.fullscreenExit : this.iconSet.mediaPlayer.fullscreen,
-          textColor: this.color,
+          icon: state.inFullscreen ? iconSet.mediaPlayer.fullscreenExit : iconSet.mediaPlayer.fullscreen,
+          textColor: props.color,
           size: '1rem',
-          disable: !this.state.playReady,
+          disable: !state.playReady,
           flat: true,
           padding: '4px'
         },
-        on: {
-          click: this.toggleFullscreen
-        }
+        ...events
       }, [
-        this.showTooltips && h(QTooltip, this.lang.mediaPlayer.toggleFullscreen)
+        props.showTooltips && h(QTooltip, lang.mediaPlayer.toggleFullscreen)
       ])
-    },
+    }
 
-    __renderLoader (h) {
-      if (this.spinnerSize === void 0) {
-        if (this.__isVideo) this.state.spinnerSize = '3em'
-        else this.state.spinnerSize = '1.5em'
+    function __renderLoader () {
+      if (props.spinnerSize === void 0) {
+        if (__isVideo.value) state.spinnerSize = '3em'
+        else state.spinnerSize = '1.5em'
       }
       else {
-        this.state.spinnerSize = this.spinnerSize
+        state.spinnerSize = props.spinnerSize
       }
 
-      const slot = this.$slots.spinner
+      const slot = slots.spinner
 
       return slot || h('div', {
-        staticClass: this.__isVideo ? 'q-media__loading--video' : 'q-media__loading--audio'
+        class: __isVideo.value ? 'q-media__loading--video' : 'q-media__loading--audio'
       }, [
         h(QSpinner, {
           props: {
-            size: this.state.spinnerSize,
-            color: this.color
+            size: state.spinnerSize,
+            color: props.color
           }
         })
       ])
-    },
+    }
 
-    __renderBigPlayButton (h) {
-      const slot = this.$slots.bigPlayButton
+    function __renderBigPlayButton () {
+      const slot = slots.bigPlayButton
 
-      return slot || h('div', this.setBorderColor(this.bigPlayButtonColor, {
-        staticClass: this.state.bottomControls === true ? 'q-media--big-button q-media--big-button-bottom-controls' : 'q-media--big-button',
+      const events = {
+        click: __bigButtonClick
+      }
+
+      return slot || h('div', setBorderColor(props.bigPlayButtonColor, {
+        class: state.bottomControls === true ? 'q-media--big-button q-media--big-button-bottom-controls' : 'q-media--big-button',
         style: {
-          top: this.__bigButtonPositionHeight()
+          top: __bigButtonPositionHeight()
         }
       }), [
-        h(QIcon, this.setTextColor(this.bigPlayButtonColor, {
+        h(QIcon, setTextColor(props.bigPlayButtonColor, {
           props: {
-            name: this.iconSet.mediaPlayer.bigPlayButton
+            name: iconSet.mediaPlayer.bigPlayButton
           },
-          staticClass: 'q-media--big-button-icon',
-          on: {
-            click: this.__bigButtonClick
-          },
+          class: 'q-media--big-button-icon',
+          ...events,
           directives: [
             {
               name: 'ripple',
@@ -1676,56 +1780,60 @@ export default {
           ]
         }))
       ])
-    },
+    }
 
-    __renderCurrentTimeSlider (h) {
-      const slot = this.$slots.positionSlider
+    function __renderCurrentTimeSlider () {
+      const slot = slots.positionSlider
+
+      const properties = {
+        value: state.currentTime,
+        color: props.color,
+        dark: props.dark,
+        min: 0,
+        max: state.duration ? state.duration : 1,
+        disable: !state.playReady || props.disabledSeek
+      }
+
+      const events = {
+        input: __videoCurrentTimeChanged
+      }
 
       return slot || h(QSlider, {
-        staticClass: 'col',
+        class: 'col',
         style: {
           margin: '0 0.5rem'
         },
-        props: {
-          value: this.state.currentTime,
-          color: this.color,
-          dark: this.dark,
-          min: 0,
-          max: this.state.duration ? this.state.duration : 1,
-          disable: !this.state.playReady || this.disabledSeek
-        },
-        on: {
-          input: this.__videoCurrentTimeChanged
-        }
+        ...properties,
+        ...events
       })
-    },
+    }
 
-    __renderDisplayTime (h) {
-      const slot = this.$slots.displayTime
-
-      return slot || h('span', {
-        staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color
-      }, this.state.displayTime)
-    },
-
-    __renderDurationTime (h) {
-      if (this.$media === void 0) return
-
-      const slot = this.$slots.durationTime
-      const isInfinity = this.$media !== void 0 && !isFinite(this.$media.duration)
+    function __renderDisplayTime () {
+      const slot = slots.displayTime
 
       return slot || h('span', {
-        staticClass: 'q-media__controls--video-time-text' + ' text-' + this.color,
+        class: 'q-media__controls--video-time-text' + ' text-' + props.color
+      }, state.displayTime)
+    }
+
+    function __renderDurationTime () {
+      if (__isMediaAvailable.value !== true) return
+
+      const slot = slots.durationTime
+      const isInfinity = !isFinite($media.duration)
+
+      return slot || h('span', {
+        class: 'q-media__controls--video-time-text' + ' text-' + props.color,
         style: {
           width: isInfinity ? '30px' : 'auto'
         }
       }, [
-        this.$media && isInfinity !== true && this.state.durationTime,
-        this.$media && isInfinity === true && this.__renderInfinitySvg(h)
+        __isMediaAvailable.value === true && isInfinity !== true && state.durationTime,
+        __isMediaAvailable.value === true && isInfinity === true && __renderInfinitySvg()
       ])
-    },
+    }
 
-    __renderInfinitySvg (h) {
+    function __renderInfinitySvg () {
       return h('svg', {
         attrs: {
           height: '16',
@@ -1741,58 +1849,56 @@ export default {
           }
         })
       ])
-    },
+    }
 
-    __renderSettingsMenu (h) {
-      const slot = this.$slots.settingsMenu
+    function __renderSettingsMenu () {
+      const slot = slots.settingsMenu
+
+      const properties = {
+        anchor: 'top right',
+        self: 'bottom right'
+      }
+
+      const events = {
+        show: () => {
+          __settingsMenuShowing(true)
+        },
+        hide: () => {
+          __settingsMenuShowing(false)
+        }
+      }
 
       return h(QMenu, {
-        ref: 'menu',
-        props: {
-          anchor: 'top right',
-          self: 'bottom right'
-        },
-        on: {
-          show: () => {
-            this.__settingsMenuShowing(true)
-          },
-          hide: () => {
-            this.__settingsMenuShowing(false)
-          }
-        }
+        ref: menu,
+        ...properties,
+        ...events
       }, [
         slot || h('div', [
-          this.state.playbackRates.length && h(QExpansionItem, {
-            props: {
-              group: 'settings-menu',
-              expandSeparator: true,
-              icon: this.iconSet.mediaPlayer.speed,
-              label: this.lang.mediaPlayer.speed,
-              caption: this.__settingsPlaybackCaption
-            },
-            on: {
-              show: this.__adjustMenu,
-              hide: this.__adjustMenu
-            }
+          state.playbackRates.length && h(QExpansionItem, {
+          // props
+            group: 'settings-menu',
+            expandSeparator: true,
+            icon: iconSet.mediaPlayer.speed,
+            label: lang.mediaPlayer.speed,
+            caption: __settingsPlaybackCaption.value,
+            // events
+            show: __adjustMenu,
+            hide: __adjustMenu
           }, [
             h(QList, {
-              props: {
-                highlight: true
-              }
+            // props
+              highlight: true
             }, [
-              this.state.playbackRates.map((rate) => {
+              state.playbackRates.map((rate) => {
                 return h(QItem, {
-                  attrs: {
-                    key: rate.value
-                  },
-                  props: {
-                    clickable: true
-                  },
-                  on: {
-                    click: (e) => {
-                      this.__stopAndPrevent(e)
-                      this.__playbackRateChanged(rate.value)
-                    }
+                // attrs
+                  key: rate.value,
+                  // props
+                  clickable: true,
+                  // events
+                  click: (e) => {
+                    __stopAndPrevent(e)
+                    __playbackRateChanged(rate.value)
                   },
                   directives: [
                     {
@@ -1806,14 +1912,12 @@ export default {
                   ]
                 }, [
                   h(QItemSection, {
-                    props: {
-                      avatar: true
-                    }
+                  // props
+                    avatar: true
                   }, [
-                    rate.value === this.state.playbackRate && h(QIcon, {
-                      props: {
-                        name: this.iconSet.mediaPlayer.selected
-                      }
+                    rate.value === state.playbackRate && h(QIcon, {
+                    // props
+                      name: iconSet.mediaPlayer.selected
                     })
                   ]),
                   h(QItemSection, rate.label)
@@ -1822,37 +1926,31 @@ export default {
             ])
           ]),
           // first item is 'Off' and doesn't count unless more are added
-          this.__selectTracksLanguageList.length > 1 && h(QExpansionItem, {
-            props: {
-              group: 'settings-menu',
-              expandSeparator: true,
-              icon: this.iconSet.mediaPlayer.language,
-              label: this.lang.mediaPlayer.language,
-              caption: this.state.trackLanguage
-            },
-            on: {
-              show: this.__adjustMenu,
-              hide: this.__adjustMenu
-            }
+          __selectTracksLanguageList.value.length > 1 && h(QExpansionItem, {
+          // proips
+            group: 'settings-menu',
+            expandSeparator: true,
+            icon: iconSet.mediaPlayer.language,
+            label: lang.mediaPlayer.language,
+            caption: state.trackLanguage,
+            // events
+            show: __adjustMenu,
+            hide: __adjustMenu
           }, [
             h(QList, {
-              props: {
-                highlight: true
-              }
+            // props
+              highlight: true
             }, [
-              this.__selectTracksLanguageList.map((language) => {
+              __selectTracksLanguageList.value.map((language) => {
                 return h(QItem, {
-                  attrs: {
-                    key: language.value
-                  },
-                  props: {
-                    clickable: true
-                  },
-                  on: {
-                    click: (e) => {
-                      this.__stopAndPrevent(e)
-                      this.__trackLanguageChanged(language.value)
-                    }
+                // attrs
+                  key: language.value,
+                  // props
+                  clickable: true,
+                  // events
+                  click: (e) => {
+                    __stopAndPrevent(e)
+                    __trackLanguageChanged(language.value)
                   },
                   directives: [
                     {
@@ -1866,14 +1964,13 @@ export default {
                   ]
                 }, [
                   h(QItemSection, {
-                    props: {
-                      avatar: true
-                    }
+                  // props
+                    avatar: true
                   }, [
-                    language.value === this.state.trackLanguage && h(QIcon, {
-                      props: {
-                        name: this.iconSet.mediaPlayer.selected
-                      }
+                    language.value === state.trackLanguage &&
+                    h(QIcon, {
+                      // props
+                      name: iconSet.mediaPlayer.selected
                     })
                   ]),
                   h(QItemSection, language.label)
@@ -1884,33 +1981,59 @@ export default {
         ])
       ])
     }
-  },
 
-  render (h) {
-    return h('div', {
-      staticClass: 'q-media bg-' + this.backgroundColor,
-      class: this.__classes,
-      style: {
-        borderRadius: !this.state.inFullscreen ? this.radius : 0,
-        height: this.__isVideo ? 'auto' : this.dense ? '40px' : '80px'
-      },
-      on: {
-        mousemove: this.__mouseMoveAction,
-        mouseenter: this.__mouseEnterVideo,
-        mouseleave: this.__mouseLeaveVideo,
-        click: this.__videoClick
+    function __renderMediaPlayer () {
+      const events = {
+        mousemove: __mouseMoveAction,
+        mouseenter: __mouseEnterVideo,
+        mouseleave: __mouseLeaveVideo,
+        click: __videoClick
       }
-    }, this.canRender === true
-      ? [
-          this.__isVideo && this.__renderVideo(h),
-          this.__isAudio && this.__renderAudio(h),
-          this.__renderOverlayWindow(h),
-          this.state.errorText && this.__renderErrorWindow(h),
-          this.__isVideo && !this.state.noControls && !this.state.errorText && this.__renderVideoControls(h),
-          this.__isAudio && !this.state.noControls && !this.state.errorText && this.__renderAudioControls(h),
-          this.showSpinner && this.state.loading && !this.state.playReady && !this.state.errorText && this.__renderLoader(h),
-          this.__isVideo && this.showBigPlayButton && this.state.playReady && !this.state.playing && this.__renderBigPlayButton(h)
-        ]
-      : void 0)
+
+      return h('div', {
+        class: {
+          ['q-media bg-' + props.backgroundColor]: true,
+          ...__classes.value
+        },
+        style: {
+          borderRadius: !state.inFullscreen ? props.radius : 0,
+          height: __isVideo.value ? 'auto' : props.dense ? '40px' : '80px'
+        },
+        ...events
+      }, canRender.value === true
+        ? [
+            __isVideo.value && __renderVideo(),
+            __isAudio.value && __renderAudio(),
+            __renderOverlayWindow(),
+            state.errorText && __renderErrorWindow(),
+            __isVideo.value && !state.noControls && !state.errorText && __renderVideoControls(),
+            __isAudio.value && !state.noControls && !state.errorText && __renderAudioControls(),
+            props.showSpinner && state.loading && !state.playReady && !state.errorText && __renderLoader(),
+            __isVideo.value && props.showBigPlayButton && state.playReady && !state.playing && __renderBigPlayButton()
+          ]
+        : void 0)
+    }
+
+    // expose public methods
+    expose({
+      loadFileBlob,
+      showControls,
+      hideControls,
+      toggleControls,
+      play,
+      pause,
+      mute,
+      unmute,
+      togglePlay,
+      toggleMuted,
+      toggleFullscreen,
+      setFullscreen,
+      exitFullscreen,
+      currentTime,
+      setCurrentTime,
+      setVolume
+    })
+
+    return () => __renderMediaPlayer()
   }
-}
+})

@@ -10,7 +10,7 @@ export default {
   version,
   QMediaPlayer,
 
-  install (Vue) {
-    Vue.component(QMediaPlayer.name, QMediaPlayer)
+  install (app) {
+    app.component(QMediaPlayer.name, QMediaPlayer)
   }
 }
