@@ -4,23 +4,23 @@ import {
   mdiVolumeOff,
   mdiVolumeMedium,
   mdiVolumeHigh,
-  mdiCog,
+  mdiSettings,
   mdiRun,
   mdiClosedCaption,
   mdiCheck,
   mdiFullscreen,
   mdiFullscreenExit
-} from '@quasar/extras/mdi-v5'
+} from '@quasar/extras/mdi-v4'
 
 export default {
-  name: 'svg-mdi-v5',
+  name: 'svg-mdi-v4',
   mediaPlayer: {
     play: mdiPlay,
     pause: mdiPause,
     volumeOff: mdiVolumeOff,
     volumeDown: mdiVolumeMedium,
     volumeUp: mdiVolumeHigh,
-    settings: mdiCog,
+    settings: mdiSettings,
     speed: mdiRun,
     language: mdiClosedCaption,
     selected: mdiCheck,

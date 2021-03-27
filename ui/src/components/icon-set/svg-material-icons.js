@@ -13,7 +13,7 @@ import {
 } from '@quasar/extras/material-icons'
 
 export default {
-  name: 'material-icons',
+  name: 'svg-material-icons',
   mediaPlayer: {
     play: matPlayArrow,
     pause: matPause,
