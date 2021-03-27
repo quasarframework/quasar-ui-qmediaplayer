@@ -68,7 +68,7 @@ export default defineComponent({
   },
 
   props: {
-    ...useColorizeProps(),
+    ...useColorizeProps,
     type: {
       type: String,
       required: false,
