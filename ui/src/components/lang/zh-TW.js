@@ -1,5 +1,5 @@
 export default {
-  lang: 'zh-hant',
+  lang: 'zh-TW',
   mediaPlayer: {
     oldBrowserVideo: '為觀看此視頻，請啟用 JavaScript 或考慮升級到支持 HTML5 視頻的瀏覽器。',
     oldBrowserAudio: '為收聽此音訊，請啟用 JavaScript 或考慮升級到支援 HTML5 音頻的瀏覽器。',
