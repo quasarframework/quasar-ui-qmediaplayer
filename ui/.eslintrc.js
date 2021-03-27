@@ -72,9 +72,6 @@ module.exports = {
 
     'brace-style': [2, 'stroustrup', { allowSingleLine: false }],
 
-    'quasar/no-invalid-props': 'error',
-    'quasar/no-invalid-qfield-usage': 'error',
-
     'vue/no-deprecated-slot-attribute': 'off', // Vue 3?
     'vue/no-deprecated-slot-scope-attribute': 'off', // Vue 3?
     'vue/no-deprecated-v-bind-sync': 'off', // Vue 3?

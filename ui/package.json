@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.10.0",
-    "q-colorize-mixin": "^1.0.10"
+    "q-colorize-mixin": "^2.0.0-alpha.7"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
@@ -73,14 +73,14 @@
     "eslint-plugin-quasar": "^1.0.0",
     "eslint-plugin-vue": "^7.8.0",
     "fs-extra": "^9.1.0",
-    "sass": "^1.32.8",
     "open": "^8.0.4",
     "postcss": "^8.2.8",
-    "postcss-rtl": "^1.7.3",
     "quasar": "^1.15.9",
     "quasar-json-api": "^1.2.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.42.4",
+    "rtlcss": "^3.1.2",
+    "sass": "^1.32.8",
     "uglify-es": "^3.3.9",
     "zlib": "^1.0.5"
   },
