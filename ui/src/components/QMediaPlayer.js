@@ -2,27 +2,27 @@ import {
   h,
   computed,
   defineComponent,
-  // getCurrentInstance,
+  getCurrentInstance,
   // onBeforeUpdate,
-  onMounted,
+  // onMounted,
   onBeforeMount,
   onBeforeUnmount,
   nextTick,
-  forceUpdate,
+  // forceUpdate,
   reactive,
   ref,
   // Transition,
-  watch
-  // withDirectives
+  watch,
+  withDirectives
 } from 'vue'
 
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 
 // Utils
 import { useColorizeProps, useColorize } from 'q-colorize-mixin'
 
 import {
-  useQuasar,
+  // useQuasar,
   QSlider,
   QBtn,
   QTooltip,
@@ -36,6 +36,12 @@ import {
   ClosePopup,
   Ripple
 } from 'quasar'
+
+function hSlot (slot, otherwise) {
+  return slot !== void 0
+    ? slot()
+    : otherwise
+}
 
 const getMousePosition = function (e, type = 'x') {
   if (type === 'x') {
@@ -198,9 +204,12 @@ export default defineComponent({
   ],
 
   setup (props, { slots, emit, expose }) {
+    const vm = getCurrentInstance()
+
     const
-      $q = useQuasar(),
-      $route = useRoute(),
+      // $q = useQuasar() || vm.appContext.config.globalProperties.$q,
+      $q = vm.appContext.config.globalProperties.$q,
+      // $route = useRoute(),
       canRender = ref(false),
       lang = reactive({
         mediaPlayer: {}
@@ -285,9 +294,11 @@ export default defineComponent({
     })
 
     const __renderVideoClasses = computed(() => {
-      return 'q-media--player' +
-      (!props.dense && state.bottomControls && state.inFullscreen ? ' q-media--player--bottom-controls--standard' : '') +
-      (props.dense && state.bottomControls && state.inFullscreen ? ' q-media--player--bottom-controls--dense' : '')
+      return {
+        'q-media--player': true,
+        'q-media--player--bottom-controls--standard': !props.dense && state.bottomControls && state.inFullscreen,
+        'q-media--player--bottom-controls--dense': props.dense && state.bottomControls && state.inFullscreen
+      }
     })
 
     const __videoControlsClasses = computed(() => {
@@ -349,7 +360,7 @@ export default defineComponent({
       return tracksList
     })
 
-    const __isMediaAvailable = computed(() => $media.volume !== undefined)
+    const __isMediaAvailable = computed(() => $media.value && $media.value.volume !== undefined)
 
     const __isAudio = computed(() => {
       return props.type === 'audio'
@@ -377,6 +388,11 @@ export default defineComponent({
     })
 
     // Watches
+
+    watch(() => $media.value, () => {
+      __init()
+      emit('mediaPlayer', $media.value)
+    })
 
     watch(() => props.poster, () => {
       __updatePoster()
@@ -422,9 +438,9 @@ export default defineComponent({
       __updatePlaybackRate()
     })
 
-    watch(() => $route, val => {
-      exitFullscreen()
-    })
+    // watch(() => $route, val => {
+    //   exitFullscreen()
+    // })
 
     watch(() => $q.lang.isoName, val => {
       __setupLang()
@@ -443,7 +459,7 @@ export default defineComponent({
 
     watch(() => state.playbackRate, val => {
       if (val && __isMediaAvailable.value === true) {
-        $media.playbackRate = parseFloat(val)
+        $media.value.playbackRate = parseFloat(val)
         // eslint-disable-next-line vue/custom-event-name-casing
         emit('playbackRate', val)
       }
@@ -465,8 +481,8 @@ export default defineComponent({
     watch(() => state.volume, val => {
       if (__isMediaAvailable.value === true) {
         const volume = parseFloat(val / 100.0)
-        if ($media.volume !== volume) {
-          $media.volume = volume
+        if ($media.value.volume !== volume) {
+          $media.value.volume = volume
           emit('volume', val)
         }
       }
@@ -478,10 +494,10 @@ export default defineComponent({
 
     watch(() => state.currentTime, val => {
       if (__isMediaAvailable.value === true && state.playReady) {
-        if (isFinite($media.duration)) {
-          state.remainingTime = timeParse($media.duration - $media.currentTime)
+        if (isFinite($media.value.duration)) {
+          state.remainingTime = timeParse($media.value.duration - $media.value.currentTime)
         }
-        state.displayTime = timeParse($media.currentTime)
+        state.displayTime = timeParse($media.value.currentTime)
       }
     })
 
@@ -505,18 +521,6 @@ export default defineComponent({
         __setupLang()
         __setupIcons()
         document.body.addEventListener('mousemove', __mouseMoveAction, false)
-      }
-    })
-
-    onMounted(() => {
-      if (canRender.value === true) {
-        nextTick(function () {
-          __init()
-          if (__isMediaAvailable.value === true) {
-          // eslint-disable-next-line vue/custom-event-name-casing
-            emit('mediaPlayer', $media)
-          }
-        })
       }
     })
 
@@ -547,10 +551,10 @@ export default defineComponent({
         if (Object.prototype.toString.call(fileList) === '[object FileList]') {
           const reader = new FileReader()
           reader.onload = (event) => {
-            $media.src = event.target.result
+            $media.value.src = event.target.result
             __reset()
             __addSourceEventListeners()
-            $media.load()
+            $media.value.load()
             state.loading = false
           }
           reader.readAsDataURL(fileList[0])
@@ -619,10 +623,10 @@ export default defineComponent({
     }
 
     function play () {
-      if (__isMediaAvailable.value === true && state.playReady) {
-        const hasPromise = typeof $media.play() !== 'undefined'
+      if (__isMediaAvailable.value === true && state.playReady === true) {
+        const hasPromise = typeof $media.value.play() !== 'undefined'
         if (hasPromise) {
-          $media.play()
+          $media.value.play()
             .then(() => {
               state.showBigPlayButton = false
               state.playing = true
@@ -633,7 +637,7 @@ export default defineComponent({
         }
         else {
         // IE11 + EDGE support
-          $media.play()
+          $media.value.play()
           state.showBigPlayButton = false
           state.playing = true
           __mouseLeaveVideo()
@@ -642,9 +646,9 @@ export default defineComponent({
     }
 
     function pause () {
-      if (__isMediaAvailable.value === true && state.playReady) {
+      if (__isMediaAvailable.value === true && state.playReady === true) {
         if (state.playing) {
-          $media.pause()
+          $media.value.pause()
           state.showBigPlayButton = true
           state.playing = false
         }
@@ -654,29 +658,29 @@ export default defineComponent({
     function mute () {
       state.muted = true
       if (__isMediaAvailable.value === true) {
-        $media.muted = state.muted === true
+        $media.value.muted = state.muted === true
       }
     }
 
     function unmute () {
       state.muted = false
       if (__isMediaAvailable.value === true) {
-        $media.muted = state.muted !== true
+        $media.value.muted = state.muted !== true
       }
     }
 
     function togglePlay (e) {
       __stopAndPrevent(e)
-      if (__isMediaAvailable.value === true && state.playReady) {
+      if (__isMediaAvailable.value === true && state.playReady === true) {
         if (state.playing) {
-          $media.pause()
+          $media.value.pause()
           state.showBigPlayButton = true
           state.playing = false
         }
         else {
-          const hasPromise = typeof $media.play() !== 'undefined'
+          const hasPromise = typeof $media.value.play() !== 'undefined'
           if (hasPromise) {
-            $media.play()
+            $media.value.play()
               .then(() => {
                 state.showBigPlayButton = false
                 state.playing = true
@@ -687,7 +691,7 @@ export default defineComponent({
           }
           else {
           // IE11 + EDGE support
-            $media.play()
+            $media.value.play()
             state.showBigPlayButton = false
             state.playing = true
             __mouseLeaveVideo()
@@ -700,7 +704,7 @@ export default defineComponent({
       __stopAndPrevent(e)
       state.muted = !state.muted
       if (__isMediaAvailable.value === true) {
-        $media.muted = state.muted === true
+        $media.value.muted = state.muted === true
       }
     }
 
@@ -725,9 +729,9 @@ export default defineComponent({
         state.inFullscreen = true
         $q.fullscreen.request() // NOTE error Not capable - on iPhone Safari
         document.body.classList.add('no-scroll')
-        nextTick(() => {
-          forceUpdate()
-        })
+        // nextTick(() => {
+        //   forceUpdate()
+        // })
       }
     }
 
@@ -739,23 +743,23 @@ export default defineComponent({
         state.inFullscreen = false
         $q.fullscreen.exit()
         document.body.classList.remove('no-scroll')
-        nextTick(() => {
-          forceUpdate()
-        })
+        // nextTick(() => {
+        //   forceUpdate()
+        // })
       }
     }
 
     function currentTime () {
-      if (__isMediaAvailable.value === true && state.playReady) {
-        return $media.currentTime
+      if (__isMediaAvailable.value === true && state.playReady === true) {
+        return $media.value.currentTime
       }
       return -1
     }
 
     function setCurrentTime (seconds) {
       if (state.playReady) {
-        if (__isMediaAvailable.value === true && isFinite($media.duration) && seconds >= 0 && seconds <= $media.duration) {
-          state.currentTime = $media.currentTime = seconds
+        if (__isMediaAvailable.value === true && isFinite($media.value.duration) && seconds >= 0 && seconds <= $media.value.duration) {
+          state.currentTime = $media.value.currentTime = seconds
         }
       }
     }
@@ -793,14 +797,14 @@ export default defineComponent({
 
     function __showCaptions (lang) {
       if (__isMediaAvailable.value === true && __isVideo.value) {
-        for (let index = 0; index < $media.textTracks.length; ++index) {
-          if ($media.textTracks[index].label === lang) {
-            $media.textTracks[index].mode = 'showing'
-            $media.textTracks[index].oncuechange = __cueChanged
+        for (let index = 0; index < $media.value.textTracks.length; ++index) {
+          if ($media.value.textTracks[index].label === lang) {
+            $media.value.textTracks[index].mode = 'showing'
+            $media.value.textTracks[index].oncuechange = __cueChanged
           }
           else {
-            $media.textTracks[index].mode = 'hidden'
-            $media.textTracks[index].oncuechange = null
+            $media.value.textTracks[index].mode = 'hidden'
+            $media.value.textTracks[index].oncuechange = null
           }
         }
       }
@@ -814,16 +818,16 @@ export default defineComponent({
     }
 
     function __setupLang () {
-      const isoName = $q.lang.isoName || 'en-us'
-      let lang
+      const isoName = $q.lang.isoName || 'en-US'
+      let language
       try {
-      // lang = require(`./lang/${isoName}`)
-        lang = __loadLang(isoName)
+        // language = require(`./lang/${isoName}`)
+        language = __loadLang(isoName)
       }
       catch (e) { }
 
-      if (lang !== void 0 && lang.lang !== void 0) {
-        lang.mediaPlayer = { ...lang.mediaPlayer }
+      if (language !== void 0 && language.lang !== void 0) {
+        lang.mediaPlayer = { ...language.mediaPlayer }
         __updatePlaybackRates()
         __updateTrackLanguage()
       }
@@ -867,7 +871,7 @@ export default defineComponent({
         icnSet = __loadIconSet(iconSetName)
       }
       catch (e) { }
-      icnSet !== void 0 && icnSet.name !== void 0 && (iconSet.mediaPlayer = { ...iconSet.mediaPlayer })
+      icnSet !== void 0 && icnSet.name !== void 0 && (iconSet.mediaPlayer = { ...icnSet.mediaPlayer })
     }
 
     function __loadIconSet (set) {
@@ -922,9 +926,9 @@ export default defineComponent({
       // set playback rate default
       __updatePlaybackRate()
       // does user want cors?
-      props.crossOrigin && __isMediaAvailable.value === true && $media.setAttribute('crossorigin', props.crossOrigin)
+      props.crossOrigin && __isMediaAvailable.value === true && $media.value.setAttribute('crossorigin', props.crossOrigin)
       // make sure "controls" is turned off
-      __isMediaAvailable.value === true && ($media.controls = false)
+      __isMediaAvailable.value === true && ($media.value.controls = false)
       // set up event listeners on video
       __addMediaEventListeners()
       __addSourceEventListeners()
@@ -934,7 +938,7 @@ export default defineComponent({
     function __addMediaEventListeners () {
       if (__isMediaAvailable.value === true) {
         allEvents.forEach((event) => {
-          $media.addEventListener(event, __mediaEventHandler)
+          $media.value.addEventListener(event, __mediaEventHandler)
         })
       }
     }
@@ -942,14 +946,14 @@ export default defineComponent({
     function __removeMediaEventListeners () {
       if (__isMediaAvailable.value === true) {
         allEvents.forEach((event) => {
-          $media.removeEventListener(event, __mediaEventHandler)
+          $media.value.removeEventListener(event, __mediaEventHandler)
         })
       }
     }
 
     function __addSourceEventListeners () {
       if (__isMediaAvailable.value === true) {
-        const sources = $media.querySelectorAll('source')
+        const sources = $media.value.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
           sources[index].addEventListener('error', __sourceEventHandler)
         }
@@ -958,7 +962,7 @@ export default defineComponent({
 
     function __removeSourceEventListeners () {
       if (__isMediaAvailable.value === true) {
-        const sources = $media.querySelectorAll('source')
+        const sources = $media.value.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
           sources[index].removeEventListener('error', __sourceEventHandler)
         }
@@ -967,7 +971,7 @@ export default defineComponent({
 
     function __sourceEventHandler (event) {
       const NETWORK_NO_SOURCE = 3
-      if (__isMediaAvailable.value === true && $media.networkState === NETWORK_NO_SOURCE) {
+      if (__isMediaAvailable.value === true && $media.value.networkState === NETWORK_NO_SOURCE) {
         state.errorText = __isVideo.value ? lang.mediaPlayer.noLoadVideo : lang.mediaPlayer.noLoadAudio
       }
       // eslint-disable-next-line vue/custom-event-name-casing
@@ -980,7 +984,7 @@ export default defineComponent({
       }
       else if (event.type === 'canplay') {
         state.playReady = true
-        state.displayTime = timeParse($media.currentTime)
+        state.displayTime = timeParse($media.value.currentTime)
         __mouseEnterVideo()
         emit('ready')
       }
@@ -989,10 +993,10 @@ export default defineComponent({
         emit('canplaythrough')
       }
       else if (event.type === 'durationchange') {
-        if (isFinite($media.duration)) {
-          state.duration = $media.duration
-          state.durationTime = timeParse($media.duration)
-          emit('duration', $media.duration)
+        if (isFinite($media.value.duration)) {
+          state.duration = $media.value.duration
+          state.durationTime = timeParse($media.value.duration)
+          emit('duration', $media.value.duration)
         }
       }
       else if (event.type === 'emptied') {
@@ -1003,7 +1007,7 @@ export default defineComponent({
         emit('ended')
       }
       else if (event.type === 'error') {
-        const error = $media.error
+        const error = $media.value.error
         emit('error', error)
       }
       else if (event.type === 'interruptbegin') {
@@ -1055,8 +1059,8 @@ export default defineComponent({
       //
       }
       else if (event.type === 'timeupdate') {
-        state.currentTime = $media.currentTime
-        emit('timeupdate', $media.currentTime, state.remainingTime)
+        state.currentTime = $media.value.currentTime
+        emit('timeupdate', $media.value.currentTime, state.remainingTime)
       }
       else if (event.type === 'volumechange') {
       //
@@ -1101,12 +1105,12 @@ export default defineComponent({
 
     function __checkCursor () {
       if (state.inFullscreen && state.playing && !state.showControls) {
-        this.$el.classList.remove('cursor-inherit')
-        this.$el.classList.add('cursor-none')
+        $media.value.classList.remove('cursor-inherit')
+        $media.value.classList.add('cursor-none')
       }
       else {
-        this.$el.classList.remove('cursor-none')
-        this.$el.classList.add('cursor-inherit')
+        $media.value.classList.remove('cursor-none')
+        $media.value.classList.add('cursor-inherit')
       }
     }
 
@@ -1164,7 +1168,7 @@ export default defineComponent({
       }
       const x = getMousePosition(e, 'x')
       const y = getMousePosition(e, 'y')
-      const pos = this.$el.getBoundingClientRect()
+      const pos = $media.value.getBoundingClientRect()
       if (!pos) return false
       if (x > pos.left && x < pos.left + pos.width) {
         if (y > pos.top + pos.height - (props.dense ? 40 : 80) && y < pos.top + pos.height) {
@@ -1177,9 +1181,9 @@ export default defineComponent({
 
     function __videoCurrentTimeChanged (val) {
       showControls()
-      if (__isMediaAvailable.value === true && $media.duration && val && val > 0 && val <= state.duration) {
-        if ($media.currentTime !== val) {
-          state.currentTime = $media.currentTime = val
+      if (__isMediaAvailable.value === true && $media.value.duration && val && val > 0 && val <= state.duration) {
+        if ($media.value.currentTime !== val) {
+          state.currentTime = $media.value.currentTime = val
         }
       }
     }
@@ -1221,7 +1225,7 @@ export default defineComponent({
       if (state.muted !== props.muted) {
         state.muted = props.muted
         if (__isMediaAvailable.value === true) {
-          $media.muted = state.muted
+          $media.value.muted = state.muted
         }
       }
     }
@@ -1261,19 +1265,19 @@ export default defineComponent({
       if (__isMediaAvailable.value === true) {
         __removeSourceEventListeners()
         // player must not be running
-        $media.pause()
-        $media.src = ''
-        if ($media.currentTime) {
+        $media.value.pause()
+        $media.value.src = ''
+        if ($media.value.currentTime) {
         // otherwise IE11 has exception error
-          $media.currentTime = 0
+          $media.value.currentTime = 0
         }
-        const childNodes = $media.childNodes
+        const childNodes = $media.value.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
           if (childNodes[index].tagName === 'SOURCE') {
-            $media.removeChild(childNodes[index])
+            $media.value.removeChild(childNodes[index])
           }
         }
-        $media.load()
+        $media.value.load()
       }
     }
 
@@ -1281,7 +1285,7 @@ export default defineComponent({
       if (__isMediaAvailable.value === true) {
         let loaded = false
         if (props.source && props.source.length > 0) {
-          $media.src = props.source
+          $media.value.src = props.source
           loaded = true
         }
         else {
@@ -1290,9 +1294,9 @@ export default defineComponent({
               const s = document.createElement('SOURCE')
               s.src = source.src ? source.src : ''
               s.type = source.type ? source.type : ''
-              $media.appendChild(s)
+              $media.value.appendChild(s)
               if (!loaded && source.src) {
-                $media.src = source.src
+                $media.value.src = source.src
                 loaded = true
               }
             })
@@ -1300,7 +1304,7 @@ export default defineComponent({
         }
         __reset()
         __addSourceEventListeners()
-        $media.load()
+        $media.value.load()
       }
     }
 
@@ -1311,10 +1315,10 @@ export default defineComponent({
 
     function __removeTracks () {
       if (__isMediaAvailable.value === true) {
-        const childNodes = $media.childNodes
+        const childNodes = $media.value.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
           if (childNodes[index].tagName === 'TRACK') {
-            $media.removeChild(childNodes[index])
+            $media.value.removeChild(childNodes[index])
           }
         }
       }
@@ -1329,7 +1333,7 @@ export default defineComponent({
           t.label = track.label ? track.label : ''
           t.src = track.src ? track.src : ''
           t.srclang = track.srclang ? track.srclang : ''
-          $media.appendChild(t)
+          $media.value.appendChild(t)
         })
         nextTick(() => {
           __toggleCaptions()
@@ -1339,13 +1343,13 @@ export default defineComponent({
 
     function __updatePoster () {
       if (__isMediaAvailable.value === true) {
-        $media.poster = props.poster
+        $media.value.poster = props.poster
       }
     }
 
     function __bigButtonPositionHeight () {
       if ($media.value) {
-      // top of video
+        // top of video
         return $media.value.clientTop +
         // height of video / 2
         ($media.value.clientHeight / 2).toFixed(2) -
@@ -1372,7 +1376,7 @@ export default defineComponent({
       }
 
       nextTick(() => {
-        if ($media.value && props.nativeControls === true) {
+        if (__isMediaAvailable.value && props.nativeControls === true) {
           $media.value.controls = true
         }
       })
@@ -1387,9 +1391,7 @@ export default defineComponent({
           ...__contentStyle.value
         },
         ...attrs
-      }, [
-        __isVideo.value && (slot || h('p', lang.mediaPlayer.oldBrowserVideo))
-      ])
+      }, hSlot(slot, h('p', lang.mediaPlayer.oldBrowserVideo)))
     }
 
     function __renderAudio () {
@@ -1406,7 +1408,7 @@ export default defineComponent({
       }
 
       nextTick(() => {
-        if ($media.value && props.nativeControls === true) {
+        if (props.nativeControls === true && $media.value) {
           $media.value.controls = true
         }
       })
@@ -1425,36 +1427,34 @@ export default defineComponent({
         },
         style: props.contentStyle,
         attrs
-      }, [
-        __isAudio.value && (slot || h('p', lang.mediaPlayer.oldBrowserAudio))
-      ])
+      }, hSlot(slot, h('p', lang.mediaPlayer.oldBrowserAudio)))
     }
 
-    function __renderSources () {
-      return props.sources.map((source) => {
-        return h('source', {
-          attrs: {
-            key: source.src + ':' + source.type,
-            src: source.src,
-            type: source.type
-          }
-        })
-      })
-    }
+    // function __renderSources () {
+    //   return props.sources.map((source) => {
+    //     return h('source', {
+    //       attrs: {
+    //         key: source.src + ':' + source.type,
+    //         src: source.src,
+    //         type: source.type
+    //       }
+    //     })
+    //   })
+    // }
 
-    function __renderTracks () {
-      return props.tracks.map((track) => {
-        return h('track', {
-          attrs: {
-            key: track.src + ':' + track.kind,
-            src: track.src,
-            kind: track.kind,
-            label: track.label,
-            srclang: track.srclang
-          }
-        })
-      })
-    }
+    // function __renderTracks () {
+    //   return props.tracks.map((track) => {
+    //     return h('track', {
+    //       attrs: {
+    //         key: track.src + ':' + track.kind,
+    //         src: track.src,
+    //         kind: track.kind,
+    //         label: track.label,
+    //         srclang: track.srclang
+    //       }
+    //     })
+    //   })
+    // }
 
     function __renderOverlayWindow () {
       const slot = slots.overlay
@@ -1462,7 +1462,7 @@ export default defineComponent({
       if (slot) {
         return h('div', {
           class: 'q-media__overlay-window fit'
-        }, slot)
+        }, slot())
       }
     }
 
@@ -1471,9 +1471,7 @@ export default defineComponent({
 
       return h('div', {
         class: 'q-media__error-window'
-      }, [
-        slot || h('div', state.errorText)
-      ])
+      }, hSlot(slot, h('div', state.errorText)))
     }
 
     function __renderPlayButton () {
@@ -1491,24 +1489,26 @@ export default defineComponent({
       }
 
       const events = {
-        click: togglePlay
+        onClick: togglePlay
       }
 
-      return slot || h(QBtn, {
-        class: 'q-media__controls--button',
+      return (slot && slot()) || h(QBtn, {
+        class: 'q-media__controls--button play-button',
         ...properties,
         ...events
-      }, [
-        props.showTooltips && state.playing && h(QTooltip, lang.mediaPlayer.pause),
-        props.showTooltips && !state.playing && state.playReady && h(QTooltip, lang.mediaPlayer.play)
-      ])
+      }, {
+        default: () => ([
+          props.showTooltips && state.playing && h(QTooltip, () => lang.mediaPlayer.pause),
+          props.showTooltips && !state.playing && state.playReady && h(QTooltip, () => lang.mediaPlayer.play)
+        ])
+      })
     }
 
     function __renderVideoControls () {
       const slot = slots.controls
 
       const events = {
-        click: __stopAndPrevent
+        onClick: __stopAndPrevent
       }
 
       if (slot) {
@@ -1521,7 +1521,7 @@ export default defineComponent({
           },
           ...events
         },
-        slot
+        slot()
         )
       }
 
@@ -1539,7 +1539,7 @@ export default defineComponent({
         }, [
           h('div', [
             __renderPlayButton(),
-            props.showTooltips && !state.playReady && h(QTooltip, lang.mediaPlayer.waitingVideo)
+            props.showTooltips && !state.playReady && h(QTooltip, () => lang.mediaPlayer.waitingVideo)
           ]),
           __renderVolumeButton(),
           __renderVolumeSlider(),
@@ -1565,7 +1565,7 @@ export default defineComponent({
           }, [
             h('div', [
               __renderPlayButton(),
-              props.showTooltips && !state.playReady && h(QTooltip, lang.mediaPlayer.waitingVideo)
+              props.showTooltips && !state.playReady && h(QTooltip, () => lang.mediaPlayer.waitingVideo)
             ]),
             __renderVolumeButton(),
             __renderVolumeSlider()
@@ -1581,7 +1581,7 @@ export default defineComponent({
     function __renderAudioControls () {
       const slot = slots.controls
 
-      return slot || h('div', {
+      return (slot && slot()) || h('div', {
         ref: controls,
         class: {
           'q-media__controls': true,
@@ -1594,7 +1594,7 @@ export default defineComponent({
         // dense
           h('div', [
             __renderPlayButton(),
-            props.showTooltips && !state.playReady && h(QTooltip, lang.mediaPlayer.waitingAudio)
+            props.showTooltips && !state.playReady && h(QTooltip, () => lang.mediaPlayer.waitingAudio)
           ]),
           __renderVolumeButton(),
           __renderVolumeSlider(),
@@ -1615,7 +1615,7 @@ export default defineComponent({
         }, [
           h('div', [
             __renderPlayButton(),
-            props.showTooltips && !state.playReady && h(QTooltip, lang.mediaPlayer.waitingAudio)
+            props.showTooltips && !state.playReady && h(QTooltip, () => lang.mediaPlayer.waitingAudio)
           ]),
           __renderVolumeButton(),
           __renderVolumeSlider()
@@ -1639,17 +1639,22 @@ export default defineComponent({
       }
 
       const events = {
-        click: toggleMuted
+        onClick: toggleMuted
       }
 
-      return slot || h(QBtn, {
-        class: 'q-media__controls--button',
+      return (slot && slot()) || h(QBtn, {
+        class: 'q-media__controls--button volume-button',
         ...properties,
         ...events
-      }, [
-        props.showTooltips && !state.muted && h(QTooltip, lang.mediaPlayer.mute),
-        props.showTooltips && state.muted && h(QTooltip, lang.mediaPlayer.unmute)
-      ])
+      }, {
+        default: () => ([
+          props.showTooltips === true
+            ? state.muted === true
+              ? h(QTooltip, () => lang.mediaPlayer.unmute)
+              : h(QTooltip, () => lang.mediaPlayer.mute)
+            : undefined
+        ])
+      })
     }
 
     function __renderVolumeSlider () {
@@ -1668,10 +1673,10 @@ export default defineComponent({
       }
 
       const events = {
-        input: __volumePercentChanged
+        onChange: __volumePercentChanged
       }
 
-      return slot || h(QSlider, {
+      return (slot && slot()) || h(QSlider, {
         class: 'col',
         style: {
           width: '20%',
@@ -1691,43 +1696,55 @@ export default defineComponent({
 
       const slot = slots.settings
 
-      return slot || h(QBtn, {
-        class: 'q-media__controls--button',
-        props: {
-          icon: iconSet.mediaPlayer.settings,
-          textColor: props.color,
-          size: '1rem',
-          disable: !state.playReady,
-          flat: true,
-          padding: '4px'
-        }
-      }, [
-        props.showTooltips && !settingsMenuVisible.value && h(QTooltip, lang.mediaPlayer.settings),
-        __renderSettingsMenu()
-      ])
+      const properties = {
+        icon: iconSet.mediaPlayer.settings,
+        textColor: props.color,
+        size: '1rem',
+        disable: !state.playReady,
+        flat: true,
+        padding: '4px'
+      }
+
+      return (slot && slot()) || h(QBtn, {
+        class: 'q-media__controls--button settings-button',
+        ...properties
+      }, {
+        default: () => ([
+          props.showTooltips === true && !settingsMenuVisible.value
+            ? h(QTooltip, () => lang.mediaPlayer.settings)
+            : undefined,
+          __renderSettingsMenu()
+        ])
+      })
     }
 
     function __renderFullscreenButton () {
       const slot = slots.fullscreen
 
-      const events = {
-        click: toggleFullscreen
+      const properties = {
+        icon: state.inFullscreen ? iconSet.mediaPlayer.fullscreenExit : iconSet.mediaPlayer.fullscreen,
+        textColor: props.color,
+        size: '1rem',
+        disable: !state.playReady,
+        flat: true,
+        padding: '4px'
       }
 
-      return slot || h(QBtn, {
-        class: 'q-media__controls--button',
-        props: {
-          icon: state.inFullscreen ? iconSet.mediaPlayer.fullscreenExit : iconSet.mediaPlayer.fullscreen,
-          textColor: props.color,
-          size: '1rem',
-          disable: !state.playReady,
-          flat: true,
-          padding: '4px'
-        },
+      const events = {
+        onClick: toggleFullscreen
+      }
+
+      return (slot && slot()) || h(QBtn, {
+        class: 'q-media__controls--button fullscreen-button',
+        ...properties,
         ...events
-      }, [
-        props.showTooltips && h(QTooltip, lang.mediaPlayer.toggleFullscreen)
-      ])
+      }, {
+        default: () => ([
+          props.showTooltips === true
+            ? h(QTooltip, () => lang.mediaPlayer.toggleFullscreen)
+            : undefined
+        ])
+      })
     }
 
     function __renderLoader () {
@@ -1741,14 +1758,12 @@ export default defineComponent({
 
       const slot = slots.spinner
 
-      return slot || h('div', {
+      return (slot && slot()) || h('div', {
         class: __isVideo.value ? 'q-media__loading--video' : 'q-media__loading--audio'
       }, [
         h(QSpinner, {
-          props: {
-            size: state.spinnerSize,
-            color: props.color
-          }
+          size: state.spinnerSize,
+          color: props.color
         })
       ])
     }
@@ -1757,27 +1772,19 @@ export default defineComponent({
       const slot = slots.bigPlayButton
 
       const events = {
-        click: __bigButtonClick
+        onClick: __bigButtonClick
       }
 
-      return slot || h('div', setBorderColor(props.bigPlayButtonColor, {
+      return (slot && slot()) || h('div', setBorderColor(props.bigPlayButtonColor, {
         class: state.bottomControls === true ? 'q-media--big-button q-media--big-button-bottom-controls' : 'q-media--big-button',
         style: {
           top: __bigButtonPositionHeight()
         }
       }), [
         h(QIcon, setTextColor(props.bigPlayButtonColor, {
-          props: {
-            name: iconSet.mediaPlayer.bigPlayButton
-          },
+          name: iconSet.mediaPlayer.bigPlayButton,
           class: 'q-media--big-button-icon',
-          ...events,
-          directives: [
-            {
-              name: 'ripple',
-              value: true
-            }
-          ]
+          ...events
         }))
       ])
     }
@@ -1795,10 +1802,10 @@ export default defineComponent({
       }
 
       const events = {
-        input: __videoCurrentTimeChanged
+        onChange: __videoCurrentTimeChanged
       }
 
-      return slot || h(QSlider, {
+      return (slot && slot()) || h(QSlider, {
         class: 'col',
         style: {
           margin: '0 0.5rem'
@@ -1811,7 +1818,7 @@ export default defineComponent({
     function __renderDisplayTime () {
       const slot = slots.displayTime
 
-      return slot || h('span', {
+      return (slot && slot()) || h('span', {
         class: 'q-media__controls--video-time-text' + ' text-' + props.color
       }, state.displayTime)
     }
@@ -1820,9 +1827,9 @@ export default defineComponent({
       if (__isMediaAvailable.value !== true) return
 
       const slot = slots.durationTime
-      const isInfinity = !isFinite($media.duration)
+      const isInfinity = !isFinite($media.value.duration)
 
-      return slot || h('span', {
+      return (slot && slot()) || h('span', {
         class: 'q-media__controls--video-time-text' + ' text-' + props.color,
         style: {
           width: isInfinity ? '30px' : 'auto'
@@ -1860,10 +1867,10 @@ export default defineComponent({
       }
 
       const events = {
-        show: () => {
+        onShow: () => {
           __settingsMenuShowing(true)
         },
-        hide: () => {
+        onHide: () => {
           __settingsMenuShowing(false)
         }
       }
@@ -1872,122 +1879,116 @@ export default defineComponent({
         ref: menu,
         ...properties,
         ...events
-      }, [
-        slot || h('div', [
-          state.playbackRates.length && h(QExpansionItem, {
-          // props
-            group: 'settings-menu',
-            expandSeparator: true,
-            icon: iconSet.mediaPlayer.speed,
-            label: lang.mediaPlayer.speed,
-            caption: __settingsPlaybackCaption.value,
-            // events
-            show: __adjustMenu,
-            hide: __adjustMenu
-          }, [
-            h(QList, {
+      }, {
+        default: () =>
+          (slot && slot()) || h('div', [
+            state.playbackRates.length > 0 && h(QExpansionItem, {
             // props
-              highlight: true
-            }, [
-              state.playbackRates.map((rate) => {
-                return h(QItem, {
-                // attrs
-                  key: rate.value,
-                  // props
-                  clickable: true,
-                  // events
-                  click: (e) => {
-                    __stopAndPrevent(e)
-                    __playbackRateChanged(rate.value)
-                  },
-                  directives: [
-                    {
-                      name: 'ripple',
-                      value: true
-                    },
-                    {
-                      name: 'close-popup',
-                      value: true
-                    }
-                  ]
-                }, [
-                  h(QItemSection, {
-                  // props
-                    avatar: true
-                  }, [
-                    rate.value === state.playbackRate && h(QIcon, {
-                    // props
-                      name: iconSet.mediaPlayer.selected
+              group: 'settings-menu',
+              expandSeparator: true,
+              icon: iconSet.mediaPlayer.speed,
+              label: lang.mediaPlayer.speed,
+              caption: __settingsPlaybackCaption.value,
+              // events
+              onShow: __adjustMenu,
+              onHide: __adjustMenu
+            }, {
+              default: () =>
+                h(QList, {
+                // props
+                  highlight: true
+                }, {
+                  default: () =>
+                    state.playbackRates.map(rate => {
+                      return withDirectives(h(QItem, {
+                      // attrs
+                        key: rate.value,
+                        // props
+                        clickable: true,
+                        dense: true,
+                        // events
+                        onClick: (e) => {
+                          __stopAndPrevent(e)
+                          __playbackRateChanged(rate.value)
+                        }
+                      }, { default: () => ([
+                        h(QItemSection, {
+                        // props
+                          avatar: true
+                        }, {
+                          default: () =>
+                            rate.value === state.playbackRate && h(QIcon, {
+                            // props
+                              name: iconSet.mediaPlayer.selected
+                            })
+                        }),
+                        h(QItemSection, () => rate.label)])
+                      }), [[
+                        ClosePopup
+                      ]])
                     })
-                  ]),
-                  h(QItemSection, rate.label)
-                ])
-              })
-            ])
-          ]),
-          // first item is 'Off' and doesn't count unless more are added
-          __selectTracksLanguageList.value.length > 1 && h(QExpansionItem, {
-          // proips
-            group: 'settings-menu',
-            expandSeparator: true,
-            icon: iconSet.mediaPlayer.language,
-            label: lang.mediaPlayer.language,
-            caption: state.trackLanguage,
-            // events
-            show: __adjustMenu,
-            hide: __adjustMenu
-          }, [
-            h(QList, {
+                })
+            }),
+            // first item is 'Off' and doesn't count unless more are added
+            __selectTracksLanguageList.value.length > 1 && h(QExpansionItem, {
             // props
-              highlight: true
-            }, [
-              __selectTracksLanguageList.value.map((language) => {
-                return h(QItem, {
-                // attrs
-                  key: language.value,
-                  // props
-                  clickable: true,
-                  // events
-                  click: (e) => {
-                    __stopAndPrevent(e)
-                    __trackLanguageChanged(language.value)
-                  },
-                  directives: [
-                    {
-                      name: 'ripple',
-                      value: true
-                    },
-                    {
-                      name: 'close-popup',
-                      value: true
-                    }
-                  ]
-                }, [
-                  h(QItemSection, {
-                  // props
-                    avatar: true
-                  }, [
-                    language.value === state.trackLanguage &&
-                    h(QIcon, {
-                      // props
-                      name: iconSet.mediaPlayer.selected
+              group: 'settings-menu',
+              expandSeparator: true,
+              icon: iconSet.mediaPlayer.language,
+              label: lang.mediaPlayer.language,
+              caption: state.trackLanguage,
+              // events
+              onShow: __adjustMenu,
+              onHide: __adjustMenu
+            }, {
+              default: () =>
+                h(QList, {
+                // props
+                  highlight: true
+                }, {
+                  default: () => ([
+                    __selectTracksLanguageList.value.map(language => {
+                      return withDirectives(h(QItem, {
+                      // attrs
+                        key: language.value,
+                        // props
+                        clickable: true,
+                        dense: true,
+                        // events
+                        onClick: (e) => {
+                          __stopAndPrevent(e)
+                          __trackLanguageChanged(language.value)
+                        }
+                      }, [
+                        h(QItemSection, {
+                        // props
+                          avatar: true
+                        }, {
+                          default: () =>
+                            language.value === state.trackLanguage &&
+                              h(QIcon, {
+                                // props
+                                name: iconSet.mediaPlayer.selected
+                              })
+                        }),
+                        h(QItemSection, language.label)
+                      ]), [[
+                        ClosePopup
+                      ]])
                     })
-                  ]),
-                  h(QItemSection, language.label)
-                ])
-              })
-            ])
+                  ])
+                })
+            })
           ])
-        ])
-      ])
+      })
     }
 
     function __renderMediaPlayer () {
       const events = {
-        mousemove: __mouseMoveAction,
-        mouseenter: __mouseEnterVideo,
-        mouseleave: __mouseLeaveVideo,
-        click: __videoClick
+        onMousemove: __mouseMoveAction,
+        onMouseenter: __mouseEnterVideo,
+        onMouseleave: __mouseLeaveVideo,
+        onClick: __videoClick
       }
 
       return h('div', {
@@ -2008,7 +2009,7 @@ export default defineComponent({
             state.errorText && __renderErrorWindow(),
             __isVideo.value && !state.noControls && !state.errorText && __renderVideoControls(),
             __isAudio.value && !state.noControls && !state.errorText && __renderAudioControls(),
-            props.showSpinner && state.loading && !state.playReady && !state.errorText && __renderLoader(),
+            props.showSpinner === true && state.loading && !state.playReady && !state.errorText && __renderLoader(),
             __isVideo.value && props.showBigPlayButton && state.playReady && !state.playing && __renderBigPlayButton()
           ]
         : void 0)
