@@ -442,11 +442,11 @@ export default defineComponent({
     //   exitFullscreen()
     // })
 
-    watch(() => $q.lang.isoName, val => {
+    watch($q.lang, val => {
       __setupLang()
     })
 
-    watch(() => $q.iconSet.name, val => {
+    watch($q.iconSet, val => {
       __setupIcons()
     })
 
@@ -1911,18 +1911,19 @@ export default defineComponent({
                           __stopAndPrevent(e)
                           __playbackRateChanged(rate.value)
                         }
-                      }, { default: () => ([
-                        h(QItemSection, {
-                        // props
-                          avatar: true
-                        }, {
-                          default: () =>
-                            rate.value === state.playbackRate && h(QIcon, {
-                            // props
-                              name: iconSet.mediaPlayer.selected
-                            })
-                        }),
-                        h(QItemSection, () => rate.label)])
+                      }, {
+                        default: () => ([
+                          h(QItemSection, {
+                          // props
+                            avatar: true
+                          }, {
+                            default: () =>
+                              rate.value === state.playbackRate && h(QIcon, {
+                              // props
+                                name: iconSet.mediaPlayer.selected
+                              })
+                          }),
+                          h(QItemSection, () => rate.label)])
                       }), [[
                         ClosePopup
                       ]])

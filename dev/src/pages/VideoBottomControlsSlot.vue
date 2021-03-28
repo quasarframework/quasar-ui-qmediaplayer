@@ -9,7 +9,7 @@
     ref="qmp"
     type="video"
   >
-    <!-- <template v-slot:controls>
+    <template v-slot:controls>
       <div class="column text-white bg-teal q-pa-md q-mt-xs">
         <div class="row">
           <q-btn size="xl" class="q-ml-sm" :icon="isPlaying ? 'stop': 'play_arrow'" @click="$refs.qmp.togglePlay()" outline></q-btn>
@@ -17,7 +17,7 @@
           <q-btn @click="$refs.qmp.toggleFullscreen()" flat icon="fullscreen"></q-btn>
         </div>
       </div>
-    </template> -->
+    </template>
   </q-media-player>
 </template>
 
