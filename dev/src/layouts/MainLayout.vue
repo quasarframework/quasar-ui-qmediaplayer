@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          quasar-ui-qmediaplayer <span class="text-subtitle2">v{{ version }}</span>
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { version } from 'ui' // "ui" is aliased in quasar.conf.js
 import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
@@ -108,6 +109,7 @@ export default defineComponent({
     const leftDrawerOpen = ref(false)
 
     return {
+      version,
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
