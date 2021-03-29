@@ -23,17 +23,12 @@
 
 <script>
 import pages from '../router/pages'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'PageIndex',
-
-  setup () {
-    return {
-      pages
-    }
+export default {
+  created () {
+    this.pages = pages
   }
-})
+}
 </script>
 
 <style lang="sass" scoped>

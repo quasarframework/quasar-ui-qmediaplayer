@@ -7,7 +7,7 @@ function kebabCase (str) {
     /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g,
     match => '-' + match.toLowerCase()
   )
-  return (str[0] === str[0].toUpperCase())
+  return (str[ 0 ] === str[ 0 ].toUpperCase())
     ? result.substring(1)
     : result
 }
@@ -20,8 +20,11 @@ export default require.context('../pages', true, /^\.\/.*\.vue$/)
   .keys()
   .map(page => page.slice(2).replace('.vue', ''))
   .filter(page => page !== 'Index' && page !== 'Error404')
-  .map(page => ({
-    file: page,
-    title: page + '.vue',
-    path: slugify(kebabCase(page))
-  }))
+  .map(page => {
+    return {
+      file: page,
+      name: page,
+      title: page + '.vue',
+      path: slugify(kebabCase(page))
+    }
+  })

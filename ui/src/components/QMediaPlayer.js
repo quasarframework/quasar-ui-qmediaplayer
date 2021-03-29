@@ -2,7 +2,7 @@ import {
   h,
   computed,
   defineComponent,
-  getCurrentInstance,
+  // getCurrentInstance,
   // onBeforeUpdate,
   // onMounted,
   onBeforeMount,
@@ -22,7 +22,7 @@ import {
 import { useColorizeProps, useColorize } from 'q-colorize-mixin'
 
 import {
-  // useQuasar,
+  useQuasar,
   QSlider,
   QBtn,
   QTooltip,
@@ -204,11 +204,12 @@ export default defineComponent({
   ],
 
   setup (props, { slots, emit, expose }) {
-    const vm = getCurrentInstance()
-
+    // const vm = getCurrentInstance()
+    debugger
     const
+      $q = useQuasar(),
       // $q = useQuasar() || vm.appContext.config.globalProperties.$q,
-      $q = vm.appContext.config.globalProperties.$q,
+      // $q = vm.appContext.config.globalProperties.$q,
       // $route = useRoute(),
       canRender = ref(false),
       lang = reactive({

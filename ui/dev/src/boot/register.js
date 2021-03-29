@@ -1,4 +1,9 @@
-import Vue from 'vue'
+// import something here
 import VuePlugin from 'ui' // "ui" is aliased in quasar.conf.js
+import '@quasar/quasar-ui-qmediaplayer/src/index.sass'
 
-Vue.use(VuePlugin)
+// "async" is optional;
+// more info on params: https://quasar.dev/quasar-cli/boot-files
+export default async ({ app }) => {
+  app.use(VuePlugin)
+}

@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     changeIconSet (name) {
-      const iconSet = require(`quasar/icon-set/${name}.js`).default
+      const iconSet = require(`quasar/icon-set/${ name }.js`).default
       this.$q.iconSet.set(iconSet)
     }
   }
