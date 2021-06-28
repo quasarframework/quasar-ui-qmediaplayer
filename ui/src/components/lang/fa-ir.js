@@ -1,27 +1,27 @@
 export default {
   lang: 'fa-ir',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
-    pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    oldBrowserVideo: 'برای مشاهده این ویدئو لطفا JavaScript مرورگر خود را فعال کنید و/یا مرورگر خود را به نسخه ای که از HTML5 پشتیبانی میکند ارتقاء دهید',
+    oldBrowserAudio: 'برای شنیدن این صوت لطفا JavaScript مرورگر خود را فعال کنید و/یا مرورگر خود را به نسخه ای که از HTML5 پشتیبانی میکند ارتقاء دهید',
+    pause: 'توقف',
+    play: 'پخش',
+    settings: 'تنظیمات',
+    toggleFullscreen: 'تغییر وضعیت تمام صفحه',
+    mute: 'قطع صدا',
+    unmute: 'وصل صدا',
+    speed: 'سرعت', // Playback rate
+    language: 'زبان',
+    playbackRate: 'سرعت پخش',
+    waitingVideo: 'در انتظار ویدئو',
+    waitingAudio: 'در انتظار فایل صوتی',
     ratePoint5: '.5x',
-    rateNormal: 'Normal',
+    rateNormal: 'معمولی',
     rate1Point5: '1.5x',
     rate2: '2x',
-    trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    trackLanguageOff: 'خاموش',
+    noLoadVideo: 'بارگیری ویدئو امکان پذیر نیست',
+    noLoadAudio: 'بارگیری صوت امکان پذیر نیست',
+    cannotPlayVideo: 'پخش ویدئو امکان پذیر نیست',
+    cannotPlayAudio: 'پخش صوت امکان پذیر نیست'
   }
 }
