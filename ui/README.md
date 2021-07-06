@@ -143,7 +143,7 @@ If you need the RTL variant of the CSS, then go for the following (instead of th
     <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quasar@^1.0.0/dist/quasar.umd.min.js"></script>
     <script src="dist/index.umd.js"></script>
-    <script src="dist/lang/en-US.umd.js"></script>
+    <script src="dist/lang/en-us.umd.js"></script>
     <script src="dist/icon-set/material-icons.umd.js"></script>
 
     <script>
