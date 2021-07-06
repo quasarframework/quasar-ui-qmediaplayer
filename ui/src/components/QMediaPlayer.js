@@ -716,7 +716,7 @@ export default {
       }
       if (this.$q.fullscreen !== void 0) {
         this.state.inFullscreen = true
-        this.$q.fullscreen.request() // NOTE error Not capable - on iPhone Safari
+        this.$q.fullscreen.request(this.$refs.media.parentNode) // NOTE error Not capable - on iPhone Safari
         document.body.classList.add('no-scroll')
         this.$nextTick(() => {
           this.$forceUpdate()
@@ -773,7 +773,9 @@ export default {
         // lang = require(`./lang/${isoName}`)
         lang = this.__loadLang(isoName)
       }
-      catch (e) {}
+      catch (e) {
+        lang = this.__loadLang('en-us')
+      }
 
       if (lang !== void 0 && lang.lang !== void 0) {
         this.lang.mediaPlayer = { ...lang.mediaPlayer }
@@ -783,6 +785,7 @@ export default {
     },
 
     __loadLang (lang) {
+      lang = lang || 'en-us'
       let langList = {}
       if (lang) {
         // detect if UMD version is installed
