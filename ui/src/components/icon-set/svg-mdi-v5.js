@@ -13,7 +13,7 @@ import {
 } from '@quasar/extras/mdi-v5'
 
 export default {
-  name: 'mdi-v5',
+  name: 'svg-mdi-v5',
   mediaPlayer: {
     play: mdiPlay,
     pause: mdiPause,
