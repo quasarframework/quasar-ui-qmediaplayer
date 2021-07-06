@@ -183,7 +183,7 @@ export default {
       locationUrl: 'https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/dev/demo/src/examples/',
       jsPaths: [
         `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${version}/dist/index.umd.min.js`,
-        `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${version}/dist/lang/en-us.umd.js`,
+        `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${version}/dist/lang/en-US.umd.js`,
         `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${version}/dist/icon-set/material-icons.umd.js`
       ],
       cssPaths: [

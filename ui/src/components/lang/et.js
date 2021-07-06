@@ -1,5 +1,5 @@
 export default {
-  lang: 'en-us',
+  lang: 'et',
   mediaPlayer: {
     oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
     oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
