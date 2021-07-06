@@ -767,13 +767,15 @@ export default {
     },
 
     __setupLang () {
-      const isoName = this.$q.lang.isoName || 'en-us'
+      const isoName = this.$q.lang.isoName || 'en-US'
       let lang
       try {
         // lang = require(`./lang/${isoName}`)
         lang = this.__loadLang(isoName)
       }
-      catch (e) {}
+      catch (e) {
+        lang = this.__loadLang('en-US')
+      }
 
       if (lang !== void 0 && lang.lang !== void 0) {
         this.lang.mediaPlayer = { ...lang.mediaPlayer }
@@ -783,6 +785,7 @@ export default {
     },
 
     __loadLang (lang) {
+      lang = lang || 'en-US'
       let langList = {}
       if (lang) {
         // detect if UMD version is installed
