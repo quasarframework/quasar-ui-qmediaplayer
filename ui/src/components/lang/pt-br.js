@@ -1,5 +1,5 @@
 export default {
-  lang: 'pt-BR',
+  lang: 'pt-br',
   mediaPlayer: {
     oldBrowserVideo: 'Para ver este vídeo, por favor ative o JavaScript e/ou considere instalar um navegador que suporte vídeos HTML5.',
     oldBrowserAudio: 'Para escutar este áudio, por favor ative o JavaScript e/ou considere instalar um navegador que suporte áudios HTML5.',

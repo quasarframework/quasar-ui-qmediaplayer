@@ -1,5 +1,5 @@
 export default {
-  lang: 'ko-KR',
+  lang: 'ko-kr',
   mediaPlayer: {
     oldBrowserVideo: '영상을 보기 위해서 자바스크립트 사용을 허용 하거나 HTML5 비디오를 지원하는 브라우저로 업그래이드 바랍니다.',
     oldBrowserAudio: '오디오를 듣기 위해서 자바스크립트 사용을 허용 하거나 HTML5 오디오를 지원하는 브라우저로 업그래이드 바랍니다.',
