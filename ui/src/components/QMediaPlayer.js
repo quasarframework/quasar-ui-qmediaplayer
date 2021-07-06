@@ -716,7 +716,7 @@ export default {
       }
       if (this.$q.fullscreen !== void 0) {
         this.state.inFullscreen = true
-        this.$q.fullscreen.request() // NOTE error Not capable - on iPhone Safari
+        this.$q.fullscreen.request(this.$refs.media.parentNode) // NOTE error Not capable - on iPhone Safari
         document.body.classList.add('no-scroll')
         this.$nextTick(() => {
           this.$forceUpdate()
