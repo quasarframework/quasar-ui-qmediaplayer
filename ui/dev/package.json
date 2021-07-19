@@ -18,7 +18,7 @@
     "core-js": "^3.15.2"
   },
   "devDependencies": {
-    "@quasar/app": "^2.2.10",
+    "@quasar/app": "^3.0.3",
     "@vue/eslint-config-standard": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.30.0",
