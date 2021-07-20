@@ -28,7 +28,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-quasar": "^1.0.0",
     "eslint-plugin-vue": "^7.12.1",
-    "eslint-webpack-plugin": "^2.5.4"
+    "eslint-webpack-plugin": "^3.0.0"
   },
   "browserslist": [
     "last 10 Chrome versions",
