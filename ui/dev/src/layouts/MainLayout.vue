@@ -100,7 +100,7 @@
 
 import { defineComponent, ref, computed, onBeforeMount, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
+import { version } from 'ui'
 import pages from '../router/pages'
 
 export default defineComponent({
@@ -166,7 +166,7 @@ export default defineComponent({
     }
 
     return {
-      version: computed(() => 'VERSION MISSING'), // FIXME
+      version,
       filter,
       pages,
       filteredPages,
