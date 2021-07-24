@@ -1822,18 +1822,14 @@ export default defineComponent({
 
     function __renderInfinitySvg () {
       return h('svg', {
-        attrs: {
-          height: '16',
-          viewbox: '0 0 16 16'
-        }
+        height: '16',
+        viewbox: '0 0 16 16'
       }, [
         h('path', {
-          attrs: {
-            fill: 'none',
-            stroke: '#ffffff',
-            strokeWidth: '2',
-            d: 'M8,8 C16,0 16,16 8,8 C0,0 0,16 8,8z'
-          }
+          fill: 'none',
+          color: props.dark === true || $q.dark.isActive ? 'var(--mediaplayer-color-dark)' : 'var(--mediaplayer-color)',
+          strokeWidth: '2',
+          d: 'M8,8 C16,0 16,16 8,8 C0,0 0,16 8,8z'
         })
       ])
     }
