@@ -1077,13 +1077,15 @@ export default defineComponent({
     }
 
     function __checkCursor () {
-      if (state.inFullscreen && state.playing && !state.showControls) {
-        $media.value.classList.remove('cursor-inherit')
-        $media.value.classList.add('cursor-none')
-      }
-      else {
-        $media.value.classList.remove('cursor-none')
-        $media.value.classList.add('cursor-inherit')
+      if (__isMediaAvailable.value === true) {
+        if (state.inFullscreen && state.playing && !state.showControls) {
+          $media.value.classList.remove('cursor-inherit')
+          $media.value.classList.add('cursor-none')
+        }
+        else {
+          $media.value.classList.remove('cursor-none')
+          $media.value.classList.add('cursor-inherit')
+        }
       }
     }
 
