@@ -1470,12 +1470,10 @@ export default defineComponent({
         class: 'q-media__controls--button play-button',
         ...properties,
         ...events
-      }, {
-        default: () => ([
-          props.showTooltips && state.playing && h(QTooltip, () => lang.mediaPlayer.pause),
-          props.showTooltips && !state.playing && state.playReady && h(QTooltip, () => lang.mediaPlayer.play)
-        ])
-      })
+      }, [
+        props.showTooltips && state.playing && h(QTooltip, () => lang.mediaPlayer.pause),
+        props.showTooltips && !state.playing && state.playReady && h(QTooltip, () => lang.mediaPlayer.play)
+      ])
     }
 
     function __renderVideoControls () {
@@ -1491,6 +1489,7 @@ export default defineComponent({
           ref: controls,
           class: {
             'q-media__controls': true,
+            'q-media__controls--overlay': __isVideo.value === true && state.bottomControls !== true,
             ...__videoControlsClasses.value
           },
           ...events
@@ -1503,6 +1502,7 @@ export default defineComponent({
         ref: controls,
         class: {
           'q-media__controls': true,
+          'q-media__controls--overlay': __isVideo.value === true && state.bottomControls !== true,
           ...__videoControlsClasses.value
         },
         ...events
@@ -1622,15 +1622,13 @@ export default defineComponent({
         },
         ...properties,
         ...events
-      }, {
-        default: () => ([
-          props.showTooltips === true
-            ? state.muted === true
-              ? h(QTooltip, () => lang.mediaPlayer.unmute)
-              : h(QTooltip, () => lang.mediaPlayer.mute)
-            : undefined
-        ])
-      })
+      }, [
+        props.showTooltips === true
+          ? state.muted === true
+            ? h(QTooltip, () => lang.mediaPlayer.unmute)
+            : h(QTooltip, () => lang.mediaPlayer.mute)
+          : undefined
+      ])
     }
 
     function __renderVolumeSlider () {
@@ -1683,14 +1681,12 @@ export default defineComponent({
       return (slot && slot()) || h(QBtn, {
         class: 'q-media__controls--button settings-button',
         ...properties
-      }, {
-        default: () => ([
-          props.showTooltips === true && !settingsMenuVisible.value
-            ? h(QTooltip, () => lang.mediaPlayer.settings)
-            : undefined,
-          __renderSettingsMenu()
-        ])
-      })
+      }, [
+        props.showTooltips === true && !settingsMenuVisible.value
+          ? h(QTooltip, () => lang.mediaPlayer.settings)
+          : undefined,
+        __renderSettingsMenu()
+      ])
     }
 
     function __renderFullscreenButton () {
@@ -1712,13 +1708,11 @@ export default defineComponent({
         class: 'q-media__controls--button fullscreen-button',
         ...properties,
         ...events
-      }, {
-        default: () => ([
-          props.showTooltips === true
-            ? h(QTooltip, () => lang.mediaPlayer.toggleFullscreen)
-            : undefined
-        ])
-      })
+      }, [
+        props.showTooltips === true
+          ? h(QTooltip, () => lang.mediaPlayer.toggleFullscreen)
+          : undefined
+      ])
     }
 
     function __renderLoader () {
@@ -1855,109 +1849,100 @@ export default defineComponent({
         ref: menu,
         ...properties,
         ...events
-      }, {
-        default: () =>
-          (slot && slot()) || h('div', [
-            state.playbackRates.length > 0 && h(QExpansionItem, {
+      }, [
+        (slot && slot()) || h('div', [
+          state.playbackRates.length > 0 && h(QExpansionItem, {
             // props
-              group: 'settings-menu',
-              expandSeparator: true,
-              icon: iconSet.mediaPlayer.speed,
-              label: lang.mediaPlayer.speed,
-              caption: __settingsPlaybackCaption.value,
-              // events
-              onShow: __adjustMenu,
-              onHide: __adjustMenu
-            }, {
-              default: () =>
-                h(QList, {
-                // props
-                  highlight: true
-                }, {
-                  default: () =>
-                    state.playbackRates.map(rate => {
-                      return withDirectives(h(QItem, {
-                      // attrs
-                        key: rate.value,
-                        // props
-                        clickable: true,
-                        dense: true,
-                        // events
-                        onClick: (e) => {
-                          __stopAndPrevent(e)
-                          __playbackRateChanged(rate.value)
-                        }
-                      }, {
-                        default: () => ([
-                          h(QItemSection, {
-                          // props
-                            avatar: true
-                          }, {
-                            default: () =>
-                              rate.value === state.playbackRate && h(QIcon, {
-                              // props
-                                name: iconSet.mediaPlayer.selected
-                              })
-                          }),
-                          h(QItemSection, () => rate.label)])
-                      }), [[
-                        ClosePopup
-                      ]])
-                    })
-                })
-            }),
-            // first item is 'Off' and doesn't count unless more are added
-            __selectTracksLanguageList.value.length > 1 && h(QExpansionItem, {
+            group: 'settings-menu',
+            expandSeparator: true,
+            icon: iconSet.mediaPlayer.speed,
+            label: lang.mediaPlayer.speed,
+            caption: __settingsPlaybackCaption.value,
+            // events
+            onShow: __adjustMenu,
+            onHide: __adjustMenu
+          }, [
+            h(QList, {
             // props
-              group: 'settings-menu',
-              expandSeparator: true,
-              icon: iconSet.mediaPlayer.language,
-              label: lang.mediaPlayer.language,
-              caption: state.trackLanguage,
-              // events
-              onShow: __adjustMenu,
-              onHide: __adjustMenu
-            }, {
-              default: () =>
-                h(QList, {
-                // props
-                  highlight: true
-                }, {
-                  default: () => ([
-                    __selectTracksLanguageList.value.map(language => {
-                      return withDirectives(h(QItem, {
-                      // attrs
-                        key: language.value,
-                        // props
-                        clickable: true,
-                        dense: true,
-                        // events
-                        onClick: (e) => {
-                          __stopAndPrevent(e)
-                          __trackLanguageChanged(language.value)
-                        }
-                      }, [
-                        h(QItemSection, {
-                        // props
-                          avatar: true
-                        }, {
-                          default: () =>
-                            language.value === state.trackLanguage &&
-                              h(QIcon, {
-                                // props
-                                name: iconSet.mediaPlayer.selected
-                              })
-                        }),
-                        h(QItemSection, language.label)
-                      ]), [[
-                        ClosePopup
-                      ]])
+              highlight: true
+            }, [
+              state.playbackRates.map(rate => {
+                return withDirectives(h(QItem, {
+                  // attrs
+                  key: rate.value,
+                  // props
+                  clickable: true,
+                  dense: true,
+                  // events
+                  onClick: (e) => {
+                    __stopAndPrevent(e)
+                    __playbackRateChanged(rate.value)
+                  }
+                }, [
+                  h(QItemSection, {
+                  // props
+                    avatar: true
+                  }, [
+                    rate.value === state.playbackRate && h(QIcon, {
+                      // props
+                      name: iconSet.mediaPlayer.selected
                     })
-                  ])
-                })
-            })
+                  ]),
+                  h(QItemSection, () => rate.label)
+                ]), [[
+                  ClosePopup
+                ]])
+              })
+            ])
+          ]),
+          // first item is 'Off' and doesn't count unless more are added
+          __selectTracksLanguageList.value.length > 1 && h(QExpansionItem, {
+            // props
+            group: 'settings-menu',
+            expandSeparator: true,
+            icon: iconSet.mediaPlayer.language,
+            label: lang.mediaPlayer.language,
+            caption: state.trackLanguage,
+            // events
+            onShow: __adjustMenu,
+            onHide: __adjustMenu
+          }, [
+            h(QList, {
+              // props
+              highlight: true
+            }, [
+              __selectTracksLanguageList.value.map(language => {
+                return withDirectives(h(QItem, {
+                  // attrs
+                  key: language.value,
+                  // props
+                  clickable: true,
+                  dense: true,
+                  // events
+                  onClick: (e) => {
+                    __stopAndPrevent(e)
+                    __trackLanguageChanged(language.value)
+                  }
+                }, [
+                  h(QItemSection, {
+                    // props
+                    avatar: true
+                  }, [
+                    language.value === state.trackLanguage &&
+                      h(QIcon, {
+                        // props
+                        name: iconSet.mediaPlayer.selected
+                      })
+                  ]),
+                  h(QItemSection, language.label)
+                ]), [[
+                  ClosePopup
+                ]])
+              })
+            ])
           ])
-      })
+        ])
+      ])
     }
 
     function __renderMediaPlayer () {
