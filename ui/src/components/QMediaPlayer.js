@@ -1401,7 +1401,7 @@ export default defineComponent({
           ...__mergeClassOrStyle('class', props.contentClass)
         },
         style: props.contentStyle,
-        attrs
+        ...attrs
       }, hSlot(slot, h('p', lang.mediaPlayer.oldBrowserAudio)))
     }
 
