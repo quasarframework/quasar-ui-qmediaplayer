@@ -1317,7 +1317,7 @@ export default defineComponent({
     }
 
     function __updatePoster () {
-      if (__isMediaAvailable.value === true) {
+      if (__isMediaAvailable.value === true && props.poster) {
         $media.value.poster = props.poster
       }
     }
@@ -1340,7 +1340,7 @@ export default defineComponent({
       const slot = slots.oldbrowser
 
       const attrs = {
-        poster: props.poster,
+        poster: (props.poster ? props.poster : false),
         preload: props.preload,
         playsinline: props.playsinline === true,
         loop: props.loop === true,
