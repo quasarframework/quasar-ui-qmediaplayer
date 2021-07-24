@@ -1,0 +1,16 @@
+{
+  "name": "qmediaplayer",
+  "version": "1.0.0",
+  "description": "QMediaPlayer mono-repo",
+  "workspaces": [
+    "ui",
+    "docs",
+    "app-extension"
+  ],
+  "author": "Jeff Galbraith <jeff@quasar.dev>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:all": "yarn && cd ./ui && yarn build && cd ../docs && quasar build"
+  }
+}
