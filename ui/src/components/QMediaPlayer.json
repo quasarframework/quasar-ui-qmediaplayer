@@ -15,36 +15,6 @@
         "type=\"audio\""
       ]
     },
-    "color": {
-      "type": "String",
-      "category": "style",
-      "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
-      "applicable": [ "Audio", "Video" ],
-      "examples": [
-        "color=\"primary\"",
-        "color=\"teal-10\""
-      ]
-    },
-    "background-color": {
-      "type": "String",
-      "category": "style",
-      "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
-      "applicable": [ "Audio", "Video" ],
-      "examples": [
-        "background-color=\"black\"",
-        "background-color=\"teal-10\""
-      ]
-    },
-    "big-play-button-color": {
-      "type": "String",
-      "category": "style",
-      "desc": "Color name for component from the [Quasar Color Pallete](https://quasar.dev/style/color-palette)",
-      "applicable": [ "Video" ],
-      "examples": [
-        "big-play-button-color=\"primary\"",
-        "big-play-button-color=\"teal-10\""
-      ]
-    },
     "mobile-mode": {
       "type": "Boolean",
       "category": "behavior",

@@ -2,7 +2,7 @@ import {
   h,
   computed,
   defineComponent,
-  // getCurrentInstance,
+  getCurrentInstance,
   // onBeforeUpdate,
   // onMounted,
   onBeforeMount,
@@ -15,11 +15,6 @@ import {
   watch,
   withDirectives
 } from 'vue'
-
-// import { useRoute } from 'vue-router'
-
-// Utils
-import { useColorizeProps, useColorize } from 'q-colorize-mixin'
 
 import {
   useQuasar,
@@ -74,7 +69,6 @@ export default defineComponent({
   },
 
   props: {
-    ...useColorizeProps,
     type: {
       type: String,
       required: false,
@@ -152,18 +146,6 @@ export default defineComponent({
       type: Number,
       default: 1
     },
-    color: {
-      type: String,
-      default: 'white'
-    },
-    backgroundColor: {
-      type: String,
-      default: 'black'
-    },
-    bigPlayButtonColor: {
-      type: String,
-      default: 'white'
-    },
     dark: Boolean,
     radius: {
       type: [Number, String],
@@ -204,13 +186,9 @@ export default defineComponent({
   ],
 
   setup (props, { slots, emit, expose }) {
-    // const vm = getCurrentInstance()
-    debugger
     const
-      $q = useQuasar(),
-      // $q = useQuasar() || vm.appContext.config.globalProperties.$q,
-      // $q = vm.appContext.config.globalProperties.$q,
-      // $route = useRoute(),
+      vm = getCurrentInstance(),
+      $q = useQuasar() || vm.proxy.$q || vm.ctx.$q,
       canRender = ref(false),
       lang = reactive({
         mediaPlayer: {}
@@ -278,12 +256,6 @@ export default defineComponent({
         'volumechange',
         'waiting'
       ]
-
-    // Composition
-    const {
-      setTextColor,
-      setBorderColor
-    } = useColorize()
 
     // Computed
 
@@ -1482,7 +1454,6 @@ export default defineComponent({
 
       const properties = {
         icon: state.playing ? iconSet.mediaPlayer.pause : iconSet.mediaPlayer.play,
-        textColor: props.color,
         size: '1rem',
         disable: !state.playReady,
         flat: true,
@@ -1632,7 +1603,6 @@ export default defineComponent({
 
       const properties = {
         icon: __volumeIcon.value,
-        textColor: props.color,
         size: '1rem',
         disable: !state.playReady,
         flat: true,
@@ -1665,8 +1635,7 @@ export default defineComponent({
       const slot = slots.volumeSlider
 
       const properties = {
-        value: state.volume,
-        color: props.color,
+        modelValue: state.volume,
         dark: props.dark,
         min: 0,
         max: 100,
@@ -1699,7 +1668,6 @@ export default defineComponent({
 
       const properties = {
         icon: iconSet.mediaPlayer.settings,
-        textColor: props.color,
         size: '1rem',
         disable: !state.playReady,
         flat: true,
@@ -1724,7 +1692,6 @@ export default defineComponent({
 
       const properties = {
         icon: state.inFullscreen ? iconSet.mediaPlayer.fullscreenExit : iconSet.mediaPlayer.fullscreen,
-        textColor: props.color,
         size: '1rem',
         disable: !state.playReady,
         flat: true,
@@ -1763,8 +1730,7 @@ export default defineComponent({
         class: __isVideo.value ? 'q-media__loading--video' : 'q-media__loading--audio'
       }, [
         h(QSpinner, {
-          size: state.spinnerSize,
-          color: props.color
+          size: state.spinnerSize
         })
       ])
     }
@@ -1776,17 +1742,20 @@ export default defineComponent({
         onClick: __bigButtonClick
       }
 
-      return (slot && slot()) || h('div', setBorderColor(props.bigPlayButtonColor, {
-        class: state.bottomControls === true ? 'q-media--big-button q-media--big-button-bottom-controls' : 'q-media--big-button',
+      return (slot && slot()) || h('div', {
+        class: {
+          'q-media--big-button q-media--big-button-bottom-controls': state.bottomControls === true,
+          'q-media--big-button': state.bottomControls !== true
+        },
         style: {
           top: __bigButtonPositionHeight()
         }
-      }), [
-        h(QIcon, setTextColor(props.bigPlayButtonColor, {
+      }, [
+        h(QIcon, {
           name: iconSet.mediaPlayer.bigPlayButton,
           class: 'q-media--big-button-icon',
           ...events
-        }))
+        })
       ])
     }
 
@@ -1795,7 +1764,6 @@ export default defineComponent({
 
       const properties = {
         value: state.currentTime,
-        color: props.color,
         dark: props.dark,
         min: 0,
         max: state.duration ? state.duration : 1,
@@ -1809,7 +1777,8 @@ export default defineComponent({
       return (slot && slot()) || h(QSlider, {
         class: 'col',
         style: {
-          margin: '0 0.5rem'
+          margin: '0 0.5rem',
+          color: props.dark === true || $q.dark.isActive ? 'var(--mediaplayer-color-dark)' : 'var(--mediaplayer-color)'
         },
         ...properties,
         ...events
@@ -1820,7 +1789,10 @@ export default defineComponent({
       const slot = slots.displayTime
 
       return (slot && slot()) || h('span', {
-        class: 'q-media__controls--video-time-text' + ' text-' + props.color
+        class: 'q-media__controls--video-time-text text-left',
+        style: {
+          color: props.dark === true || $q.dark.isActive ? 'var(--mediaplayer-color-dark)' : 'var(--mediaplayer-color)'
+        }
       }, state.displayTime)
     }
 
@@ -1831,9 +1803,10 @@ export default defineComponent({
       const isInfinity = !isFinite($media.value.duration)
 
       return (slot && slot()) || h('span', {
-        class: 'q-media__controls--video-time-text' + ' text-' + props.color,
+        class: 'q-media__controls--video-time-text text-right',
         style: {
-          width: isInfinity ? '30px' : 'auto'
+          width: isInfinity ? '30px' : 'auto',
+          color: props.dark === true || $q.dark.isActive ? 'var(--mediaplayer-color-dark)' : 'var(--mediaplayer-color)'
         }
       }, [
         __isMediaAvailable.value === true && isInfinity !== true && state.durationTime,
@@ -1995,7 +1968,8 @@ export default defineComponent({
 
       return h('div', {
         class: {
-          ['q-media bg-' + props.backgroundColor]: true,
+          'q-media--dark': props.dark === true,
+          'q-media': true,
           ...__classes.value
         },
         style: {
