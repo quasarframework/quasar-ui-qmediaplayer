@@ -1769,7 +1769,7 @@ export default defineComponent({
       const slot = slots.positionSlider
 
       const properties = {
-        value: state.currentTime,
+        modelValue: state.currentTime,
         dark: props.dark,
         min: 0,
         max: state.duration ? state.duration : 1,
