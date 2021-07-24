@@ -1617,6 +1617,9 @@ export default defineComponent({
 
       return (slot && slot()) || h(QBtn, {
         class: 'q-media__controls--button volume-button',
+        style: {
+          color: props.dark === true || $q.dark.isActive ? 'var(--mediaplayer-color-dark)' : 'var(--mediaplayer-color)'
+        },
         ...properties,
         ...events
       }, {
@@ -1654,7 +1657,8 @@ export default defineComponent({
           width: '20%',
           margin: '0 0.5rem',
           minWidth: props.dense ? '20px' : '50px',
-          maxWidth: props.dense ? '50px' : '200px'
+          maxWidth: props.dense ? '50px' : '200px',
+          color: props.dark === true || $q.dark.isActive ? 'var(--mediaplayer-color-dark)' : 'var(--mediaplayer-color)'
         },
         ...properties,
         ...events
