@@ -100,7 +100,6 @@
 
 import { defineComponent, ref, computed, onBeforeMount, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { version } from '@quasar/quasar-ui-qmediaplayer'
 
 import pages from '../router/pages'
 
@@ -167,7 +166,7 @@ export default defineComponent({
     }
 
     return {
-      version,
+      version: computed(() => 'VERSION MISSING'), // FIXME
       filter,
       pages,
       filteredPages,

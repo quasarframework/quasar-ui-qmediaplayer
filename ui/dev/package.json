@@ -6,15 +6,21 @@
   "author": "Jeff Galbraith <jeff.galbraith@xendra.com>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.vue ./",
-    "test": "echo \"No test specified\" && exit 0"
+    "lint": "eslint --ext .js,.vue src",
+    "lint-fix": "eslint --ext .js,.vue src --fix",
+    "dev": "quasar dev",
+    "dev:ssr": "quasar dev -m ssr",
+    "dev:ios": "quasar dev -m ios",
+    "dev:android": "quasar dev -m android",
+    "dev:electron": "quasar dev -m electron"
   },
   "dependencies": {
-    "core-js": "^3.6.5"
+    "core-js": "^3.6.5",
+    "quasar": "^2.0.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@quasar/app": "^3.0.0-beta.1",
+    "@quasar/app": "^3.0.3",
     "babel-eslint": "^10.0.1",
     "eslint": "^7.14.0",
     "eslint-config-standard": "^16.0.2",
