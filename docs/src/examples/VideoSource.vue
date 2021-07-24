@@ -1,0 +1,22 @@
+<template>
+  <div class="q-pa-md">
+    <q-media-player
+      type="video"
+      source="http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4"
+    />
+  </div>
+
+</template>
+
+<script>
+import { defineComponent } from 'vue'
+import QMediaPlayer from '@quasar/quasar-ui-qmediaplayer/src/components/QMediaPlayer.js'
+import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
+
+export default defineComponent({
+  name: 'VideoSource',
+  components: {
+    QMediaPlayer
+  }
+})
+</script>

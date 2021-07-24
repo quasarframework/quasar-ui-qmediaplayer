@@ -1,0 +1,39 @@
+<template>
+  <div class="q-pa-md">
+    <q-media-player
+      type="audio"
+      :sources="sources"
+      style="
+        --mediaplayer-background: #f57c00;
+        --mediaplayer-background-dark: #f57c00
+      "
+    />
+  </div>
+
+</template>
+
+<script>
+import { defineComponent } from 'vue'
+import QMediaPlayer from '@quasar/quasar-ui-qmediaplayer/src/components/QMediaPlayer.js'
+import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
+
+export default defineComponent({
+  name: 'AudioBackgroundColor',
+  components: {
+    QMediaPlayer
+  },
+
+  setup () {
+    const sources = [
+      {
+        src: 'https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/public/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
+        type: 'audio/mp3'
+      }
+    ]
+
+    return {
+      sources
+    }
+  }
+})
+</script>
