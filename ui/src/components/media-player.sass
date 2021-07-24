@@ -1,3 +1,5 @@
+@import './media-player-variables.sass'
+  
 $max-z-index : 5900
 
 .q-media
@@ -7,6 +9,8 @@ $max-z-index : 5900
   overflow: hidden !important
   display: flex
   flex-direction: column
+  background: var(--mediaplayer-background)
+  color: var(--mediaplayer-color)
 
   &--player
     width: 100%
@@ -78,33 +82,37 @@ $max-z-index : 5900
 
   &--big-button
     position: absolute
+    display: flex
+    justify-content: center
+    align-items: center
     left: 50%
+    top: calc(50% - 1.5rem)
     margin-left: -1.5rem
-    top: 50%
     margin-bottom: -1.5rem
     width: 3rem
     height: 3rem
     cursor: pointer
-    border-style: solid
-    border-color: white
-    border-width: 1px
     border-radius: 1.5rem
     opacity: 1.0
     font-size: 3rem
     z-index: 1000 // not to cover drawer from sides
-    background: rgba(255,255,255,0.28)
+    background: var(--big-play-button-background)
+    color: var(--big-play-button-color)
+    border: var(--big-play-button-border)
+    transition: all 200ms ease-in
+    transition-property: color, background, border
 
     &-bottom-controls
       // margin-bottom: 0!important // doesn't show at the screen center in Safari
       // needs to be aligned for fullscreen and controls at the bottom
 
     &:hover
-      background: rgba(255, 255, 255, 0.15)
+      color: var(--big-play-button-hover-color) !important
+      background: var(--big-play-button-hover-background) !important
+      border: var(--big-play-button-border-hover) !important
 
     &-icon
       position: relative
-      margin-left: .5rem
-      margin-bottom: 2.1rem
       font-size: 2rem
 
   &__controls
@@ -112,9 +120,11 @@ $max-z-index : 5900
     left: 0
     bottom: 0
     right: 0
-    background: rgba(0, 0, 0, 0.40)
     overflow: hidden
     z-index: 2
+
+    &--overlay
+      background: rgba(0, 0, 0, 0.40)
 
     &--bottom-controls
       position: relative!important
@@ -147,8 +157,8 @@ $max-z-index : 5900
       min-height: 40px !important
 
     &--video-time-text
+      min-width: 50px
       padding: 0 0.25rem
-      color: #fff
       font-size: .8rem
       text-align: center
 
@@ -176,3 +186,22 @@ $max-z-index : 5900
 
 // video::-webkit-media-controls-enclosure
 //   display: none !important
+
+.q-dark div,
+.body--dark div,
+.q-media--dark
+
+  &.q-media
+    background: var(--mediaplayer-background-dark)
+    color: var(--mediaplayer-color-dark)
+
+    &--big-button
+      background: var(--big-play-button-background-dark)
+      color: var(--big-play-button-color-dark)
+      border: var(--big-play-button-border-dark)
+
+      &:hover
+        color: var(--big-play-button-hover-color-dark) !important
+        background: var(--big-play-button-hover-background-dark) !important
+        border: var(--big-play-button-border-hover-dark) !important
+
