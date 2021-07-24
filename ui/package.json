@@ -2,7 +2,7 @@
   "name": "@quasar/quasar-ui-qmediaplayer",
   "version": "2.0.0-alpha.1",
   "author": "Jeff Galbraith <jeff@quasar.dev>",
-  "description": "QMediaPlayer is an HTML5 audio/video player (Vue Plugin, UMD and Quasar App Extension)",
+  "description": "QMediaPlayer is an HTML5 media player (Vue Plugin, UMD and Quasar App Extension)",
   "license": "MIT",
   "module": "dist/index.esm.js",
   "main": "dist/index.common.js",
@@ -53,8 +53,7 @@
     "attributes": "dist/vetur/attributes.json"
   },
   "dependencies": {
-    "@quasar/extras": "^1.10.0",
-    "q-colorize-mixin": "^2.0.0-alpha.7"
+    "@quasar/extras": "^1.10.0"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
