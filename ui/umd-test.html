@@ -9,7 +9,7 @@
 
     <title>UMD test</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/quasar@^1.0.0/dist/quasar.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.prod.css" rel="stylesheet" type="text/css">
     <link href="dist/index.css" rel="stylesheet" type="text/css">
   </head>
   <body>
@@ -18,7 +18,7 @@
         <q-header class="glossy bg-primary">
           <q-toolbar>
             <q-toolbar-title>
-              quasar-ui-qmediaplayer v{{ version }}
+              QMediaPlayer v{{ version }}
             </q-toolbar-title>
 
             <div>Quasar v{{ $q.version }}</div>
@@ -42,18 +42,17 @@
       </q-layout>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/quasar@^1.0.0/dist/quasar.ie.polyfills.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/quasar@^1.0.0/dist/quasar.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.umd.prod.js"></script>
     <script src="dist/index.umd.js"></script>
     <script src="dist/lang/en-us.umd.js"></script>
     <script src="dist/icon-set/material-icons.umd.js"></script>
 
     <script>
-      new Vue({
-        el: '#q-app',
+      const { onBeforeUnmount, watch, ref } = Vue
+      const app = Vue.createApp({
+        setup () {
 
-        data: function () {
           return {
             version: QMediaPlayer.version,
             sources: [
@@ -65,6 +64,10 @@
           }
         }
       })
+
+      app.use(Quasar)
+      app.use(QMediPlayer)
+      app.mount('#q-app')
     </script>
   </body>
 </html>
