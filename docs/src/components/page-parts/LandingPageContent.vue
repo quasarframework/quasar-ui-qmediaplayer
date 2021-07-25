@@ -4,7 +4,6 @@
       <div class="landing-page__splash row justify-around items-center">
         <h2 class="text-weight-bold text-blue-2 q-pa-sm" style="padding-left: 20px;">QMediaPlayer,<br>HTML5 Media<br>player for your<br>Quasar apps</h2>
         <div class="q-pa-sm">
-          <!-- TODO: Jeff - need image before publishing -->
           <img
             src="/qmediaplayer.png"
             class="shadow-10 rounded-borders"
