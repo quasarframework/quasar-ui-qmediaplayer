@@ -1,9 +1,9 @@
 <template>
   <div class="q-pa-md">
     <q-media-player
-      type="video"
+      type="audio"
       :sources="sources"
-      disabled-seek
+      native-controls
     />
   </div>
 
@@ -15,7 +15,7 @@ import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
 import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
 
 export default defineComponent({
-  name: 'VideoDisabledSeek',
+  name: 'AudioNativeControls',
   components: {
     QMediaPlayer
   },
@@ -23,8 +23,8 @@ export default defineComponent({
   setup () {
     const sources = [
       {
-        src: 'http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
-        type: 'video/mp4'
+        src: 'https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/public/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
+        type: 'audio/mp3'
       }
     ]
 

@@ -329,3 +329,17 @@ In this example, we are also using `mobile-mode` so the controls show displayed 
   file="VideoPlaysinlineBottomControls"
   codepen-title="QMediaPlayer"
 />
+
+### Native controls
+
+<example-viewer
+  title="Audio native controls"
+  file="AudioNativeControls"
+  codepen-title="QMediaPlayer"
+/>
+
+<example-viewer
+  title="Video native controls"
+  file="VideoNativeControls"
+  codepen-title="QMediaPlayer"
+/>

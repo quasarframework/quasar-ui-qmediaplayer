@@ -3,7 +3,7 @@
     <q-media-player
       type="video"
       :sources="sources"
-      disabled-seek
+      native-controls
     />
   </div>
 
@@ -15,7 +15,7 @@ import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
 import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
 
 export default defineComponent({
-  name: 'VideoDisabledSeek',
+  name: 'VideoNativeControls',
   components: {
     QMediaPlayer
   },

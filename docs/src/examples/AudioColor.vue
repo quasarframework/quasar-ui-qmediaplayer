@@ -14,7 +14,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import QMediaPlayer from '@quasar/quasar-ui-qmediaplayer/src/components/QMediaPlayer.js'
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
 import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
 
 export default defineComponent({

@@ -24,7 +24,7 @@
 import { defineComponent, ref, onBeforeMount, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import languages from 'quasar/lang/index.json'
-import QMediaPlayer from '@quasar/quasar-ui-qmediaplayer/src/components/QMediaPlayer.js'
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
 import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
 
 export default defineComponent({
