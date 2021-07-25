@@ -4,13 +4,11 @@ module.exports = {
   // Remove this if you have an higher level ESLint config file (it usually happens into a monorepos)
   root: true,
 
+  parser: '@babel/eslint-parser',
   parserOptions: {
-    parser: 'babel-eslint',
-    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 2019, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
-    ecmaFeatures: {
-      jsx: true
-    }
+    requireConfigFile: false
   },
 
   env: {
@@ -26,13 +24,15 @@ module.exports = {
     // Uncomment any of the lines below to choose desired strictness,
     // but leave only one uncommented!
     // See https://eslint.vuejs.org/rules/#available-rules
-    'plugin:vue/essential', // Priority A: Essential (Error Prevention)
-    // 'plugin:vue/strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
-    // 'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
+    'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)
+    // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
+    // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
-    'plugin:quasar/standard',
+    // 'plugin:quasar/standard',
 
-    'standard'
+    // 'standard',
+    // 'plugin:jest/recommended',
+    'plugin:promise/recommended'
   ],
 
   // required to lint *.vue files
@@ -40,13 +40,19 @@ module.exports = {
     // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
     // required to lint *.vue files
     'vue',
-    'quasar'
+    'node',
+    'promise',
+    'import'
   ],
 
   globals: {
     ga: true, // Google Analytics
     cordova: true,
     __statics: true,
+    __QUASAR_SSR__: true,
+    __QUASAR_SSR_SERVER__: true,
+    __QUASAR_SSR_CLIENT__: true,
+    __QUASAR_SSR_PWA__: true,
     process: true,
     Capacitor: true,
     chrome: true
@@ -54,11 +60,30 @@ module.exports = {
 
   // add your custom rules here
   rules: {
-    // allow async-await
+    'brace-style': [ 'error', 'stroustrup', { allowSingleLine: true } ],
+    'prefer-const': 'error',
+    'prefer-promise-reject-errors': 'off',
+    'multiline-ternary': 'off',
+    'no-prototype-builtins': 'off',
+    'no-case-declarations': 'off',
     'generator-star-spacing': 'off',
-    // allow paren-less arrow functions
     'arrow-parens': 'off',
+    'object-property-newline': 'off',
     'one-var': 'off',
+    'no-void': 'off',
+    'no-lone-blocks': 'error',
+    'no-unused-expressions': [ 'error', { allowTernary: true, "allowShortCircuit": true } ],
+    'no-useless-concat': 'error',
+    'no-useless-return': 'error',
+    'no-unneeded-ternary': 'error',
+    'no-confusing-arrow': [ 'error', { allowParens: true } ],
+    'operator-linebreak': [ 'error', 'before' ],
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+
+    'array-bracket-spacing': [ 'error', 'always', { singleValue: false } ],
+    'object-curly-spacing': [ 'error', 'always' ],
+    'computed-property-spacing': [ 'error', 'always' ],
+    'template-curly-spacing': [ 'error', 'always' ],
 
     'import/first': 'off',
     'import/named': 'error',
@@ -68,26 +93,13 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
-    'prefer-promise-reject-errors': 'off',
 
-    'brace-style': [2, 'stroustrup', { allowSingleLine: false }],
+    'import/no-webpack-loader-syntax': 'off',
 
-    'vue/no-deprecated-slot-attribute': 'off', // Vue 3?
-    'vue/no-deprecated-slot-scope-attribute': 'off', // Vue 3?
-    'vue/no-deprecated-v-bind-sync': 'off', // Vue 3?
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/no-multiple-template-root': 'off',
 
-    'quasar/no-invalid-props': 'warn',
-    'quasar/no-invalid-qfield-usage': 'warn',
-
-    'quasar/no-legacy-components': 'error',
-    'quasar/no-legacy-css': 'error',
-    'quasar/no-legacy-directives': 'error',
-    'quasar/no-legacy-properties': 'error',
-
-    'no-void': 'off',
     // allow console.log during development only
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
 }
