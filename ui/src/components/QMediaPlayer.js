@@ -1,35 +1,31 @@
 import {
-  h,
   computed,
   defineComponent,
   getCurrentInstance,
-  // onBeforeUpdate,
-  // onMounted,
+  h,
+  nextTick,
   onBeforeMount,
   onBeforeUnmount,
-  nextTick,
-  // forceUpdate,
   reactive,
   ref,
-  // Transition,
   watch,
   withDirectives
 } from 'vue'
 
 import {
-  useQuasar,
-  QSlider,
+  ClosePopup,
   QBtn,
-  QTooltip,
-  QMenu,
   QExpansionItem,
-  QList,
+  QIcon,
   QItem,
   QItemSection,
-  QIcon,
+  QList,
+  QMenu,
+  QSlider,
   QSpinner,
-  ClosePopup,
-  Ripple
+  QTooltip,
+  Ripple,
+  useQuasar
 } from 'quasar'
 
 function hSlot (slot, otherwise) {
@@ -201,7 +197,7 @@ export default defineComponent({
       menu = ref(null), // $ref
       // media = ref(null), // $ref
       timer = reactive({
-      // timer used to hide control during mouse inactivity
+        // timer used to hide control during mouse inactivity
         hideControlsTimer: null
       }),
       state = reactive({
@@ -296,7 +292,7 @@ export default defineComponent({
       if (state.inFullscreen !== true) {
         Object.assign(style, __mergeClassOrStyle('style', props.contentStyle))
         if (props.bottomControls === true && style.height === void 0) {
-        // const size = props.dense === true ? 40 : 80
+          // const size = props.dense === true ? 40 : 80
           style.height = `calc(100% - ${__controlsHeight.value}px)`
         }
         if (style.height === void 0) {
@@ -424,7 +420,7 @@ export default defineComponent({
     })
 
     watch(() => $q.fullscreen.isActive, val => {
-    // user pressed F11/ESC to exit fullscreen
+      // user pressed F11/ESC to exit fullscreen
       if (!val && __isVideo.value && state.inFullscreen) {
         exitFullscreen()
       }
@@ -446,7 +442,7 @@ export default defineComponent({
 
     watch(() => state.showControls, val => {
       if (__isVideo.value && !state.noControls) {
-      // eslint-disable-next-line vue/custom-event-name-casing
+        // eslint-disable-next-line vue/custom-event-name-casing
         emit('showControls', val)
       }
     })
@@ -499,7 +495,7 @@ export default defineComponent({
 
     onBeforeUnmount(() => {
       if (canRender.value === true) {
-      // make sure not still in fullscreen
+        // make sure not still in fullscreen
         exitFullscreen()
 
         // make sure noScroll is not left in unintended state
@@ -534,7 +530,7 @@ export default defineComponent({
           return true
         }
         else {
-        /* eslint-disable-next-line no-console */
+          /* eslint-disable-next-line no-console */
           console.error('QMediaPlayer: loadFileBlob method requires a FileList')
         }
       }
@@ -609,7 +605,7 @@ export default defineComponent({
             })
         }
         else {
-        // IE11 + EDGE support
+          // IE11 + EDGE support
           $media.value.play()
           state.showBigPlayButton = false
           state.playing = true
@@ -663,7 +659,7 @@ export default defineComponent({
               })
           }
           else {
-          // IE11 + EDGE support
+            // IE11 + EDGE support
             $media.value.play()
             state.showBigPlayButton = false
             state.playing = true
@@ -797,7 +793,8 @@ export default defineComponent({
         // language = require(`./lang/${isoName}`)
         language = __loadLang(isoName)
       }
-      catch (e) { }
+      catch (e) {
+      }
 
       if (language !== void 0 && language.lang !== void 0) {
         lang.mediaPlayer = { ...language.mediaPlayer }
@@ -809,15 +806,14 @@ export default defineComponent({
     function __loadLang (lang) {
       let langList = {}
       if (lang) {
-      // detect if UMD version is installed
+        // detect if UMD version is installed
         if (window && window.QMediaPlayer && window.QMediaPlayer.Component) {
           const name = lang.replace(/-([a-z])/g, g => g[1].toUpperCase())
           if (window.QMediaPlayer.lang && window.QMediaPlayer.lang[name]) {
-            const selectedLang = window.QMediaPlayer.lang[name]
-            langList = selectedLang
+            langList = window.QMediaPlayer.lang[name]
           }
           else {
-          /* eslint-disable-next-line no-console */
+            /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: no language loaded called '${lang}'`)
             /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the language in a script tag before using with UMD')
@@ -825,11 +821,10 @@ export default defineComponent({
         }
         else {
           try {
-            const langSet = require(`@quasar/quasar-ui-qmediaplayer/src/components/lang/${lang}.js`).default
-            langList = langSet
+            langList = require(`@quasar/quasar-ui-qmediaplayer/src/components/lang/${lang}.js`).default
           }
           catch (e) {
-          /* eslint-disable-next-line no-console */
+            /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: cannot find language file called '${lang}'`)
           }
         }
@@ -843,22 +838,22 @@ export default defineComponent({
       try {
         icnSet = __loadIconSet(iconSetName)
       }
-      catch (e) { }
+      catch (e) {
+      }
       icnSet !== void 0 && icnSet.name !== void 0 && (iconSet.mediaPlayer = { ...icnSet.mediaPlayer })
     }
 
     function __loadIconSet (set) {
       let iconsList = {}
       if (set) {
-      // detect if UMD version is installed
+        // detect if UMD version is installed
         if (window && window.QMediaPlayer && window.QMediaPlayer.Component) {
           const name = set.replace(/-([a-z])/g, g => g[1].toUpperCase())
           if (window.QMediaPlayer.iconSet && window.QMediaPlayer.iconSet[name]) {
-            const iconsSet = window.QMediaPlayer.iconSet[name]
-            iconsList = iconsSet
+            iconsList = window.QMediaPlayer.iconSet[name]
           }
           else {
-          /* eslint-disable-next-line no-console */
+            /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: no icon set loaded called '${set}'`)
             /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the icon set in a script tag before using with UMD')
@@ -866,11 +861,10 @@ export default defineComponent({
         }
         else {
           try {
-            const iconsSet = require(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${set}.js`).default
-            iconsList = iconsSet
+            iconsList = require(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${set}.js`).default
           }
           catch (e) {
-          /* eslint-disable-next-line no-console */
+            /* eslint-disable-next-line no-console */
             console.error(`QMediaPlayer: cannot find icon set file called '${set}'`)
           }
         }
@@ -962,7 +956,7 @@ export default defineComponent({
         emit('ready')
       }
       else if (event.type === 'canplaythrough') {
-      // console.log('canplaythrough')
+        // console.log('canplaythrough')
         emit('canplaythrough')
       }
       else if (event.type === 'durationchange') {
@@ -984,17 +978,17 @@ export default defineComponent({
         emit('error', error)
       }
       else if (event.type === 'interruptbegin') {
-      // console.log('interruptbegin')
+        // console.log('interruptbegin')
       }
       else if (event.type === 'interruptend') {
-      // console.log('interruptend')
+        // console.log('interruptend')
       }
       else if (event.type === 'loadeddata') {
         state.loading = false
         emit('loadeddata')
       }
       else if (event.type === 'loadedmetadata') {
-      // tracks can only be programatically added after 'loadedmetadata' event
+        // tracks can only be programatically added after 'loadedmetadata' event
         state.metadataLoaded = true
         __updateTracks()
         // set default track language
@@ -1023,20 +1017,20 @@ export default defineComponent({
         emit('playing')
       }
       else if (event.type === 'progress') {
-      //
+        //
       }
       else if (event.type === 'ratechange') {
-      //
+        //
       }
       else if (event.type === 'seeked') {
-      //
+        //
       }
       else if (event.type === 'timeupdate') {
         state.currentTime = $media.value.currentTime
         emit('timeupdate', $media.value.currentTime, state.remainingTime)
       }
       else if (event.type === 'volumechange') {
-      //
+        //
       }
       else if (event.type === 'waiting') {
         emit('waiting')
@@ -1243,7 +1237,7 @@ export default defineComponent({
         $media.value.pause()
         $media.value.src = ''
         if ($media.value.currentTime) {
-        // otherwise IE11 has exception error
+          // otherwise IE11 has exception error
           $media.value.currentTime = 0
         }
         const childNodes = $media.value.childNodes
@@ -1300,7 +1294,7 @@ export default defineComponent({
     }
 
     function __addTracks () {
-    // only add tracks to video
+      // only add tracks to video
       if (__isVideo.value && __isMediaAvailable.value === true) {
         props.tracks.forEach((track) => {
           const t = document.createElement('TRACK')
@@ -1326,10 +1320,10 @@ export default defineComponent({
       if ($media.value) {
         // top of video
         return $media.value.clientTop +
-        // height of video / 2
-        ($media.value.clientHeight / 2).toFixed(2) -
-        // big button is 48px -- so 1/2 of that
-        24 + 'px'
+          // height of video / 2
+          ($media.value.clientHeight / 2).toFixed(2) -
+          // big button is 48px -- so 1/2 of that
+          24 + 'px'
       }
       return '50%'
     }
@@ -1354,7 +1348,7 @@ export default defineComponent({
         if (__isMediaAvailable.value && props.nativeControls === true) {
           $media.value.controls = true
         }
-      })
+      }).catch(e => console.error(e))
 
       return h('video', {
         ref: $media,
@@ -1386,7 +1380,7 @@ export default defineComponent({
         if (props.nativeControls === true && $media.value) {
           $media.value.controls = true
         }
-      })
+      }).catch(e => console.error(e))
 
       // This is on purpose (not using audio tag).
       // The video tag can also play audio and works better if dynamically
@@ -1432,12 +1426,10 @@ export default defineComponent({
     // }
 
     function __renderOverlayWindow () {
-      const slot = slots.overlay
-
-      if (slot) {
+      if (slots.overlay) {
         return h('div', {
           class: 'q-media__overlay-window fit'
-        }, slot())
+        }, slots.overlay())
       }
     }
 
@@ -1470,7 +1462,7 @@ export default defineComponent({
         class: 'q-media__controls--button play-button',
         ...properties,
         ...events
-      }, [
+      }, () => [
         props.showTooltips && state.playing && h(QTooltip, () => lang.mediaPlayer.pause),
         props.showTooltips && !state.playing && state.playReady && h(QTooltip, () => lang.mediaPlayer.play)
       ])
@@ -1484,7 +1476,7 @@ export default defineComponent({
       }
 
       if (slot) {
-      // we need to know the controls height for fullscreen, stop propagation to video component
+        // we need to know the controls height for fullscreen, stop propagation to video component
         return h('div', {
           ref: controls,
           class: {
@@ -1507,7 +1499,7 @@ export default defineComponent({
         },
         ...events
       }, [
-      // dense
+        // dense
         props.dense && h('div', {
           class: 'q-media__controls--row row col content-start items-center'
         }, [
@@ -1565,7 +1557,7 @@ export default defineComponent({
         props.dense && h('div', {
           class: 'q-media__controls--row row col content-start items-center'
         }, [
-        // dense
+          // dense
           h('div', [
             __renderPlayButton(),
             props.showTooltips && !state.playReady && h(QTooltip, () => lang.mediaPlayer.waitingAudio)
@@ -1622,7 +1614,7 @@ export default defineComponent({
         },
         ...properties,
         ...events
-      }, [
+      }, () => [
         props.showTooltips === true
           ? state.muted === true
             ? h(QTooltip, () => lang.mediaPlayer.unmute)
@@ -1681,7 +1673,7 @@ export default defineComponent({
       return (slot && slot()) || h(QBtn, {
         class: 'q-media__controls--button settings-button',
         ...properties
-      }, [
+      }, () => [
         props.showTooltips === true && !settingsMenuVisible.value
           ? h(QTooltip, () => lang.mediaPlayer.settings)
           : undefined,
@@ -1708,7 +1700,7 @@ export default defineComponent({
         class: 'q-media__controls--button fullscreen-button',
         ...properties,
         ...events
-      }, [
+      }, () => [
         props.showTooltips === true
           ? h(QTooltip, () => lang.mediaPlayer.toggleFullscreen)
           : undefined
@@ -1849,7 +1841,7 @@ export default defineComponent({
         ref: menu,
         ...properties,
         ...events
-      }, [
+      }, () => [
         (slot && slot()) || h('div', [
           state.playbackRates.length > 0 && h(QExpansionItem, {
             // props
@@ -1861,11 +1853,11 @@ export default defineComponent({
             // events
             onShow: __adjustMenu,
             onHide: __adjustMenu
-          }, [
+          }, () => [
             h(QList, {
-            // props
+              // props
               highlight: true
-            }, [
+            }, () => [
               state.playbackRates.map(rate => {
                 return withDirectives(h(QItem, {
                   // attrs
@@ -1878,11 +1870,11 @@ export default defineComponent({
                     __stopAndPrevent(e)
                     __playbackRateChanged(rate.value)
                   }
-                }, [
+                }, () => [
                   h(QItemSection, {
-                  // props
+                    // props
                     avatar: true
-                  }, [
+                  }, () => [
                     rate.value === state.playbackRate && h(QIcon, {
                       // props
                       name: iconSet.mediaPlayer.selected
@@ -1906,11 +1898,11 @@ export default defineComponent({
             // events
             onShow: __adjustMenu,
             onHide: __adjustMenu
-          }, [
+          }, () => [
             h(QList, {
               // props
               highlight: true
-            }, [
+            }, () => [
               __selectTracksLanguageList.value.map(language => {
                 return withDirectives(h(QItem, {
                   // attrs
@@ -1923,18 +1915,18 @@ export default defineComponent({
                     __stopAndPrevent(e)
                     __trackLanguageChanged(language.value)
                   }
-                }, [
+                }, () => [
                   h(QItemSection, {
                     // props
                     avatar: true
-                  }, [
+                  }, () => [
                     language.value === state.trackLanguage &&
-                      h(QIcon, {
-                        // props
-                        name: iconSet.mediaPlayer.selected
-                      })
+                    h(QIcon, {
+                      // props
+                      name: iconSet.mediaPlayer.selected
+                    })
                   ]),
-                  h(QItemSection, language.label)
+                  h(QItemSection, () => language.label)
                 ]), [[
                   ClosePopup
                 ]])
