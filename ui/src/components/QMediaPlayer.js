@@ -696,7 +696,7 @@ export default defineComponent({
       }
       if ($q.fullscreen !== void 0) {
         state.inFullscreen = true
-        $q.fullscreen.request() // NOTE error Not capable - on iPhone Safari
+        $q.fullscreen.request($media.value.parentNode) // NOTE error Not capable - on iPhone Safari
         document.body.classList.add('no-scroll')
         // nextTick(() => {
         //   forceUpdate()
