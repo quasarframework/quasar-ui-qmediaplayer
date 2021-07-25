@@ -2,10 +2,12 @@ const path = require('path')
 const fs = require('fs')
 const fse = require('fs-extra')
 const rollup = require('rollup')
-const uglify = require('uglify-es')
+const uglify = require('uglify-js')
 const buble = require('@rollup/plugin-buble')
 const json = require('@rollup/plugin-json')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
+
+const { version } = require('../package.json')
 
 const buildConf = require('./config')
 const buildUtils = require('./utils')
@@ -19,11 +21,50 @@ const nodeResolveConfig = {
   preferBuiltins: false
 }
 
-const rollupPlugins = [
+const rollupPluginsModern = [
   nodeResolve(nodeResolveConfig),
   json(),
   buble(bubleConfig)
 ]
+
+const uglifyJsOptions = {
+  compress: {
+    // turn off flags with small gains to speed up minification
+    arrows: false,
+    collapse_vars: false,
+    comparisons: false,
+    // computed_props: false,
+    hoist_funs: false,
+    hoist_props: false,
+    hoist_vars: false,
+    inline: false,
+    loops: false,
+    negate_iife: false,
+    properties: false,
+    reduce_funcs: false,
+    reduce_vars: false,
+    switches: false,
+    toplevel: false,
+    typeofs: false,
+
+    // a few flags with noticable gains/speed ratio
+    booleans: true,
+    if_return: true,
+    sequences: true,
+    unused: true,
+
+    // required features to drop conditional branches
+    conditionals: true,
+    dead_code: true,
+    evaluate: true
+  }
+}
+
+// const rollupPlugins = [
+//   nodeResolve(nodeResolveConfig),
+//   json(),
+//   buble(bubleConfig)
+// ]
 
 const builds = [
   {
@@ -33,12 +74,14 @@ const builds = [
       },
       output: {
         file: pathResolve('../dist/index.esm.js'),
-        format: 'es'
+        format: 'es',
+        exports: 'auto'
       }
     },
     build: {
-      // unminified: true,
-      minified: true
+      unminified: true,
+      minified: true,
+      minExt: true
     }
   },
   {
@@ -53,8 +96,9 @@ const builds = [
       }
     },
     build: {
-      // unminified: true,
-      minified: true
+      unminified: true,
+      minified: true,
+      minExt: true
     }
   },
   {
@@ -129,7 +173,7 @@ function build (builds) {
 
 function genConfig (opts) {
   Object.assign(opts.rollup.input, {
-    plugins: rollupPlugins,
+    plugins: rollupPluginsModern,
     external: ['vue', 'quasar']
   })
 
@@ -146,13 +190,32 @@ function addExtension (filename, ext = 'min') {
   return `${filename.slice(0, insertionPoint)}.${ext}${filename.slice(insertionPoint)}`
 }
 
+function injectVueRequirement (code) {
+  // eslint-disable-next-line quotes
+  const index = code.indexOf(`Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue`)
+
+  if (index === -1) {
+    return code
+  }
+
+  const checkMe = ` if (Vue === void 0) {
+    console.error('[ QOverlay ] Vue is required to run. Please add a script tag for it before loading QOverlay.')
+    return
+  }
+  `
+
+  return code.substring(0, index - 1)
+    + checkMe
+    + code.substring(index)
+}
+
 function buildEntry (config) {
   return rollup
     .rollup(config.rollup.input)
     .then(bundle => bundle.generate(config.rollup.output))
     .then(({ output }) => {
       const code = config.rollup.output.format === 'umd'
-        ? injectVueRequirement(output[0].code)
+        ? injectVueRequirement(output[ 0 ].code)
         : output[0].code
 
       return config.build.unminified
@@ -164,11 +227,12 @@ function buildEntry (config) {
         return code
       }
 
-      const minified = uglify.minify(code, {
-        compress: {
-          pure_funcs: ['makeMap']
-        }
-      })
+      // const minified = uglify.minify(code, {
+      //   compress: {
+      //     pure_funcs: ['makeMap']
+      //   }
+      // })
+      const minified = uglify.minify(code, uglifyJsOptions)
 
       if (minified.error) {
         return Promise.reject(minified.error)
@@ -186,23 +250,4 @@ function buildEntry (config) {
       console.error(err)
       process.exit(1)
     })
-}
-
-function injectVueRequirement (code) {
-  // eslint-disable-next-line quotes
-  const index = code.indexOf(`Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue`)
-
-  if (index === -1) {
-    return code
-  }
-
-  const checkMe = ` if (Vue === void 0) {
-    console.error('[ Quasar ] Vue is required to run. Please add a script tag for it before loading Quasar.')
-    return
-  }
-  `
-
-  return code.substring(0, index - 1) +
-    checkMe +
-    code.substring(index)
 }
