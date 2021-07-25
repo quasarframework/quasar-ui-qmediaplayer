@@ -22,5 +22,14 @@ QMediaPlayer allows you to play HTML5 media files.
 
 ## Features
 
-- ...
-- ...
+- HTML5 video and audio
+- Fullscreen support
+- Captions support
+- Native controls (if needed)
+- Multi-language support (PRs welcomed for language sets not yet converted)
+- Multi-icons sets support
+
+## QMediaPlayer is not...
+
+- RTSP/RTMP/RTP/HDS player
+- YouTube/Vimeo player
