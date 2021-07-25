@@ -69,7 +69,7 @@ export default defineComponent({
       type: String,
       required: false,
       default: 'video',
-      validator: v => ['video', 'audio'].includes(v)
+      validator: v => [ 'video', 'audio' ].includes(v)
     },
     mobileMode: Boolean,
     source: String,
@@ -88,9 +88,9 @@ export default defineComponent({
     dense: Boolean,
     autoplay: Boolean,
     crossOrigin: {
-      type: [String, null],
+      type: [String],
       default: null,
-      validator: v => v === null || ['anonymous', 'use-credentials'].includes(v)
+      validator: v => v === null || [ 'anonymous', 'use-credentials' ].includes(v)
     },
     volume: {
       type: Number,
@@ -106,7 +106,7 @@ export default defineComponent({
     preload: {
       type: String,
       default: 'metadata',
-      validator: v => ['none', 'metadata', 'auto'].includes(v)
+      validator: v => [ 'none', 'metadata', 'auto' ].includes(v)
     },
     noVideo: Boolean,
     muted: Boolean,
@@ -144,11 +144,11 @@ export default defineComponent({
     },
     dark: Boolean,
     radius: {
-      type: [Number, String],
+      type: [ Number, String ],
       default: 0
     },
-    contentStyle: [String, Object],
-    contentClass: [String, Object],
+    contentStyle: [ String, Object ],
+    contentClass: [ String, Object ],
     contentWidth: Number,
     contentHeight: Number
   },
@@ -293,7 +293,7 @@ export default defineComponent({
         Object.assign(style, __mergeClassOrStyle('style', props.contentStyle))
         if (props.bottomControls === true && style.height === void 0) {
           // const size = props.dense === true ? 40 : 80
-          style.height = `calc(100% - ${__controlsHeight.value}px)`
+          style.height = `calc(100% - ${ __controlsHeight.value }px)`
         }
         if (style.height === void 0) {
           style.height = '100%'
@@ -323,7 +323,7 @@ export default defineComponent({
       tracksList.push(track)
       for (let index = 0; index < props.tracks.length; ++index) {
         const track = {}
-        track.label = track.value = props.tracks[index].label
+        track.label = track.value = props.tracks[ index ].label
         tracksList.push(track)
       }
       return tracksList
@@ -526,7 +526,7 @@ export default defineComponent({
             $media.value.load()
             state.loading = false
           }
-          reader.readAsDataURL(fileList[0])
+          reader.readAsDataURL(fileList[ 0 ])
           return true
         }
         else {
@@ -600,6 +600,7 @@ export default defineComponent({
               state.showBigPlayButton = false
               state.playing = true
               __mouseLeaveVideo()
+              return true
             })
             .catch((e) => {
             })
@@ -654,6 +655,7 @@ export default defineComponent({
                 state.showBigPlayButton = false
                 state.playing = true
                 __mouseLeaveVideo()
+                  return true
               })
               .catch((e) => {
               })
@@ -767,13 +769,13 @@ export default defineComponent({
     function __showCaptions (lang) {
       if (__isMediaAvailable.value === true && __isVideo.value) {
         for (let index = 0; index < $media.value.textTracks.length; ++index) {
-          if ($media.value.textTracks[index].label === lang) {
-            $media.value.textTracks[index].mode = 'showing'
-            $media.value.textTracks[index].oncuechange = __cueChanged
+          if ($media.value.textTracks[ index ].label === lang) {
+            $media.value.textTracks[ index ].mode = 'showing'
+            $media.value.textTracks[ index ].oncuechange = __cueChanged
           }
           else {
-            $media.value.textTracks[index].mode = 'hidden'
-            $media.value.textTracks[index].oncuechange = null
+            $media.value.textTracks[ index ].mode = 'hidden'
+            $media.value.textTracks[ index ].oncuechange = null
           }
         }
       }
@@ -808,24 +810,24 @@ export default defineComponent({
       if (lang) {
         // detect if UMD version is installed
         if (window && window.QMediaPlayer && window.QMediaPlayer.Component) {
-          const name = lang.replace(/-([a-z])/g, g => g[1].toUpperCase())
-          if (window.QMediaPlayer.lang && window.QMediaPlayer.lang[name]) {
-            langList = window.QMediaPlayer.lang[name]
+          const name = lang.replace(/-([a-z])/g, g => g[ 1 ].toUpperCase())
+          if (window.QMediaPlayer.lang && window.QMediaPlayer.lang[ name ]) {
+            langList = window.QMediaPlayer.lang[ name ]
           }
           else {
             /* eslint-disable-next-line no-console */
-            console.error(`QMediaPlayer: no language loaded called '${lang}'`)
+            console.error(`QMediaPlayer: no language loaded called '${ lang }'`)
             /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the language in a script tag before using with UMD')
           }
         }
         else {
           try {
-            langList = require(`@quasar/quasar-ui-qmediaplayer/src/components/lang/${lang}.js`).default
+            langList = require(`@quasar/quasar-ui-qmediaplayer/src/components/lang/${ lang }.js`).default
           }
           catch (e) {
             /* eslint-disable-next-line no-console */
-            console.error(`QMediaPlayer: cannot find language file called '${lang}'`)
+            console.error(`QMediaPlayer: cannot find language file called '${ lang }'`)
           }
         }
       }
@@ -848,24 +850,24 @@ export default defineComponent({
       if (set) {
         // detect if UMD version is installed
         if (window && window.QMediaPlayer && window.QMediaPlayer.Component) {
-          const name = set.replace(/-([a-z])/g, g => g[1].toUpperCase())
-          if (window.QMediaPlayer.iconSet && window.QMediaPlayer.iconSet[name]) {
-            iconsList = window.QMediaPlayer.iconSet[name]
+          const name = set.replace(/-([a-z])/g, g => g[ 1 ].toUpperCase())
+          if (window.QMediaPlayer.iconSet && window.QMediaPlayer.iconSet[ name ]) {
+            iconsList = window.QMediaPlayer.iconSet[ name ]
           }
           else {
             /* eslint-disable-next-line no-console */
-            console.error(`QMediaPlayer: no icon set loaded called '${set}'`)
+            console.error(`QMediaPlayer: no icon set loaded called '${ set }'`)
             /* eslint-disable-next-line no-console */
             console.error('Be sure to load the UMD version of the icon set in a script tag before using with UMD')
           }
         }
         else {
           try {
-            iconsList = require(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${set}.js`).default
+            iconsList = require(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${ set }.js`).default
           }
           catch (e) {
             /* eslint-disable-next-line no-console */
-            console.error(`QMediaPlayer: cannot find icon set file called '${set}'`)
+            console.error(`QMediaPlayer: cannot find icon set file called '${ set }'`)
           }
         }
       }
@@ -922,7 +924,7 @@ export default defineComponent({
       if (__isMediaAvailable.value === true) {
         const sources = $media.value.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
-          sources[index].addEventListener('error', __sourceEventHandler)
+          sources[ index ].addEventListener('error', __sourceEventHandler)
         }
       }
     }
@@ -931,7 +933,7 @@ export default defineComponent({
       if (__isMediaAvailable.value === true) {
         const sources = $media.value.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
-          sources[index].removeEventListener('error', __sourceEventHandler)
+          sources[ index ].removeEventListener('error', __sourceEventHandler)
         }
       }
     }
@@ -1046,7 +1048,7 @@ export default defineComponent({
             parts.forEach(part => {
               if (part !== '') {
                 const data = part.split(':')
-                child[data[0]] = data[1]
+                child[ data[ 0 ] ] = data[ 1 ]
               }
             })
           }
@@ -1054,7 +1056,7 @@ export default defineComponent({
             const parts = val.split(' ')
             parts.forEach(part => {
               if (part.replace(/\s+/g, '') !== '') {
-                child[part] = true
+                child[ part ] = true
               }
             })
           }
@@ -1242,8 +1244,8 @@ export default defineComponent({
         }
         const childNodes = $media.value.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
-          if (childNodes[index].tagName === 'SOURCE') {
-            $media.value.removeChild(childNodes[index])
+          if (childNodes[ index ].tagName === 'SOURCE') {
+            $media.value.removeChild(childNodes[ index ])
           }
         }
         $media.value.load()
@@ -1286,8 +1288,8 @@ export default defineComponent({
       if (__isMediaAvailable.value === true) {
         const childNodes = $media.value.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
-          if (childNodes[index].tagName === 'TRACK') {
-            $media.value.removeChild(childNodes[index])
+          if (childNodes[ index ].tagName === 'TRACK') {
+            $media.value.removeChild(childNodes[ index ])
           }
         }
       }
@@ -1319,11 +1321,11 @@ export default defineComponent({
     function __bigButtonPositionHeight () {
       if ($media.value) {
         // top of video
-        return $media.value.clientTop +
+        return $media.value.clientTop
           // height of video / 2
-          ($media.value.clientHeight / 2).toFixed(2) -
+          + ($media.value.clientHeight / 2).toFixed(2)
           // big button is 48px -- so 1/2 of that
-          24 + 'px'
+          - 24 + 'px'
       }
       return '50%'
     }
@@ -1920,8 +1922,8 @@ export default defineComponent({
                     // props
                     avatar: true
                   }, () => [
-                    language.value === state.trackLanguage &&
-                    h(QIcon, {
+                    language.value === state.trackLanguage
+                    && h(QIcon, {
                       // props
                       name: iconSet.mediaPlayer.selected
                     })
