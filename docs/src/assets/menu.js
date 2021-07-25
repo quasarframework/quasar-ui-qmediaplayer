@@ -99,6 +99,10 @@ const menu = [
         path: 'faq'
       },
       {
+        name: 'Migration guide',
+        path: 'migration-guide'
+      },
+      {
         name: 'Contact us',
         path: 'contact-us'
       }
