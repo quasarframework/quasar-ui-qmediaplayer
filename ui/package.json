@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-ui-qmediaplayer",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "author": "Jeff Galbraith <jeff@quasar.dev>",
   "description": "QMediaPlayer is an HTML5 media player (Vue Plugin, UMD and Quasar App Extension)",
   "license": "MIT",
