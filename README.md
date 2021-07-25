@@ -20,13 +20,12 @@ If you fork or download this project, make sure you have the Quasar CLI globally
 $ npm i -g @quasar/cli
 ```
 
-The workflow to build the demo, on a fresh project, is as follows:
+The QMediaPlayer project is a **yarn workspace** mono-repo. The workflow to build the docs, on a fresh project, is as follows:
 ```
+$ yarn
 $ cd ui
-$ yarn
 $ yarn build
-$ cd ../demo
-$ yarn
+$ cd ../docs
 $ quasar dev
 ```
 
@@ -156,22 +155,6 @@ audio: {
 ```
 
 # Other
-
-## Fullscreen
-
-It is important to note that if you desire fullscreen, then you must add Quasar's `AppFullscreen` plug-in to your `quasar.conf.js`. For more information, please refer to the [documentation](https://quasar.dev/quasar-plugins/app-fullscreen):
-
-```js
-// quasar.conf.js
-
-return {
-  framework: {
-    plugins: [
-      'AppFullscreen'
-    ]
-  }
-}
-```
 
 ## cross-origin
 
