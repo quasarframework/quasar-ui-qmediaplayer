@@ -9,7 +9,7 @@
     <slot></slot>
 
     <div v-if="related !== undefined" class="full-width">
-      <h5 class="q-ma-none">Related</h5>
+      <h5 class="q-ma-none q-mt-lg">Related</h5>
       <q-separator />
       <div class="q-gutter-md flex flex-center q-mt-md markdown-page__related">
         <router-link
