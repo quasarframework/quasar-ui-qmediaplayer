@@ -1,5 +1,7 @@
 # Quasar App Extension QMediaPlayer
 
+> If you are looking for QMediaPlayer v2.+ look into the `next` branch. For v2.+ documentation, go [here](https://qmediaplayer.netlify.app/).
+
 The QMediaPlayer app extension allows you to seamlessly add the [QMediaPlayer UI](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/dev/ui) component directly into your Quasar Framework application without the need to write a boot file. See below for installation instructions via the Quasar CLI.
 
 ![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer.svg?label=@quasar/quasar-app-extension-qmediaplayer)

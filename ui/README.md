@@ -4,6 +4,8 @@ QMediaPlayer
 [![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer.svg?label=@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-ui-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 
+> If you are looking for QMediaPlayer v2.+ look into the `next` branch. For v2.+ documentation, go [here](https://qmediaplayer.netlify.app/).
+
 QMediaPlayer is a [Quasar](https://quasar.dev) component. It allows you to embed HTML5 video and audio into your Quasar application.
 
 ![QMediaPlayer](https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/public/qmediaplayer.png)
