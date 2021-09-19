@@ -3,6 +3,6 @@ title: Changelog
 desc: The latest QMediaPlayer releases
 keys: latest-news
 components:
-- releases/QMediaPlayerReleases
+  - releases/Releases
 ---
-<q-media-player-releases class="q-mt-sm"/>
+<releases class="q-mt-sm"/>
