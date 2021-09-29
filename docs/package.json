@@ -16,11 +16,11 @@
     "dev:electron": "quasar dev -m electron"
   },
   "dependencies": {
-    "@quasar/extras": "^1.11.0",
+    "@quasar/extras": "^1.11.1",
     "@quasar/quasar-ui-qmediaplayer": "./ui",
-    "core-js": "^3.17.3",
+    "core-js": "^3.18.1",
     "quasar": "^2.1.0",
-    "quasar-ui-example-viewer": "^2.0.0-alpha.6",
+    "quasar-ui-example-viewer": "^2.0.0-alpha.9",
     "quasar-ui-json-api-viewer": "^2.0.0-alpha.6"
   },
   "devDependencies": {
