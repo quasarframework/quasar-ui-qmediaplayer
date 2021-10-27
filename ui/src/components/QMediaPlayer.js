@@ -977,6 +977,8 @@ export default defineComponent({
       }
       else if (event.type === 'error') {
         const error = $media.value.error
+        state.errorText = error
+        state.playing = false
         emit('error', error)
       }
       else if (event.type === 'interruptbegin') {
