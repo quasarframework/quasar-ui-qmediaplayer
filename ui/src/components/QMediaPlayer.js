@@ -978,7 +978,7 @@ export default defineComponent({
       }
       else if (event.type === 'error') {
         const error = $media.value.error
-        state.errorText = error
+        state.errorText = error && error.message ? error.message : null
         state.playing = false
         state.loading = false
         emit('error', error)
