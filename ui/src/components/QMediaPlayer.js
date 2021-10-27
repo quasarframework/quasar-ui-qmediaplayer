@@ -28,6 +28,10 @@ import {
   useQuasar
 } from 'quasar'
 
+import {
+  matClose
+} from '@quasar/extras/material-icons'
+
 function hSlot (slot, otherwise) {
   return slot !== void 0
     ? slot()
@@ -1439,12 +1443,22 @@ export default defineComponent({
       }
     }
 
+    function errorWindowCloseButton () {
+      return h(QBtn, {
+        class: 'q-media__error-window--button',
+        onClick: () => { state.errorText = null },
+        icon: matClose,
+        flat: true,
+        size: 'sm'
+      })
+    }
+
     function __renderErrorWindow () {
       const slot = slots.errorWindow
 
       return h('div', {
         class: 'q-media__error-window'
-      }, hSlot(slot, h('div', state.errorText)))
+      }, hSlot(slot, h('span', [state.errorText, errorWindowCloseButton()])))
     }
 
     function __renderPlayButton () {
