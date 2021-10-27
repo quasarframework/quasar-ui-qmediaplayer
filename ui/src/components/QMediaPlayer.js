@@ -942,6 +942,7 @@ export default defineComponent({
       const NETWORK_NO_SOURCE = 3
       if (__isMediaAvailable.value === true && $media.value.networkState === NETWORK_NO_SOURCE) {
         state.errorText = __isVideo.value ? lang.mediaPlayer.noLoadVideo : lang.mediaPlayer.noLoadAudio
+        state.loading = false
       }
       // eslint-disable-next-line vue/custom-event-name-casing
       emit('networkState', event)
@@ -979,6 +980,7 @@ export default defineComponent({
         const error = $media.value.error
         state.errorText = error
         state.playing = false
+        state.loading = false
         emit('error', error)
       }
       else if (event.type === 'interruptbegin') {
