@@ -1,5 +1,5 @@
 export default {
-  lang: 'en-IR',
+  lang: 'fa-IR',
   mediaPlayer: {
     oldBrowserVideo: 'برای مشاهده این ویدئو لطفا JavaScript مرورگر خود را فعال کنید و/یا مرورگر خود را به نسخه ای که از HTML5 پشتیبانی میکند ارتقاء دهید',
     oldBrowserAudio: 'برای شنیدن این صوت لطفا JavaScript مرورگر خود را فعال کنید و/یا مرورگر خود را به نسخه ای که از HTML5 پشتیبانی میکند ارتقاء دهید',
