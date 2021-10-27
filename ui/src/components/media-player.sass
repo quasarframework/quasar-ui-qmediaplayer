@@ -41,12 +41,20 @@ $max-z-index : 5900
     left: 0
     top: 0
     right: 0
+    display: flex
+    justify-content: center
+    align-items: center
     height: 40px
     font-size: .8rem
     text-align: center
-    color: white
-    background: rgba(255, 0, 0, 0.25)
+    background: var(--mediaplayer-error-background)
+    color: var(--mediaplayer-error-color)
     transition: height 250ms ease-in
+
+    &--button
+      position: absolute
+      right: 0
+      top: 0
 
   &__overlay-window
     position: absolute
@@ -204,4 +212,8 @@ $max-z-index : 5900
         color: var(--big-play-button-hover-color-dark) !important
         background: var(--big-play-button-hover-background-dark) !important
         border: var(--big-play-button-border-hover-dark) !important
+
+    &__error-window
+      background: var(--mediaplayer-error-background-dark)
+      color: var(--mediaplayer-error-color-dark)
 
