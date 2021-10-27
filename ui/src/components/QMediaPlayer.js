@@ -1989,7 +1989,8 @@ export default defineComponent({
       exitFullscreen,
       currentTime,
       setCurrentTime,
-      setVolume
+      setVolume,
+      $media
     })
 
     return () => __renderMediaPlayer()
