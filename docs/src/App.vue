@@ -18,7 +18,7 @@ export default defineComponent({
       titleTemplate: title => `${ title } » QMediaPlayer`,
 
       meta: getMeta(
-        'QMediaPlayer - simple overlays for your Quasar apps',
+        'QMediaPlayer - HTML5 media player for your Quasar apps',
         'QMediaPlayer allows playing HTML5 video for your Quasar apps.'
       )
     })

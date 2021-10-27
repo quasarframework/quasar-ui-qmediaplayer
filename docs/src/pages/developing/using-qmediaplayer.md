@@ -343,3 +343,11 @@ In this example, we are also using `mobile-mode` so the controls show displayed 
   file="VideoNativeControls"
   codepen-title="QMediaPlayer"
 />
+
+### Error
+
+<example-viewer
+  title="Video error"
+  file="VideoError"
+  codepen-title="QMediaPlayer"
+/>

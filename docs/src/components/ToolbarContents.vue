@@ -59,7 +59,7 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      default: 'Simplified overlays for your Quasar apps'
+      default: 'HTML5 media player for your Quasar apps'
     },
     leftDrawerButton: Boolean,
     rightDrawerButton: Boolean,

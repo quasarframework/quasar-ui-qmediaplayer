@@ -8,7 +8,7 @@ export function useMarkdownStore () {
 export function provideMarkdownStore () {
   const store = {
     toc: [],
-    title: 'Simplified overlays for your Quasar apps'
+    title: 'HTML5 media player for your Quasar apps'
   }
 
   provide(

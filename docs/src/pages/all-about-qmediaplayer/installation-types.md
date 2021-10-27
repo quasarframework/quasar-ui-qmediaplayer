@@ -80,7 +80,6 @@ build: {
 
 ### Or target as a component import
 
-:::
 ```html
 <style src="@quasar/quasar-ui-qmediaplayer/dist/QMediaPlayer.min.css"></style>
 
@@ -94,12 +93,10 @@ export default {
 }
 </script>
 ```
-:::
 
 ## Vue CLI or Vite
 ### Vue project from src
 
-:::
 ```js
 import Plugin from '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.js'
 import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
@@ -108,11 +105,9 @@ import App from './App.vue'
 const app = createApp(App)
   .use(Plugin)
 ```
-:::
 
 ### Vue project from dist
 
-:::
 ```js
 import Plugin from '@quasar/quasar-ui-qmediaplayer/dist/QMediaPlayer.esm.js'
 import '@quasar/quasar-ui-qmediaplayer/dist/QMediaPlayer.min.css'
@@ -121,11 +116,9 @@ import App from './App.vue'
 const app = createApp(App)
   .use(Plugin)
 ```
-:::
 
 ### Or component import
 
-:::
 ```html
 <style src="@quasar/quasar-ui-qmediaplayer/dist/QMediaPlayer.min.css"></style>
 
@@ -139,7 +132,6 @@ export default {
 }
 </script>
 ```
-:::
 
 ## UMD variant
 

@@ -1,6 +1,6 @@
 ---
 title: What is QMediaPlayer
-desc: Simplfied overlays
+desc: HTML5 media player for your Quasar apps
 keys: All about QMediaPlayer
 related:
   - /contributing/bugs-and-feature-requests
