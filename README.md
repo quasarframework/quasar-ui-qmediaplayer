@@ -159,7 +159,7 @@ audio: {
 
 ## cross-origin
 
-Whether to use CORS for fetching assets.
+Whether to use CORS when fetching assets.
 
 1. **anonymous** - CORS requests for this element will not have the credentials flag set.
 2. **use-credentials** - CORS requests for this element will have the credentials flag set; this means the request will provide credentials.
@@ -205,11 +205,12 @@ If you want to use the `playsinline` property with iOS, you will need to add the
 
 # Direct Access
 
-If you find you have a need access to the underlying media player, you can set up a `ref` on QMediaPlayer and access `$media` directly, even capturing and handling your own events.
+If you find you have a need access to the underlying media player, you can capture the underlying media player via an `emit` for `mediaPlay`.Then you can access `$media` directly, even capturing and handling your own events.
 
 ```html
   <q-media-player
-    ref="myPlayer"
+    ref="player"
+    @mediaPlayer="onMediaPlayer"
     ...
   />
 ```
@@ -217,16 +218,28 @@ If you find you have a need access to the underlying media player, you can set u
 then
 
 ```js
-// in code some where
-this.$refs.myPlayer.$media
+setup () {
+  const $mediaPlayer = ref(null),
+    player = ref(null)
+
+  // in code some where
+  function onMediaPlayer (media) {
+    $mediaPlayer.value = media
+  }
+
+  return {
+    onMediaPlayer,
+    player
+  }
+}
 
 // examples to call native functions directly:
-// this.$refs.myPlayer.$media.pause()
-// this.$refs.myPlayer.$media.play()
+// $mediaPlayer.value.pause()
+// $mediaPlayer.value.play()
 
 // or via QMediaPlayer
-// this.$refs.myPlayer.pause()
-// this.$refs.myPlayer.play()
+// player.value.pause()
+// player.value.play()
 ```
 
 # Donate
