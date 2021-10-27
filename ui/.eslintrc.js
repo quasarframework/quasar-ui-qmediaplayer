@@ -27,12 +27,16 @@ module.exports = {
     'plugin:vue/vue3-essential' // Priority A: Essential (Error Prevention)
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
+    'plugin:promise/recommended'
   ],
 
   plugins: [
     // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
     // required to lint *.vue files
-    'vue'
+    'vue',
+    'node',
+    'promise',
+    'import'
   ],
 
   globals: {
@@ -78,10 +82,10 @@ module.exports = {
     'template-curly-spacing': [ 'error', 'always' ],
 
     'import/first': 'off',
-    // 'import/named': 'error',
-    // 'import/namespace': 'error',
-    // 'import/default': 'error',
-    // 'import/export': 'error',
+    'import/named': 'error',
+    'import/namespace': 'error',
+    'import/default': 'error',
+    'import/export': 'error',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',

@@ -1,31 +1,34 @@
+process.env.BABEL_ENV = 'production'
+
 const path = require('path')
 const fs = require('fs')
 const fse = require('fs-extra')
 const rollup = require('rollup')
 const uglify = require('uglify-js')
-const buble = require('@rollup/plugin-buble')
+// const buble = require('@rollup/plugin-buble')
 const json = require('@rollup/plugin-json')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
-
-const { version } = require('../package.json')
 
 const buildConf = require('./config')
 const buildUtils = require('./utils')
 
-const bubleConfig = {
-  objectAssign: 'Object.assign'
-}
-
-const nodeResolveConfig = {
-  extensions: ['.js'],
-  preferBuiltins: false
+function pathResolve (_path) {
+  return path.resolve(__dirname, _path)
 }
 
 const rollupPluginsModern = [
-  nodeResolve(nodeResolveConfig),
-  json(),
-  buble(bubleConfig)
+  nodeResolve(),
+  json()
 ]
+
+// const bubleConfig = {
+//   objectAssign: 'Object.assign'
+// }
+
+// const nodeResolveConfig = {
+//   extensions: ['.js'],
+//   preferBuiltins: false
+// }
 
 const uglifyJsOptions = {
   compress: {
@@ -129,15 +132,11 @@ build(builds)
  * Helpers
  */
 
-function pathResolve (_path) {
-  return path.resolve(__dirname, _path)
-}
-
 // eslint-disable-next-line no-unused-vars
 function addAssets (builds, type, injectName) {
   const
     files = fs.readdirSync(pathResolve('../../ui/src/components/' + type)),
-    plugins = [buble(bubleConfig)],
+    plugins = rollupPluginsModern,
     outputDir = pathResolve(`../dist/${ type }`)
 
   fse.mkdirp(outputDir)
@@ -199,7 +198,7 @@ function injectVueRequirement (code) {
   }
 
   const checkMe = ` if (Vue === void 0) {
-    console.error('[ QOverlay ] Vue is required to run. Please add a script tag for it before loading QOverlay.')
+    console.error('[ Quasar ] Vue is required to run. Please add a script tag for it before loading QMediaPlayer.')
     return
   }
   `
@@ -235,7 +234,8 @@ function buildEntry (config) {
       const minified = uglify.minify(code, uglifyJsOptions)
 
       if (minified.error) {
-        throw new Error(minified.error)
+        // eslint-disable-next-line promise/no-return-wrap
+        return Promise.reject(minified.error)
       }
 
       return buildUtils.writeFile(

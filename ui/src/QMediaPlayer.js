@@ -1,6 +1,5 @@
 import QMediaPlayer from './components/QMediaPlayer'
-import pkg from '../package.json'
-const { version } = pkg
+import { version } from './version'
 
 export {
   version,
