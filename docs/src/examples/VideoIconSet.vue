@@ -26,7 +26,7 @@
 import { defineComponent, ref, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
-import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
+import '@quasar/quasar-ui-qmediaplayer/src/index.sass'
 
 export default defineComponent({
   name: 'VideoIconSet',

@@ -12,7 +12,7 @@
 <script>
 import { defineComponent } from 'vue'
 import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
-import '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
+import '@quasar/quasar-ui-qmediaplayer/src/index.sass'
 
 export default defineComponent({
   name: 'VideoPlaysinline',

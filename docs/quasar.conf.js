@@ -84,7 +84,10 @@ module.exports = configure(function (ctx) {
           }])
 
         chain.resolve.alias.merge({
-          examples: path.resolve(__dirname, './src/examples')
+          examples: path.resolve(__dirname, './src/examples'),
+          '@quasar/quasar-ui-qmediaplayer/src': path.resolve(__dirname, '../ui/src'),
+          '@quasar/quasar-ui-qmediaplayer/dist': path.resolve(__dirname, '../ui/dist'),
+          '@quasar/quasar-ui-qmediaplayer': path.resolve(__dirname, '../ui/src')
         })
 
         const rule = chain.module.rule('md')
