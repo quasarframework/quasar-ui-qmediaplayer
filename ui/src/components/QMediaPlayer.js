@@ -138,7 +138,7 @@ export default defineComponent({
     },
     controlsDisplayTime: {
       type: Number,
-      default: 2000
+      default: 4000
     },
     playbackRates: Array,
     // initial playback rate
