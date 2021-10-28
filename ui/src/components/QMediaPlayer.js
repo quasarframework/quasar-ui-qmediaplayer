@@ -535,7 +535,7 @@ export default defineComponent({
         }
         else {
           /* eslint-disable-next-line no-console */
-          console.error('QMediaPlayer: loadFileBlob method requires a FileList')
+          console.error('[QMediaPlayer]: loadFileBlob method requires a FileList')
         }
       }
       return false
@@ -820,9 +820,9 @@ export default defineComponent({
           }
           else {
             /* eslint-disable-next-line no-console */
-            console.error(`QMediaPlayer: no language loaded called '${ lang }'`)
+            console.error(`[QMediaPlayer]: no language loaded called '${ lang }'`)
             /* eslint-disable-next-line no-console */
-            console.error('Be sure to load the UMD version of the language in a script tag before using with UMD')
+            console.error('[QMediaPlayer]: Be sure to load the UMD version of the language in a script tag before using with UMD')
           }
         }
         else {
@@ -831,7 +831,7 @@ export default defineComponent({
           }
           catch (e) {
             /* eslint-disable-next-line no-console */
-            console.error(`QMediaPlayer: cannot find language file called '${ lang }'`)
+            console.error(`[QMediaPlayer]: cannot find language file called '${ lang }'`)
           }
         }
       }
@@ -860,9 +860,9 @@ export default defineComponent({
           }
           else {
             /* eslint-disable-next-line no-console */
-            console.error(`QMediaPlayer: no icon set loaded called '${ set }'`)
+            console.error(`[QMediaPlayer]: no icon set loaded called '${ set }'`)
             /* eslint-disable-next-line no-console */
-            console.error('Be sure to load the UMD version of the icon set in a script tag before using with UMD')
+            console.error('[QMediaPlayer]:Be sure to load the UMD version of the icon set in a script tag before using with UMD')
           }
         }
         else {
@@ -871,7 +871,7 @@ export default defineComponent({
           }
           catch (e) {
             /* eslint-disable-next-line no-console */
-            console.error(`QMediaPlayer: cannot find icon set file called '${ set }'`)
+            console.error(`[QMediaPlayer]: cannot find icon set file called '${ set }'`)
           }
         }
       }
