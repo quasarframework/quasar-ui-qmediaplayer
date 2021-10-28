@@ -201,6 +201,7 @@ export default defineComponent({
         errorText: null,
         controls: false,
         showControls: true,
+        inControls: false,
         volume: 60,
         muted: false,
         currentTime: 0.01,
@@ -481,6 +482,10 @@ export default defineComponent({
       }
     })
 
+    // watch(() => state.inControls, (val) => {
+    //   console.log('inControls:', val)
+    // })
+
     onBeforeMount(() => {
       canRender.value = window !== undefined // SSR
       if (canRender.value === true) {
@@ -532,21 +537,30 @@ export default defineComponent({
     }
 
     function showControls () {
-      if (state.bottomControls) {
+      // no controls - always off
+      if (state.noControls) {
+        state.showControls = false
         return
       }
+      // bottom controls - always on
+      if (state.bottomControls) {
+        state.showControls = true
+        return
+      }
+      // kill timer, if there is one
       if (timer.hideControlsTimer) {
         clearTimeout(timer.hideControlsTimer)
         timer.hideControlsTimer = null
       }
-      if (state.noControls) {
-        return
-      }
+      // show controls
       state.showControls = true
+      // check if hide cursor (fullscreen)
       __checkCursor()
+      // set the timer
       if (props.controlsDisplayTime !== -1 && !props.mobileMode && __isVideo.value) {
         timer.hideControlsTimer = setTimeout(() => {
-          if (!__showingMenu()) {
+          // hide controls, but not if menu is showing
+          if (!__showingMenu() && state.inControls !== true) {
             state.showControls = false
             timer.hideControlsTimer = null
             __checkCursor()
@@ -554,14 +568,24 @@ export default defineComponent({
           else {
             showControls()
           }
+          // user configured display time (in ms)
         }, props.controlsDisplayTime)
       }
     }
 
     function hideControls () {
-      if (state.bottomControls) {
+      if (state.inControls) return
+      // no controls - always off
+      if (state.noControls) {
+        state.showControls = false
         return
       }
+      // bottom controls - always on
+      if (state.bottomControls) {
+        state.showControls = true
+        return
+      }
+      // clear timer if there is one
       if (timer.hideControlsTimer) {
         clearTimeout(timer.hideControlsTimer)
       }
@@ -1097,7 +1121,6 @@ export default defineComponent({
       if (props.mobileMode !== true) {
         togglePlay()
       }
-      toggleControls()
     }
 
     function __bigButtonClick (e) {
@@ -1328,6 +1351,14 @@ export default defineComponent({
       return '50%'
     }
 
+    function __mouseEnterControls () {
+      state.inControls = true
+    }
+    function __mouseLeaveControls () {
+      state.inControls = false
+    }
+
+
     // Rendering Methods
 
     function __renderVideo () {
@@ -1482,7 +1513,9 @@ export default defineComponent({
       const slot = slots.controls
 
       const events = {
-        onClick: __stopAndPrevent
+        onClick: __stopAndPrevent,
+        onMouseenter: __mouseEnterControls,
+        onMouseleave: __mouseLeaveControls,
       }
 
       if (slot) {
