@@ -38,13 +38,6 @@ function hSlot (slot, otherwise) {
     : otherwise
 }
 
-const getMousePosition = function (e, type = 'x') {
-  if (type === 'x') {
-    return e.pageX
-  }
-  return e.pageY
-}
-
 const padTime = (val) => {
   val = Math.floor(val)
   if (val < 10) {
@@ -493,7 +486,6 @@ export default defineComponent({
       if (canRender.value === true) {
         __setupLang()
         __setupIcons()
-        document.body.addEventListener('mousemove', __mouseMoveAction, false)
       }
     })
 
@@ -504,8 +496,6 @@ export default defineComponent({
 
         // make sure noScroll is not left in unintended state
         document.body.classList.remove('no-scroll')
-
-        document.body.removeEventListener('mousemove', __mouseMoveAction)
 
         __removeSourceEventListeners()
         __removeMediaEventListeners()
@@ -959,7 +949,7 @@ export default defineComponent({
       else if (event.type === 'canplay') {
         state.playReady = true
         state.displayTime = timeParse($media.value.currentTime)
-        __mouseEnterVideo()
+        showControls()
         emit('ready')
       }
       else if (event.type === 'canplaythrough') {
@@ -1122,15 +1112,11 @@ export default defineComponent({
       settingsMenuVisible.value = val
     }
 
-    function __mouseEnterVideo (e) {
-      if (!props.bottomControls && !props.mobileMode && !__isAudio.value) {
-        showControls()
-      }
-    }
-
     function __mouseLeaveVideo (e) {
-      if (!props.bottomControls && !props.mobileMode && !__isAudio.value) {
-        hideControls()
+      if (e.relatedTarget && e.relatedTarget.className === 'q-pa-md') {
+        if (!props.bottomControls && !props.mobileMode && !__isAudio.value && state.inControls !== true) {
+          hideControls()
+        }
       }
     }
 
@@ -1140,21 +1126,25 @@ export default defineComponent({
       }
     }
 
+    function __getParentEl (el, className) {
+      if (!el) return null
+      if (el.className.startsWith(className)) {
+        return el
+      }
+      return __getParentEl(el.offsetParent, className)
+    }
+
     function __showControlsIfValid (e) {
-      if (__showingMenu()) {
+      const pos = $media.value.getBoundingClientRect()
+      const el = __getParentEl(e.target, 'q-media')
+      if (!el) return
+      var rect = el.getBoundingClientRect()
+      if (!pos || !rect) return false
+      if (rect.left === pos.left && rect.top === pos.top && rect.height === pos.height && rect.width === pos.width) {
         showControls()
         return true
       }
-      const x = getMousePosition(e, 'x')
-      const y = getMousePosition(e, 'y')
-      const pos = $media.value.getBoundingClientRect()
-      if (!pos) return false
-      if (x > pos.left && x < pos.left + pos.width) {
-        if (y > pos.top + pos.height - (props.dense ? 40 : 80) && y < pos.top + pos.height) {
-          showControls()
-          return true
-        }
-      }
+
       return false
     }
 
@@ -1960,7 +1950,6 @@ export default defineComponent({
     function __renderMediaPlayer () {
       const events = {
         onMousemove: __mouseMoveAction,
-        onMouseenter: __mouseEnterVideo,
         onMouseleave: __mouseLeaveVideo,
         onClick: __videoClick
       }
