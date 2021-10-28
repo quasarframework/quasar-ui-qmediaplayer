@@ -99,7 +99,7 @@ export default {
 
 ```js
 import Plugin from '@quasar/quasar-ui-qmediaplayer/src/QMediaPlayer.js'
-import '@quasar/quasar-ui-qmediaplayer/index.sass'
+import '@quasar/quasar-ui-qmediaplayer/src/index.sass'
 import App from './App.vue'
 
 const app = createApp(App)
