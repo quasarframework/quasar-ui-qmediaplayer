@@ -51,8 +51,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import pkg from '@quasar/quasar-ui-qmediaplayer/package.json'
-const { version } = pkg
+import { version } from '@quasar/quasar-ui-qmediaplayer'
 
 export default defineComponent({
   name: 'ToolbarContents',
