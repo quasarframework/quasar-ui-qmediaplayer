@@ -6,7 +6,7 @@ QMediaPlayer (Vue Plugin, UMD and Quasar App Extension)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/quasar-ui-qmediaplayer.svg)]()
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/quasar-ui-qmediaplayer.svg)]()
 
-> If you are looking for QMediaPlayer v2.+ look into the `next` branch. For v2.+ documentation, go [here](https://qmediaplayer.netlify.app/).
+> If you are looking for QMediaPlayer v2.+ (with Quasar v2/Vue v3 support) look into the `next` branch. For v2.+ documentation, go [here](https://qmediaplayer.netlify.app/).
 
 # Structure
 
