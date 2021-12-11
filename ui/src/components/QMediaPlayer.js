@@ -1398,6 +1398,7 @@ export default defineComponent({
       const slot = slots.oldbrowser
 
       const attrs = {
+        poster: (props.poster ? props.poster : false),
         preload: props.preload,
         playsinline: props.playsinline === true,
         loop: props.loop === true,
@@ -1408,7 +1409,7 @@ export default defineComponent({
       }
 
       nextTick(() => {
-        if (props.nativeControls === true && $media.value) {
+        if (__isMediaAvailable.value && props.nativeControls === true) {
           $media.value.controls = true
         }
       }).catch(e => console.error(e))
@@ -1416,7 +1417,7 @@ export default defineComponent({
       // This is on purpose (not using audio tag).
       // The video tag can also play audio and works better if dynamically
       // switching between video and audio on the same component.
-      // That being said, if audio is truly needed, use the 'nop-video'
+      // That being said, if audio is truly needed, use the 'no-video'
       // property to force the <audio> tag.
 
       return h(props.noVideo === true ? 'audio' : 'video', {
