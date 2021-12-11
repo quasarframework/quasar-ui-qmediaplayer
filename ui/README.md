@@ -1,7 +1,7 @@
 QMediaPlayer
 ===
 
-[![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer.svg?label=@quasar/quasar-ui-qmediaplayer/next)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
+[![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer/next?label=@quasar/quasar-ui-qmediaplayer/next)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-ui-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 ![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/dm/@quasar/quasar-ui-qmediaplayer)
 
