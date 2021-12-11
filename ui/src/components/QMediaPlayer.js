@@ -806,12 +806,12 @@ export default defineComponent({
       }
     }
 
-    function __setupLang () {
+    async function __setupLang () {
       const isoName = $q.lang.isoName || 'en-US'
       let language
       try {
         // language = require(`./lang/${isoName}`)
-        language = __loadLang(isoName)
+        language = await __loadLang(isoName)
       }
       catch (e) {
       }
@@ -823,7 +823,7 @@ export default defineComponent({
       }
     }
 
-    function __loadLang (lang) {
+    async function __loadLang (lang) {
       let langList = {}
       if (lang) {
         // detect if UMD version is installed
@@ -834,36 +834,40 @@ export default defineComponent({
           }
           else {
             /* eslint-disable-next-line no-console */
-            console.error(`[QMediaPlayer]: no language loaded called '${ lang }'`)
+            console.error(`[QMediaPlayer]: No language loaded called '${ lang }'`)
             /* eslint-disable-next-line no-console */
             console.error('[QMediaPlayer]: Be sure to load the UMD version of the language in a script tag before using with UMD')
           }
         }
         else {
           try {
-            langList = require(`@quasar/quasar-ui-qmediaplayer/src/components/lang/${ lang }.js`).default
+            const result = await import(
+              /* webpackChunkName: "[request]" */
+              `@quasar/quasar-ui-qmediaplayer/src/components/lang/${ lang }.js`
+            )
+            langList = result.default
           }
           catch (e) {
             /* eslint-disable-next-line no-console */
-            console.error(`[QMediaPlayer]: cannot find language file called '${ lang }'`)
+            console.error(`[QMediaPlayer]: Cannot find language file called '${ lang }'`)
           }
         }
       }
       return langList
     }
 
-    function __setupIcons () {
+    async function __setupIcons () {
       const iconSetName = $q.iconSet.name || 'material-icons'
       let icnSet
       try {
-        icnSet = __loadIconSet(iconSetName)
+        icnSet = await __loadIconSet(iconSetName)
       }
       catch (e) {
       }
       icnSet !== void 0 && icnSet.name !== void 0 && (iconSet.mediaPlayer = { ...icnSet.mediaPlayer })
     }
 
-    function __loadIconSet (set) {
+    async function __loadIconSet (set) {
       let iconsList = {}
       if (set) {
         // detect if UMD version is installed
@@ -874,18 +878,22 @@ export default defineComponent({
           }
           else {
             /* eslint-disable-next-line no-console */
-            console.error(`[QMediaPlayer]: no icon set loaded called '${ set }'`)
+            console.error(`[QMediaPlayer]: No icon set loaded called '${ set }'`)
             /* eslint-disable-next-line no-console */
             console.error('[QMediaPlayer]:Be sure to load the UMD version of the icon set in a script tag before using with UMD')
           }
         }
         else {
           try {
-            iconsList = require(`@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${ set }.js`).default
+            const result = await import (
+              /* webpackChunkName: "[request]" */
+              `@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${ set }.js`
+            )
+            iconsList = result.default
           }
           catch (e) {
             /* eslint-disable-next-line no-console */
-            console.error(`[QMediaPlayer]: cannot find icon set file called '${ set }'`)
+            console.error(`[QMediaPlayer]: Cannot find icon set file called '${ set }'`)
           }
         }
       }
