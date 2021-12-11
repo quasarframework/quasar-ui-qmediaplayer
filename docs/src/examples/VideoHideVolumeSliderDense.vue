@@ -6,7 +6,6 @@
       hide-volume-slider
     />
   </div>
-
 </template>
 
 <script>

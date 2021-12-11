@@ -6,7 +6,6 @@
       :tracks="tracks"
     />
   </div>
-
 </template>
 
 <script>

@@ -6,7 +6,6 @@
       native-controls
     />
   </div>
-
 </template>
 
 <script>

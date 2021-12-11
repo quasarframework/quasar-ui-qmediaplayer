@@ -6,7 +6,6 @@
       :sources="sources"
     />
   </div>
-
 </template>
 
 <script>

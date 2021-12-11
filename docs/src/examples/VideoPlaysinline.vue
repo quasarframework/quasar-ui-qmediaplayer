@@ -6,7 +6,6 @@
       playsinline
     />
   </div>
-
 </template>
 
 <script>

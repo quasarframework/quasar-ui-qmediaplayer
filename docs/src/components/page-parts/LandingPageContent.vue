@@ -2,13 +2,18 @@
   <section class="flex flex-center bg-blue-10 text-white shadow-10">
     <div class="landing-page__container">
       <div class="landing-page__splash row justify-around items-center">
-        <h2 class="text-weight-bold text-blue-2 q-pa-sm" style="padding-left: 20px;">QMediaPlayer,<br>HTML5 Media<br>player for your<br>Quasar apps</h2>
+        <h2
+          class="text-weight-bold text-blue-2 q-pa-sm"
+          style="padding-left: 20px;"
+        >
+          QMediaPlayer,<br>HTML5 Media<br>player for your<br>Quasar apps
+        </h2>
         <div class="q-pa-sm">
           <img
             src="/qmediaplayer.png"
             class="shadow-10 rounded-borders"
             style="max-width: 340px;"
-          />
+          >
         </div>
       </div>
     </div>
@@ -18,14 +23,16 @@
         no-caps
         class="bg-red-8"
       >
-        <div class="row justify-around items-center" style="width: 140px;">
+        <div
+          class="row justify-around items-center"
+          style="width: 140px;"
+        >
           <div>Get started</div>
-          <q-icon :name="biArrowRightCircle"/>
+          <q-icon :name="biArrowRightCircle" />
         </div>
       </q-btn>
     </div>
   </section>
-
 </template>
 
 <script>
@@ -36,7 +43,7 @@ import {
 } from '@quasar/extras/bootstrap-icons'
 
 export default defineComponent({
-  name: 'Landing Page Content',
+  name: 'LandingPageContent',
 
   setup () {
     const $q = useQuasar()

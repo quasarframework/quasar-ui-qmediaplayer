@@ -6,7 +6,6 @@
       bottom-controls
     />
   </div>
-
 </template>
 
 <script>

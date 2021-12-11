@@ -1,14 +1,20 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <q-input v-model="media" filled clearable type="file" style="width: 50%;" class="q-pa-md"/>
+    <q-input
+      v-model="media"
+      filled
+      clearable
+      type="file"
+      style="width: 50%;"
+      class="q-pa-md"
+    />
     <q-media-player
-      type="audio"
       ref="mediaplayer"
+      type="audio"
       autoplay
       :source="itemUrl"
     />
   </div>
-
 </template>
 
 <script>

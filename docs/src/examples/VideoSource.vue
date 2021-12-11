@@ -5,7 +5,6 @@
       source="http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4"
     />
   </div>
-
 </template>
 
 <script>

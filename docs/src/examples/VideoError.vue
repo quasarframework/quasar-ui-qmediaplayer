@@ -8,7 +8,6 @@
       :sources="sources"
     />
   </div>
-
 </template>
 
 <script>
@@ -26,7 +25,7 @@ export default defineComponent({
     const sources = [
       {
         // this video does not exist and will cause an error
-        src: 'https://some-unknonw-service.com/video.mp4',
+        src: 'https://some-unknown-service.com/video.mp4',
         type: 'video/mp4'
       }
     ]

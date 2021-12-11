@@ -7,7 +7,6 @@
       dense
     />
   </div>
-
 </template>
 
 <script>

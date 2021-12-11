@@ -6,7 +6,6 @@
       disabled-seek
     />
   </div>
-
 </template>
 
 <script>

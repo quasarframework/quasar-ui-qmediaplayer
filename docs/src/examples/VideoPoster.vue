@@ -6,7 +6,6 @@
       :poster="poster"
     />
   </div>
-
 </template>
 
 <script>

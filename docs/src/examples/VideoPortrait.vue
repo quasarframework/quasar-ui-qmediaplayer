@@ -7,11 +7,18 @@
           :sources="sources"
           style="height: 400px; text-align: center; width: 200px;"
         />
-        <div>Video by <strong><a target="_blank" href="https://www.pexels.com/@ono-kosuki?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels">Ono  Kosuki</a></strong> from <strong><a target="_blank" href="https://www.pexels.com/photo/a-woman-texting-on-her-cellphone-5974545/?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels">Pexels</a></strong></div>
+        <div>
+          Video by <strong><a
+            target="_blank"
+            href="https://www.pexels.com/@ono-kosuki?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels"
+          >Ono  Kosuki</a></strong> from <strong><a
+            target="_blank"
+            href="https://www.pexels.com/photo/a-woman-texting-on-her-cellphone-5974545/?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels"
+          >Pexels</a></strong>
+        </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>

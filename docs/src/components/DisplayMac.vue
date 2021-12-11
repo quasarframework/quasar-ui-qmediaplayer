@@ -1,14 +1,20 @@
 <template>
-  <div class="monitor-display" style="max-width: 766px; max-height: 544px;">
+  <div
+    class="monitor-display"
+    style="max-width: 766px; max-height: 544px;"
+  >
     <div class="window-header">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span />
+      <span />
+      <span />
     </div>
     <div class="window-contents">
-      <div class="window-inner-contents" style="height: 444px;">
+      <div
+        class="window-inner-contents"
+        style="height: 444px;"
+      >
         <!-- <div style="width: 100%; padding-bottom: 56.086956521739125%;"></div> -->
-        <slot></slot>
+        <slot />
       </div>
     </div>
   </div>

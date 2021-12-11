@@ -5,7 +5,7 @@
       :sources="sources"
       :poster="poster"
     >
-      <template v-slot:overlay>
+      <template #overlay>
         <div>
           <img
             src="icons/favicon-32x32.png"
@@ -15,7 +15,6 @@
       </template>
     </q-media-player>
   </div>
-
 </template>
 
 <script>

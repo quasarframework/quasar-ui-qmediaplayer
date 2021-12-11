@@ -6,7 +6,6 @@
       dark
     />
   </div>
-
 </template>
 
 <script>

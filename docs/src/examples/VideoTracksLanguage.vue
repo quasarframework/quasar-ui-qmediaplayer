@@ -7,7 +7,6 @@
       track-language="French"
     />
   </div>
-
 </template>
 
 <script>

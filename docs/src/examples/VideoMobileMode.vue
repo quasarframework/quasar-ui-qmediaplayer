@@ -7,7 +7,6 @@
       mobile-mode
     />
   </div>
-
 </template>
 
 <script>

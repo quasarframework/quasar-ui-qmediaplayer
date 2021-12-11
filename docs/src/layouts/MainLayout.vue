@@ -1,6 +1,12 @@
 <template>
-  <q-layout view="HHh LpR fFf" @scroll="onScroll">
-    <q-header elevated class="glass">
+  <q-layout
+    view="HHh LpR fFf"
+    @scroll="onScroll"
+  >
+    <q-header
+      elevated
+      class="glass"
+    >
       <q-toolbar>
         <toolbar-contents
           :title="title"
@@ -12,9 +18,19 @@
       </q-toolbar>
     </q-header>
 
-    <q-footer elevated class="glass">
+    <q-footer
+      elevated
+      class="glass"
+    >
       <q-toolbar>
-        <div class="full-width text-center">This documentation site for QMediaPlayer is a work in progress. If you see something missing or inaccurate, please create a PR on the <markdown-link to="https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/next" style="color: white;">GitHub repo</markdown-link>.</div>
+        <div class="full-width text-center">
+          This documentation site for QMediaPlayer is a work in progress. If you see something missing or inaccurate, please create a PR on the <markdown-link
+            to="https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/next"
+            style="color: white;"
+          >
+            GitHub repo
+          </markdown-link>.
+        </div>
       </q-toolbar>
     </q-footer>
 
@@ -40,16 +56,19 @@
           <q-item
             v-for="item in store.toc"
             :key="item.id"
-            clickable
             v-ripple
+            clickable
             dense
-            @click="scrollTo(item.id)"
             :active="activeToc === item.id"
             class="toc"
+            @click="scrollTo(item.id)"
           >
             <q-item-section
               v-if="item.level > 2"
-              side> » </q-item-section>
+              side
+            >
+              »
+            </q-item-section>
             <q-item-section>{{ item.label }}</q-item-section>
           </q-item>
         </q-list>
@@ -57,7 +76,6 @@
     </q-drawer>
 
     <q-page-container>
-
       <div class="fit full-width">
         <div
           v-if="isExample === true"
@@ -76,7 +94,8 @@
               target="_blank"
               rel="noopener"
               class="button link"
-            >View Source on GitHub
+            >
+              View Source on GitHub
             </q-btn>
           </div>
         </div>
@@ -87,7 +106,6 @@
           </div>
         </div>
       </div>
-
     </q-page-container>
 
     <q-page-scroller
@@ -101,7 +119,6 @@
         :class="{ 'text-black bg-grey-4': $q.dark.isActive, 'text-white bg-primary': !$q.dark.isActive }"
       />
     </q-page-scroller>
-
   </q-layout>
 </template>
 
