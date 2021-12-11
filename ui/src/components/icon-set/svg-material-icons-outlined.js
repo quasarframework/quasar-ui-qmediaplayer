@@ -10,7 +10,7 @@ import {
   outlinedCheck,
   outlinedFullscreen,
   outlinedFullscreenExit
-} from '@quasar/extras/material-icons-outlined'
+} from '@quasar/extras/material-icons-outlined/index.js'
 
 export default {
   name: 'svg-material-icons-outlined',

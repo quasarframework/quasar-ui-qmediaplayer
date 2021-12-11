@@ -10,7 +10,7 @@ import {
   fasCheck,
   fasExpand,
   fasCompress
-} from '@quasar/extras/fontawesome-v5'
+} from '@quasar/extras/fontawesome-v5/index.js'
 
 export default {
   name: 'svg-fontawesome-v5',

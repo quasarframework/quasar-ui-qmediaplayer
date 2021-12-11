@@ -11,7 +11,7 @@ import {
   evaExpandOutline,
   evaCollapseOutline,
   evaArrowRightOutline
-} from '@quasar/extras/eva-icons'
+} from '@quasar/extras/eva-icons/index.js'
 
 export default {
   name: 'svg-eva-icons',

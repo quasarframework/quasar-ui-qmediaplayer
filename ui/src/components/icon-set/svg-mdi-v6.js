@@ -10,7 +10,7 @@ import {
   mdiCheck,
   mdiFullscreen,
   mdiFullscreenExit
-} from '@quasar/extras/mdi-v6'
+} from '@quasar/extras/mdi-v6/index.js'
 
 export default {
   name: 'svg-mdi-v6',

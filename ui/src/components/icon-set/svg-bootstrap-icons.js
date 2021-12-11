@@ -11,7 +11,7 @@ import {
   biFullscreen,
   biFullscreenExit,
   biCaretRight
-} from '@quasar/extras/bootstrap-icons'
+} from '@quasar/extras/bootstrap-icons/index.js'
 
 export default {
   name: 'svg-bootstrap-icons',

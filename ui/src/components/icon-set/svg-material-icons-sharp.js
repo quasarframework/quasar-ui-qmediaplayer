@@ -10,7 +10,7 @@ import {
   sharpCheck,
   sharpFullscreen,
   sharpFullscreenExit
-} from '@quasar/extras/material-icons-sharp'
+} from '@quasar/extras/material-icons-sharp/index.js'
 
 export default {
   name: 'svg-material-icons-sharp',

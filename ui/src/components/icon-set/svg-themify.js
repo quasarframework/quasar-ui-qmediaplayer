@@ -9,7 +9,7 @@ import {
   tiCheck,
   tiFullscreen,
   tiClose
-} from '@quasar/extras/themify'
+} from '@quasar/extras/themify/index.js'
 
 export default {
   name: 'svg-themify',

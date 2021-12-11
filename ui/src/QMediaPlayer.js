@@ -1,5 +1,5 @@
-import QMediaPlayer from './components/QMediaPlayer'
-import { version } from './version'
+import QMediaPlayer from './components/QMediaPlayer.js'
+import { version } from './version.js'
 
 export {
   version,

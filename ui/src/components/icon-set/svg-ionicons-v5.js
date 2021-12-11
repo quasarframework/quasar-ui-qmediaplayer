@@ -10,7 +10,7 @@ import {
   ionCheckmark,
   ionExpand,
   ionContract
-} from '@quasar/extras/ionicons-v5'
+} from '@quasar/extras/ionicons-v5/index.js'
 
 export default {
   name: 'svg-ionicons-v5',
