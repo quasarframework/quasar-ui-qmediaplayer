@@ -1,23 +1,35 @@
 process.env.NODE_ENV = 'production'
 
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 const parallel = require('os').cpus().length > 1
 const runJob = parallel ? require('child_process').fork : require
-const { createFolder } = require('./utils')
-const { green, blue } = require('chalk')
+
+import { createFolder } from './utils.js'
+import chalk from 'chalk'
+const { green, blue } = chalk
 
 console.log()
 
-require('./script.app-ext.js').syncAppExt()
-require('./script.clean.js')
+import { syncAppExt } from './script.app-ext.js'
+syncAppExt()
+
+import './script.clean.js'
 
 console.log(` 📦 Building ${ green('v' + require('../package.json').version) }...${ parallel ? blue(' [multi-threaded]') : '' }\n`)
 
 createFolder('dist')
 
-require('./script.version.js')
+import './script.version.js'
 
-require('./build.api.js')
-require('./script.javascript')
-require('./script.css')
+import './build.api.js'
+import './script.javascript.js'
+import './script.css.js'
 // runJob(join(__dirname, './script.javascript.js'))
 // runJob(join(__dirname, './script.css.js'))

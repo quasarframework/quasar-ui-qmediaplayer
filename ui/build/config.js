@@ -1,7 +1,10 @@
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
 const { name, author, version } = require('../package.json')
 const year = (new Date()).getFullYear()
 
-module.exports = {
+export default {
   name,
   version,
   banner:

@@ -1,5 +1,13 @@
 process.env.BABEL_ENV = 'production'
 
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 const path = require('path')
 const fs = require('fs')
 const fse = require('fs-extra')
@@ -9,8 +17,8 @@ const uglify = require('uglify-js')
 const json = require('@rollup/plugin-json')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 
-const buildConf = require('./config')
-const buildUtils = require('./utils')
+import buildConf from './config.js'
+import { logError, writeFile } from './utils.js'
 
 function pathResolve (_path) {
   return path.resolve(__dirname, _path)
@@ -144,7 +152,7 @@ function addAssets (builds, type, injectName) {
   files
     .filter(file => file.endsWith('.js'))
     .forEach(file => {
-      const name = file.substr(0, file.length - 3).replace(/-([a-z])/g, g => g[ 1 ].toUpperCase())
+      const name = file.slice(0, file.length - 3).replace(/-([a-z])/g, g => g[ 1 ].toUpperCase())
       builds.push({
         rollup: {
           input: {
@@ -167,7 +175,7 @@ function addAssets (builds, type, injectName) {
 function build (builds) {
   return Promise
     .all(builds.map(genConfig).map(buildEntry))
-    .catch(buildUtils.logError)
+    .catch(logError)
 }
 
 function genConfig (opts) {
@@ -218,7 +226,7 @@ function buildEntry (config) {
         : output[ 0 ].code
 
       return config.build.unminified
-        ? buildUtils.writeFile(config.rollup.output.file, code)
+        ? writeFile(config.rollup.output.file, code)
         : code
     })
     .then(code => {
@@ -238,7 +246,7 @@ function buildEntry (config) {
         return Promise.reject(minified.error)
       }
 
-      return buildUtils.writeFile(
+      return writeFile(
         config.build.minExt === true
           ? addExtension(config.rollup.output.file)
           : config.rollup.output.file,

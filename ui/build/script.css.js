@@ -1,4 +1,12 @@
 /* eslint-disable array-bracket-spacing */
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 const path = require('path')
 const sass = require('sass')
 const postcss = require('postcss')
@@ -6,8 +14,8 @@ const cssnano = require('cssnano')
 const rtl = require('rtlcss')
 const autoprefixer = require('autoprefixer')
 
-const buildConf = require('./config')
-const buildUtils = require('./utils')
+import buildConf from './config.js'
+import { writeFile } from './utils.js'
 
 const postCssCompiler = postcss([ autoprefixer ])
 const postCssRtlCompiler = postcss([ rtl({}) ])
@@ -71,7 +79,7 @@ function generate (src, dest) {
 }
 
 function generateUMD (dest, code, ext = '') {
-  return buildUtils.writeFile(`${ dest }${ ext }.css`, code, true)
+  return writeFile(`${ dest }${ ext }.css`, code, true)
     .then(code => nano.process(code, { from: void 0 }))
-    .then(code => buildUtils.writeFile(`${ dest }${ ext }.min.css`, code.css, true))
+    .then(code => writeFile(`${ dest }${ ext }.min.css`, code.css, true))
 }

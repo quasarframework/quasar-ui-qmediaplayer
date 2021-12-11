@@ -1,12 +1,22 @@
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 const fs = require('fs')
 const path = require('path')
 const zlib = require('zlib')
-const { green, blue, red, magenta, yellow, underline } = require('chalk')
+import chalk from 'chalk'
+const { green, blue, red, magenta, yellow, underline } = chalk
 
 const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 const tableData = []
 
-const { version, name } = require('../package.json')
+const { version, name } = require('../../package.json')
+
 
 process.on('exit', code => {
   if (code === 0 && tableData.length > 0) {
@@ -44,7 +54,7 @@ function getSize (code) {
   return (code.length / 1024).toFixed(2) + 'kb'
 }
 
-module.exports.createFolder = function (folder) {
+export function createFolder (folder) {
   const dir = path.join(__dirname, '..', folder)
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir)
@@ -88,7 +98,7 @@ function getDestinationInfo (dest) {
   process.exit(1)
 }
 
-module.exports.writeFile = function (dest, code, zip) {
+export function writeFile (dest, code, zip) {
   const { banner, tableEntryType, toTable } = getDestinationInfo(dest)
 
   const fileSize = getSize(code)
@@ -126,18 +136,16 @@ module.exports.writeFile = function (dest, code, zip) {
   })
 }
 
-module.exports.readFile = function (file) {
+export function readFile (file) {
   return fs.readFileSync(file, 'utf-8')
 }
 
-function logError (err) {
+export function logError (err) {
   console.error('\n' + red('[Error]'), err)
   console.log()
 }
 
-module.exports.logError = logError
-
-module.exports.kebabCase = function (str) {
+export function kebabCase (str) {
   return str.replace(
     kebabRegex,
     match => '-' + match.toLowerCase()
