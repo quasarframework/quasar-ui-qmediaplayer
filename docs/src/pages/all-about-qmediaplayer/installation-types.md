@@ -15,7 +15,7 @@ related:
 
 To add as an App Extension to your Quasar application, run the following (in your Quasar app folder):
 ```
-$ quasar ext add @quasar/qmediaplayer
+$ quasar ext add @quasar/qmediaplayer@next
 ```
 
 #### Uninstall
@@ -32,9 +32,9 @@ When installed as an App Extension, you can use `quasar describe QMediaPlayer`.
 ### Or Create and register a boot file
 
 ```
-$ yarn add @quasar/quasar-ui-qmediaplayer
+$ yarn add @quasar/quasar-ui-qmediaplayer@next
 # or
-$ npm install @quasar/quasar-ui-qmediaplayer
+$ npm install @quasar/quasar-ui-qmediaplayer@next
 ```
 
 Then

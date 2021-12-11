@@ -11,7 +11,7 @@ The QMediaPlayer app extension allows you to seamlessly add the [QMediaPlayer UI
 
 # Install
 ```bash
-quasar ext add @quasar/qmediaplayer
+quasar ext add @quasar/qmediaplayer@next
 ```
 Quasar CLI will retrieve it from NPM and install the extension.
 
