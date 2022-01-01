@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const fs = require('fs')
+const fse = require('fs-extra')
 const path = require('path')
 const zlib = require('zlib')
 import chalk from 'chalk'
@@ -57,7 +58,7 @@ function getSize (code) {
 export function createFolder (folder) {
   const dir = path.join(__dirname, '..', folder)
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
+    fse.ensureDirSync(dir)
   }
 }
 

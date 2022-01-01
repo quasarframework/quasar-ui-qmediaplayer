@@ -6,6 +6,10 @@ import { dirname } from 'path'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
+import { createFolder } from './utils.js'
+
+createFolder('dist/api')
+
 const path = require('path')
 global.rootDir = path.resolve(__dirname, '..')
 global.distDir = path.resolve(__dirname, '../dist')

@@ -147,7 +147,7 @@ function addAssets (builds, type, injectName) {
     plugins = rollupPluginsModern,
     outputDir = pathResolve(`../dist/${ type }`)
 
-  fse.mkdirp(outputDir)
+  fse.ensureDirSync(outputDir)
 
   files
     .filter(file => file.endsWith('.js'))
