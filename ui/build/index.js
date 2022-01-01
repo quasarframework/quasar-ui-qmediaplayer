@@ -24,7 +24,7 @@ import './script.clean.js'
 
 console.log(` 📦 Building ${ green('v' + require('../package.json').version) }...${ parallel ? blue(' [multi-threaded]') : '' }\n`)
 
-createFolder('dist')
+createFolder('dist/api')
 
 import './script.version.js'
 
