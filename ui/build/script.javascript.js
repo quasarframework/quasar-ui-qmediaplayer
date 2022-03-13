@@ -98,10 +98,10 @@ const builds = [
   {
     rollup: {
       input: {
-        input: pathResolve('entry/index.common.js')
+        input: pathResolve('entry/index.cjs.js')
       },
       output: {
-        file: pathResolve('../dist/index.common.js'),
+        file: pathResolve('../dist/index.cjs.js'),
         format: 'cjs',
         exports: 'auto'
       }
