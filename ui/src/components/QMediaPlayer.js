@@ -1159,7 +1159,7 @@ export default defineComponent({
 
     function __getParentEl (el, className) {
       if (!el) return null
-      if (el.className.startsWith(className)) {
+      if (String(el.className).startsWith(className)) {
         return el
       }
       return __getParentEl(el.offsetParent, className)
