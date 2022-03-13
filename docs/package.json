@@ -21,7 +21,9 @@
     "core-js": "^3.21.1",
     "quasar": "^2.5.5",
     "quasar-ui-example-viewer": "^2.0.0-alpha.9",
-    "quasar-ui-json-api-viewer": "^2.0.0-alpha.6"
+    "quasar-ui-json-api-viewer": "^2.0.0-alpha.6",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
