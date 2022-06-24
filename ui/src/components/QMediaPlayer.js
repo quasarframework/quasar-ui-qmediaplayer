@@ -30,7 +30,7 @@ import {
 
 import {
   matClose
-} from '@quasar/extras/material-icons/index.js'
+} from '@quasar/extras/material-icons/index.mjs'
 
 function hSlot (slot, otherwise) {
   return slot !== void 0

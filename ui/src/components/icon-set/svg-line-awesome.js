@@ -11,7 +11,7 @@ import {
   laExpandSolid,
   laCompressSolid,
   laCaretRightSolid
-} from '@quasar/extras/line-awesome/index.js'
+} from '@quasar/extras/line-awesome/index.mjs'
 
 export default {
   name: 'line-awesome',

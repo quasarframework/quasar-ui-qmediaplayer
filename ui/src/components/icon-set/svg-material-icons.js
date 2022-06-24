@@ -10,7 +10,7 @@ import {
   matCheck,
   matFullscreen,
   matFullscreenExit
-} from '@quasar/extras/material-icons/index.js'
+} from '@quasar/extras/material-icons/index.mjs'
 
 export default {
   name: 'svg-material-icons',

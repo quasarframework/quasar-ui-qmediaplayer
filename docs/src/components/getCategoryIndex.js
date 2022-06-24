@@ -1,7 +1,7 @@
 import { h } from 'vue'
 import { QIcon } from 'quasar'
 
-import { farFileAlt, fasFolderOpen } from '@quasar/extras/fontawesome-v5/index.js'
+import { farFileAlt, fasFolderOpen } from '@quasar/extras/fontawesome-v5/index.mjs'
 
 import MarkdownPage from './MarkdownPage.vue'
 import MarkdownLink from './MarkdownLink.vue'

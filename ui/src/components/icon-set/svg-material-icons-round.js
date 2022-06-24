@@ -10,7 +10,7 @@ import {
   roundCheck,
   roundFullscreen,
   roundFullscreenExit
-} from '@quasar/extras/material-icons-round/index.js'
+} from '@quasar/extras/material-icons-round/index.mjs'
 
 export default {
   name: 'svg-material-icons-round',

@@ -10,7 +10,7 @@ import {
   ionMdCheckmark,
   ionMdExpand,
   ionMdContract
-} from '@quasar/extras/ionicons-v4/index.js'
+} from '@quasar/extras/ionicons-v4/index.mjs'
 
 export default {
   name: 'svg-ionicons-v4',
