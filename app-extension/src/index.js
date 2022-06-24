@@ -33,8 +33,13 @@ module.exports = function (api) {
     api.compatibleWith('@quasar/app-vite', '^1.0.0-alpha.0')
   }
   else {
-    // should be "@quasar/app-webpack" but that is not backward compatible
-    api.compatibleWith('@quasar/app', '^3.0.0')
+    if (api.hasPackage('@quasar/app-webpack')) {
+      api.compatibleWith('@quasar/app-webpack', '^1.0.0-alpha.0')
+
+    }
+    else {
+      api.compatibleWith('@quasar/app', '^3.0.0')
+    }
   }
 
   // Uncomment the line below if you provide a JSON API for your component
