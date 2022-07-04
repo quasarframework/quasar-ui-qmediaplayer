@@ -1,12 +1,4 @@
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-import { createFolder } from './utils.js'
+const { createFolder } = require('./utils')
 
 createFolder('dist/api')
 

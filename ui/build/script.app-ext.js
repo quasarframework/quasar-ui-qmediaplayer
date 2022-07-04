@@ -1,24 +1,15 @@
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
 const
   fs = require('fs'),
   path = require('path'),
   root = path.resolve(__dirname, '../..'),
   resolvePath = file => path.resolve(root, file)
-import chalk from 'chalk'
-const { blue } = chalk
+const { blue } = require('kolorist')
 
 const writeJson = function (file, json) {
   return fs.writeFileSync(file, JSON.stringify(json, null, 2) + '\n', 'utf-8')
 }
 
-export function syncAppExt (both = true) {
+module.exports.syncAppExt = function (both = true) {
   // make sure this project has an app-extension project
   const appExtDir = resolvePath('app-extension')
   if (!fs.existsSync(appExtDir)) {

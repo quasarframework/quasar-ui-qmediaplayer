@@ -843,7 +843,7 @@ export default defineComponent({
           try {
             const result = await import(
               /* webpackChunkName: "[request]" */
-              `@quasar/quasar-ui-qmediaplayer/src/components/lang/${ lang }.js`
+              `@quasar/quasar-ui-qmediaplayer/lang/${ lang }.js`
             )
             langList = result.default
           }
@@ -887,7 +887,7 @@ export default defineComponent({
           try {
             const result = await import (
               /* webpackChunkName: "[request]" */
-              `@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${ set }.js`
+              `@quasar/quasar-ui-qmediaplayer/icon-set/${ set }.js`
             )
             iconsList = result.default
           }

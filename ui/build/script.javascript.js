@@ -1,13 +1,5 @@
 process.env.BABEL_ENV = 'production'
 
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
 const path = require('path')
 const fs = require('fs')
 const fse = require('fs-extra')
@@ -17,15 +9,18 @@ const uglify = require('uglify-js')
 const json = require('@rollup/plugin-json')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 
-import buildConf from './config.js'
-import { logError, writeFile } from './utils.js'
+const buildConf = require('./config.js')
+const { logError, writeFile } = require('./utils.js')
 
 function pathResolve (_path) {
   return path.resolve(__dirname, _path)
 }
 
 const rollupPluginsModern = [
-  nodeResolve(),
+  nodeResolve({
+    extensions: ['.js'],
+    preferBuiltins: false
+  }),
   json()
 ]
 
@@ -131,32 +126,29 @@ const builds = [
   }
 ]
 
-addAssets(builds, 'icon-set', 'iconSet')
-addAssets(builds, 'lang', 'lang')
-
-build(builds)
-
 /**
  * Helpers
  */
 
 // eslint-disable-next-line no-unused-vars
-function addAssets (builds, type, injectName) {
-  const
-    files = fs.readdirSync(pathResolve('../../ui/src/components/' + type)),
+function addUmdAssets (builds, type, injectName) {
+  const files = fs.readdirSync(pathResolve('../../ui/' + type)),
     plugins = rollupPluginsModern,
     outputDir = pathResolve(`../dist/${ type }`)
 
   fse.ensureDirSync(outputDir)
 
   files
-    .filter(file => file.endsWith('.js'))
+    .filter(file => file.endsWith('.mjs'))
     .forEach(file => {
-      const name = file.slice(0, file.length - 3).replace(/-([a-z])/g, g => g[ 1 ].toUpperCase())
+      const name = file
+      .substring(0, file.length - 4)
+      .replace(/-([a-zA-Z])/g, g => g[ 1 ].toUpperCase())
+
       builds.push({
         rollup: {
           input: {
-            input: pathResolve(`../src/components/${ type }/${ file }`),
+            input: pathResolve(`../${ type }/${ file }`),
             plugins
           },
           output: {
@@ -258,4 +250,26 @@ function buildEntry (config) {
       console.error(err)
       process.exit(1)
     })
+}
+
+const runBuild = {
+  async full () {
+    await require('./build.lang').generate()
+    await require('./build.icon-sets').generate()
+
+    addUmdAssets(builds, 'icon-set', 'iconSet')
+    addUmdAssets(builds, 'lang', 'lang')
+
+    await build(builds)
+  }
+}
+
+module.exports = function (subtype) {
+  if (runBuild[ subtype ] === void 0) {
+    console.log(` Unrecognized subtype specified: "${ subtype }".`)
+    console.log(` Available: ${ Object.keys(runBuild).join(' | ') }\n`)
+    process.exit(1)
+  }
+
+  runBuild[ subtype ]()
 }

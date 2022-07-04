@@ -1,23 +1,12 @@
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
 const fs = require('fs')
-const fse = require('fs-extra')
 const path = require('path')
 const zlib = require('zlib')
-import chalk from 'chalk'
-const { green, blue, red, magenta, yellow, underline } = chalk
+const { green, blue, red, magenta, yellow, underline } = require('kolorist')
 
 const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 const tableData = []
 
 const { version, name } = require('../../package.json')
-
 
 process.on('exit', code => {
   if (code === 0 && tableData.length > 0) {
@@ -55,10 +44,10 @@ function getSize (code) {
   return (code.length / 1024).toFixed(2) + 'kb'
 }
 
-export function createFolder (folder) {
+module.exports.createFolder = function (folder) {
   const dir = path.join(__dirname, '..', folder)
   if (!fs.existsSync(dir)) {
-    fse.ensureDirSync(dir)
+    fs.mkdirSync(dir)
   }
 }
 
@@ -71,7 +60,7 @@ function getDestinationInfo (dest) {
     }
   }
 
-  if (dest.endsWith('.js')) {
+  if (dest.endsWith('.js') || dest.endsWith('.mjs')) {
     return {
       banner: green('[js]  '),
       tableEntryType: green('js'),
@@ -95,11 +84,11 @@ function getDestinationInfo (dest) {
     }
   }
 
-  logError(`Unknown file type using buildUtils.writeFile: ${ dest }`)
+  module.exports.logError(`Unknown file type using buildUtils.writeFile: ${ dest }`)
   process.exit(1)
 }
 
-export function writeFile (dest, code, zip) {
+module.exports.writeFile = function (dest, code, zip) {
   const { banner, tableEntryType, toTable } = getDestinationInfo(dest)
 
   const fileSize = getSize(code)
@@ -137,16 +126,35 @@ export function writeFile (dest, code, zip) {
   })
 }
 
-export function readFile (file) {
+module.exports.readFile = function (file) {
   return fs.readFileSync(file, 'utf-8')
 }
 
-export function logError (err) {
+module.exports.writeFileIfChanged = function (dest, newContent, zip) {
+  let currentContent = ''
+  try {
+    currentContent = fs.readFileSync(dest, 'utf-8')
+  }
+  catch (e) {}
+
+  return newContent.split(/[\n\r]+/).join('\n') !== currentContent.split(/[\n\r]+/).join('\n')
+    ? module.exports.writeFile(dest, newContent, zip)
+    : Promise.resolve()
+}
+
+module.exports.convertToCjs = function (content, banner = '') {
+  return banner + content
+    .replace(/export default {/, 'module.exports = {')
+    .replace(/import {/g, 'const {')
+    .replace(/} from '(.*)'/g, (_, pkg) => `} = require('${ pkg }')`)
+}
+
+module.exports.logError = function (err) {
   console.error('\n' + red('[Error]'), err)
   console.log()
 }
 
-export function kebabCase (str) {
+module.exports.kebabCase = function (str) {
   return str.replace(
     kebabRegex,
     match => '-' + match.toLowerCase()

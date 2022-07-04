@@ -1,12 +1,4 @@
 /* eslint-disable array-bracket-spacing */
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
 const path = require('path')
 const sass = require('sass')
 const postcss = require('postcss')
@@ -14,8 +6,8 @@ const cssnano = require('cssnano')
 const rtl = require('rtlcss')
 const autoprefixer = require('autoprefixer')
 
-import buildConf from './config.js'
-import { writeFile } from './utils.js'
+const buildConf = require('./config.js')
+const { writeFile } = require('./utils.js')
 
 const postCssCompiler = postcss([ autoprefixer ])
 const postCssRtlCompiler = postcss([ rtl({}) ])
