@@ -1,27 +1,27 @@
 export default {
   lang: 'he',
   mediaPlayer: {
-    oldBrowserVideo: 'To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.',
-    oldBrowserAudio: 'To listen to this audio please enable JavaScript and/or consider upgrading to a browser that supports HTML5 audio.',
-    pause: 'Pause',
-    play: 'Play',
-    settings: 'Settings',
-    toggleFullscreen: 'Toggle Fullscreen',
-    mute: 'Mute',
-    unmute: 'Unmute',
-    speed: 'Speed', // Playback rate
-    language: 'Language',
-    playbackRate: 'Playback Rate',
-    waitingVideo: 'Waiting for video',
-    waitingAudio: 'Waiting for audio',
+    oldBrowserVideo: 'כדי לצפות בסרטון זה, יש להפעיל ג\'אווה סקריפט, או לעדכן את הדפדפן לגרסה שתומכת בסרטוני HTML5',
+    oldBrowserAudio: 'כדי לשמוע  אודיו בסרטון זה, יש להפעיל ג\'אווה סקריפט, או לעדכן את הדפדפן לגרסה שתומכת באודיו HTML5',
+    pause: 'השהה',
+    play: 'נגן',
+    settings: 'הגדרות',
+    toggleFullscreen: 'מסך מלא',
+    mute: 'השתק',
+    unmute: 'בטל השתקה',
+    speed: 'מהירות', // Playback rate
+    language: 'שפה',
+    playbackRate: 'מהירות',
+    waitingVideo: 'ממתין לוידאו',
+    waitingAudio: 'ממתין לאודיו',
     ratePoint5: '.5x',
-    rateNormal: 'Normal',
+    rateNormal: 'רגיל',
     rate1Point5: '1.5x',
     rate2: '2x',
-    trackLanguageOff: 'Off',
-    noLoadVideo: 'Unable to load video',
-    noLoadAudio: 'Unable to load audio',
-    cannotPlayVideo: 'Cannot play video',
-    cannotPlayAudio: 'Cannot play audio'
+    trackLanguageOff: 'כיבוי',
+    noLoadVideo: 'לא ניתן לטעון את הסרטון',
+    noLoadAudio: 'לא ניתן לטעון את האודיו',
+    cannotPlayVideo: 'לא ניתן לנגן את הסרטון',
+    cannotPlayAudio: 'לא ניתן לנגן את האודיו'
   }
 }
