@@ -857,14 +857,19 @@ export default defineComponent({
     }
 
     async function __setupIcons () {
-      const iconSetName = $q.iconSet.name || 'material-icons'
-      let icnSet
-      try {
-        icnSet = await __loadIconSet(iconSetName)
+      let icnSet;
+
+      if (typeof $q.iconSet.mediaPlayer === 'object') {
+        icnSet = $q.iconSet;
+      } else {
+        const iconSetName = $q.iconSet.name || 'material-icons';
+
+        try {
+          icnSet = await __loadIconSet(iconSetName);
+        } catch (e) {
+        }
       }
-      catch (e) {
-      }
-      icnSet !== void 0 && icnSet.name !== void 0 && (iconSet.mediaPlayer = { ...icnSet.mediaPlayer })
+      icnSet !== void 0 && icnSet.name !== void 0 && (iconSet.mediaPlayer = { ...icnSet.mediaPlayer });
     }
 
     async function __loadIconSet (set) {
