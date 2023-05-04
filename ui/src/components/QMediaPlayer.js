@@ -887,7 +887,7 @@ export default defineComponent({
           try {
             const result = await import (
               /* webpackChunkName: "[request]" */
-              `@quasar/quasar-ui-qmediaplayer/src/components/icon-set/${ set }.js`
+              `./icon-set/${ set }.js`
             )
             iconsList = result.default
           }
