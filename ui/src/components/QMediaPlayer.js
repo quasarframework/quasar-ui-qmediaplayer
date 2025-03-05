@@ -1373,7 +1373,7 @@ export default defineComponent({
       const slot = slots.oldbrowser
 
       const attrs = {
-        poster: (props.poster ? props.poster : false),
+        poster: (props.poster ? props.poster : ''),
         preload: props.preload,
         playsinline: props.playsinline === true,
         loop: props.loop === true,
@@ -1406,7 +1406,7 @@ export default defineComponent({
       const slot = slots.oldbrowser
 
       const attrs = {
-        poster: (props.poster ? props.poster : false),
+        poster: (props.poster ? props.poster : ''),
         preload: props.preload,
         playsinline: props.playsinline === true,
         loop: props.loop === true,
