@@ -4,20 +4,34 @@
  * Edit that file instead (fontawesome-v5.mjs).
  */
 
+import {
+  fasPlay,
+  fasPause,
+  fasVolumeMute,
+  fasVolumeDown,
+  fasVolumeUp,
+  fasCog,
+  fasRunning,
+  fasClosedCaptioning,
+  fasCheck,
+  fasExpand,
+  fasCompress,
+} from "@quasar/extras/fontawesome-v5/index.mjs";
+
 export default {
-  name: "fontawesome-v5",
+  name: "svg-fontawesome-v5",
   mediaPlayer: {
-    play: "fas fa-play",
-    pause: "fas fa-pause",
-    volumeOff: "fas fa-volume-mute",
-    volumeDown: "fas fa-volume-down",
-    volumeUp: "fas fa-volume-up",
-    settings: "fas fa-cog",
-    speed: "fas fa-running",
-    language: "fas fa-closed-captioning",
-    selected: "fas fa-check",
-    fullscreen: "fas fa-expand",
-    fullscreenExit: "fas fa-compress",
-    bigPlayButton: "fas fa-play",
+    play: fasPlay,
+    pause: fasPause,
+    volumeOff: fasVolumeMute,
+    volumeDown: fasVolumeDown,
+    volumeUp: fasVolumeUp,
+    settings: fasCog,
+    speed: fasRunning,
+    language: fasClosedCaptioning,
+    selected: fasCheck,
+    fullscreen: fasExpand,
+    fullscreenExit: fasCompress,
+    bigPlayButton: fasPlay,
   },
 };

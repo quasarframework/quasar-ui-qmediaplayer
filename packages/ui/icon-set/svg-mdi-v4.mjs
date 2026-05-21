@@ -4,20 +4,34 @@
  * Edit that file instead (mdi-v4.mjs).
  */
 
+import {
+  mdiPlay,
+  mdiPause,
+  mdiVolumeOff,
+  mdiVolumeMedium,
+  mdiVolumeHigh,
+  mdiSettings,
+  mdiRun,
+  mdiClosedCaption,
+  mdiCheck,
+  mdiFullscreen,
+  mdiFullscreenExit,
+} from "@quasar/extras/mdi-v4/index.mjs";
+
 export default {
-  name: "mdi-v4",
+  name: "svg-mdi-v4",
   mediaPlayer: {
-    play: "mdi-play",
-    pause: "mdi-pause",
-    volumeOff: "mdi-volume-off",
-    volumeDown: "mdi-volume-medium",
-    volumeUp: "mdi-volume-high",
-    settings: "mdi-settings",
-    speed: "mdi-run",
-    language: "mdi-closed-caption",
-    selected: "mdi-check",
-    fullscreen: "mdi-fullscreen",
-    fullscreenExit: "mdi-fullscreen-exit",
-    bigPlayButton: "mdi-play",
+    play: mdiPlay,
+    pause: mdiPause,
+    volumeOff: mdiVolumeOff,
+    volumeDown: mdiVolumeMedium,
+    volumeUp: mdiVolumeHigh,
+    settings: mdiSettings,
+    speed: mdiRun,
+    language: mdiClosedCaption,
+    selected: mdiCheck,
+    fullscreen: mdiFullscreen,
+    fullscreenExit: mdiFullscreenExit,
+    bigPlayButton: mdiPlay,
   },
 };

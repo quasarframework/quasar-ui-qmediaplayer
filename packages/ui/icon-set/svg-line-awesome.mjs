@@ -4,20 +4,34 @@
  * Edit that file instead (line-awesome.mjs).
  */
 
+import {
+  laPlaySolid,
+  laPauseSolid,
+  laVolumeMuteSolid,
+  laVolumeDownSolid,
+  laVolumeUpSolid,
+  laCogSolid,
+  laRunningSolid,
+  laClosedCaptioningSolid,
+  laCheckSolid,
+  laExpandSolid,
+  laCompressSolid,
+} from "@quasar/extras/line-awesome/index.mjs";
+
 export default {
-  name: "line-awesome",
+  name: "svg-line-awesome",
   mediaPlayer: {
-    play: "las la-play",
-    pause: "las la-pause",
-    volumeOff: "las la-volume-mute",
-    volumeDown: "las la-volume-down",
-    volumeUp: "las la-volume-up",
-    settings: "las la-cog",
-    speed: "las la-running",
-    language: "las la-closed-captioning",
-    selected: "las la-check",
-    fullscreen: "las la-expand",
-    fullscreenExit: "las la-compress",
-    bigPlayButton: "las la-play",
+    play: laPlaySolid,
+    pause: laPauseSolid,
+    volumeOff: laVolumeMuteSolid,
+    volumeDown: laVolumeDownSolid,
+    volumeUp: laVolumeUpSolid,
+    settings: laCogSolid,
+    speed: laRunningSolid,
+    language: laClosedCaptioningSolid,
+    selected: laCheckSolid,
+    fullscreen: laExpandSolid,
+    fullscreenExit: laCompressSolid,
+    bigPlayButton: laPlaySolid,
   },
 };

@@ -28,8 +28,58 @@ import {
   useQuasar,
 } from "quasar";
 
+import defaultIconSet from "../../icon-set/material-icons.mjs";
+
 const matClose =
   "M0 0h24v24H0z@@fill:none;&&M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z";
+
+const iconSetLoaders = {
+  "bootstrap-icons": () => import("../../icon-set/bootstrap-icons.mjs"),
+  "eva-icons": () => import("../../icon-set/eva-icons.mjs"),
+  "fontawesome-v5": () => import("../../icon-set/fontawesome-v5.mjs"),
+  "fontawesome-v5-pro": () => import("../../icon-set/fontawesome-v5-pro.mjs"),
+  "fontawesome-v6": () => import("../../icon-set/fontawesome-v6.mjs"),
+  "fontawesome-v6-pro": () => import("../../icon-set/fontawesome-v6-pro.mjs"),
+  "fontawesome-v7": () => import("../../icon-set/fontawesome-v7.mjs"),
+  "ionicons-v4": () => import("../../icon-set/ionicons-v4.mjs"),
+  "ionicons-v7": () => import("../../icon-set/ionicons-v7.mjs"),
+  "ionicons-v8": () => import("../../icon-set/ionicons-v8.mjs"),
+  "line-awesome": () => import("../../icon-set/line-awesome.mjs"),
+  "material-icons": async () => ({ default: defaultIconSet }),
+  "material-icons-outlined": () => import("../../icon-set/material-icons-outlined.mjs"),
+  "material-icons-round": () => import("../../icon-set/material-icons-round.mjs"),
+  "material-icons-sharp": () => import("../../icon-set/material-icons-sharp.mjs"),
+  "material-symbols-outlined": () => import("../../icon-set/material-symbols-outlined.mjs"),
+  "material-symbols-rounded": () => import("../../icon-set/material-symbols-rounded.mjs"),
+  "material-symbols-sharp": () => import("../../icon-set/material-symbols-sharp.mjs"),
+  "mdi-v3": () => import("../../icon-set/mdi-v3.mjs"),
+  "mdi-v4": () => import("../../icon-set/mdi-v4.mjs"),
+  "mdi-v5": () => import("../../icon-set/mdi-v5.mjs"),
+  "mdi-v6": () => import("../../icon-set/mdi-v6.mjs"),
+  "mdi-v7": () => import("../../icon-set/mdi-v7.mjs"),
+  "svg-bootstrap-icons": () => import("../../icon-set/svg-bootstrap-icons.mjs"),
+  "svg-eva-icons": () => import("../../icon-set/svg-eva-icons.mjs"),
+  "svg-fontawesome-v5": () => import("../../icon-set/svg-fontawesome-v5.mjs"),
+  "svg-fontawesome-v6": () => import("../../icon-set/svg-fontawesome-v6.mjs"),
+  "svg-fontawesome-v7": () => import("../../icon-set/svg-fontawesome-v7.mjs"),
+  "svg-ionicons-v4": () => import("../../icon-set/svg-ionicons-v4.mjs"),
+  "svg-ionicons-v7": () => import("../../icon-set/svg-ionicons-v7.mjs"),
+  "svg-ionicons-v8": () => import("../../icon-set/svg-ionicons-v8.mjs"),
+  "svg-line-awesome": () => import("../../icon-set/svg-line-awesome.mjs"),
+  "svg-material-icons": () => import("../../icon-set/svg-material-icons.mjs"),
+  "svg-material-icons-outlined": () => import("../../icon-set/svg-material-icons-outlined.mjs"),
+  "svg-material-icons-round": () => import("../../icon-set/svg-material-icons-round.mjs"),
+  "svg-material-icons-sharp": () => import("../../icon-set/svg-material-icons-sharp.mjs"),
+  "svg-material-symbols-outlined": () => import("../../icon-set/svg-material-symbols-outlined.mjs"),
+  "svg-material-symbols-rounded": () => import("../../icon-set/svg-material-symbols-rounded.mjs"),
+  "svg-material-symbols-sharp": () => import("../../icon-set/svg-material-symbols-sharp.mjs"),
+  "svg-mdi-v4": () => import("../../icon-set/svg-mdi-v4.mjs"),
+  "svg-mdi-v5": () => import("../../icon-set/svg-mdi-v5.mjs"),
+  "svg-mdi-v6": () => import("../../icon-set/svg-mdi-v6.mjs"),
+  "svg-mdi-v7": () => import("../../icon-set/svg-mdi-v7.mjs"),
+  "svg-themify": () => import("../../icon-set/svg-themify.mjs"),
+  themify: () => import("../../icon-set/themify.mjs"),
+};
 
 function hSlot(slot, otherwise) {
   return slot !== void 0 ? slot() : otherwise;
@@ -190,7 +240,7 @@ export default defineComponent({
         mediaPlayer: {},
       }),
       iconSet = reactive({
-        mediaPlayer: {},
+        mediaPlayer: { ...defaultIconSet.mediaPlayer },
       }),
       $media = ref(null), // $ref - the actual video/audio player
       controls = ref(null), // $ref
@@ -938,8 +988,8 @@ export default defineComponent({
         icnSet = await __loadIconSet(iconSetName);
       } catch {}
 
-      if (icnSet !== void 0 && icnSet.name !== void 0) {
-        iconSet.mediaPlayer = { ...icnSet.mediaPlayer };
+      if (icnSet !== void 0 && icnSet.mediaPlayer !== void 0) {
+        iconSet.mediaPlayer = { ...defaultIconSet.mediaPlayer, ...icnSet.mediaPlayer };
       }
     }
 
@@ -961,16 +1011,16 @@ export default defineComponent({
             );
           }
         } else {
-          try {
-            const result = await import(
-              /* webpackChunkName: "[request]" */
-              `@quasar/quasar-ui-qmediaplayer/icon-set/${set}.js`
-            );
-            iconsList = result.default;
-          } catch {
+          const loadIconSet =
+            iconSetLoaders[set as keyof typeof iconSetLoaders] || iconSetLoaders["material-icons"];
+
+          if (iconSetLoaders[set as keyof typeof iconSetLoaders] === void 0) {
             /* eslint-disable-next-line no-console */
             console.error(`[QMediaPlayer]: Cannot find icon set file called '${set}'`);
           }
+
+          const result = await loadIconSet();
+          iconsList = result.default;
         }
       }
       return iconsList;

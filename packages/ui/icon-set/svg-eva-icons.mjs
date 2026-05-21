@@ -4,20 +4,35 @@
  * Edit that file instead (eva-icons.mjs).
  */
 
+import {
+  evaPlayCircleOutline,
+  evaPauseCircleOutline,
+  evaVolumeOffOutline,
+  evaVolumeDownOutline,
+  evaVolumeUpOutline,
+  evaSettingsOutline,
+  evaFlashOutline,
+  evaGlobeOutline,
+  evaCheckmarkOutline,
+  evaExpandOutline,
+  evaCollapseOutline,
+  evaArrowRightOutline,
+} from "@quasar/extras/eva-icons/index.mjs";
+
 export default {
-  name: "eva-icons",
+  name: "svg-eva-icons",
   mediaPlayer: {
-    play: "eva-play-circle-outline",
-    pause: "eva-pause-circle-outline",
-    volumeOff: "eva-volume-off-outline",
-    volumeDown: "eva-volume-down-outline",
-    volumeUp: "eva-volume-up-outline",
-    settings: "eva-settings-outline",
-    speed: "eva-flash-outline",
-    language: "eva-globe-outline",
-    selected: "eva-checkmark-outline",
-    fullscreen: "eva-expand-outline",
-    fullscreenExit: "eva-collapse-outline",
-    bigPlayButton: "eva-arrow-right-outline",
+    play: evaPlayCircleOutline,
+    pause: evaPauseCircleOutline,
+    volumeOff: evaVolumeOffOutline,
+    volumeDown: evaVolumeDownOutline,
+    volumeUp: evaVolumeUpOutline,
+    settings: evaSettingsOutline,
+    speed: evaFlashOutline,
+    language: evaGlobeOutline,
+    selected: evaCheckmarkOutline,
+    fullscreen: evaExpandOutline,
+    fullscreenExit: evaCollapseOutline,
+    bigPlayButton: evaArrowRightOutline,
   },
 };

@@ -4,20 +4,33 @@
  * Edit that file instead (themify.mjs).
  */
 
+const {
+  tiControlPlay,
+  tiControlPause,
+  tiNa,
+  tiVolume,
+  tiSettings,
+  tiDashboard,
+  tiLayoutMediaOverlay,
+  tiCheck,
+  tiFullscreen,
+  tiClose,
+} = require("@quasar/extras/themify/index.js");
+
 module.exports = {
-  name: "themify",
+  name: "svg-themify",
   mediaPlayer: {
-    play: "ti-control-play",
-    pause: "ti-control-pause",
-    volumeOff: "ti-na",
-    volumeDown: "ti-volume",
-    volumeUp: "ti-volume",
-    settings: "ti-settings",
-    speed: "ti-dashboard",
-    language: "ti-layout-media-overlay",
-    selected: "ti-check",
-    fullscreen: "ti-fullscreen",
-    fullscreenExit: "ti-close",
-    bigPlayButton: "ti-control-play",
+    play: tiControlPlay,
+    pause: tiControlPause,
+    volumeOff: tiNa,
+    volumeDown: tiVolume,
+    volumeUp: tiVolume,
+    settings: tiSettings,
+    speed: tiDashboard,
+    language: tiLayoutMediaOverlay,
+    selected: tiCheck,
+    fullscreen: tiFullscreen,
+    fullscreenExit: tiClose,
+    bigPlayButton: tiControlPlay,
   },
 };

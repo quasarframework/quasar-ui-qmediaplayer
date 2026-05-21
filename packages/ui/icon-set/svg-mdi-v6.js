@@ -4,20 +4,34 @@
  * Edit that file instead (mdi-v6.mjs).
  */
 
+const {
+  mdiPlay,
+  mdiPause,
+  mdiVolumeOff,
+  mdiVolumeMedium,
+  mdiVolumeHigh,
+  mdiCog,
+  mdiRun,
+  mdiClosedCaption,
+  mdiCheck,
+  mdiFullscreen,
+  mdiFullscreenExit,
+} = require("@quasar/extras/mdi-v6/index.js");
+
 module.exports = {
-  name: "mdi-v6",
+  name: "svg-mdi-v6",
   mediaPlayer: {
-    play: "mdi-play",
-    pause: "mdi-pause",
-    volumeOff: "mdi-volume-off",
-    volumeDown: "mdi-volume-medium",
-    volumeUp: "mdi-volume-high",
-    settings: "mdi-cog",
-    speed: "mdi-run",
-    language: "mdi-closed-caption",
-    selected: "mdi-check",
-    fullscreen: "mdi-fullscreen",
-    fullscreenExit: "mdi-fullscreen-exit",
-    bigPlayButton: "mdi-play",
+    play: mdiPlay,
+    pause: mdiPause,
+    volumeOff: mdiVolumeOff,
+    volumeDown: mdiVolumeMedium,
+    volumeUp: mdiVolumeHigh,
+    settings: mdiCog,
+    speed: mdiRun,
+    language: mdiClosedCaption,
+    selected: mdiCheck,
+    fullscreen: mdiFullscreen,
+    fullscreenExit: mdiFullscreenExit,
+    bigPlayButton: mdiPlay,
   },
 };

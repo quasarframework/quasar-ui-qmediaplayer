@@ -14,7 +14,18 @@ export default defineConfig(async (ctx) => {
 
     css: ["app.scss"],
 
-    extras: ["fontawesome-v6", "roboto-font", "material-icons"],
+    extras: [
+      "bootstrap-icons",
+      "eva-icons",
+      "fontawesome-v6",
+      "fontawesome-v7",
+      "line-awesome",
+      "material-icons",
+      "mdi-v6",
+      "mdi-v7",
+      "roboto-font",
+      "themify",
+    ],
 
     build: {
       target: {
@@ -28,10 +39,6 @@ export default defineConfig(async (ctx) => {
         extendTsConfig(tsConfig) {
           tsConfig.compilerOptions ??= {};
           tsConfig.compilerOptions.exactOptionalPropertyTypes = false;
-          tsConfig.compilerOptions.paths ??= {};
-          tsConfig.compilerOptions.paths["@quasar/quasar-ui-qmediaplayer"] = [
-            "./../../ui/src/index.ts",
-          ];
         },
       },
 

@@ -4,20 +4,35 @@
  * Edit that file instead (bootstrap-icons.mjs).
  */
 
+const {
+  biPlayCircle,
+  biPauseCircle,
+  biVolumeMute,
+  biVolumeDown,
+  biVolumeUp,
+  biGear,
+  biSpeedometer,
+  biBadgeCc,
+  biCheck,
+  biFullscreen,
+  biFullscreenExit,
+  biCaretRight,
+} = require("@quasar/extras/bootstrap-icons/index.js");
+
 module.exports = {
-  name: "bootstrap-icons",
+  name: "svg-bootstrap-icons",
   mediaPlayer: {
-    play: "bi-play-circle",
-    pause: "bi-pause-circle",
-    volumeOff: "bi-volume-mute",
-    volumeDown: "bi-volume-down",
-    volumeUp: "bi-volume-up",
-    settings: "bi-gear",
-    speed: "bi-speedometer",
-    language: "bi-badge-cc",
-    selected: "bi-check",
-    fullscreen: "bi-fullscreen",
-    fullscreenExit: "bi-fullscreen-exit",
-    bigPlayButton: "bi-caret-right",
+    play: biPlayCircle,
+    pause: biPauseCircle,
+    volumeOff: biVolumeMute,
+    volumeDown: biVolumeDown,
+    volumeUp: biVolumeUp,
+    settings: biGear,
+    speed: biSpeedometer,
+    language: biBadgeCc,
+    selected: biCheck,
+    fullscreen: biFullscreen,
+    fullscreenExit: biFullscreenExit,
+    bigPlayButton: biCaretRight,
   },
 };

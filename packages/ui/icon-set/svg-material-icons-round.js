@@ -4,20 +4,34 @@
  * Edit that file instead (material-icons-round.mjs).
  */
 
+const {
+  roundPlayArrow,
+  roundPause,
+  roundVolumeOff,
+  roundVolumeDown,
+  roundVolumeUp,
+  roundSettings,
+  roundDirectionsRun,
+  roundClosedCaption,
+  roundCheck,
+  roundFullscreen,
+  roundFullscreenExit,
+} = require("@quasar/extras/material-icons-round/index.js");
+
 module.exports = {
-  name: "material-icons-round",
+  name: "svg-material-icons-round",
   mediaPlayer: {
-    play: "r_play_arrow",
-    pause: "r_pause",
-    volumeOff: "r_volume_off",
-    volumeDown: "r_volume_down",
-    volumeUp: "r_volume_up",
-    settings: "r_settings",
-    speed: "r_directions_run",
-    language: "r_closed_caption",
-    selected: "r_check",
-    fullscreen: "r_fullscreen",
-    fullscreenExit: "r_fullscreen_exit",
-    bigPlayButton: "r_play_arrow",
+    play: roundPlayArrow,
+    pause: roundPause,
+    volumeOff: roundVolumeOff,
+    volumeDown: roundVolumeDown,
+    volumeUp: roundVolumeUp,
+    settings: roundSettings,
+    speed: roundDirectionsRun,
+    language: roundClosedCaption,
+    selected: roundCheck,
+    fullscreen: roundFullscreen,
+    fullscreenExit: roundFullscreenExit,
+    bigPlayButton: roundPlayArrow,
   },
 };

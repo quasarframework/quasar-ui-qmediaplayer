@@ -4,20 +4,34 @@
  * Edit that file instead (fontawesome-v6.mjs).
  */
 
+const {
+  fasPlay,
+  fasPause,
+  fasVolumeXmark,
+  fasVolumeLow,
+  fasVolumeHigh,
+  fasGears,
+  fasPersonRunning,
+  fasClosedCaptioning,
+  fasCheck,
+  fasExpand,
+  fasCompress,
+} = require("@quasar/extras/fontawesome-v6/index.js");
+
 module.exports = {
-  name: "fontawesome-v6",
+  name: "svg-fontawesome-v6",
   mediaPlayer: {
-    play: "fas fa-play",
-    pause: "fas fa-pause",
-    volumeOff: "fas fa-volume-xmark",
-    volumeDown: "fas fa-volume-low",
-    volumeUp: "fas fa-volume-high",
-    settings: "fas fa-gears",
-    speed: "fas fa-person-running",
-    language: "fas fa-closed-captioning",
-    selected: "fas fa-check",
-    fullscreen: "fas fa-expand",
-    fullscreenExit: "fas fa-compress",
-    bigPlayButton: "fas fa-play",
+    play: fasPlay,
+    pause: fasPause,
+    volumeOff: fasVolumeXmark,
+    volumeDown: fasVolumeLow,
+    volumeUp: fasVolumeHigh,
+    settings: fasGears,
+    speed: fasPersonRunning,
+    language: fasClosedCaptioning,
+    selected: fasCheck,
+    fullscreen: fasExpand,
+    fullscreenExit: fasCompress,
+    bigPlayButton: fasPlay,
   },
 };

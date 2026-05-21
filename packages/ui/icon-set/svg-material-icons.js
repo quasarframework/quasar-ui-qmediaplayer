@@ -4,20 +4,34 @@
  * Edit that file instead (material-icons.mjs).
  */
 
+const {
+  matPlayArrow,
+  matPause,
+  matVolumeOff,
+  matVolumeDown,
+  matVolumeUp,
+  matSettings,
+  matDirectionsRun,
+  matClosedCaption,
+  matCheck,
+  matFullscreen,
+  matFullscreenExit,
+} = require("@quasar/extras/material-icons/index.js");
+
 module.exports = {
-  name: "material-icons",
+  name: "svg-material-icons",
   mediaPlayer: {
-    play: "play_arrow",
-    pause: "pause",
-    volumeOff: "volume_off",
-    volumeDown: "volume_down",
-    volumeUp: "volume_up",
-    settings: "settings",
-    speed: "directions_run",
-    language: "closed_caption",
-    selected: "check",
-    fullscreen: "fullscreen",
-    fullscreenExit: "fullscreen_exit",
-    bigPlayButton: "play_arrow",
+    play: matPlayArrow,
+    pause: matPause,
+    volumeOff: matVolumeOff,
+    volumeDown: matVolumeDown,
+    volumeUp: matVolumeUp,
+    settings: matSettings,
+    speed: matDirectionsRun,
+    language: matClosedCaption,
+    selected: matCheck,
+    fullscreen: matFullscreen,
+    fullscreenExit: matFullscreenExit,
+    bigPlayButton: matPlayArrow,
   },
 };

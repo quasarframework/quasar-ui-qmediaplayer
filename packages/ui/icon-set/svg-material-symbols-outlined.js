@@ -4,20 +4,34 @@
  * Edit that file instead (material-symbols-outlined.mjs).
  */
 
+const {
+  symOutlinedPlayArrow,
+  symOutlinedPause,
+  symOutlinedVolumeOff,
+  symOutlinedVolumeDown,
+  symOutlinedVolumeUp,
+  symOutlinedSettings,
+  symOutlinedDirectionsRun,
+  symOutlinedClosedCaption,
+  symOutlinedCheck,
+  symOutlinedFullscreen,
+  symOutlinedFullscreenExit,
+} = require("@quasar/extras/material-symbols-outlined/index.js");
+
 module.exports = {
-  name: "material-symbols-outlined",
+  name: "svg-material-symbols-outlined",
   mediaPlayer: {
-    play: "sym_o_play_arrow",
-    pause: "sym_o_pause",
-    volumeOff: "sym_o_volume_off",
-    volumeDown: "sym_o_volume_down",
-    volumeUp: "sym_o_volume_up",
-    settings: "sym_o_settings",
-    speed: "sym_o_directions_run",
-    language: "sym_o_closed_caption",
-    selected: "sym_o_check",
-    fullscreen: "sym_o_fullscreen",
-    fullscreenExit: "sym_o_fullscreen_exit",
-    bigPlayButton: "sym_o_play_arrow",
+    play: symOutlinedPlayArrow,
+    pause: symOutlinedPause,
+    volumeOff: symOutlinedVolumeOff,
+    volumeDown: symOutlinedVolumeDown,
+    volumeUp: symOutlinedVolumeUp,
+    settings: symOutlinedSettings,
+    speed: symOutlinedDirectionsRun,
+    language: symOutlinedClosedCaption,
+    selected: symOutlinedCheck,
+    fullscreen: symOutlinedFullscreen,
+    fullscreenExit: symOutlinedFullscreenExit,
+    bigPlayButton: symOutlinedPlayArrow,
   },
 };

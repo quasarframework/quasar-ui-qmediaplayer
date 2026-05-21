@@ -4,20 +4,34 @@
  * Edit that file instead (material-symbols-sharp.mjs).
  */
 
+import {
+  symSharpPlayArrow,
+  symSharpPause,
+  symSharpVolumeOff,
+  symSharpVolumeDown,
+  symSharpVolumeUp,
+  symSharpSettings,
+  symSharpDirectionsRun,
+  symSharpClosedCaption,
+  symSharpCheck,
+  symSharpFullscreen,
+  symSharpFullscreenExit,
+} from "@quasar/extras/material-symbols-sharp/index.mjs";
+
 export default {
-  name: "material-symbols-sharp",
+  name: "svg-material-symbols-sharp",
   mediaPlayer: {
-    play: "sym_s_play_arrow",
-    pause: "sym_s_pause",
-    volumeOff: "sym_s_volume_off",
-    volumeDown: "sym_s_volume_down",
-    volumeUp: "sym_s_volume_up",
-    settings: "sym_s_settings",
-    speed: "sym_s_directions_run",
-    language: "sym_s_closed_caption",
-    selected: "sym_s_check",
-    fullscreen: "sym_s_fullscreen",
-    fullscreenExit: "sym_s_fullscreen_exit",
-    bigPlayButton: "sym_s_play_arrow",
+    play: symSharpPlayArrow,
+    pause: symSharpPause,
+    volumeOff: symSharpVolumeOff,
+    volumeDown: symSharpVolumeDown,
+    volumeUp: symSharpVolumeUp,
+    settings: symSharpSettings,
+    speed: symSharpDirectionsRun,
+    language: symSharpClosedCaption,
+    selected: symSharpCheck,
+    fullscreen: symSharpFullscreen,
+    fullscreenExit: symSharpFullscreenExit,
+    bigPlayButton: symSharpPlayArrow,
   },
 };

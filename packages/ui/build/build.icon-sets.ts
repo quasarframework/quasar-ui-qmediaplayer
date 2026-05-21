@@ -86,7 +86,22 @@ const iconTypes: IconType[] = [
     convert,
   },
   {
+    name: "mdi-v7",
+    regex: /^mdi-/,
+    convert,
+  },
+  {
     name: "ionicons-v4",
+    regex: /^ion-/,
+    convert,
+  },
+  {
+    name: "ionicons-v7",
+    regex: /^ion-/,
+    convert,
+  },
+  {
+    name: "ionicons-v8",
     regex: /^ion-/,
     convert,
   },
@@ -97,6 +112,11 @@ const iconTypes: IconType[] = [
   },
   {
     name: "fontawesome-v6",
+    regex: /^fa[brs] fa-/,
+    convert: (str) => convert(str.replace(" fa-", "-")),
+  },
+  {
+    name: "fontawesome-v7",
     regex: /^fa[brs] fa-/,
     convert: (str) => convert(str.replace(" fa-", "-")),
   },
@@ -132,6 +152,7 @@ const iconTypes: IconType[] = [
 
 const iconNames = iconTypes.map((type) => type.name);
 const splitDelimiter = "export default {";
+const svgNamePlaceholder = "__QMEDIA_PLAYER_SVG_ICON_SET_NAME__";
 
 function convertWebfont(
   name: string,
@@ -173,12 +194,9 @@ async function generateSvgFile(type: IconType): Promise<void> {
   const importList = toImportList();
 
   const contentString = insideOfExport
-    .replace(/name: '(.+)'/, 'name: ""')
-    .replace(/'(.+)'/g, (match) => {
-      const { importName, variableName } = convertWebfont(
-        match.substring(1, match.length - 1),
-        type.name,
-      );
+    .replace(/name:\s*["'](.+)["']/, `name: ${svgNamePlaceholder}`)
+    .replace(/(["'])([^"']+)\1/g, (_match, _quote, value) => {
+      const { importName, variableName } = convertWebfont(value, type.name);
 
       if (importList[importName].includes(variableName) === false) {
         importList[importName].push(variableName);
@@ -186,13 +204,13 @@ async function generateSvgFile(type: IconType): Promise<void> {
 
       return variableName;
     })
-    .replace(/name: ""/, `name: 'svg-${type.name}'`);
+    .replace(svgNamePlaceholder, `"svg-${type.name}"`);
 
   const importString = Object.keys(importList)
     .filter((listName) => importList[listName].length > 0)
     .map(
       (listName) =>
-        `import {\n  ${importList[listName].join(",\n  ")}\n} from '@quasar/extras/${listName}/index.mjs'`,
+        `import {\n  ${importList[listName].join(",\n  ")},\n} from "@quasar/extras/${listName}/index.mjs";`,
     )
     .join("\n\n");
 
@@ -204,7 +222,25 @@ async function generateSvgFile(type: IconType): Promise<void> {
 }
 
 function convertToCjs(content: string, banner = ""): string {
-  return banner + content.replace(/export default\s+/, "module.exports = ");
+  return (
+    banner +
+    content
+      .replace(
+        /import\s+\{\s*([\s\S]*?)\s*\}\s+from\s+["']([^"']+)["'];?/g,
+        (_match, importNames, source) => {
+          const cjsSource = source.replace(/\/index\.mjs$/, "/index.js");
+          const cjsImportNames = importNames
+            .split("\n")
+            .map((line) => line.trim().replace(/,$/, ""))
+            .filter(Boolean)
+            .map((line) => `${line},`)
+            .join("\n  ");
+
+          return `const {\n  ${cjsImportNames}\n} = require("${cjsSource}");`;
+        },
+      )
+      .replace(/export default\s+/, "module.exports = ")
+  );
 }
 
 async function generateCjsCounterparts(): Promise<void> {
