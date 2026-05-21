@@ -89,7 +89,7 @@ Add the following tags after the Quasar stylesheet and script tags:
   />
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@beta/dist/index.umd.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@beta/dist/index.umd.min.js"></script>
 </body>
 ```
 

@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/src/index.sass";
+import "@quasar/quasar-ui-qmediaplayer/src/index.scss";
 
 defineOptions({ name: "VideoSourceBlob" });
 

@@ -21,7 +21,7 @@ import { ref, onBeforeMount, watch } from "vue";
 import { useQuasar } from "quasar";
 import languages from "quasar/lang/index.json";
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/src/index.sass";
+import "@quasar/quasar-ui-qmediaplayer/src/index.scss";
 
 defineOptions({ name: "VideoLanguage" });
 
@@ -32,43 +32,43 @@ interface LanguageOption {
 
 const sources = [
   {
-    src: "http://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4",
+    src: "/media/pexels-ono-kosuki-5974545.mp4",
     type: "video/mp4",
   },
 ];
 const tracks = [
   {
-    src: "media/TearsOfSteel/TOS-en.vtt",
+    src: "/media/TearsOfSteel/TOS-en.vtt",
     kind: "subtitles",
     srclang: "en",
     label: "English",
   },
   {
-    src: "media/TearsOfSteel/TOS-de.vtt",
+    src: "/media/TearsOfSteel/TOS-de.vtt",
     kind: "subtitles",
     srclang: "de",
     label: "German",
   },
   {
-    src: "media/TearsOfSteel/TOS-es.vtt",
+    src: "/media/TearsOfSteel/TOS-es.vtt",
     kind: "subtitles",
     srclang: "es",
     label: "Spanish",
   },
   {
-    src: "media/TearsOfSteel/TOS-fr-Goofy.vtt",
+    src: "/media/TearsOfSteel/TOS-fr-Goofy.vtt",
     kind: "subtitles",
     srclang: "fr",
     label: "French",
   },
   {
-    src: "media/TearsOfSteel/TOS-it.vtt",
+    src: "/media/TearsOfSteel/TOS-it.vtt",
     kind: "subtitles",
     srclang: "it",
     label: "Italian",
   },
   {
-    src: "media/TearsOfSteel/TOS-nl.vtt",
+    src: "/media/TearsOfSteel/TOS-nl.vtt",
     kind: "subtitles",
     srclang: "nl",
     label: "Dutch",

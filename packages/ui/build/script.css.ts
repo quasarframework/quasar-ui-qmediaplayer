@@ -28,7 +28,7 @@ const nano = postcss([
   }),
 ]);
 
-generate("src/index.sass", "dist/index").catch((err: unknown) => {
+generate("src/index.scss", "dist/index").catch((err: unknown) => {
   console.error(err);
   process.exit(1);
 });

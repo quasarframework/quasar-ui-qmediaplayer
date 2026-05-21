@@ -28,7 +28,7 @@ File on the [GitHub Issues](https://github.com/quasarframework/quasar-ui-qmediap
 
 ### GitHub pull requests (PR)
 
-If you have a specific fix or contribution, you can generate a pull request on the [QMediaPlayer repo](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/v3-beta). Make sure to use the `next` branch for QMediaPlayer v2.x+
+If you have a specific fix or contribution, you can generate a pull request on the [QMediaPlayer repo](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/v3-beta). For QMediaPlayer v3 beta work, target the `v3-beta` branch.
 
 ## Start a discussion
 

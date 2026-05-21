@@ -1,23 +1,48 @@
 ---
 title: Migration Guide
-desc: Migrate from v1 to v2
+desc: Migrate to QMediaPlayer v3
 keys: Help
 related:
   - /getting-started/installation-types
   - /other/contributing/sponsor
 ---
 
-The information below can help you migrate from QMediaPlayer v1.x to QMediaPlayer v2.0.0.
+The information below can help you migrate to QMediaPlayer v3.
 
-> QMediaPlayer v2.x+ only works with a Vue 3 instance. If you are still using Vue 2, use the [QMediaPlayer v1 branch]() (TODO: not created yet).
+> QMediaPlayer v3 targets Vue 3, Quasar 2, and Quasar CLI Vite 3. If your app still uses Vue 2 or `@quasar/app-webpack`, migrate your app before installing QMediaPlayer v3.
 
-> The information below is by no means an exhaustive list of changes and new functionality. If you see something that has been missed, please PR or let us know. Also check the [Releases](/other/releases) page for ungoing updates.
+> The information below is by no means an exhaustive list of changes and new functionality. If you see something that has been missed, please PR or let us know. Also check the [Releases](/other/releases) page for ongoing updates.
+
+## QMediaPlayer v3.0.0 Beta
+
+QMediaPlayer v3 prepares the package for Quasar CLI Vite 3 and the shared app-extension workspace standard.
+
+Important changes:
+
+- The app extension is Vite-only and requires `@quasar/app-vite` v3 beta.
+- The repo is now a pnpm workspace under `packages/`.
+- The UI build now uses Rolldown and TypeScript build scripts.
+- Documentation is built with Q-Press from `md-plugins`.
+- Legacy webpack app-extension paths are no longer supported.
+
+If you use the App Extension, install the beta with:
+
+```bash
+quasar ext add @quasar/qmediaplayer@beta
+```
+
+If you install the UI package directly, install the beta with:
+
+```bash
+pnpm add @quasar/quasar-ui-qmediaplayer@beta
+# bun add @quasar/quasar-ui-qmediaplayer@beta
+# yarn add @quasar/quasar-ui-qmediaplayer@beta
+# npm install @quasar/quasar-ui-qmediaplayer@beta
+```
 
 ## QMediaPlayer v2.0.0 (Alpha/Beta)
 
-Welcome to the QMediaPlayer v2.0.0 release.
-
-> Until the final stable version is released, some aspects of the calendar may change. We're not planning for additional breaking changes, but unforeseen reported issues may require us to do breaking changes (unlikely, but keep this in mind). So please make sure that you read each v2 alpha/beta version's release notes carefully before upgrading.
+QMediaPlayer v2 moved the package to Vue 3 and the Composition API.
 
 ## QMediaPlayer rewritten to use Vue v3 Composition API
 
