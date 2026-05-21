@@ -1,0 +1,32 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-copy-button"
+  },
+  "props": {
+    "lang": {
+      "type": "String",
+      "desc": "Language of the code block to copy",
+      "examples": ["'js'", "'html'", "'css'"],
+      "category": "content"
+    }
+  },
+  "events": {
+    "copy": {
+      "desc": "Emitted when the copy button is clicked",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      }
+    }
+  },
+  "methods": {
+    "copy": {
+      "desc": "Method to copy the code block to the clipboard",
+      "params": {},
+      "returns": null
+    }
+  }
+}

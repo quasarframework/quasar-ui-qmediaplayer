@@ -1,0 +1,29 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/dark"
+  },
+  "functions": {
+    "useDark": {
+      "desc": "Composable function to manage dark mode settings.",
+      "returns": {
+        "type": "Object",
+        "desc": "An object containing the dark mode state and functions to initialize and toggle dark mode.",
+        "properties": {
+          "isDark": {
+            "type": "ComputedRef<boolean>",
+            "desc": "A computed reference to the current dark mode state."
+          },
+          "initDark": {
+            "type": "Function",
+            "desc": "Function to initialize the dark mode state based on cookies."
+          },
+          "toggleDark": {
+            "type": "Function",
+            "desc": "Function to toggle the dark mode state and update cookies."
+          }
+        }
+      }
+    }
+  }
+}

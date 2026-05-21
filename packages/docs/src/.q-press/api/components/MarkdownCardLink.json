@@ -1,0 +1,25 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-card-link"
+  },
+  "props": {
+    "to": {
+      "type": "String",
+      "desc": "The target URL or path for the link",
+      "examples": ["/home", "https://example.com"],
+      "required": true,
+      "category": "navigation"
+    },
+    "external": {
+      "type": "Boolean",
+      "desc": "Flag to indicate if the link is external",
+      "category": "navigation"
+    }
+  },
+  "slots": {
+    "default": {
+      "desc": "Slot for custom content inside the link"
+    }
+  }
+}

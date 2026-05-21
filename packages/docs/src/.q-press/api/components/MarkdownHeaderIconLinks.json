@@ -1,0 +1,14 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-header-icon-links"
+  },
+  "props": {
+    "menu": {
+      "type": "Array",
+      "desc": "Array of menu entries to display as icon links in the header",
+      "examples": ["[{ icon: 'home', path: '/' }, { icon: 'info', path: '/about' }]"],
+      "category": "content"
+    }
+  }
+}

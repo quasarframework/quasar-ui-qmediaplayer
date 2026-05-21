@@ -1,0 +1,20 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-prerender"
+  },
+  "props": {
+    "title": {
+      "type": "String",
+      "desc": "Title of the prerendered content",
+      "examples": ["'Example Title'", "'Sample Content'"],
+      "category": "content"
+    },
+    "tabs": {
+      "type": "Array",
+      "desc": "List of tabs to display",
+      "examples": ["['Tab 1', 'Tab 2']"],
+      "category": "content"
+    }
+  }
+}

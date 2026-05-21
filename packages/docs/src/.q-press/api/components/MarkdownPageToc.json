@@ -1,0 +1,17 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-page-toc"
+  },
+  "events": {
+    "click": {
+      "desc": "Emitted when a Table of Contents item is clicked",
+      "params": {
+        "tocItem": {
+          "type": "Object",
+          "desc": "The Table of Contents item that was clicked"
+        }
+      }
+    }
+  }
+}

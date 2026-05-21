@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "files": {
+    "ignore": [
+      "node_modules",
+      "packages/*/node_modules",
+      "packages/*/dist",
+      "packages/docs/.quasar",
+      "packages/docs/dist"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-example"
+  },
+  "props": {
+    "title": {
+      "type": "String",
+      "desc": "Title of the example",
+      "examples": ["'Example 1'", "'Sample Code'"],
+      "category": "content"
+    },
+    "noGithub": {
+      "type": "Boolean",
+      "desc": "Flag to indicate if the GitHub button should be hidden",
+      "category": "behavior"
+    }
+  }
+}

@@ -1,15 +1,39 @@
 {
-  "name": "qmediaplayer",
-  "version": "1.0.0",
-  "description": "QMediaPlayer mono-repo",
-  "workspaces": [
-    "ui",
-    "docs"
-  ],
-  "author": "Jeff Galbraith <jeff@quasar.dev>",
-  "license": "MIT",
+  "name": "quasar-ui-qmediaplayer-workspace",
+  "version": "3.0.0-beta.0",
   "private": true,
+  "description": "QMediaPlayer workspace",
+  "type": "module",
   "scripts": {
-    "build:all": "yarn && cd ./ui && yarn build && cd ../docs && quasar build"
-  }
+    "clean": "rm -rf node_modules pnpm-lock.yaml packages/ui/node_modules packages/docs/node_modules packages/app-extension/node_modules packages/docs/.quasar packages/docs/dist",
+    "build": "pnpm run build:ui && pnpm run build:docs",
+    "build:ui": "cd packages/ui && pnpm build",
+    "build:docs": "cd packages/docs && pnpm build",
+    "ci:publish": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch dev && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch dev",
+    "ci:publish:beta": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "pnpm --filter @quasar/quasar-ui-qmediaplayer typecheck",
+    "deep": "ncu --deep",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@vitest/coverage-v8": "^4.1.7",
+    "@vue/server-renderer": "^3.5.34",
+    "npm-check-updates": "^22.2.0",
+    "oxfmt": "^0.51.0",
+    "oxlint": "^1.66.0",
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.7",
+    "vue": "^3.5.34"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "pnpm": ">=11.1.0"
+  },
+  "packageManager": "pnpm@11.1.0"
 }

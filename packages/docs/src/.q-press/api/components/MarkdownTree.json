@@ -1,0 +1,25 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-tree"
+  },
+  "props": {
+    "nodes": {
+      "type": "Array",
+      "desc": "Array of nodes to display in the tree",
+      "examples": ["[{ id: 1, l: 'Node 1', c: [{ id: 2, l: 'Child Node' }] }]"],
+      "category": "content"
+    }
+  },
+  "slots": {
+    "default-header": {
+      "desc": "Slot for custom content in the tree node header",
+      "scope": {
+        "prop": {
+          "type": "Object",
+          "desc": "Properties of the tree node"
+        }
+      }
+    }
+  }
+}

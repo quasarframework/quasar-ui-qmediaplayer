@@ -1,0 +1,25 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-header"
+  },
+  "props": {
+    "heightHint": {
+      "type": "Number",
+      "desc": "Height hint for the header",
+      "examples": [128, 64],
+      "category": "style"
+    }
+  },
+  "events": {
+    "toggleMenuDrawer": {
+      "desc": "Emitted when the menu button is clicked to toggle the menu drawer",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      }
+    }
+  }
+}

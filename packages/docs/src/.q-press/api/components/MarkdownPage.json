@@ -1,0 +1,60 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-page"
+  },
+  "props": {
+    "overline": {
+      "type": "String",
+      "desc": "Text to display as an `overline` above the title",
+      "examples": ["'Introduction'", "'Chapter 1'"],
+      "category": "content"
+    },
+    "title": {
+      "type": "String",
+      "desc": "Title of the markdown page",
+      "examples": ["'Getting Started'", "'API Reference'"],
+      "category": "content"
+    },
+    "badge": {
+      "type": "String",
+      "desc": "Badge text to display next to the title",
+      "examples": ["'New'", "'Updated'"],
+      "category": "content"
+    },
+    "editLink": {
+      "type": "String",
+      "desc": "URL for the edit link",
+      "examples": ["'https://github.com/user/repo/edit/main/docs/page.md'"],
+      "category": "navigation"
+    },
+    "isFullscreen": {
+      "type": "Boolean",
+      "desc": "Flag to indicate if the page is in `fullscreen` mode",
+      "category": "state"
+    }
+  },
+  "slots": {
+    "default": {
+      "desc": "Slot for the main content of the markdown page"
+    }
+  },
+  "events": {
+    "edit": {
+      "desc": "Emitted when the edit button is clicked",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      }
+    }
+  },
+  "methods": {
+    "toggleFullscreen": {
+      "desc": "Toggle the fullscreen mode of the markdown page",
+      "params": {},
+      "returns": null
+    }
+  }
+}

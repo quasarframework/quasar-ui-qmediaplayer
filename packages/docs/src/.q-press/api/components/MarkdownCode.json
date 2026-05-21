@@ -1,0 +1,27 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-code"
+  },
+  "props": {
+    "code": {
+      "type": "String",
+      "desc": "The code to display",
+      "examples": ["'const a = 1;'", "'<div>Hello World</div>'"],
+      "category": "content"
+    },
+    "maxHeight": {
+      "type": "String",
+      "desc": "Maximum height for the code block",
+      "examples": ["'200px'", "'50vh'"],
+      "category": "style"
+    },
+    "lang": {
+      "type": "String",
+      "desc": "Language of the code for syntax highlighting",
+      "default": "js",
+      "examples": ["'js'", "'html'", "'css'"],
+      "category": "content"
+    }
+  }
+}

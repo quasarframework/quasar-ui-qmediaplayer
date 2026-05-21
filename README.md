@@ -1,5 +1,4 @@
-QMediaPlayer (Vue Plugin, UMD and Quasar App Extension)
-===
+# QMediaPlayer (Vue Plugin, UMD and Quasar App Extension)
 
 ![@quasar/quasar-ui-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer/next?label=@quasar/quasar-ui-qmediaplayer@next)
 ![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer/next?label=@quasar/quasar-app-extension-qmediaplayer)
@@ -8,12 +7,13 @@ QMediaPlayer (Vue Plugin, UMD and Quasar App Extension)
 
 # Structure
 
-* [/ui](ui) - standalone npm package (go here for more information)
-* [/app-extension](app-extension) - Quasar app extension
-* [/demo](demo) - docs, demo and examples project
-* [live demo](https://quasarframework.github.io/quasar-ui-qmediaplayer/docs) - live docs, demo and examples
+- [/ui](ui) - standalone npm package (go here for more information)
+- [/app-extension](app-extension) - Quasar app extension
+- [/demo](demo) - docs, demo and examples project
+- [live demo](https://quasarframework.github.io/quasar-ui-qmediaplayer/docs) - live docs, demo and examples
 
 # Demo Workflow
+
 If you fork or download this project, make sure you have the Quasar CLI globally installed:
 
 ```
@@ -21,6 +21,7 @@ $ npm i -g @quasar/cli
 ```
 
 The QMediaPlayer project is a **yarn workspace** mono-repo. The workflow to build the docs, on a fresh project, is as follows:
+
 ```
 $ yarn
 $ cd ui
@@ -34,6 +35,7 @@ $ quasar dev
 We need help translating the language files. They are all currently using English. If you know another language, please PR and help us out.
 
 ## Completed languages
+
 - English
 - German/Deutsch ([@mstaack](https://github.com/mstaack)/[@smolinari](https://github.com/smolinari))
 - Polish/Polski ([@kubawolanin](https://github.com/kubawolanin))
@@ -55,7 +57,6 @@ We need help translating the language files. They are all currently using Englis
 - Turkish ([@Anaxilaus](https://github.com/Anaxilaus))
 - Persian/فارسی ([@neokazemi](https://github.com/neokazemi))
 
-
 # Example Code
 
 ## Video example
@@ -76,10 +77,7 @@ We need help translating the language files. They are all currently using Englis
 >
   <template v-if="overlay" v-slot:overlay>
     <div>
-      <img
-        src="quasar-logo.png"
-        style="width: 30vw; max-width: 50px; opacity: 0.25;"
-      >
+      <img src="qmediaplayer-logo.svg" style="width: 30vw; max-width: 50px; opacity: 0.25;" />
     </div>
   </template>
 </q-media-player>
@@ -148,10 +146,10 @@ data () {
 audio: {
   sources: [
     {
-      src: 'https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/public/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3',
-      type: 'audio/mp3'
-    }
-  ]
+      src: "https://raw.githubusercontent.com/quasarframework/quasar-ui-qmediaplayer/dev/demo/public/media/Scott_Holmes_-_04_-_Upbeat_Party.mp3",
+      type: "audio/mp3",
+    },
+  ];
 }
 ```
 
@@ -178,27 +176,35 @@ This enumerated attribute is intended to provide a hint to the browser about wha
 For more detailed information [go here](https://html.spec.whatwg.org/multipage/media.html#attr-media-preload).
 
 ## networkState
+
 You can capture the `networkState` with the `@networkState` event.
+
 ```js
-  NETWORK_EMPTY = 0
-  NETWORK_IDLE = 1
-  NETWORK_LOADING = 2
-  NETWORK_NO_SOURCE = 3
+NETWORK_EMPTY = 0;
+NETWORK_IDLE = 1;
+NETWORK_LOADING = 2;
+NETWORK_NO_SOURCE = 3;
 ```
+
 For more detailed information [go here](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/networkState).
 
 ## MediaError
+
 You can capture the `MediaError` with the `@error` event.
+
 ```js
-  MEDIA_ERR_ABORTED = 1
-  MEDIA_ERR_NETWORK = 2
-  MEDIA_ERR_DECODE = 3
-  MEDIA_ERR_SRC_NOT_SUPPORTED = 4
+MEDIA_ERR_ABORTED = 1;
+MEDIA_ERR_NETWORK = 2;
+MEDIA_ERR_DECODE = 3;
+MEDIA_ERR_SRC_NOT_SUPPORTED = 4;
 ```
+
 For more detailed information [go here](https://developer.mozilla.org/en-US/docs/Web/API/MediaError).
 
 ## iOS
+
 If you want to use the `playsinline` property with iOS, you will need to add the following to the `config.xml` for your iOS build:
+
 ```html
 <preference name="AllowInlineMediaPlayback" value="true" />
 ```
@@ -208,11 +214,7 @@ If you want to use the `playsinline` property with iOS, you will need to add the
 If you find you have a need access to the underlying media player, you can capture the underlying media player via an `emit` for `mediaPlay`.Then you can access `$media` directly, even capturing and handling your own events.
 
 ```html
-  <q-media-player
-    ref="player"
-    @mediaPlayer="onMediaPlayer"
-    ...
-  />
+<q-media-player ref="player" @mediaPlayer="onMediaPlayer" ... />
 ```
 
 then
@@ -243,7 +245,9 @@ setup () {
 ```
 
 # Donate
+
 If you appreciate the work that went into this, please consider donating to [Quasar](https://donate.quasar.dev) or [Jeff](https://github.com/sponsors/hawkeye64).
 
 # License
+
 MIT (c) Jeff Galbraith <jeff@quasar.dev>

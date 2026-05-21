@@ -1,0 +1,34 @@
+{
+  "type": "plugin",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/scroll"
+  },
+  "functions": {
+    "useScroll": {
+      "desc": "Composable function to manage scroll behavior.",
+      "returns": {
+        "type": "Object",
+        "desc": "An object containing functions to manage scroll behavior.",
+        "properties": {
+          "scrollToCurrentAnchor": {
+            "type": "Function",
+            "desc": "Function to scroll to the current anchor in the route.",
+            "params": {
+              "isRouteChange": {
+                "type": "boolean",
+                "desc": "Flag to indicate if the scroll is due to a route change."
+              }
+            },
+            "returns": null
+          },
+          "scrollToTop": {
+            "type": "Function",
+            "desc": "Function to scroll to the top of the page.",
+            "params": {},
+            "returns": null
+          }
+        }
+      }
+    }
+  }
+}

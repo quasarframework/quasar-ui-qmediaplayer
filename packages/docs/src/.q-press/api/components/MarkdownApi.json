@@ -1,0 +1,62 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-api"
+  },
+  "props": {
+    "nameBanner": {
+      "type": "String",
+      "desc": "Title to display in the banner",
+      "examples": ["'API Documentation'", "'Component API'"],
+      "category": "content"
+    },
+    "pageLink": {
+      "type": "String",
+      "desc": "URL for the page link",
+      "examples": ["'https://github.com/user/repo/edit/main/docs/page.md'"],
+      "category": "navigation"
+    }
+  },
+  "events": {
+    "searchFieldClick": {
+      "desc": "Emitted when the search field is clicked",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      }
+    },
+    "filterClick": {
+      "desc": "Emitted when the filter button is clicked",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      }
+    }
+  },
+  "methods": {
+    "onSearchFieldClick": {
+      "desc": "Handler for the search field click event",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      },
+      "returns": null
+    },
+    "onFilterClick": {
+      "desc": "Handler for the filter button click event",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      },
+      "returns": null
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-link"
+  },
+  "props": {
+    "to": {
+      "type": "String",
+      "desc": "The target URL or path for the link",
+      "examples": ["/home", "https://example.com"],
+      "required": true,
+      "category": "navigation"
+    }
+  },
+  "slots": {
+    "default": {
+      "desc": "Slot for custom content inside the link"
+    }
+  }
+}

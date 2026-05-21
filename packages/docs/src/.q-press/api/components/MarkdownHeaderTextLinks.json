@@ -1,0 +1,26 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-header-text-links"
+  },
+  "props": {
+    "menu": {
+      "type": "Array",
+      "desc": "Array of menu items to display in the header",
+      "examples": ["[{ name: 'Home', path: '/' }, { name: 'Docs', path: '/docs' }]"],
+      "category": "content"
+    },
+    "mqPrefix": {
+      "type": "String",
+      "desc": "Prefix for media query classes",
+      "examples": ["'md'", "'lg'"],
+      "category": "style"
+    },
+    "navClass": {
+      "type": "String",
+      "desc": "Additional CSS class to apply to navigation items",
+      "examples": ["'custom-nav-class'"],
+      "category": "style"
+    }
+  }
+}

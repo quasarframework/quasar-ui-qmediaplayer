@@ -1,0 +1,19 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-page-footer"
+  },
+  "props": {
+    "fullscreen": {
+      "type": "Boolean",
+      "desc": "Flag to indicate if the page is in fullscreen mode",
+      "category": "state"
+    },
+    "links": {
+      "type": "Array",
+      "desc": "Array of link objects to display in the footer",
+      "examples": ["[{ name: 'Home', path: '/' }, { name: 'Docs', path: '/docs' }]"],
+      "category": "content"
+    }
+  }
+}

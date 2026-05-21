@@ -1,0 +1,69 @@
+@use "sass:color";
+
+// Sunrise Theme Variables
+$primary: #e74c3c;
+$secondary: #8e44ad;
+$accent: #f39c12;
+
+$positive: #2ecc71;
+$negative: #ff1732;
+$info: #10a0ff;
+$warning: #ffd52d;
+
+$brand-primary: #e74c3c;
+$brand-secondary: #5186bb;
+$brand-accent: #f39c12;
+$brand-dark: #2c3e50;
+$brand-light: #ecf0f1;
+$brand-medium: #95a5a6;
+$brand-light-text: #2c3e50;
+$brand-light-bg: #ecf0f1;
+$brand-dark-bg: #34495e;
+$brand-dark-text: #ecf0f1;
+$brand-light-codeblock-bg: #ecf0f1;
+$brand-light-codeblock-text: #2c3e50;
+$brand-dark-codeblock-bg: #2c3e50;
+$brand-dark-codeblock-text: #ecf0f1;
+
+$header-btn-color--light: #c0392b;
+$header-btn-hover-color--light: #e74c3c;
+$header-btn-color--dark: #c0392b;
+$header-btn-hover-color--dark: #e74c3c;
+
+$light-pill: $brand-light;
+$light-text: $brand-light-text;
+$light-bg: $brand-light-bg;
+
+$dark-pill: scale-color($brand-dark, $lightness: 20%);
+$dark-text: $brand-dark-text;
+$dark-bg: $brand-dark-bg;
+
+$separator-color: $brand-accent;
+$separator-color-dark: $brand-accent;
+
+$font-size: 16px;
+$font-size-brand: 16px;
+$font-weight-brand: 500;
+$font-weight-technical: 400;
+$letter-spacing-brand: 0.7px;
+
+$font-family-technical:
+  "Roboto",
+  -apple-system,
+  Avenir,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Helvetica,
+  Arial,
+  sans-serif;
+$font-family-examples: $font-family-technical;
+$font-family-brand: "Montserrat", $font-family-technical;
+
+$shadow--large: 0 24px 24px 0 rgba(0, 179, 255, 0.24);
+$shadow--medium: 0 6px 6px 0 rgba($brand-primary, 0.38);
+$shadow--small: 0 6px 6px 0 rgba($brand-primary, 0.28);
+
+// also update QHeader :height-hint
+$header-height: 55px;
+$header-transition: 0.6s cubic-bezier(0.25, 0.8, 0.5, 1);
+$header-quick-transition: 0.28s ease-in-out;

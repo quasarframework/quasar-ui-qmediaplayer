@@ -1,0 +1,33 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/dark-mode-toggle"
+  },
+  "props": {
+    "darkIcon": {
+      "type": "String",
+      "desc": "Icon name for dark mode",
+      "examples": ["mdiMoonWaningCrescent"],
+      "default": "mdiMoonWaningCrescent",
+      "category": "content"
+    },
+    "lightIcon": {
+      "type": "String",
+      "desc": "Icon name for light mode",
+      "examples": ["mdiWhiteBalanceSunny"],
+      "default": "mdiWhiteBalanceSunny",
+      "category": "content"
+    }
+  },
+  "events": {
+    "update:mode": {
+      "desc": "Emitted when the mode is toggled",
+      "params": {
+        "mode": {
+          "type": "String",
+          "desc": "The current mode ('dark' or 'light')"
+        }
+      }
+    }
+  }
+}

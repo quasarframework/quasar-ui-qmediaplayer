@@ -1,0 +1,26 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-installation"
+  },
+  "props": {
+    "title": {
+      "type": "String",
+      "desc": "Title of the installation section",
+      "examples": ["'Installation'", "'Setup Guide'"],
+      "category": "content"
+    },
+    "id": {
+      "type": "String",
+      "desc": "ID for the installation card",
+      "examples": ["'installation-section'"],
+      "category": "content"
+    },
+    "tabList": {
+      "type": "Array",
+      "desc": "List of tabs to display",
+      "examples": ["['npm', 'yarn', 'pnpm']"],
+      "category": "content"
+    }
+  }
+}

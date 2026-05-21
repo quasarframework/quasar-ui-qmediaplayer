@@ -2,6 +2,7 @@
 .thumbs.db
 node_modules
 dist
+coverage
 yarn.lock
 npm-debug.log*
 yarn-debug.log*
@@ -15,4 +16,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-docs/.quasar/
+packages/docs/.quasar/
+packages/docs/dist/
+packages/*/node_modules/

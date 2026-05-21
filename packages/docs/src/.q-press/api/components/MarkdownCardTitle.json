@@ -1,0 +1,43 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-card-title"
+  },
+  "props": {
+    "title": {
+      "type": "String",
+      "desc": "The title text to display",
+      "examples": ["'Introduction'", "'Chapter 1'"],
+      "category": "content"
+    },
+    "prefix": {
+      "type": "String",
+      "desc": "Prefix to add to the slugified title",
+      "examples": ["'section-'"],
+      "category": "content"
+    }
+  },
+  "events": {
+    "click": {
+      "desc": "Emitted when the title is clicked",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      }
+    }
+  },
+  "methods": {
+    "onClick": {
+      "desc": "Handler for the click event on the title",
+      "params": {
+        "evt": {
+          "type": "Event",
+          "desc": "JS event object"
+        }
+      },
+      "returns": null
+    }
+  }
+}
