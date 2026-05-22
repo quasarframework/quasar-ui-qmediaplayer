@@ -2,6 +2,7 @@
 
 ![@quasar/quasar-ui-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer/beta?label=@quasar/quasar-ui-qmediaplayer)
 ![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer/beta?label=@quasar/quasar-app-extension-qmediaplayer)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ca64630a-6fc2-4679-919d-96a3dd7a2e47/deploy-status)](https://app.netlify.com/projects/qmediaplayer/deploys)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/quasar-ui-qmediaplayer)]()
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/quasar-ui-qmediaplayer)]()
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
