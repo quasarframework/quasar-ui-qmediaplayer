@@ -147,6 +147,12 @@ Use this pattern for HLS, MPEG-DASH, DRM adapters, or other source loaders that 
 
 <MarkdownExample title="Video DASH With dash.js" file="VideoDash" no-github no-edit/>
 
+## Embedded Providers
+
+YouTube, Vimeo, and other embedded providers do not expose a direct media file to the browser. Their embed URLs return an iframe player, so use Quasar's `QVideo` instead of passing those URLs to QMediaPlayer's `source` or `sources` props.
+
+<MarkdownExample title="YouTube Embed With QVideo" file="VideoEmbedProvider" no-github no-edit/>
+
 ## Tracks
 
 Tracks are captions or subtitles. Start playback, then use the options menu to choose a language track.
