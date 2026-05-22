@@ -25,7 +25,7 @@ module.exports = {
     rateNormal: "Normal",
     rate1Point5: "1.5x",
     rate2: "2x",
-    trackLanguageOff: "Off",
+    trackLanguageOff: "Dezactivat",
     noLoadVideo: "Nu se poate încărca videoclipul",
     noLoadAudio: "Nu se poate încărca înregistrarea audio",
     cannotPlayVideo: "Nu se poate reda videoclipul",
