@@ -6,7 +6,7 @@ export default {
     oldBrowserAudio:
       "Чтобы прослушать это аудио необходимо включить JavaScript и/или обновить браузер до версии поддерживающей HTML5 аудио.",
     pause: "Пауза",
-    play: "Играть",
+    play: "Воспроизвести",
     settings: "Настройки",
     toggleFullscreen: "Полный экран",
     mute: "Убрать звук",

@@ -1,5 +1,5 @@
 export default {
-  lang: "nb-no",
+  lang: "nb-NO",
   mediaPlayer: {
     oldBrowserVideo:
       "To view this video please enable JavaScript and/or consider upgrading to a browser that supports HTML5 video.",

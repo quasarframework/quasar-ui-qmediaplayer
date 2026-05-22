@@ -17,7 +17,7 @@ module.exports = {
     mute: "Désactiver le son",
     unmute: "Activer le son",
     speed: "Vitesse", // Playback rate
-    language: "Langage",
+    language: "Langue",
     playbackRate: "Vitesse de lecture",
     waitingVideo: "En attente de la vidéo",
     waitingAudio: "En attente de l'audio",

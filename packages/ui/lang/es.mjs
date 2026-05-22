@@ -4,16 +4,16 @@ export default {
     oldBrowserVideo:
       "Para ver este video por favor active JavaScript y/o considere actualizar a un navegador que soporte video HTML5.",
     oldBrowserAudio:
-      "Para escuchar este audio por favor active JavaScript y/o considere actualizar a un navegador que soporte video HTML5.",
+      "Para escuchar este audio por favor active JavaScript y/o considere actualizar a un navegador que soporte audio HTML5.",
     pause: "Pausa",
     play: "Reproducir",
     settings: "Ajustes",
-    toggleFullscreen: "Cambiar Pantalla Completa",
+    toggleFullscreen: "Cambiar pantalla completa",
     mute: "Silenciar",
     unmute: "Desilenciar",
     speed: "Velocidad", // Playback rate
     language: "Idioma",
-    playbackRate: "Tasa de Reproducción",
+    playbackRate: "Tasa de reproducción",
     waitingVideo: "Esperando por video",
     waitingAudio: "Esperando por audio",
     ratePoint5: ".5x",

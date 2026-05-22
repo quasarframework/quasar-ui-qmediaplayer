@@ -1,14 +1,14 @@
 export default {
-  lang: "ko-kr",
+  lang: "ko-KR",
   mediaPlayer: {
     oldBrowserVideo:
-      "영상을 보기 위해서 자바스크립트 사용을 허용 하거나 HTML5 비디오를 지원하는 브라우저로 업그래이드 바랍니다.",
+      "영상을 보기 위해서 자바스크립트 사용을 허용 하거나 HTML5 비디오를 지원하는 브라우저로 업그레이드 바랍니다.",
     oldBrowserAudio:
-      "오디오를 듣기 위해서 자바스크립트 사용을 허용 하거나 HTML5 오디오를 지원하는 브라우저로 업그래이드 바랍니다.",
+      "오디오를 듣기 위해서 자바스크립트 사용을 허용 하거나 HTML5 오디오를 지원하는 브라우저로 업그레이드 바랍니다.",
     pause: "일시정지",
     play: "재생",
     settings: "설정",
-    toggleFullscreen: "전채화면",
+    toggleFullscreen: "전체 화면",
     mute: "음소거",
     unmute: "음소거 해제",
     speed: "재생 속도", // Playback rate

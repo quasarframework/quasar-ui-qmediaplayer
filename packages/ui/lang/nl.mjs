@@ -2,9 +2,9 @@ export default {
   lang: "nl",
   mediaPlayer: {
     oldBrowserVideo:
-      "Activeer a.u.b. JavaScript om deze video te bekijken en/of installeer een browser welke HTML5 video ondersteund.",
+      "Activeer a.u.b. JavaScript om deze video te bekijken en/of installeer een browser welke HTML5 video ondersteunt.",
     oldBrowserAudio:
-      "Activeer a.u.b. JavaScript om deze audio te beluisteren en/of installeer een browser welke HTML5 audio ondersteund.",
+      "Activeer a.u.b. JavaScript om deze audio te beluisteren en/of installeer een browser welke HTML5 audio ondersteunt.",
     pause: "Pauzeer",
     play: "Afspelen",
     settings: "Instellingen",

@@ -7,11 +7,11 @@ module.exports = {
   lang: "sk",
   mediaPlayer: {
     oldBrowserVideo:
-      "Na zobrazenie obrazu prosím zapnite JavaScript a/alebo zvážtě aktualizáciu na prehliadač, ktorý podporuje HTML5 audio.",
+      "Na zobrazenie obrazu prosím zapnite JavaScript a/alebo zvážte aktualizáciu na prehliadač, ktorý podporuje HTML5 video.",
     oldBrowserAudio:
-      "Na prehratie zvuku, prosím zapnite JavaScript a/alebo zvážtě aktualizáciu na prehliadač, ktorý podporuje HTML5 audio.",
-    pause: "Zastaviť",
-    play: "Hrať",
+      "Na prehratie zvuku, prosím zapnite JavaScript a/alebo zvážte aktualizáciu na prehliadač, ktorý podporuje HTML5 audio.",
+    pause: "Pozastaviť",
+    play: "Prehrať",
     settings: "Nastavenia",
     toggleFullscreen: "Prepni na celú obrazovku",
     mute: "Vypnúť zvuk",

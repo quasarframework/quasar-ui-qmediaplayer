@@ -2,11 +2,11 @@ export default {
   lang: "cs",
   mediaPlayer: {
     oldBrowserVideo:
-      "Pro zobrazení obrazu prosím zapněte JavaScript a/nebo zvažte aktualizaci na prohlížeč, který podporuje HTML5 audio.",
+      "Pro zobrazení obrazu prosím zapněte JavaScript a/nebo zvažte aktualizaci na prohlížeč, který podporuje HTML5 video.",
     oldBrowserAudio:
       "Pro přehrání zvuku, prosím zapněte JavaScript a/nebo zvažte aktualizaci na prohlížeč, který podporuje HTML5 audio.",
-    pause: "Zastavit",
-    play: "Hrát",
+    pause: "Pozastavit",
+    play: "Přehrát",
     settings: "Nastavení",
     toggleFullscreen: "Přepni na celou obrazovku",
     mute: "Vypnout zvuk",
