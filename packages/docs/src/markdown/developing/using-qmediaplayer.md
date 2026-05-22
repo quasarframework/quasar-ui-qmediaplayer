@@ -137,6 +137,16 @@ Blob sources let you play media created or fetched at runtime. Use `loadBlob()` 
 
 <MarkdownExample title="Video Source Blob" file="VideoSourceBlob" no-github no-edit/>
 
+## Advanced Streaming
+
+QMediaPlayer intentionally stays focused on native HTML5 media controls. For adaptive streaming formats, attach a dedicated streaming adapter to the native media element emitted by `@media-player`.
+
+Use this pattern for HLS, MPEG-DASH, DRM adapters, or other source loaders that need direct access to the underlying `<video>` element.
+
+<MarkdownExample title="Video HLS With hls.js" file="VideoHls" no-github no-edit/>
+
+<MarkdownExample title="Video DASH With dash.js" file="VideoDash" no-github no-edit/>
+
 ## Tracks
 
 Tracks are captions or subtitles. Start playback, then use the options menu to choose a language track.

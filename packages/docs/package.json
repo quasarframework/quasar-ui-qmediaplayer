@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.18.0",
+    "dashjs": "^5.1.1",
+    "hls.js": "^1.6.16",
     "markdown-it": "^14.1.1",
     "markdown-it-container": "^4.0.0",
     "pinia": "^3.0.4",
