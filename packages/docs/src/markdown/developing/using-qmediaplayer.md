@@ -165,14 +165,22 @@ Not all languages have been translated yet. If you can help, please open a pull 
 
 <MarkdownExample title="Video Language" file="VideoLanguage" no-github no-edit/>
 
-## Icon Sets And Slots
+## Icon Sets
 
-Icon sets and slots help you fit the player into stricter brand systems or specialized UIs.
-
-When slot content needs to be interactive, such as a form or a custom call to action, use `:toggle-play-on-click="false"` so clicks inside the video frame do not bubble into playback toggles.
+Icon sets help you fit the player into stricter brand systems or specialized UIs.
 
 <MarkdownExample title="Video Icon Set" file="VideoIconSet" no-github no-edit/>
 
+## Slots
+
+Slots let you customize pieces of the player UI without replacing the whole component.
+
 <MarkdownExample title="Video Slot" file="VideoSlot" no-github no-edit/>
 
+When slot content needs to be interactive, such as a form or a custom call to action, use `:toggle-play-on-click="false"` so clicks inside the video frame do not bubble into playback toggles.
+
 <MarkdownExample title="Video Overlay Form" file="VideoOverlayForm" no-github no-edit/>
+
+Dismissible overlays are useful for sponsored placements, consent prompts, upgrade calls to action, or other moments where the user needs to interact with content on top of the video. Bind `toggle-play-on-click` to the overlay state if you want normal frame-click playback behavior to return after the overlay is closed.
+
+<MarkdownExample title="Video Overlay Ad" file="VideoOverlayAd" no-github no-edit/>
