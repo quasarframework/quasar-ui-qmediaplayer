@@ -1400,9 +1400,24 @@ export default defineComponent({
       }
     }
 
+    function __hasMediaSource(media: HTMLMediaElement) {
+      return (
+        media.currentSrc.length > 0 ||
+        (media.getAttribute("src") || "").length > 0 ||
+        Array.from(media.querySelectorAll("source")).some(
+          (source) => (source.getAttribute("src") || "").length > 0,
+        )
+      );
+    }
+
     function __sourceEventHandler(event: Event) {
       const NETWORK_NO_SOURCE = 3;
       const media = __mediaElement();
+      if (media !== null && __hasMediaSource(media) !== true) {
+        state.errorText = null;
+        state.loading = false;
+        return;
+      }
       if (media !== null && media.networkState === NETWORK_NO_SOURCE) {
         state.errorText = __isVideo.value
           ? lang.mediaPlayer.noLoadVideo
@@ -1442,6 +1457,13 @@ export default defineComponent({
         state.playing = false;
         emit("ended");
       } else if (event.type === "error") {
+        if (__hasMediaSource(media) !== true) {
+          state.errorText = null;
+          state.playing = false;
+          state.loading = false;
+          return;
+        }
+
         const error = media.error;
         state.errorText = error && error.message ? error.message : null;
         state.playing = false;
@@ -1706,7 +1728,7 @@ export default defineComponent({
         // player must not be running
         media.pause();
         __revokeBlobObjectUrl();
-        media.src = "";
+        media.removeAttribute("src");
         if (media.currentTime) {
           // otherwise IE11 has exception error
           media.currentTime = 0;
