@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {
   computed,
   defineComponent,
@@ -13,6 +11,7 @@ import {
   watch,
   withDirectives,
 } from "vue";
+import type { PropType, Slot, VNode, VNodeArrayChildren } from "vue";
 
 import {
   ClosePopup,
@@ -32,6 +31,138 @@ import {
 
 import defaultIconSet from "../../icon-set/material-icons.mjs";
 import defaultLang from "../../lang/en-US.mjs";
+
+type MediaPlayerType = "video" | "audio";
+type CrossOrigin = "anonymous" | "use-credentials" | null;
+type ClassOrStyle = string | Record<string, unknown> | undefined;
+
+type MediaSource = {
+  src?: string;
+  type?: string;
+};
+
+type MediaTrack = {
+  kind?: string;
+  label?: string;
+  src?: string;
+  srclang?: string;
+};
+
+type PlaybackRateOption = {
+  label: string;
+  value: number;
+};
+
+type SelectOption = {
+  label: string;
+  value: string;
+};
+
+type RenderChild = string | number | boolean | VNode | VNodeArrayChildren | (() => unknown);
+
+type MediaPlayerMessages = {
+  language: string;
+  mute: string;
+  noLoadAudio: string;
+  noLoadVideo: string;
+  oldBrowserAudio: string;
+  oldBrowserVideo: string;
+  pause: string;
+  play: string;
+  rate1Point5: string;
+  rate2: string;
+  rateNormal: string;
+  ratePoint5: string;
+  settings: string;
+  speed: string;
+  toggleFullscreen: string;
+  trackLanguageOff: string;
+  unmute: string;
+  waitingAudio: string;
+  waitingVideo: string;
+};
+
+type MediaPlayerLang = {
+  lang?: string;
+  mediaPlayer: MediaPlayerMessages;
+};
+
+type MediaPlayerIcons = {
+  bigPlayButton: string;
+  fullscreen: string;
+  fullscreenExit: string;
+  language: string;
+  pause: string;
+  play: string;
+  selected: string;
+  settings: string;
+  speed: string;
+  volumeDown: string;
+  volumeOff: string;
+  volumeUp: string;
+};
+
+type MediaPlayerIconSet = {
+  mediaPlayer: MediaPlayerIcons;
+};
+
+type QMediaPlayerGlobal = {
+  Component?: unknown;
+  lang?: Record<string, MediaPlayerLang>;
+  iconSet?: Record<string, MediaPlayerIconSet>;
+};
+
+type QuasarLike = {
+  dark: {
+    isActive: boolean;
+  };
+  fullscreen?: {
+    isActive?: boolean;
+    request: (target?: Element | null) => void | Promise<void>;
+    exit: () => void | Promise<void>;
+  };
+  iconSet?: {
+    name?: string;
+  };
+  lang?: {
+    isoName?: string;
+  };
+};
+
+type MediaPlayerState = {
+  errorText: string | null;
+  controls: boolean;
+  showControls: boolean;
+  inControls: boolean;
+  volume: number;
+  muted: boolean;
+  currentTime: number;
+  duration: number;
+  durationTime: string;
+  remainingTime: string;
+  displayTime: string;
+  inFullscreen: boolean;
+  loading: boolean;
+  playReady: boolean;
+  playing: boolean;
+  playbackRates: PlaybackRateOption[];
+  playbackRate: number;
+  trackLanguage: string;
+  showBigPlayButton: boolean;
+  metadataLoaded: boolean;
+  spinnerSize: string;
+  bottomControls: boolean;
+  noControls: boolean;
+};
+
+declare global {
+  interface Window {
+    QMediaPlayer?: QMediaPlayerGlobal;
+  }
+}
+
+const defaultMediaPlayerLang = defaultLang as MediaPlayerLang;
+const defaultMediaPlayerIconSet = defaultIconSet as MediaPlayerIconSet;
 
 const matClose =
   "M0 0h24v24H0z@@fill:none;&&M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z";
@@ -141,11 +272,11 @@ const langLoaders = {
   "zh-TW": () => import("../../lang/zh-TW.mjs"),
 };
 
-function hSlot(slot, otherwise) {
+function hSlot(slot: Slot | undefined, otherwise: RenderChild): RenderChild {
   return slot !== void 0 ? slot() : otherwise;
 }
 
-const padTime = (val) => {
+const padTime = (val: number) => {
   val = Math.floor(val);
   if (val < 10) {
     return "0" + val;
@@ -153,7 +284,7 @@ const padTime = (val) => {
   return val + "";
 };
 
-const timeParse = (sec) => {
+const timeParse = (sec: number) => {
   let min = 0;
   min = Math.floor(sec / 60);
   sec = sec - min * 60;
@@ -170,15 +301,15 @@ export default defineComponent({
 
   props: {
     type: {
-      type: String,
+      type: String as PropType<MediaPlayerType>,
       required: false,
       default: "video",
-      validator: (v) => ["video", "audio"].includes(v),
+      validator: (v: string) => ["video", "audio"].includes(v),
     },
     mobileMode: Boolean,
     source: String,
     sources: {
-      type: Array,
+      type: Array as PropType<MediaSource[]>,
       default: () => [],
     },
     poster: {
@@ -186,7 +317,7 @@ export default defineComponent({
       default: "",
     },
     tracks: {
-      type: Array,
+      type: Array as PropType<MediaTrack[]>,
       default: () => [],
     },
     dense: Boolean,
@@ -196,14 +327,14 @@ export default defineComponent({
       default: false,
     },
     crossOrigin: {
-      type: [String],
+      type: String as PropType<CrossOrigin>,
       default: null,
-      validator: (v) => v === null || ["anonymous", "use-credentials"].includes(v),
+      validator: (v: string | null) => v === null || ["anonymous", "use-credentials"].includes(v),
     },
     volume: {
       type: Number,
       default: 60,
-      validator: (v) => v >= 0 && v <= 100,
+      validator: (v: number) => v >= 0 && v <= 100,
     },
     hideVolumeSlider: Boolean,
     hideVolumeBtn: Boolean,
@@ -214,7 +345,7 @@ export default defineComponent({
     preload: {
       type: String,
       default: "metadata",
-      validator: (v) => ["none", "metadata", "auto"].includes(v),
+      validator: (v: string) => ["none", "metadata", "auto"].includes(v),
     },
     noVideo: Boolean,
     muted: Boolean,
@@ -244,7 +375,7 @@ export default defineComponent({
       type: Number,
       default: 4000,
     },
-    playbackRates: Array,
+    playbackRates: Array as PropType<PlaybackRateOption[]>,
     // initial playback rate
     playbackRate: {
       type: Number,
@@ -255,8 +386,8 @@ export default defineComponent({
       type: [Number, String],
       default: 0,
     },
-    contentStyle: [String, Object],
-    contentClass: [String, Object],
+    contentStyle: [String, Object] as PropType<ClassOrStyle>,
+    contentClass: [String, Object] as PropType<ClassOrStyle>,
     contentWidth: Number,
     contentHeight: Number,
   },
@@ -292,30 +423,33 @@ export default defineComponent({
 
   setup(props, { slots, emit, expose }) {
     const vm = getCurrentInstance();
+    const vmContext = vm as ({ ctx?: { $q?: Partial<QuasarLike> } } & typeof vm) | null;
+    const instanceQuasar = (vm?.proxy?.$q || vmContext?.ctx?.$q) as Partial<QuasarLike> | undefined;
+    const quasar = (useQuasar() || instanceQuasar || {}) as Partial<QuasarLike>;
     const $q = {
       dark: { isActive: false },
       iconSet: { name: "material-icons" },
       lang: { isoName: "en-US" },
-      ...(useQuasar() || vm?.proxy?.$q || vm?.ctx?.$q || {}),
-    };
+      ...quasar,
+    } as QuasarLike;
 
     const canRender = ref(false),
       lang = reactive({
-        mediaPlayer: { ...defaultLang.mediaPlayer },
+        mediaPlayer: { ...defaultMediaPlayerLang.mediaPlayer } as MediaPlayerMessages,
       }),
       iconSet = reactive({
-        mediaPlayer: { ...defaultIconSet.mediaPlayer },
+        mediaPlayer: { ...defaultMediaPlayerIconSet.mediaPlayer } as MediaPlayerIcons,
       }),
-      $root = ref(null), // $ref - the QMediaPlayer wrapper
-      $media = ref(null), // $ref - the actual video/audio player
-      controls = ref(null), // $ref
-      menu = ref(null), // $ref
+      $root = ref<HTMLElement | null>(null), // $ref - the QMediaPlayer wrapper
+      $media = ref<HTMLMediaElement | null>(null), // $ref - the actual video/audio player
+      controls = ref<HTMLElement | null>(null), // $ref
+      menu = ref<{ updatePosition: () => void } | null>(null), // $ref
       // media = ref(null), // $ref
       timer = reactive({
         // timer used to hide control during mouse inactivity
-        hideControlsTimer: null,
+        hideControlsTimer: null as ReturnType<typeof setTimeout> | null,
       }),
-      state = reactive({
+      state = reactive<MediaPlayerState>({
         errorText: null,
         controls: false,
         showControls: true,
@@ -343,9 +477,10 @@ export default defineComponent({
         metadataLoaded: false,
         spinnerSize: "5em",
         bottomControls: false,
+        noControls: false,
       }),
       settingsMenuVisible = ref(false),
-      autoPauseObserver = ref(null),
+      autoPauseObserver = ref<IntersectionObserver | null>(null),
       allEvents = [
         "abort",
         "canplay",
@@ -409,7 +544,7 @@ export default defineComponent({
     });
 
     const __contentStyle = computed(() => {
-      const style = {};
+      const style: Record<string, unknown> = {};
       if (state.inFullscreen !== true) {
         Object.assign(style, __mergeClassOrStyle("style", props.contentStyle));
         if (props.bottomControls === true && style.height === void 0) {
@@ -434,21 +569,29 @@ export default defineComponent({
     });
 
     const __selectTracksLanguageList = computed(() => {
-      const tracksList = [];
+      const tracksList: SelectOption[] = [];
       // provide option to turn subtitles/captions/chapters off
-      const track = {};
-      track.label = lang.mediaPlayer.trackLanguageOff;
-      track.value = "off";
+      const track: SelectOption = {
+        label: lang.mediaPlayer.trackLanguageOff,
+        value: "off",
+      };
       tracksList.push(track);
       for (let index = 0; index < props.tracks.length; ++index) {
-        const track = {};
-        track.label = track.value = props.tracks[index].label;
+        const track = {
+          label: props.tracks[index].label || "",
+          value: props.tracks[index].label || "",
+        };
         tracksList.push(track);
       }
       return tracksList;
     });
 
-    const __isMediaAvailable = computed(() => $media.value && $media.value.volume !== undefined);
+    function __mediaElement() {
+      const media = $media.value;
+      return media !== null && media.volume !== undefined ? media : null;
+    }
+
+    const __isMediaAvailable = computed(() => __mediaElement() !== null);
 
     const __isAudio = computed(() => {
       return props.type === "audio";
@@ -460,7 +603,7 @@ export default defineComponent({
 
     const __settingsPlaybackCaption = computed(() => {
       let caption = "";
-      state.playbackRates.forEach((rate) => {
+      state.playbackRates.forEach((rate: PlaybackRateOption) => {
         if (rate.value === state.playbackRate) {
           caption = rate.label;
         }
@@ -577,7 +720,7 @@ export default defineComponent({
 
     watch(
       () => $q.fullscreen?.isActive,
-      (val) => {
+      (val: boolean | undefined) => {
         // user pressed F11/ESC to exit fullscreen
         if (!val && __isVideo.value && state.inFullscreen) {
           exitFullscreen();
@@ -587,9 +730,10 @@ export default defineComponent({
 
     watch(
       () => state.playbackRate,
-      (val) => {
-        if (val && __isMediaAvailable.value === true) {
-          $media.value.playbackRate = parseFloat(val);
+      (val: number) => {
+        const media = __mediaElement();
+        if (val && media !== null) {
+          media.playbackRate = val;
           // eslint-disable-next-line vue/custom-event-name-casing
           emit("playbackRate", val);
         }
@@ -598,7 +742,7 @@ export default defineComponent({
 
     watch(
       () => state.trackLanguage,
-      (val) => {
+      (val: string) => {
         __toggleCaptions();
         // eslint-disable-next-line vue/custom-event-name-casing
         emit("trackLanguage", val);
@@ -607,7 +751,7 @@ export default defineComponent({
 
     watch(
       () => state.showControls,
-      (val) => {
+      (val: boolean) => {
         if (__isVideo.value && !state.noControls) {
           // eslint-disable-next-line vue/custom-event-name-casing
           emit("showControls", val);
@@ -617,11 +761,12 @@ export default defineComponent({
 
     watch(
       () => state.volume,
-      (val) => {
-        if (__isMediaAvailable.value === true) {
-          const volume = parseFloat(val / 100.0);
-          if ($media.value.volume !== volume) {
-            $media.value.volume = volume;
+      (val: number) => {
+        const media = __mediaElement();
+        if (media !== null) {
+          const volume = val / 100.0;
+          if (media.volume !== volume) {
+            media.volume = volume;
             emit("volume", val);
           }
         }
@@ -630,7 +775,7 @@ export default defineComponent({
 
     watch(
       () => state.muted,
-      (val) => {
+      (val: boolean) => {
         emit("muted", val);
       },
     );
@@ -638,18 +783,19 @@ export default defineComponent({
     watch(
       () => state.currentTime,
       () => {
-        if (__isMediaAvailable.value === true && state.playReady) {
-          if (isFinite($media.value.duration)) {
-            state.remainingTime = timeParse($media.value.duration - $media.value.currentTime);
+        const media = __mediaElement();
+        if (media !== null && state.playReady) {
+          if (isFinite(media.duration)) {
+            state.remainingTime = timeParse(media.duration - media.currentTime);
           }
-          state.displayTime = timeParse($media.value.currentTime);
+          state.displayTime = timeParse(media.currentTime);
         }
       },
     );
 
     watch(
       () => props.bottomControls,
-      (val) => {
+      (val: boolean) => {
         state.bottomControls = val;
         if (val) {
           state.showControls = true;
@@ -659,7 +805,7 @@ export default defineComponent({
 
     watch(
       () => props.noControls,
-      (val) => {
+      (val: boolean) => {
         state.noControls = val;
         if (props.nativeControls === true) {
           state.noControls = true;
@@ -711,8 +857,10 @@ export default defineComponent({
 
     // Public Methods
 
-    function loadFileBlob(fileList) {
-      if (fileList && __isMediaAvailable.value === true) {
+    function loadFileBlob(fileList: FileList) {
+      const media = __mediaElement();
+
+      if (fileList && media !== null) {
         if (Object.prototype.toString.call(fileList) === "[object FileList]") {
           if (fileList.length === 0) {
             return false;
@@ -725,10 +873,10 @@ export default defineComponent({
               return;
             }
 
-            $media.value.src = result;
+            media.src = result;
             __reset();
             __addSourceEventListeners();
-            $media.value.load();
+            media.load();
             state.loading = false;
           };
           reader.readAsDataURL(fileList[0]);
@@ -813,32 +961,27 @@ export default defineComponent({
     }
 
     function play() {
-      if (__isMediaAvailable.value === true && state.playReady === true) {
-        const hasPromise = typeof $media.value.play() !== "undefined";
-        if (hasPromise) {
-          $media.value
-            .play()
-            .then(() => {
-              state.showBigPlayButton = false;
-              state.playing = true;
-              __mouseLeaveVideo();
-              return true;
-            })
-            .catch(() => {});
-        } else {
-          // IE11 + EDGE support
-          $media.value.play();
-          state.showBigPlayButton = false;
-          state.playing = true;
-          __mouseLeaveVideo();
-        }
+      const media = __mediaElement();
+
+      if (media !== null && state.playReady === true) {
+        media
+          .play()
+          .then(() => {
+            state.showBigPlayButton = false;
+            state.playing = true;
+            __mouseLeaveVideo();
+            return true;
+          })
+          .catch(() => {});
       }
     }
 
     function pause() {
-      if (__isMediaAvailable.value === true && state.playReady === true) {
+      const media = __mediaElement();
+
+      if (media !== null && state.playReady === true) {
         if (state.playing) {
-          $media.value.pause();
+          media.pause();
           state.showBigPlayButton = true;
           state.playing = false;
         }
@@ -881,57 +1024,53 @@ export default defineComponent({
 
     function mute() {
       state.muted = true;
-      if (__isMediaAvailable.value === true) {
-        $media.value.muted = state.muted === true;
+      const media = __mediaElement();
+      if (media !== null) {
+        media.muted = true;
       }
     }
 
     function unmute() {
       state.muted = false;
-      if (__isMediaAvailable.value === true) {
-        $media.value.muted = state.muted !== true;
+      const media = __mediaElement();
+      if (media !== null) {
+        media.muted = false;
       }
     }
 
-    function togglePlay(e) {
+    function togglePlay(e?: Event) {
       __stopAndPrevent(e);
-      if (__isMediaAvailable.value === true && state.playReady === true) {
+      const media = __mediaElement();
+
+      if (media !== null && state.playReady === true) {
         if (state.playing) {
-          $media.value.pause();
+          media.pause();
           state.showBigPlayButton = true;
           state.playing = false;
         } else {
-          const hasPromise = typeof $media.value.play() !== "undefined";
-          if (hasPromise) {
-            $media.value
-              .play()
-              .then(() => {
-                state.showBigPlayButton = false;
-                state.playing = true;
-                __mouseLeaveVideo();
-                return true;
-              })
-              .catch(() => {});
-          } else {
-            // IE11 + EDGE support
-            $media.value.play();
-            state.showBigPlayButton = false;
-            state.playing = true;
-            __mouseLeaveVideo();
-          }
+          media
+            .play()
+            .then(() => {
+              state.showBigPlayButton = false;
+              state.playing = true;
+              __mouseLeaveVideo();
+              return true;
+            })
+            .catch(() => {});
         }
       }
     }
 
-    function toggleMuted(e) {
+    function toggleMuted(e: Event) {
       __stopAndPrevent(e);
       state.muted = !state.muted;
-      if (__isMediaAvailable.value === true) {
-        $media.value.muted = state.muted === true;
+      const media = __mediaElement();
+      if (media !== null) {
+        media.muted = state.muted === true;
       }
     }
 
-    function toggleFullscreen(e) {
+    function toggleFullscreen(e: Event) {
       if (__isVideo.value) {
         __stopAndPrevent(e);
         if (state.inFullscreen) {
@@ -944,12 +1083,14 @@ export default defineComponent({
     }
 
     function setFullscreen() {
+      const media = __mediaElement();
+
       if (props.hideFullscreenBtn === true || !__isVideo.value || state.inFullscreen) {
         return;
       }
-      if ($q.fullscreen !== void 0) {
+      if ($q.fullscreen !== void 0 && media !== null) {
         state.inFullscreen = true;
-        $q.fullscreen.request($media.value.parentNode); // NOTE error Not capable - on iPhone Safari
+        $q.fullscreen.request(media.parentElement); // NOTE error Not capable - on iPhone Safari
         document.body.classList.add("no-scroll");
         // nextTick(() => {
         //   forceUpdate()
@@ -972,26 +1113,28 @@ export default defineComponent({
     }
 
     function currentTime() {
-      if (__isMediaAvailable.value === true && state.playReady === true) {
-        return $media.value.currentTime;
+      const media = __mediaElement();
+      if (media !== null && state.playReady === true) {
+        return media.currentTime;
       }
       return -1;
     }
 
-    function setCurrentTime(seconds) {
+    function setCurrentTime(seconds: number) {
+      const media = __mediaElement();
       if (state.playReady) {
         if (
-          __isMediaAvailable.value === true &&
-          isFinite($media.value.duration) &&
+          media !== null &&
+          isFinite(media.duration) &&
           seconds >= 0 &&
-          seconds <= $media.value.duration
+          seconds <= media.duration
         ) {
-          state.currentTime = $media.value.currentTime = seconds;
+          state.currentTime = media.currentTime = seconds;
         }
       }
     }
 
-    function setVolume(volume) {
+    function setVolume(volume: number) {
       if (volume >= 0 && volume <= 100) {
         state.volume = volume;
       }
@@ -1022,21 +1165,23 @@ export default defineComponent({
       __showCaptions(state.trackLanguage);
     }
 
-    function __showCaptions(lang) {
-      if (__isMediaAvailable.value === true && __isVideo.value) {
-        for (let index = 0; index < $media.value.textTracks.length; ++index) {
-          if ($media.value.textTracks[index].label === lang) {
-            $media.value.textTracks[index].mode = "showing";
-            $media.value.textTracks[index].oncuechange = __cueChanged;
+    function __showCaptions(lang: string) {
+      const media = __mediaElement();
+
+      if (media !== null && __isVideo.value) {
+        for (let index = 0; index < media.textTracks.length; ++index) {
+          if (media.textTracks[index].label === lang) {
+            media.textTracks[index].mode = "showing";
+            media.textTracks[index].oncuechange = __cueChanged;
           } else {
-            $media.value.textTracks[index].mode = "hidden";
-            $media.value.textTracks[index].oncuechange = null;
+            media.textTracks[index].mode = "hidden";
+            media.textTracks[index].oncuechange = null;
           }
         }
       }
     }
 
-    function __stopAndPrevent(e) {
+    function __stopAndPrevent(e?: Event) {
       if (e) {
         if (e.cancelable !== false) {
           e.preventDefault();
@@ -1047,26 +1192,26 @@ export default defineComponent({
 
     async function __setupLang() {
       const isoName = $q.lang?.isoName || "en-US";
-      let language;
+      let language: Partial<MediaPlayerLang> | undefined;
       try {
         // language = require(`./lang/${isoName}`)
         language = await __loadLang(isoName);
       } catch {}
 
-      if (language !== void 0 && language.lang !== void 0) {
-        lang.mediaPlayer = { ...language.mediaPlayer };
+      if (language?.mediaPlayer !== void 0) {
+        lang.mediaPlayer = { ...defaultMediaPlayerLang.mediaPlayer, ...language.mediaPlayer };
         __updatePlaybackRates();
         __updateTrackLanguage();
       }
     }
 
-    async function __loadLang(lang) {
-      let langList = {};
+    async function __loadLang(lang: string): Promise<Partial<MediaPlayerLang>> {
+      let langList: Partial<MediaPlayerLang> = {};
       if (lang) {
         const mediaPlayerGlobal = typeof window !== "undefined" ? window.QMediaPlayer : undefined;
         // detect if UMD version is installed
         if (mediaPlayerGlobal && mediaPlayerGlobal.Component) {
-          const name = lang.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+          const name = lang.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase());
           if (mediaPlayerGlobal.lang && mediaPlayerGlobal.lang[name]) {
             langList = mediaPlayerGlobal.lang[name];
           } else {
@@ -1087,7 +1232,7 @@ export default defineComponent({
             }
 
             const result = await loadLang();
-            langList = result.default;
+            langList = result.default as MediaPlayerLang;
           } catch {
             /* eslint-disable-next-line no-console */
             console.error(`[QMediaPlayer]: Cannot find language file called '${lang}'`);
@@ -1099,23 +1244,23 @@ export default defineComponent({
 
     async function __setupIcons() {
       const iconSetName = $q.iconSet?.name || "material-icons";
-      let icnSet;
+      let icnSet: Partial<MediaPlayerIconSet> | undefined;
       try {
         icnSet = await __loadIconSet(iconSetName);
       } catch {}
 
       if (icnSet !== void 0 && icnSet.mediaPlayer !== void 0) {
-        iconSet.mediaPlayer = { ...defaultIconSet.mediaPlayer, ...icnSet.mediaPlayer };
+        iconSet.mediaPlayer = { ...defaultMediaPlayerIconSet.mediaPlayer, ...icnSet.mediaPlayer };
       }
     }
 
-    async function __loadIconSet(set) {
-      let iconsList = {};
+    async function __loadIconSet(set: string): Promise<Partial<MediaPlayerIconSet>> {
+      let iconsList: Partial<MediaPlayerIconSet> = {};
       if (set) {
         const mediaPlayerGlobal = typeof window !== "undefined" ? window.QMediaPlayer : undefined;
         // detect if UMD version is installed
         if (mediaPlayerGlobal && mediaPlayerGlobal.Component) {
-          const name = set.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+          const name = set.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase());
           if (mediaPlayerGlobal.iconSet && mediaPlayerGlobal.iconSet[name]) {
             iconsList = mediaPlayerGlobal.iconSet[name];
           } else {
@@ -1136,13 +1281,15 @@ export default defineComponent({
           }
 
           const result = await loadIconSet();
-          iconsList = result.default;
+          iconsList = result.default as MediaPlayerIconSet;
         }
       }
       return iconsList;
     }
 
     function __init() {
+      const media = __mediaElement();
+
       state.bottomControls = props.bottomControls;
       state.noControls = props.noControls;
       if (props.nativeControls === true) {
@@ -1166,36 +1313,39 @@ export default defineComponent({
       // set playback rate default
       __updatePlaybackRate();
       // does user want cors?
-      if (props.crossOrigin && __isMediaAvailable.value === true) {
-        $media.value.setAttribute("crossorigin", props.crossOrigin);
+      if (props.crossOrigin && media !== null) {
+        media.setAttribute("crossorigin", props.crossOrigin);
       }
       // make sure "controls" is turned off
-      if (__isMediaAvailable.value === true) {
-        $media.value.controls = false;
+      if (media !== null) {
+        media.controls = false;
       }
       __addSourceEventListeners();
       __toggleCaptions();
     }
 
     function __addMediaEventListeners() {
-      if (__isMediaAvailable.value === true) {
+      const media = __mediaElement();
+      if (media !== null) {
         allEvents.forEach((event) => {
-          $media.value.addEventListener(event, __mediaEventHandler);
+          media.addEventListener(event, __mediaEventHandler);
         });
       }
     }
 
     function __removeMediaEventListeners() {
-      if (__isMediaAvailable.value === true) {
+      const media = __mediaElement();
+      if (media !== null) {
         allEvents.forEach((event) => {
-          $media.value.removeEventListener(event, __mediaEventHandler);
+          media.removeEventListener(event, __mediaEventHandler);
         });
       }
     }
 
     function __addSourceEventListeners() {
-      if (__isMediaAvailable.value === true) {
-        const sources = $media.value.querySelectorAll("source");
+      const media = __mediaElement();
+      if (media !== null) {
+        const sources = media.querySelectorAll("source");
         for (let index = 0; index < sources.length; ++index) {
           sources[index].addEventListener("error", __sourceEventHandler);
         }
@@ -1203,8 +1353,9 @@ export default defineComponent({
     }
 
     function __removeSourceEventListeners() {
-      if (__isMediaAvailable.value === true) {
-        const sources = $media.value.querySelectorAll("source");
+      const media = __mediaElement();
+      if (media !== null) {
+        const sources = media.querySelectorAll("source");
         for (let index = 0; index < sources.length; ++index) {
           sources[index].removeEventListener("error", __sourceEventHandler);
         }
@@ -1212,19 +1363,21 @@ export default defineComponent({
     }
 
     function __setMediaReady() {
-      if (__isMediaAvailable.value !== true) {
+      const media = __mediaElement();
+
+      if (media === null) {
         return false;
       }
 
       const wasReady = state.playReady;
       state.playReady = true;
       state.loading = false;
-      state.displayTime = timeParse($media.value.currentTime);
+      state.displayTime = timeParse(media.currentTime);
 
-      if (isFinite($media.value.duration)) {
-        state.duration = $media.value.duration;
-        state.durationTime = timeParse($media.value.duration);
-        state.remainingTime = timeParse($media.value.duration - $media.value.currentTime);
+      if (isFinite(media.duration)) {
+        state.duration = media.duration;
+        state.durationTime = timeParse(media.duration);
+        state.remainingTime = timeParse(media.duration - media.currentTime);
       }
 
       showControls();
@@ -1233,19 +1386,17 @@ export default defineComponent({
 
     function __syncMediaReady() {
       const HAVE_METADATA = 1;
+      const media = __mediaElement();
 
-      if (
-        __isMediaAvailable.value === true &&
-        ($media.value.currentSrc || $media.value.src) &&
-        $media.value.readyState >= HAVE_METADATA
-      ) {
+      if (media !== null && (media.currentSrc || media.src) && media.readyState >= HAVE_METADATA) {
         __setMediaReady();
       }
     }
 
-    function __sourceEventHandler(event) {
+    function __sourceEventHandler(event: Event) {
       const NETWORK_NO_SOURCE = 3;
-      if (__isMediaAvailable.value === true && $media.value.networkState === NETWORK_NO_SOURCE) {
+      const media = __mediaElement();
+      if (media !== null && media.networkState === NETWORK_NO_SOURCE) {
         state.errorText = __isVideo.value
           ? lang.mediaPlayer.noLoadVideo
           : lang.mediaPlayer.noLoadAudio;
@@ -1255,7 +1406,12 @@ export default defineComponent({
       emit("networkState", event);
     }
 
-    function __mediaEventHandler(event) {
+    function __mediaEventHandler(event: Event) {
+      const media = __mediaElement();
+      if (media === null) {
+        return;
+      }
+
       if (event.type === "abort") {
         emit("abort");
       } else if (event.type === "canplay") {
@@ -1268,10 +1424,10 @@ export default defineComponent({
         // console.log('canplaythrough')
         emit("canplaythrough");
       } else if (event.type === "durationchange") {
-        if (isFinite($media.value.duration)) {
-          state.duration = $media.value.duration;
-          state.durationTime = timeParse($media.value.duration);
-          emit("duration", $media.value.duration);
+        if (isFinite(media.duration)) {
+          state.duration = media.duration;
+          state.durationTime = timeParse(media.duration);
+          emit("duration", media.duration);
         }
       } else if (event.type === "emptied") {
         emit("emptied");
@@ -1279,7 +1435,7 @@ export default defineComponent({
         state.playing = false;
         emit("ended");
       } else if (event.type === "error") {
-        const error = $media.value.error;
+        const error = media.error;
         state.errorText = error && error.message ? error.message : null;
         state.playing = false;
         state.loading = false;
@@ -1324,8 +1480,8 @@ export default defineComponent({
       } else if (event.type === "seeked") {
         //
       } else if (event.type === "timeupdate") {
-        state.currentTime = $media.value.currentTime;
-        emit("timeupdate", $media.value.currentTime, state.remainingTime);
+        state.currentTime = media.currentTime;
+        emit("timeupdate", media.currentTime, state.remainingTime);
       } else if (event.type === "volumechange") {
         //
       } else if (event.type === "waiting") {
@@ -1333,8 +1489,8 @@ export default defineComponent({
       }
     }
 
-    function __mergeClassOrStyle(type, val) {
-      const child = {};
+    function __mergeClassOrStyle(type: "class" | "style", val: ClassOrStyle) {
+      const child: Record<string, unknown> = {};
       if (val !== undefined) {
         if (typeof val === "string") {
           if (type === "style") {
@@ -1361,16 +1517,17 @@ export default defineComponent({
     }
 
     // for future functionality
-    function __cueChanged(_data) {}
+    function __cueChanged(_data: Event) {}
 
     function __checkCursor() {
-      if (__isMediaAvailable.value === true) {
+      const media = __mediaElement();
+      if (media !== null) {
         if (state.inFullscreen && state.playing && !state.showControls) {
-          $media.value.classList.remove("cursor-inherit");
-          $media.value.classList.add("cursor-none");
+          media.classList.remove("cursor-inherit");
+          media.classList.add("cursor-none");
         } else {
-          $media.value.classList.remove("cursor-none");
-          $media.value.classList.add("cursor-inherit");
+          media.classList.remove("cursor-none");
+          media.classList.add("cursor-inherit");
         }
       }
     }
@@ -1384,14 +1541,14 @@ export default defineComponent({
       }
     }
 
-    function __videoClick(e) {
+    function __videoClick(e: Event) {
       __stopAndPrevent(e);
       if (props.mobileMode !== true) {
         togglePlay();
       }
     }
 
-    function __bigButtonClick(e) {
+    function __bigButtonClick(e: Event) {
       __stopAndPrevent(e);
       if (props.mobileMode) {
         hideControls();
@@ -1399,12 +1556,13 @@ export default defineComponent({
       togglePlay();
     }
 
-    function __settingsMenuShowing(val) {
+    function __settingsMenuShowing(val: boolean) {
       settingsMenuVisible.value = val;
     }
 
-    function __mouseLeaveVideo(e) {
-      if (e?.relatedTarget && e.relatedTarget.className === "q-pa-md") {
+    function __mouseLeaveVideo(e?: MouseEvent) {
+      const relatedTarget = e?.relatedTarget;
+      if (relatedTarget instanceof HTMLElement && relatedTarget.className === "q-pa-md") {
         if (
           !props.bottomControls &&
           !props.mobileMode &&
@@ -1416,25 +1574,28 @@ export default defineComponent({
       }
     }
 
-    function __mouseMoveAction(e) {
+    function __mouseMoveAction(e: MouseEvent) {
       if (!props.bottomControls && !props.mobileMode && !__isAudio.value) {
         __showControlsIfValid(e);
       }
     }
 
-    function __getParentEl(el, className) {
+    function __getParentEl(el: HTMLElement | null, className: string): HTMLElement | null {
       if (!el) return null;
       if (String(el.className).startsWith(className)) {
         return el;
       }
-      return __getParentEl(el.offsetParent, className);
+      return __getParentEl(el.offsetParent as HTMLElement | null, className);
     }
 
-    function __showControlsIfValid(e) {
-      const pos = $media.value.getBoundingClientRect();
+    function __showControlsIfValid(e: MouseEvent) {
+      const media = __mediaElement();
+      if (media === null || !(e.target instanceof HTMLElement)) return false;
+
+      const pos = media.getBoundingClientRect();
       const el = __getParentEl(e.target, "q-media");
       if (!el) return;
-      var rect = el.getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
       if (!pos || !rect) return false;
       if (
         rect.left === pos.left &&
@@ -1449,33 +1610,28 @@ export default defineComponent({
       return false;
     }
 
-    function __videoCurrentTimeChanged(val) {
+    function __videoCurrentTimeChanged(val: number) {
       showControls();
-      if (
-        __isMediaAvailable.value === true &&
-        $media.value.duration &&
-        val &&
-        val > 0 &&
-        val <= state.duration
-      ) {
-        if ($media.value.currentTime !== val) {
-          state.currentTime = $media.value.currentTime = val;
+      const media = __mediaElement();
+      if (media !== null && media.duration && val && val > 0 && val <= state.duration) {
+        if (media.currentTime !== val) {
+          state.currentTime = media.currentTime = val;
         }
       }
     }
 
-    function __volumePercentChanged(val) {
+    function __volumePercentChanged(val: number) {
       showControls();
       state.volume = val;
     }
 
-    function __trackLanguageChanged(language) {
+    function __trackLanguageChanged(language: string) {
       if (state.trackLanguage !== language) {
         state.trackLanguage = language;
       }
     }
 
-    function __playbackRateChanged(rate) {
+    function __playbackRateChanged(rate: number) {
       if (state.playbackRate !== rate) {
         state.playbackRate = rate;
       }
@@ -1500,8 +1656,9 @@ export default defineComponent({
     function __updateMuted() {
       if (state.muted !== props.muted) {
         state.muted = props.muted;
-        if (__isMediaAvailable.value === true) {
-          $media.value.muted = state.muted;
+        const media = __mediaElement();
+        if (media !== null) {
+          media.muted = state.muted;
         }
       }
     }
@@ -1536,39 +1693,41 @@ export default defineComponent({
     }
 
     function __removeSources() {
-      if (__isMediaAvailable.value === true) {
+      const media = __mediaElement();
+      if (media !== null) {
         __removeSourceEventListeners();
         // player must not be running
-        $media.value.pause();
-        $media.value.src = "";
-        if ($media.value.currentTime) {
+        media.pause();
+        media.src = "";
+        if (media.currentTime) {
           // otherwise IE11 has exception error
-          $media.value.currentTime = 0;
+          media.currentTime = 0;
         }
-        const childNodes = $media.value.childNodes;
+        const childNodes = media.childNodes;
         for (let index = childNodes.length - 1; index >= 0; --index) {
-          if (childNodes[index].tagName === "SOURCE") {
-            $media.value.removeChild(childNodes[index]);
+          if (childNodes[index] instanceof HTMLSourceElement) {
+            media.removeChild(childNodes[index]);
           }
         }
       }
     }
 
     function __addSources() {
-      if (__isMediaAvailable.value === true) {
+      const media = __mediaElement();
+      if (media !== null) {
         let loaded = false;
         if (props.source && props.source.length > 0) {
-          $media.value.src = props.source;
+          media.src = props.source;
           loaded = true;
         } else {
           if (props.sources.length > 0) {
             props.sources.forEach((source) => {
-              const s = document.createElement("SOURCE");
+              const s = document.createElement("source");
               s.src = source.src ? source.src : "";
               s.type = source.type ? source.type : "";
-              $media.value.appendChild(s);
+              media.appendChild(s);
               if (!loaded && source.src) {
-                $media.value.src = source.src;
+                media.src = source.src;
                 loaded = true;
               }
             });
@@ -1580,7 +1739,7 @@ export default defineComponent({
           return;
         }
         __addSourceEventListeners();
-        $media.value.load();
+        media.load();
         nextTick(() => {
           __syncMediaReady();
         }).catch((e) => console.error(e));
@@ -1593,11 +1752,12 @@ export default defineComponent({
     }
 
     function __removeTracks() {
-      if (__isMediaAvailable.value === true) {
-        const childNodes = $media.value.childNodes;
+      const media = __mediaElement();
+      if (media !== null) {
+        const childNodes = media.childNodes;
         for (let index = childNodes.length - 1; index >= 0; --index) {
-          if (childNodes[index].tagName === "TRACK") {
-            $media.value.removeChild(childNodes[index]);
+          if (childNodes[index] instanceof HTMLTrackElement) {
+            media.removeChild(childNodes[index]);
           }
         }
       }
@@ -1605,14 +1765,15 @@ export default defineComponent({
 
     function __addTracks() {
       // only add tracks to video
-      if (__isVideo.value && __isMediaAvailable.value === true) {
+      const media = __mediaElement();
+      if (__isVideo.value && media !== null) {
         props.tracks.forEach((track) => {
-          const t = document.createElement("TRACK");
+          const t = document.createElement("track");
           t.kind = track.kind ? track.kind : "";
           t.label = track.label ? track.label : "";
           t.src = track.src ? track.src : "";
           t.srclang = track.srclang ? track.srclang : "";
-          $media.value.appendChild(t);
+          media.appendChild(t);
         });
         nextTick(() => {
           __toggleCaptions();
@@ -1621,8 +1782,9 @@ export default defineComponent({
     }
 
     function __updatePoster() {
-      if (__isMediaAvailable.value === true && props.poster) {
-        $media.value.poster = props.poster;
+      const media = __mediaElement();
+      if (media instanceof HTMLVideoElement && props.poster) {
+        media.poster = props.poster;
       }
     }
 
@@ -1650,8 +1812,9 @@ export default defineComponent({
       };
 
       nextTick(() => {
-        if (__isMediaAvailable.value && props.nativeControls === true) {
-          $media.value.controls = true;
+        const media = __mediaElement();
+        if (media !== null && props.nativeControls === true) {
+          media.controls = true;
         }
       }).catch((e) => console.error(e));
 
@@ -1687,8 +1850,9 @@ export default defineComponent({
       };
 
       nextTick(() => {
-        if (__isMediaAvailable.value && props.nativeControls === true) {
-          $media.value.controls = true;
+        const media = __mediaElement();
+        if (media !== null && props.nativeControls === true) {
+          media.controls = true;
         }
       }).catch((e) => console.error(e));
 
@@ -2246,10 +2410,11 @@ export default defineComponent({
     }
 
     function __renderDurationTime() {
-      if (__isMediaAvailable.value !== true) return;
+      const media = __mediaElement();
+      if (media === null) return;
 
       const slot = slots.durationTime;
-      const isInfinity = !isFinite($media.value.duration);
+      const isInfinity = !isFinite(media.duration);
 
       return (
         (slot && slot()) ||
@@ -2354,7 +2519,7 @@ export default defineComponent({
                                 clickable: true,
                                 dense: true,
                                 // events
-                                onClick: (e) => {
+                                onClick: (e: Event) => {
                                   __stopAndPrevent(e);
                                   __playbackRateChanged(rate.value);
                                 },
@@ -2418,7 +2583,7 @@ export default defineComponent({
                                 clickable: true,
                                 dense: true,
                                 // events
-                                onClick: (e) => {
+                                onClick: (e: Event) => {
                                   __stopAndPrevent(e);
                                   __trackLanguageChanged(language.value);
                                 },
