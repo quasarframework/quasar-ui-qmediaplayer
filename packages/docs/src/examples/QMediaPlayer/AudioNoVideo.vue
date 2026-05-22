@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/src/index.scss";
+import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "AudioNoVideo" });
 

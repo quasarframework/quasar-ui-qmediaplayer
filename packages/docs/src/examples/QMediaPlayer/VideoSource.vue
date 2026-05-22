@@ -1,12 +1,15 @@
 <template>
   <div class="q-pa-md">
-    <q-media-player type="video" source="/media/pexels-ono-kosuki-5974545.mp4" />
+    <q-media-player
+      type="video"
+      source="https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/src/index.scss";
+import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "VideoSource" });
 </script>

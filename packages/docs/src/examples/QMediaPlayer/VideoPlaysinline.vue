@@ -6,13 +6,13 @@
 
 <script setup lang="ts">
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/src/index.scss";
+import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "VideoPlaysinline" });
 
 const sources = [
   {
-    src: "/media/pexels-ono-kosuki-5974545.mp4",
+    src: "https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4",
     type: "video/mp4",
   },
 ];

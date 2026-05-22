@@ -31,7 +31,7 @@ import svgIoniconsV7 from "quasar/icon-set/svg-ionicons-v7";
 import svgIoniconsV8 from "quasar/icon-set/svg-ionicons-v8";
 import themify from "quasar/icon-set/themify";
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/src/index.scss";
+import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "VideoIconSet" });
 
@@ -53,7 +53,7 @@ type IconSetName = keyof typeof iconSets;
 
 const sources = [
   {
-    src: "/media/pexels-ono-kosuki-5974545.mp4",
+    src: "https://ftp.nluug.nl/pub/graphics/blender/demo/movies/ToS/tears_of_steel_720p.mov",
     type: "video/mp4",
   },
 ];

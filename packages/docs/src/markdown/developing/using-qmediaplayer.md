@@ -29,6 +29,12 @@ Start with `type` and either `source` or `sources`. Audio and video share the sa
 
 <MarkdownExample title="Video Basic" file="VideoBasic" no-github no-edit/>
 
+## Auto Pause
+
+Use `auto-pause` when videos live inside long documentation pages, feeds, dashboards, or galleries where playback should stop once the player is no longer visible. QMediaPlayer pauses when the component is completely outside the viewport and intentionally does not auto-resume.
+
+<MarkdownExample title="Video Auto Pause" file="VideoAutoPause" no-github no-edit/>
+
 ## Color
 
 Use color props to align the player with your design system. The big play button can be customized separately, which is useful when the video poster needs a stronger call to action.

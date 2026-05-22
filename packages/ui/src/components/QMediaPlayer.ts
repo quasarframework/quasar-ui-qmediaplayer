@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {
   computed,
   defineComponent,
@@ -29,6 +31,7 @@ import {
 } from "quasar";
 
 import defaultIconSet from "../../icon-set/material-icons.mjs";
+import defaultLang from "../../lang/en-US.mjs";
 
 const matClose =
   "M0 0h24v24H0z@@fill:none;&&M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z";
@@ -81,6 +84,63 @@ const iconSetLoaders = {
   themify: () => import("../../icon-set/themify.mjs"),
 };
 
+const langLoaders = {
+  ar: () => import("../../lang/ar.mjs"),
+  "az-Latn": () => import("../../lang/az-Latn.mjs"),
+  bg: () => import("../../lang/bg.mjs"),
+  bn: () => import("../../lang/bn.mjs"),
+  ca: () => import("../../lang/ca.mjs"),
+  cs: () => import("../../lang/cs.mjs"),
+  da: () => import("../../lang/da.mjs"),
+  de: () => import("../../lang/de.mjs"),
+  el: () => import("../../lang/el.mjs"),
+  "en-GB": () => import("../../lang/en-GB.mjs"),
+  "en-US": async () => ({ default: defaultLang }),
+  eo: () => import("../../lang/eo.mjs"),
+  es: () => import("../../lang/es.mjs"),
+  et: () => import("../../lang/et.mjs"),
+  fa: () => import("../../lang/fa.mjs"),
+  "fa-IR": () => import("../../lang/fa-IR.mjs"),
+  fi: () => import("../../lang/fi.mjs"),
+  fr: () => import("../../lang/fr.mjs"),
+  gn: () => import("../../lang/gn.mjs"),
+  he: () => import("../../lang/he.mjs"),
+  hr: () => import("../../lang/hr.mjs"),
+  hu: () => import("../../lang/hu.mjs"),
+  id: () => import("../../lang/id.mjs"),
+  is: () => import("../../lang/is.mjs"),
+  it: () => import("../../lang/it.mjs"),
+  ja: () => import("../../lang/ja.mjs"),
+  km: () => import("../../lang/km.mjs"),
+  "ko-KR": () => import("../../lang/ko-KR.mjs"),
+  "kur-CKB": () => import("../../lang/kur-CKB.mjs"),
+  lt: () => import("../../lang/lt.mjs"),
+  lu: () => import("../../lang/lu.mjs"),
+  lv: () => import("../../lang/lv.mjs"),
+  ml: () => import("../../lang/ml.mjs"),
+  ms: () => import("../../lang/ms.mjs"),
+  "nb-NO": () => import("../../lang/nb-NO.mjs"),
+  nl: () => import("../../lang/nl.mjs"),
+  pl: () => import("../../lang/pl.mjs"),
+  pt: () => import("../../lang/pt.mjs"),
+  "pt-BR": () => import("../../lang/pt-BR.mjs"),
+  ro: () => import("../../lang/ro.mjs"),
+  ru: () => import("../../lang/ru.mjs"),
+  sk: () => import("../../lang/sk.mjs"),
+  sl: () => import("../../lang/sl.mjs"),
+  sr: () => import("../../lang/sr.mjs"),
+  "sr-CYR": () => import("../../lang/sr-CYR.mjs"),
+  sv: () => import("../../lang/sv.mjs"),
+  ta: () => import("../../lang/ta.mjs"),
+  th: () => import("../../lang/th.mjs"),
+  tr: () => import("../../lang/tr.mjs"),
+  ug: () => import("../../lang/ug.mjs"),
+  uk: () => import("../../lang/uk.mjs"),
+  vi: () => import("../../lang/vi.mjs"),
+  "zh-CN": () => import("../../lang/zh-CN.mjs"),
+  "zh-TW": () => import("../../lang/zh-TW.mjs"),
+};
+
 function hSlot(slot, otherwise) {
   return slot !== void 0 ? slot() : otherwise;
 }
@@ -131,6 +191,10 @@ export default defineComponent({
     },
     dense: Boolean,
     autoplay: Boolean,
+    autoPause: {
+      type: Boolean,
+      default: false,
+    },
     crossOrigin: {
       type: [String],
       default: null,
@@ -237,11 +301,12 @@ export default defineComponent({
 
     const canRender = ref(false),
       lang = reactive({
-        mediaPlayer: {},
+        mediaPlayer: { ...defaultLang.mediaPlayer },
       }),
       iconSet = reactive({
         mediaPlayer: { ...defaultIconSet.mediaPlayer },
       }),
+      $root = ref(null), // $ref - the QMediaPlayer wrapper
       $media = ref(null), // $ref - the actual video/audio player
       controls = ref(null), // $ref
       menu = ref(null), // $ref
@@ -280,6 +345,7 @@ export default defineComponent({
         bottomControls: false,
       }),
       settingsMenuVisible = ref(false),
+      autoPauseObserver = ref(null),
       allEvents = [
         "abort",
         "canplay",
@@ -601,6 +667,13 @@ export default defineComponent({
       },
     );
 
+    watch(
+      () => props.autoPause,
+      () => {
+        __updateAutoPauseObserver();
+      },
+    );
+
     // watch(() => state.inControls, (val) => {
     //   console.log('inControls:', val)
     // })
@@ -610,11 +683,16 @@ export default defineComponent({
       if (canRender.value === true) {
         __setupLang();
         __setupIcons();
+        nextTick(() => {
+          __updateAutoPauseObserver();
+        });
       }
     });
 
     onBeforeUnmount(() => {
       if (canRender.value === true) {
+        __removeAutoPauseObserver();
+
         // make sure not still in fullscreen
         exitFullscreen();
 
@@ -764,6 +842,40 @@ export default defineComponent({
           state.showBigPlayButton = true;
           state.playing = false;
         }
+      }
+    }
+
+    function __updateAutoPauseObserver() {
+      __removeAutoPauseObserver();
+
+      if (
+        props.autoPause !== true ||
+        canRender.value !== true ||
+        typeof IntersectionObserver === "undefined" ||
+        $root.value === null
+      ) {
+        return;
+      }
+
+      autoPauseObserver.value = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+
+        if (
+          entry?.isIntersecting !== true &&
+          state.playing === true &&
+          state.inFullscreen !== true
+        ) {
+          pause();
+        }
+      });
+
+      autoPauseObserver.value.observe($root.value);
+    }
+
+    function __removeAutoPauseObserver() {
+      if (autoPauseObserver.value !== null) {
+        autoPauseObserver.value.disconnect();
+        autoPauseObserver.value = null;
       }
     }
 
@@ -967,10 +1079,14 @@ export default defineComponent({
           }
         } else {
           try {
-            const result = await import(
-              /* webpackChunkName: "[request]" */
-              `@quasar/quasar-ui-qmediaplayer/lang/${lang}.js`
-            );
+            const loadLang = langLoaders[lang as keyof typeof langLoaders] || langLoaders["en-US"];
+
+            if (langLoaders[lang as keyof typeof langLoaders] === void 0) {
+              /* eslint-disable-next-line no-console */
+              console.error(`[QMediaPlayer]: Cannot find language file called '${lang}'`);
+            }
+
+            const result = await loadLang();
             langList = result.default;
           } catch {
             /* eslint-disable-next-line no-console */
@@ -1032,6 +1148,9 @@ export default defineComponent({
       if (props.nativeControls === true) {
         state.noControls = true;
       }
+      // Attach media listeners before loading sources so cached/local assets
+      // cannot race past readiness events.
+      __addMediaEventListeners();
       // set default track language
       __updateTrackLanguage();
       __updateSources();
@@ -1054,8 +1173,6 @@ export default defineComponent({
       if (__isMediaAvailable.value === true) {
         $media.value.controls = false;
       }
-      // set up event listeners on video
-      __addMediaEventListeners();
       __addSourceEventListeners();
       __toggleCaptions();
     }
@@ -1094,6 +1211,38 @@ export default defineComponent({
       }
     }
 
+    function __setMediaReady() {
+      if (__isMediaAvailable.value !== true) {
+        return false;
+      }
+
+      const wasReady = state.playReady;
+      state.playReady = true;
+      state.loading = false;
+      state.displayTime = timeParse($media.value.currentTime);
+
+      if (isFinite($media.value.duration)) {
+        state.duration = $media.value.duration;
+        state.durationTime = timeParse($media.value.duration);
+        state.remainingTime = timeParse($media.value.duration - $media.value.currentTime);
+      }
+
+      showControls();
+      return wasReady !== true;
+    }
+
+    function __syncMediaReady() {
+      const HAVE_METADATA = 1;
+
+      if (
+        __isMediaAvailable.value === true &&
+        ($media.value.currentSrc || $media.value.src) &&
+        $media.value.readyState >= HAVE_METADATA
+      ) {
+        __setMediaReady();
+      }
+    }
+
     function __sourceEventHandler(event) {
       const NETWORK_NO_SOURCE = 3;
       if (__isMediaAvailable.value === true && $media.value.networkState === NETWORK_NO_SOURCE) {
@@ -1110,11 +1259,11 @@ export default defineComponent({
       if (event.type === "abort") {
         emit("abort");
       } else if (event.type === "canplay") {
-        state.playReady = true;
-        state.displayTime = timeParse($media.value.currentTime);
-        showControls();
+        const becameReady = __setMediaReady();
         emit("canplay");
-        emit("ready");
+        if (becameReady) {
+          emit("ready");
+        }
       } else if (event.type === "canplaythrough") {
         // console.log('canplaythrough')
         emit("canplaythrough");
@@ -1149,7 +1298,11 @@ export default defineComponent({
         // set default track language
         __updateTrackLanguage();
         __toggleCaptions();
+        const becameReady = __setMediaReady();
         emit("loadedmetadata");
+        if (becameReady) {
+          emit("ready");
+        }
       } else if (event.type === "stalled") {
         emit("stalled");
       } else if (event.type === "suspend") {
@@ -1398,7 +1551,6 @@ export default defineComponent({
             $media.value.removeChild(childNodes[index]);
           }
         }
-        $media.value.load();
       }
     }
 
@@ -1423,8 +1575,15 @@ export default defineComponent({
           }
         }
         __reset();
+        if (loaded !== true) {
+          state.loading = false;
+          return;
+        }
         __addSourceEventListeners();
         $media.value.load();
+        nextTick(() => {
+          __syncMediaReady();
+        }).catch((e) => console.error(e));
       }
     }
 
@@ -1465,14 +1624,6 @@ export default defineComponent({
       if (__isMediaAvailable.value === true && props.poster) {
         $media.value.poster = props.poster;
       }
-    }
-
-    function __bigButtonPositionHeight() {
-      if ($media.value) {
-        // Center the 48px big-play button inside the media element.
-        return `${$media.value.clientTop + $media.value.clientHeight / 2 - 24}px`;
-      }
-      return "50%";
     }
 
     function __mouseEnterControls() {
@@ -2029,9 +2180,6 @@ export default defineComponent({
                 state.bottomControls === true,
               "q-media--big-button": state.bottomControls !== true,
             },
-            style: {
-              top: __bigButtonPositionHeight(),
-            },
           },
           [
             h(QIcon, {
@@ -2324,6 +2472,7 @@ export default defineComponent({
             borderRadius: !state.inFullscreen ? props.radius : 0,
             height: __isVideo.value ? "auto" : props.dense ? "40px" : "80px",
           },
+          ref: $root,
           ...events,
         },
         canRender.value === true

@@ -6,13 +6,13 @@
 
 <script setup lang="ts">
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/src/index.scss";
+import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "VideoStartTime" });
 
 const sources = [
   {
-    src: "/media/pexels-ono-kosuki-5974545.mp4#t=5",
+    src: "https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4#t=90",
     type: "video/mp4",
   },
 ];

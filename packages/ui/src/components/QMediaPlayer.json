@@ -178,6 +178,14 @@
       "desc": "Automatically start video/audio when it is ready to play",
       "applicable": ["Audio", "Video"]
     },
+    "auto-pause": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "Pause playback when the player scrolls completely out of the viewport. QMediaPlayer will not automatically resume playback when it becomes visible again.",
+      "default": "false",
+      "applicable": ["Audio", "Video"],
+      "examples": ["auto-pause"]
+    },
     "cross-origin": {
       "type": ["String", "Null"],
       "category": "behavior",
