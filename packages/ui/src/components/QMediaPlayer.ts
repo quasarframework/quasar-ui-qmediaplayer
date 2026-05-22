@@ -321,6 +321,10 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    fallbackPoster: {
+      type: String,
+      default: "",
+    },
     tracks: {
       type: Array as PropType<MediaTrack[]>,
       default: () => [],
@@ -607,6 +611,10 @@ export default defineComponent({
       return props.type === "video";
     });
 
+    const __poster = computed(() => {
+      return props.poster || props.fallbackPoster || undefined;
+    });
+
     const __settingsPlaybackCaption = computed(() => {
       let caption = "";
       state.playbackRates.forEach((rate: PlaybackRateOption) => {
@@ -635,7 +643,7 @@ export default defineComponent({
     );
 
     watch(
-      () => props.poster,
+      () => [props.poster, props.fallbackPoster],
       () => {
         __updatePoster();
       },
@@ -1839,8 +1847,8 @@ export default defineComponent({
 
     function __updatePoster() {
       const media = __mediaElement();
-      if (media instanceof HTMLVideoElement && props.poster) {
-        media.poster = props.poster;
+      if (media instanceof HTMLVideoElement) {
+        media.poster = __poster.value || "";
       }
     }
 
@@ -1857,7 +1865,7 @@ export default defineComponent({
       const slot = slots.oldbrowser;
 
       const attrs = {
-        poster: props.poster ? props.poster : false,
+        poster: __poster.value,
         preload: props.preload,
         playsinline: props.playsinline === true,
         loop: props.loop === true,
@@ -1895,7 +1903,7 @@ export default defineComponent({
       const slot = slots.oldbrowser;
 
       const attrs = {
-        poster: props.poster ? props.poster : false,
+        poster: __poster.value,
         preload: props.preload,
         playsinline: props.playsinline === true,
         loop: props.loop === true,

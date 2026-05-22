@@ -55,9 +55,11 @@ Background colors help audio players feel intentional in cards, drawers, and her
 
 ## Poster
 
-Poster images are useful for setting context before playback starts, especially when videos appear in content-heavy pages.
+Poster images are useful for setting context before playback starts, especially when videos appear in content-heavy pages. Use `fallback-poster` when you want a reusable default image while still letting an explicit `poster` take precedence.
 
 <MarkdownExample title="Video Poster" file="VideoPoster" no-github no-edit/>
+
+<MarkdownExample title="Video Fallback Poster" file="VideoFallbackPoster" no-github no-edit/>
 
 ## Dark
 

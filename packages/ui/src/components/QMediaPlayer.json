@@ -72,6 +72,13 @@
       "applicable": ["Video"],
       "examples": ["poster=\"https://path/to/the/image.jpg\""]
     },
+    "fallback-poster": {
+      "type": "String",
+      "category": "model",
+      "desc": "A fallback poster image to display when `poster` is not provided. The `poster` prop always takes precedence.",
+      "applicable": ["Video"],
+      "examples": ["fallback-poster=\"https://path/to/the/fallback-image.jpg\""]
+    },
     "tracks": {
       "type": "Array",
       "category": "model",
