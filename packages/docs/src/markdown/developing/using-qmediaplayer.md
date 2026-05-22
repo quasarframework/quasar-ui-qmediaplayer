@@ -173,7 +173,7 @@ Not all languages have been translated yet. If you can help, please open a pull 
 
 ## Icon Sets
 
-Icon sets help you fit the player into stricter brand systems or specialized UIs.
+Icon sets help you fit the player into stricter brand systems or specialized UIs. If your Quasar icon set already defines a `mediaPlayer` group, QMediaPlayer will use those icons directly before falling back to its bundled icon-set loaders.
 
 <MarkdownExample title="Video Icon Set" file="VideoIconSet" no-github no-edit/>
 

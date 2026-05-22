@@ -123,6 +123,7 @@ type QuasarLike = {
   };
   iconSet?: {
     name?: string;
+    mediaPlayer?: Partial<MediaPlayerIcons>;
   };
   lang?: {
     isoName?: string;
@@ -1254,6 +1255,16 @@ export default defineComponent({
     }
 
     async function __setupIcons() {
+      const customMediaPlayerIcons = $q.iconSet?.mediaPlayer;
+
+      if (customMediaPlayerIcons !== void 0) {
+        iconSet.mediaPlayer = {
+          ...defaultMediaPlayerIconSet.mediaPlayer,
+          ...customMediaPlayerIcons,
+        };
+        return;
+      }
+
       const iconSetName = $q.iconSet?.name || "material-icons";
       let icnSet: Partial<MediaPlayerIconSet> | undefined;
       try {

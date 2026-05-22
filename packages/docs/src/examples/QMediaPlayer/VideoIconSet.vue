@@ -12,7 +12,14 @@
       style="min-width: 150px"
       class="q-ma-sm"
     />
-    <q-media-player type="video" :sources="sources" :tracks="tracks" mobile-mode />
+    <q-banner
+      v-if="iconSet === 'custom-media-player'"
+      rounded
+      class="bg-blue-grey-1 text-blue-grey-10 q-ma-sm"
+    >
+      This option uses Material Icons with a custom <code>mediaPlayer</code> icon group.
+    </q-banner>
+    <q-media-player type="video" :sources="sources" :tracks="tracks" />
   </div>
 </template>
 
@@ -47,6 +54,23 @@ const iconSets = {
   themify,
   "line-awesome": lineAwesome,
   "bootstrap-icons": bootstrapIcons,
+  "custom-media-player": {
+    ...materialIcons,
+    mediaPlayer: {
+      play: "play_circle",
+      pause: "pause_circle",
+      volumeOff: "volume_off",
+      volumeDown: "volume_down",
+      volumeUp: "volume_up",
+      settings: "tune",
+      speed: "speed",
+      language: "subtitles",
+      selected: "done",
+      fullscreen: "fullscreen",
+      fullscreenExit: "fullscreen_exit",
+      bigPlayButton: "slow_motion_video",
+    },
+  },
 };
 
 type IconSetName = keyof typeof iconSets;
@@ -113,6 +137,7 @@ const iconSetOptions: Array<{ label: string; value: IconSetName }> = [
   { label: "Themify", value: "themify" },
   { label: "Line Awesome", value: "line-awesome" },
   { label: "Bootstrap Icons", value: "bootstrap-icons" },
+  { label: "Custom mediaPlayer group", value: "custom-media-player" },
 ];
 
 watch(iconSet, (val) => {
