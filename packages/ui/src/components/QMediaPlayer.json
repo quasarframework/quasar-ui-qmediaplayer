@@ -614,6 +614,22 @@
         }
       }
     },
+    "loadBlob": {
+      "desc": "Load audio/video using a Blob or File object",
+      "params": {
+        "blob": {
+          "desc": "A [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) or [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object. The player creates and manages the object URL.",
+          "required": true,
+          "type": "Blob|File",
+          "__exemption": ["examples"]
+        }
+      },
+      "returns": {
+        "type": "Boolean",
+        "desc": "true if successful, otherwise false",
+        "__exemption": ["examples"]
+      }
+    },
     "loadFileBlob": {
       "desc": "Load audio/video using a FileList (only the first item in the list will be used)",
       "params": {

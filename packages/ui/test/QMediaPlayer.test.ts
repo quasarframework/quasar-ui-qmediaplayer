@@ -20,6 +20,11 @@ describe("QMediaPlayer", () => {
     expect(QMediaPlayer.props).toHaveProperty("playbackRate");
   });
 
+  it("documents blob loading helpers", () => {
+    expect(api.methods).toHaveProperty("loadBlob");
+    expect(api.methods).toHaveProperty("loadFileBlob");
+  });
+
   it("emits every documented public event", () => {
     const emittedEvents = new Set(QMediaPlayer.emits);
 

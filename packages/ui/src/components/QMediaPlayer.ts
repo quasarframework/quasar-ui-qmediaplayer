@@ -481,6 +481,7 @@ export default defineComponent({
       }),
       settingsMenuVisible = ref(false),
       autoPauseObserver = ref<IntersectionObserver | null>(null),
+      blobObjectUrl = ref<string | null>(null),
       allEvents = [
         "abort",
         "canplay",
@@ -857,34 +858,40 @@ export default defineComponent({
 
     // Public Methods
 
-    function loadFileBlob(fileList: FileList) {
+    function loadBlob(blob: Blob) {
       const media = __mediaElement();
 
-      if (fileList && media !== null) {
+      if (media === null) {
+        return false;
+      }
+
+      if (!(blob instanceof Blob)) {
+        console.error("[QMediaPlayer]: loadBlob method requires a Blob or File");
+        return false;
+      }
+
+      __removeSources();
+
+      const objectUrl = URL.createObjectURL(blob);
+      blobObjectUrl.value = objectUrl;
+      media.src = objectUrl;
+      __reset();
+      __addSourceEventListeners();
+      media.load();
+      nextTick(() => {
+        __syncMediaReady();
+      }).catch((e) => console.error(e));
+
+      return true;
+    }
+
+    function loadFileBlob(fileList: FileList) {
+      if (fileList) {
         if (Object.prototype.toString.call(fileList) === "[object FileList]") {
-          if (fileList.length === 0) {
-            return false;
-          }
-
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            const result = event.target?.result;
-            if (typeof result !== "string") {
-              return;
-            }
-
-            media.src = result;
-            __reset();
-            __addSourceEventListeners();
-            media.load();
-            state.loading = false;
-          };
-          reader.readAsDataURL(fileList[0]);
-          return true;
-        } else {
-          /* eslint-disable-next-line no-console */
-          console.error("[QMediaPlayer]: loadFileBlob method requires a FileList");
+          return fileList.length > 0 ? loadBlob(fileList[0]) : false;
         }
+
+        console.error("[QMediaPlayer]: loadFileBlob method requires a FileList");
       }
       return false;
     }
@@ -1698,6 +1705,7 @@ export default defineComponent({
         __removeSourceEventListeners();
         // player must not be running
         media.pause();
+        __revokeBlobObjectUrl();
         media.src = "";
         if (media.currentTime) {
           // otherwise IE11 has exception error
@@ -1709,6 +1717,13 @@ export default defineComponent({
             media.removeChild(childNodes[index]);
           }
         }
+      }
+    }
+
+    function __revokeBlobObjectUrl() {
+      if (blobObjectUrl.value !== null) {
+        URL.revokeObjectURL(blobObjectUrl.value);
+        blobObjectUrl.value = null;
       }
     }
 
@@ -2665,6 +2680,7 @@ export default defineComponent({
 
     // expose public methods
     expose({
+      loadBlob,
       loadFileBlob,
       showControls,
       hideControls,

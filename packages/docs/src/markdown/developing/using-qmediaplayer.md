@@ -131,7 +131,7 @@ Use `source` for a single source or `sources` when the browser should choose fro
 
 ## Source Blobs
 
-Blob sources let you play media created or fetched at runtime. Both examples below use `autoplay`.
+Blob sources let you play media created or fetched at runtime. Use `loadBlob()` when you already have a `File` or `Blob`, such as data from `QFile`, a drag-and-drop flow, or a generated media object. The player creates and cleans up the object URL for you. The older `loadFileBlob()` helper remains available for native `FileList` values.
 
 <MarkdownExample title="Audio Source Blob" file="AudioSourceBlob" no-github no-edit/>
 

@@ -1,7 +1,15 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <q-input v-model="media" filled clearable type="file" style="width: 50%" class="q-pa-md" />
-    <q-media-player ref="mediaplayer" type="audio" autoplay :source="itemUrl" />
+    <q-file
+      v-model="media"
+      filled
+      clearable
+      label="Choose an audio file"
+      accept="audio/*"
+      style="width: 50%"
+      class="q-pa-md"
+    />
+    <q-media-player ref="mediaplayer" type="audio" autoplay />
   </div>
 </template>
 
@@ -12,20 +20,19 @@ import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "AudioSourceBlob" });
 
-const media = ref<FileList | null>(null);
-const itemUrl = ref<string | undefined>();
-const mediaplayer = ref<{ loadFileBlob: (files: FileList) => void } | null>(null);
+const media = ref<File | null>(null);
+const mediaplayer = ref<{ loadBlob: (blob: Blob | File) => boolean } | null>(null);
 
 watch(
   () => media.value,
-  (fileList) => {
-    if (fileList && fileList.length > 0) {
-      loadFileBlob(fileList);
+  (file) => {
+    if (file) {
+      loadBlob(file);
     }
   },
 );
 
-function loadFileBlob(fileList: FileList) {
-  mediaplayer.value?.loadFileBlob(fileList);
+function loadBlob(file: File) {
+  mediaplayer.value?.loadBlob(file);
 }
 </script>
