@@ -19,8 +19,6 @@ In my spare time, I am a core member of the [Quasar Framework](https://quasar.de
 - [QMarkdown](https://github.com/quasarframework/quasar-ui-qmarkdown)
 - and many more.
 
-I am also the creator and maintainer of the [**eslint-plugin-quasar**](https://github.com/quasarframework/eslint-plugin-quasar).
-
 ## Sponsorship
 
 I am a big believer in free and open-source (FOSS), and at the same time, I am a big supporter of sustainability. It's nice to get something for free. But, if you are using someone else's work to further your own work, and getting paid for that work, then you should consider paying, in all fairness, those that are part of your "supply chain".
