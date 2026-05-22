@@ -17,6 +17,7 @@ describe("QMediaPlayer", () => {
     expect(QMediaPlayer.props).toHaveProperty("sources");
     expect(QMediaPlayer.props).toHaveProperty("tracks");
     expect(QMediaPlayer.props).toHaveProperty("autoPause");
+    expect(QMediaPlayer.props).toHaveProperty("togglePlayOnClick");
     expect(QMediaPlayer.props).toHaveProperty("playbackRate");
   });
 

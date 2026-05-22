@@ -307,6 +307,10 @@ export default defineComponent({
       validator: (v: string) => ["video", "audio"].includes(v),
     },
     mobileMode: Boolean,
+    togglePlayOnClick: {
+      type: Boolean,
+      default: true,
+    },
     source: String,
     sources: {
       type: Array as PropType<MediaSource[]>,
@@ -1571,6 +1575,10 @@ export default defineComponent({
     }
 
     function __videoClick(e: Event) {
+      if (props.togglePlayOnClick !== true) {
+        return;
+      }
+
       __stopAndPrevent(e);
       if (props.mobileMode !== true) {
         togglePlay();

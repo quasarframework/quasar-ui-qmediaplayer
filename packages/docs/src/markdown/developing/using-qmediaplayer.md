@@ -169,6 +169,10 @@ Not all languages have been translated yet. If you can help, please open a pull 
 
 Icon sets and slots help you fit the player into stricter brand systems or specialized UIs.
 
+When slot content needs to be interactive, such as a form or a custom call to action, use `:toggle-play-on-click="false"` so clicks inside the video frame do not bubble into playback toggles.
+
 <MarkdownExample title="Video Icon Set" file="VideoIconSet" no-github no-edit/>
 
 <MarkdownExample title="Video Slot" file="VideoSlot" no-github no-edit/>
+
+<MarkdownExample title="Video Overlay Form" file="VideoOverlayForm" no-github no-edit/>

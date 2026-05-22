@@ -18,6 +18,14 @@
       "desc": "Use mobile logic for handling visibility of controls. This mode is best for mobiles, but can be used on the desktop as well. It prevents the controls from displaying/hiding with mouse hover. Instead, clicks are used to show/hide the controls",
       "applicable": ["Video"]
     },
+    "toggle-play-on-click": {
+      "type": "Boolean",
+      "category": "behavior",
+      "desc": "When true, clicking or tapping the video frame toggles play/pause. Turn this off when the overlay slot contains interactive content, such as forms or buttons.",
+      "default": "true",
+      "applicable": ["Video"],
+      "examples": [":toggle-play-on-click=\"false\""]
+    },
     "native-controls": {
       "addedIn": "v1.2.0",
       "type": "Boolean",
