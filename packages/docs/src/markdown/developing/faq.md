@@ -107,7 +107,7 @@ If the browser can play the source through an HTML5 media element, QMediaPlayer 
 
 Use `native-controls` when you need the browser's built-in controls for platform behavior, accessibility testing, or debugging a media playback issue.
 
-For a polished Quasar UI, leave `native-controls` off and use QMediaPlayer's controls.
+For a cohesive Quasar UI, leave `native-controls` off and use QMediaPlayer's controls.
 
 ### What does `mobile-mode` do?
 

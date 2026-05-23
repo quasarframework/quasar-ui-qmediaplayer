@@ -10,7 +10,7 @@
 [![Discord](https://img.shields.io/badge/discord-join%20server-738ADB?style=for-the-badge&logo=discord&logoColor=738ADB)](https://chat.quasar.dev)
 [![X](https://img.shields.io/badge/follow-@jgalbraith64-1DA1F2?style=for-the-badge&logo=x&logoColor=1DA1F2)](https://twitter.com/jgalbraith64)
 
-QMediaPlayer is a [Quasar](https://quasar.dev) component that provides polished HTML5 audio and video controls for Vue and Quasar applications.
+QMediaPlayer is a [Quasar](https://quasar.dev) component that provides refined HTML5 audio and video controls for Vue and Quasar applications.
 
 ## QMediaPlayer v3.0.0 Beta
 

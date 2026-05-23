@@ -41,7 +41,7 @@
 
     <div class="byline">
       <p>
-        Build polished HTML5 audio and video players for Quasar applications with captions,
+        Build refined HTML5 audio and video players for Quasar applications with captions,
         fullscreen support, themes, custom icons, and language packs.
       </p>
     </div>

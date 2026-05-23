@@ -1,6 +1,6 @@
 # QMediaPlayer
 
-QMediaPlayer is a Quasar component that provides polished HTML5 audio and video controls for Vue and Quasar applications.
+QMediaPlayer is a Quasar component that provides refined HTML5 audio and video controls for Vue and Quasar applications.
 
 [![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer/beta?label=@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
