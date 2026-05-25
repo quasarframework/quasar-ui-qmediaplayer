@@ -121,7 +121,7 @@
   ],
   "engines": {
     "node": ">=22.13",
-    "pnpm": ">=11.1.0"
+    "pnpm": ">=11.3.0"
   },
   "vetur": {
     "tags": "dist/vetur/tags.json",

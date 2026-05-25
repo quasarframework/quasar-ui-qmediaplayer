@@ -42,13 +42,13 @@
     "@quasar/quasar-ui-qmediaplayer": "workspace:^"
   },
   "devDependencies": {
-    "@quasar/app-vite": "3.0.0-beta.20"
+    "@quasar/app-vite": "3.0.0-beta.27"
   },
   "peerDependencies": {
-    "@quasar/app-vite": ">=3.0.0-beta.20"
+    "@quasar/app-vite": ">=3.0.0-beta.27"
   },
   "engines": {
     "node": ">=22.13",
-    "pnpm": ">=11.1.0"
+    "pnpm": ">=11.3.0"
   }
 }
