@@ -143,7 +143,7 @@ Blob sources let you play media created or fetched at runtime. Use `loadBlob()` 
 
 QMediaPlayer intentionally stays focused on native HTML5 media controls. For adaptive streaming formats, attach a dedicated streaming adapter to the native media element emitted by `@media-player`.
 
-Use this pattern for HLS, MPEG-DASH, DRM adapters, or other source loaders that need direct access to the underlying `<video>` element.
+Use this pattern for HLS, MPEG-DASH, DRM adapters, or other source loaders that need direct access to the underlying `<video>` element. The DASH example lazy-loads `dash.js` so the adapter stays out of the default docs bundle.
 
 <MarkdownExample title="Video HLS With hls.js" file="VideoHls" no-github no-edit/>
 
