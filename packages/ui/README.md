@@ -21,10 +21,15 @@ Install the [App Extension](../app-extension).
 Or install the UI package directly:
 
 ```bash
-pnpm add @quasar/quasar-ui-qmediaplayer
-# bun add @quasar/quasar-ui-qmediaplayer
-# yarn add @quasar/quasar-ui-qmediaplayer
-# npm install @quasar/quasar-ui-qmediaplayer
+pnpm add @quasar/quasar-ui-qmediaplayer@beta
+# or
+bun add @quasar/quasar-ui-qmediaplayer@beta
+# or
+yarn add @quasar/quasar-ui-qmediaplayer@beta
+# or
+npm install @quasar/quasar-ui-qmediaplayer@beta
+# or, in a Quasar CLI app
+quasar ext add @quasar/qmediaplayer@beta
 ```
 
 Then create and register a boot file:

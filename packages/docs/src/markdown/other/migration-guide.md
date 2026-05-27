@@ -35,9 +35,12 @@ If you install the UI package directly, install the beta with:
 
 ```bash
 pnpm add @quasar/quasar-ui-qmediaplayer@beta
-# bun add @quasar/quasar-ui-qmediaplayer@beta
-# yarn add @quasar/quasar-ui-qmediaplayer@beta
-# npm install @quasar/quasar-ui-qmediaplayer@beta
+# or
+bun add @quasar/quasar-ui-qmediaplayer@beta
+# or
+yarn add @quasar/quasar-ui-qmediaplayer@beta
+# or
+npm install @quasar/quasar-ui-qmediaplayer@beta
 ```
 
 ## QMediaPlayer v2.0.0 (Alpha/Beta)
