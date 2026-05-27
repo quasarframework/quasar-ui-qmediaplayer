@@ -27,7 +27,13 @@ function parseStringProp(prop: string, txt: string, filename: string): string {
     throw new Error(`Unable to parse ${prop} from ${filename}`);
   }
 
-  return match[1];
+  const value = match[1];
+
+  if (value === undefined) {
+    throw new Error(`Unable to parse ${prop} from ${filename}`);
+  }
+
+  return value;
 }
 
 export async function buildLang(): Promise<void> {
