@@ -46,9 +46,12 @@ Docs, demos, and examples are hosted at https://qmediaplayer.netlify.app/.
 
 The project source is available at https://github.com/quasarframework/quasar-ui-qmediaplayer.
 
-## Donate
+## Support
 
-If you appreciate the work that went into this project, please consider donating to [Quasar](https://donate.quasar.dev) or [Jeff](https://github.com/sponsors/hawkeye64).
+If QMediaPlayer is useful in your workflow and you want to support ongoing maintenance:
+
+GitHub Sponsors: https://github.com/sponsors/hawkeye64
+PayPal: https://paypal.me/hawkeye64
 
 ## License
 
