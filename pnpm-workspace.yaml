@@ -64,3 +64,4 @@ minimumReleaseAgeExclude:
   - "@md-plugins/shared"
   - "@md-plugins/vite-examples-plugin"
   - "@md-plugins/vite-md-plugin"
+  - "@quasar/extras@2.0.0-beta.1"

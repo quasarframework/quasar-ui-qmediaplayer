@@ -16,7 +16,7 @@ import {
   symRoundedCheck,
   symRoundedFullscreen,
   symRoundedFullscreenExit,
-} from "@quasar/extras/material-symbols-rounded/index.mjs";
+} from "@quasar/extras/material-symbols-rounded";
 
 export default {
   name: "svg-material-symbols-rounded",

@@ -16,7 +16,7 @@ import {
   symOutlinedCheck,
   symOutlinedFullscreen,
   symOutlinedFullscreenExit,
-} from "@quasar/extras/material-symbols-outlined/index.mjs";
+} from "@quasar/extras/material-symbols-outlined";
 
 export default {
   name: "svg-material-symbols-outlined",

@@ -64,21 +64,6 @@ const iconTypes: IconType[] = [
     convert: (str) => materialConvert(str, "sym_s_", "sym_sharp_"),
   },
   {
-    name: "mdi-v4",
-    regex: /^mdi-/,
-    convert,
-  },
-  {
-    name: "mdi-v5",
-    regex: /^mdi-/,
-    convert,
-  },
-  {
-    name: "mdi-v6",
-    regex: /^mdi-/,
-    convert,
-  },
-  {
     name: "mdi-v7",
     regex: /^mdi-/,
     convert,
@@ -89,24 +74,9 @@ const iconTypes: IconType[] = [
     convert,
   },
   {
-    name: "ionicons-v7",
-    regex: /^ion-/,
-    convert,
-  },
-  {
     name: "ionicons-v8",
     regex: /^ion-/,
     convert,
-  },
-  {
-    name: "fontawesome-v5",
-    regex: /^fa[brs] fa-/,
-    convert: (str) => convert(str.replace(" fa-", "-")),
-  },
-  {
-    name: "fontawesome-v6",
-    regex: /^fa[brs] fa-/,
-    convert: (str) => convert(str.replace(" fa-", "-")),
   },
   {
     name: "fontawesome-v7",
@@ -203,7 +173,7 @@ async function generateSvgFile(type: IconType): Promise<void> {
     .filter((listName) => importList[listName].length > 0)
     .map(
       (listName) =>
-        `import {\n  ${importList[listName].join(",\n  ")},\n} from "@quasar/extras/${listName}/index.mjs";`,
+        `import {\n  ${importList[listName].join(",\n  ")},\n} from "@quasar/extras/${listName}";`,
     )
     .join("\n\n");
 

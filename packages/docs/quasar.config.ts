@@ -17,11 +17,9 @@ export default defineConfig(async (ctx) => {
     extras: [
       "bootstrap-icons",
       "eva-icons",
-      "fontawesome-v6",
       "fontawesome-v7",
       "line-awesome",
       "material-icons",
-      "mdi-v6",
       "mdi-v7",
       "roboto-font",
       "themify",

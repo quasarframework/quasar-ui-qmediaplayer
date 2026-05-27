@@ -26,34 +26,35 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useQuasar } from "quasar";
-import bootstrapIcons from "quasar/icon-set/bootstrap-icons";
-import evaIcons from "quasar/icon-set/eva-icons";
-import fontawesomeV6 from "quasar/icon-set/fontawesome-v6";
-import fontawesomeV7 from "quasar/icon-set/fontawesome-v7";
-import lineAwesome from "quasar/icon-set/line-awesome";
 import materialIcons from "quasar/icon-set/material-icons";
-import mdiV6 from "quasar/icon-set/mdi-v6";
-import mdiV7 from "quasar/icon-set/mdi-v7";
-import svgIoniconsV7 from "quasar/icon-set/svg-ionicons-v7";
-import svgIoniconsV8 from "quasar/icon-set/svg-ionicons-v8";
-import themify from "quasar/icon-set/themify";
+import bootstrapIconsMediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/bootstrap-icons";
+import evaIconsMediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/eva-icons";
+import fontawesomeV7MediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/fontawesome-v7";
+import lineAwesomeMediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/line-awesome";
+import mdiV7MediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/mdi-v7";
+import svgIoniconsV8MediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/svg-ionicons-v8";
+import themifyMediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/themify";
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
 import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "VideoIconSet" });
 
+function createMediaPlayerIconSet(mediaPlayerIcons: typeof bootstrapIconsMediaPlayer) {
+  return {
+    ...materialIcons,
+    mediaPlayer: mediaPlayerIcons.mediaPlayer,
+  };
+}
+
 const iconSets = {
-  "eva-icons": evaIcons,
-  "fontawesome-v6": fontawesomeV6,
-  "fontawesome-v7": fontawesomeV7,
+  "eva-icons": createMediaPlayerIconSet(evaIconsMediaPlayer),
+  "fontawesome-v7": createMediaPlayerIconSet(fontawesomeV7MediaPlayer),
   "material-icons": materialIcons,
-  "mdi-v6": mdiV6,
-  "mdi-v7": mdiV7,
-  "svg-ionicons-v7": svgIoniconsV7,
-  "svg-ionicons-v8": svgIoniconsV8,
-  themify,
-  "line-awesome": lineAwesome,
-  "bootstrap-icons": bootstrapIcons,
+  "mdi-v7": createMediaPlayerIconSet(mdiV7MediaPlayer),
+  "svg-ionicons-v8": createMediaPlayerIconSet(svgIoniconsV8MediaPlayer),
+  themify: createMediaPlayerIconSet(themifyMediaPlayer),
+  "line-awesome": createMediaPlayerIconSet(lineAwesomeMediaPlayer),
+  "bootstrap-icons": createMediaPlayerIconSet(bootstrapIconsMediaPlayer),
   "custom-media-player": {
     ...materialIcons,
     mediaPlayer: {
@@ -127,12 +128,9 @@ const iconSet = ref<IconSetName>(
 );
 const iconSetOptions: Array<{ label: string; value: IconSetName }> = [
   { label: "Eva Icons", value: "eva-icons" },
-  { label: "Font Awesome v6", value: "fontawesome-v6" },
   { label: "Font Awesome v7", value: "fontawesome-v7" },
   { label: "Material Icons", value: "material-icons" },
-  { label: "MDI v6", value: "mdi-v6" },
   { label: "MDI v7", value: "mdi-v7" },
-  { label: "Ionicons v7 (SVG)", value: "svg-ionicons-v7" },
   { label: "Ionicons v8 (SVG)", value: "svg-ionicons-v8" },
   { label: "Themify", value: "themify" },
   { label: "Line Awesome", value: "line-awesome" },

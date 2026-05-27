@@ -16,7 +16,7 @@ import {
   symSharpCheck,
   symSharpFullscreen,
   symSharpFullscreenExit,
-} from "@quasar/extras/material-symbols-sharp/index.mjs";
+} from "@quasar/extras/material-symbols-sharp";
 
 export default {
   name: "svg-material-symbols-sharp",

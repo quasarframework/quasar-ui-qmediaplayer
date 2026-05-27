@@ -16,7 +16,7 @@ import {
   laCheckSolid,
   laExpandSolid,
   laCompressSolid,
-} from "@quasar/extras/line-awesome/index.mjs";
+} from "@quasar/extras/line-awesome";
 
 export default {
   name: "svg-line-awesome",

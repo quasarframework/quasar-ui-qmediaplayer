@@ -16,7 +16,7 @@
     "postinstall": "quasar prepare --silent"
   },
   "dependencies": {
-    "@quasar/extras": "^1.18.0",
+    "@quasar/extras": "2.0.0-beta.1",
     "hls.js": "^1.6.16",
     "markdown-it": "^14.2.0",
     "markdown-it-container": "^4.0.0",

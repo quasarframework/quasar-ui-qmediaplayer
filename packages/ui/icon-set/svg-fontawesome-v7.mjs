@@ -16,7 +16,7 @@ import {
   fasCheck,
   fasExpand,
   fasCompress,
-} from "@quasar/extras/fontawesome-v7/index.mjs";
+} from "@quasar/extras/fontawesome-v7";
 
 export default {
   name: "svg-fontawesome-v7",
