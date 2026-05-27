@@ -1,4 +1,4 @@
-import { fabGithub, fabXTwitter } from "@quasar/extras/fontawesome-v6";
+import { fabGithub, fabXTwitter } from "@quasar/extras/fontawesome-v7";
 import { slugify } from "@md-plugins/shared";
 import type { MenuItem } from "@md-plugins/vite-md-plugin";
 import { version } from "../../../ui/package.json";
@@ -73,6 +73,21 @@ export interface PrivacyConfig {
   link: string;
 }
 
+export interface CodepenGlobalPackage {
+  packageName: string;
+  globalName: string;
+}
+
+export interface CodepenConfig {
+  head?: string | undefined;
+  cssExternal?: string[] | undefined;
+  jsExternal?: string[] | undefined;
+  jsPreProcessor?: string | undefined;
+  titleSuffix?: string | undefined;
+  jsSetup?: string | undefined;
+  globalPackages?: CodepenGlobalPackage[] | undefined;
+}
+
 export interface SiteConfig {
   lang: string;
   title: string;
@@ -81,6 +96,8 @@ export interface SiteConfig {
   version: string;
   copyright: CopyrightConfig;
   githubEditRootSrc: string;
+  githubSourceRootSrc?: string | undefined;
+  codepen?: CodepenConfig | undefined;
   license: LicenseConfig;
   privacy: PrivacyConfig;
   logoConfig: LogoConfig;
@@ -201,6 +218,24 @@ const config: SiteConfig = {
     line2: "",
   },
   githubEditRootSrc: `https://github.com/quasarframework/quasar-ui-qmediaplayer/edit/${repoBranch}/packages/docs/src`,
+  githubSourceRootSrc: `https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/${repoBranch}/packages/docs/src`,
+  codepen: {
+    jsPreProcessor: "typescript",
+    titleSuffix: `QMediaPlayer v${version}`,
+    cssExternal: [
+      `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${version}/dist/index.min.css`,
+    ],
+    jsExternal: [
+      `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${version}/dist/index.umd.min.js`,
+    ],
+    globalPackages: [
+      {
+        packageName: "@quasar/quasar-ui-qmediaplayer",
+        globalName: "(globalThis as any).QMediaPlayer",
+      },
+    ],
+    jsSetup: "app.use((globalThis as any).QMediaPlayer)",
+  },
   license: {
     label: "MIT License",
     link: `https://github.com/quasarframework/quasar-ui-qmediaplayer/blob/${repoBranch}/LICENSE`,

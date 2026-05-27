@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
-import { mdiMagnify } from "@quasar/extras/mdi-v6";
+import { mdiMagnify } from "@quasar/extras/mdi-v7";
 
 import sanitize from "./sanitize";
 import parseMdTable from "./md-table-parser";

@@ -18,7 +18,7 @@
   "dependencies": {
     "@quasar/extras": "^1.18.0",
     "hls.js": "^1.6.16",
-    "markdown-it": "^14.1.1",
+    "markdown-it": "^14.2.0",
     "markdown-it-container": "^4.0.0",
     "pinia": "^3.0.4",
     "prismjs": "^1.30.0",
@@ -27,18 +27,18 @@
     "vue-router": "^5.0.7"
   },
   "devDependencies": {
-    "@md-plugins/quasar-app-extension-q-press": "0.1.0-beta.8",
-    "@md-plugins/shared": "0.1.0-beta.8",
-    "@md-plugins/vite-examples-plugin": "0.1.0-beta.8",
-    "@md-plugins/vite-md-plugin": "0.1.0-beta.8",
-    "@quasar/app-vite": "3.0.0-beta.27",
+    "@md-plugins/quasar-app-extension-q-press": "0.1.0-beta.12",
+    "@md-plugins/shared": "0.1.0-beta.12",
+    "@md-plugins/vite-examples-plugin": "0.1.0-beta.12",
+    "@md-plugins/vite-md-plugin": "0.1.0-beta.12",
+    "@quasar/app-vite": "3.0.0-beta.30",
     "@quasar/quasar-ui-qmediaplayer": "workspace:*",
     "@types/node": "^25.9.1",
     "autoprefixer": "^10.5.0",
-    "sass-embedded": "^1.99.0",
+    "sass-embedded": "^1.100.0",
     "typescript": "~5.9.3",
     "vite-plugin-checker": "^0.13.0",
-    "vue-tsc": "^3.3.1"
+    "vue-tsc": "^3.3.2"
   },
   "engines": {
     "node": ">=22.13",
