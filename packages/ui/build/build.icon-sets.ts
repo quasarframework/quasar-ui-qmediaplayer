@@ -21,7 +21,7 @@ const svgIconSetBanner = (setName: string): string => `/*
  */`;
 
 function convert(str: string): string {
-  return str.replace(/(-\w)/g, (match) => match[1].toUpperCase());
+  return str.replace(/(-\w)/g, (match) => match.slice(1).toUpperCase());
 }
 
 function materialConvert(str: string, oldPrefix: string, newPrefix: string): string {
@@ -29,8 +29,14 @@ function materialConvert(str: string, oldPrefix: string, newPrefix: string): str
     str = str.substring(oldPrefix.length);
   }
 
-  return (newPrefix + str).replace(/(_\w)/g, (match) => match[1].toUpperCase());
+  return (newPrefix + str).replace(/(_\w)/g, (match) => match.slice(1).toUpperCase());
 }
+
+const materialIconsIconType: IconType = {
+  name: "material-icons",
+  regex: /./,
+  convert: (str) => materialConvert(str, "", "mat_"),
+};
 
 const iconTypes: IconType[] = [
   {
@@ -106,11 +112,7 @@ const iconTypes: IconType[] = [
     regex: /^bi-/,
     convert,
   },
-  {
-    name: "material-icons",
-    regex: /./,
-    convert: (str) => materialConvert(str, "", "mat_"),
-  },
+  materialIconsIconType,
 ];
 
 const iconNames = iconTypes.map((type) => type.name);
@@ -124,7 +126,7 @@ function convertWebfont(
   const type =
     iconTypes.find((item) => item.name === preferredImportName && item.regex.test(name)) ||
     iconTypes.find((item) => item.regex.test(name)) ||
-    iconTypes[0];
+    materialIconsIconType;
 
   return {
     importName: type.name,
@@ -137,12 +139,26 @@ function toImportList(): Record<string, string[]> {
 }
 
 function splitContent(str: string): { outsideOfExport: string; insideOfExport: string } {
-  const content = str.split(splitDelimiter);
+  const splitIndex = str.indexOf(splitDelimiter);
+
+  if (splitIndex === -1) {
+    throw new Error(`Unable to find icon-set export delimiter "${splitDelimiter}".`);
+  }
 
   return {
-    outsideOfExport: content[0],
-    insideOfExport: splitDelimiter + content[1],
+    outsideOfExport: str.slice(0, splitIndex),
+    insideOfExport: str.slice(splitIndex),
   };
+}
+
+function getImportItems(importList: Record<string, string[]>, importName: string): string[] {
+  const items = importList[importName];
+
+  if (items === undefined) {
+    throw new Error(`Unknown icon-set import target "${importName}".`);
+  }
+
+  return items;
 }
 
 async function generateSvgFile(type: IconType): Promise<void> {
@@ -160,20 +176,21 @@ async function generateSvgFile(type: IconType): Promise<void> {
     .replace(/name:\s*["'](.+)["']/, `name: ${svgNamePlaceholder}`)
     .replace(/(["'])([^"']+)\1/g, (_match, _quote, value) => {
       const { importName, variableName } = convertWebfont(value, type.name);
+      const importItems = getImportItems(importList, importName);
 
-      if (importList[importName].includes(variableName) === false) {
-        importList[importName].push(variableName);
+      if (importItems.includes(variableName) === false) {
+        importItems.push(variableName);
       }
 
       return variableName;
     })
     .replace(svgNamePlaceholder, `"svg-${type.name}"`);
 
-  const importString = Object.keys(importList)
-    .filter((listName) => importList[listName].length > 0)
+  const importString = Object.entries(importList)
+    .filter(([, imports]) => imports.length > 0)
     .map(
-      (listName) =>
-        `import {\n  ${importList[listName].join(",\n  ")},\n} from "@quasar/extras/${listName}";`,
+      ([listName, imports]) =>
+        `import {\n  ${imports.join(",\n  ")},\n} from "@quasar/extras/${listName}";`,
     )
     .join("\n\n");
 

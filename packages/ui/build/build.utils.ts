@@ -18,7 +18,10 @@ const tableData: string[][] = [];
 process.on("exit", (code) => {
   if (code === 0 && tableData.length > 0) {
     tableData.sort((a, b) => {
-      return a[0] === b[0] ? (a[1] < b[1] ? -1 : 1) : a[0] < b[0] ? -1 : 1;
+      const [aType = "", aFile = ""] = a;
+      const [bType = "", bFile = ""] = b;
+
+      return aType === bType ? (aFile < bFile ? -1 : 1) : aType < bType ? -1 : 1;
     });
 
     tableData.unshift([
