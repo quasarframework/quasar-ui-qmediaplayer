@@ -91,28 +91,6 @@ const builds: BuildConfig[] = [
   {
     rolldown: {
       input: {
-        input: pathResolve("../src/index.cjs.ts"),
-      },
-      output: {
-        dir: pathResolve("../dist"),
-        entryFileNames: "index.cjs.js",
-        chunkFileNames: "chunks/[name]-[hash].js",
-        format: "cjs",
-        exports: "auto",
-      },
-    },
-    build: {
-      unminified: true,
-      minified: true,
-      minOutput: {
-        entryFileNames: "index.cjs.min.js",
-        chunkFileNames: "chunks/[name]-[hash].min.js",
-      },
-    },
-  },
-  {
-    rolldown: {
-      input: {
         input: pathResolve("../src/index.umd.ts"),
       },
       output: {

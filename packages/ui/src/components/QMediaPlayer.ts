@@ -1214,7 +1214,6 @@ export default defineComponent({
       const isoName = $q.lang?.isoName || "en-US";
       let language: Partial<MediaPlayerLang> | undefined;
       try {
-        // language = require(`./lang/${isoName}`)
         language = await __loadLang(isoName);
       } catch {}
 

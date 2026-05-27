@@ -30,10 +30,7 @@ Use this file as the per-repo checklist for migrating QMediaPlayer to the curren
 - [x] HLS and DASH integration examples added
 - [x] `@quasar/extras` v2 icon-set names adopted for current built-in icon sets
 - [x] Root `pnpm deep` support added with prerelease-channel filtering
-
-## In Progress
-
-- [ ] Convert the v3 UI package to ESM-only package exports while keeping UMD bundles for CDN and CodePen usage.
+- [x] v3 UI package converted to ESM-only package exports while keeping UMD bundles for CDN and CodePen usage
 
 ## Validation
 

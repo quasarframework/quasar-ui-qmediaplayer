@@ -31,7 +31,8 @@
     "lang",
     "src"
   ],
-  "main": "dist/index.cjs.js",
+  "type": "module",
+  "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
   "types": "dist/types/index.d.ts",
   "typings": "dist/types/index.d.ts",
@@ -41,7 +42,7 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs.js"
+      "default": "./dist/index.esm.js"
     },
     "./index.min.css": {
       "default": "./dist/index.min.css"
@@ -60,14 +61,14 @@
     },
     "./icon-set/*": {
       "import": "./icon-set/*.mjs",
-      "require": "./icon-set/*.js"
+      "default": "./icon-set/*.mjs"
     },
     "./lang": {
       "default": "./lang/index.json"
     },
     "./lang/*": {
       "import": "./lang/*.mjs",
-      "require": "./lang/*.js"
+      "default": "./lang/*.mjs"
     },
     "./*": "./*"
   },
