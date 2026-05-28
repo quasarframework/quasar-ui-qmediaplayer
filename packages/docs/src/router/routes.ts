@@ -1,6 +1,6 @@
 import { slugify } from "@md-plugins/shared";
-import examplesPageList from "src/examples/listing";
-import mdPageList from "src/markdown/listing";
+import examplesPageList from "@/examples/listing";
+import mdPageList from "@/markdown/listing";
 
 function getMarkdownPath(key: string): string {
   const parts = key.replace(/^\.\//, "").replace(/\.md$/, "").split("/").filter(Boolean);
@@ -30,7 +30,7 @@ function getExamplePath(key: string): string {
 const routes = [
   {
     path: "/",
-    component: () => import("src/.q-press/layouts/MarkdownLayout.vue"),
+    component: () => import("@/.q-press/layouts/MarkdownLayout.vue"),
     children: [
       ...Object.entries(mdPageList)
         .filter(([key]) => key.includes("landing-page.md"))
@@ -57,7 +57,7 @@ const routes = [
 
   {
     path: "/:catchAll(.*)*",
-    component: () => import("pages/Error404.vue"),
+    component: () => import("@/pages/Error404.vue"),
   },
 ];
 

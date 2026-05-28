@@ -5,7 +5,7 @@ editLink: false
 ---
 
 <script import>
-import LandingPageContent from 'src/components/page-parts/LandingPageContent.vue'
+import LandingPageContent from '@/components/page-parts/LandingPageContent.vue'
 </script>
 
 <LandingPageContent />

@@ -16,7 +16,7 @@
     "postinstall": "quasar prepare --silent"
   },
   "dependencies": {
-    "@quasar/extras": "2.0.0-beta.1",
+    "@quasar/extras": "2.0.0",
     "hls.js": "^1.6.16",
     "markdown-it": "^14.2.0",
     "markdown-it-container": "^4.0.0",
@@ -31,7 +31,7 @@
     "@md-plugins/shared": "0.1.0-beta.12",
     "@md-plugins/vite-examples-plugin": "0.1.0-beta.12",
     "@md-plugins/vite-md-plugin": "0.1.0-beta.12",
-    "@quasar/app-vite": "3.0.0-beta.30",
+    "@quasar/app-vite": "3.0.0-beta.31",
     "@quasar/quasar-ui-qmediaplayer": "workspace:*",
     "@types/node": "^25.9.1",
     "autoprefixer": "^10.5.0",
