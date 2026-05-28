@@ -1,5 +1,5 @@
 ---
-title: Migration Guide
+title: Upgrade Guide
 desc: Migrate to QMediaPlayer v3
 keys: Help
 related:
