@@ -15,18 +15,46 @@
 
 <script setup lang="ts">
 import { onBeforeUnmount, ref } from "vue";
-import type Hls from "hls.js";
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
 import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "VideoHls" });
 
+interface HlsErrorData {
+  fatal?: boolean;
+  type?: string;
+}
+
+interface HlsInstance {
+  attachMedia: (media: HTMLMediaElement) => void;
+  destroy: () => void;
+  loadSource: (source: string) => void;
+  on: (event: string, callback: (event: string, data: HlsErrorData) => void) => void;
+}
+
+interface HlsConstructor {
+  new (): HlsInstance;
+  Events: {
+    ERROR: string;
+    MANIFEST_PARSED: string;
+  };
+  isSupported: () => boolean;
+}
+
+declare global {
+  interface Window {
+    Hls?: HlsConstructor;
+  }
+}
+
 const hlsSource = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+const hlsScriptUrl = "https://cdn.jsdelivr.net/npm/hls.js@1.6.16/dist/hls.min.js";
 const status = ref("Waiting for the media element...");
 
-let hls: Hls | null = null;
+let hls: HlsInstance | null = null;
 let activeMedia: HTMLMediaElement | null = null;
 let disposed = false;
+let hlsLoader: Promise<HlsConstructor> | null = null;
 
 async function attachHls(media: HTMLMediaElement | null) {
   activeMedia = media;
@@ -45,7 +73,17 @@ async function attachHls(media: HTMLMediaElement | null) {
     return;
   }
 
-  const { default: Hls } = await import("hls.js");
+  let Hls: HlsConstructor;
+
+  try {
+    Hls = await loadHlsJs();
+  } catch (err) {
+    if (disposed === false && activeMedia === media) {
+      status.value = err instanceof Error ? err.message : "Unable to load the HLS adapter.";
+    }
+
+    return;
+  }
 
   if (disposed === true || activeMedia !== media) {
     return;
@@ -67,6 +105,39 @@ async function attachHls(media: HTMLMediaElement | null) {
   });
   hls.loadSource(hlsSource);
   hls.attachMedia(media);
+}
+
+function loadHlsJs() {
+  if (window.Hls !== void 0) {
+    return Promise.resolve(window.Hls);
+  }
+
+  if (hlsLoader !== null) {
+    return hlsLoader;
+  }
+
+  hlsLoader = new Promise<HlsConstructor>((resolve, reject) => {
+    const script = document.createElement("script");
+
+    script.src = hlsScriptUrl;
+    script.async = true;
+    script.dataset.qmediaplayerHlsjs = "";
+    script.onload = () => {
+      if (window.Hls === void 0) {
+        reject(new Error("hls.js loaded, but did not expose an HLS adapter."));
+        return;
+      }
+
+      resolve(window.Hls);
+    };
+    script.onerror = () => {
+      reject(new Error("Unable to load the HLS adapter."));
+    };
+
+    document.head.append(script);
+  });
+
+  return hlsLoader;
 }
 
 function resetHls() {

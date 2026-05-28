@@ -27,54 +27,73 @@
 import { ref, watch } from "vue";
 import { useQuasar } from "quasar";
 import materialIcons from "quasar/icon-set/material-icons";
-import bootstrapIconsMediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/bootstrap-icons";
-import evaIconsMediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/eva-icons";
-import fontawesomeV7MediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/fontawesome-v7";
-import lineAwesomeMediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/line-awesome";
-import mdiV7MediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/mdi-v7";
-import svgIoniconsV8MediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/svg-ionicons-v8";
-import themifyMediaPlayer from "@quasar/quasar-ui-qmediaplayer/icon-set/themify";
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
 import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
 defineOptions({ name: "VideoIconSet" });
 
-function createMediaPlayerIconSet(mediaPlayerIcons: typeof bootstrapIconsMediaPlayer) {
+type MediaPlayerIconSet = {
+  mediaPlayer: Record<string, string>;
+};
+
+function createMediaPlayerIconSet(mediaPlayerIcons: MediaPlayerIconSet) {
   return {
     ...materialIcons,
     mediaPlayer: mediaPlayerIcons.mediaPlayer,
   };
 }
 
-const iconSets = {
-  "eva-icons": createMediaPlayerIconSet(evaIconsMediaPlayer),
-  "fontawesome-v7": createMediaPlayerIconSet(fontawesomeV7MediaPlayer),
-  "material-icons": materialIcons,
-  "mdi-v7": createMediaPlayerIconSet(mdiV7MediaPlayer),
-  "svg-ionicons-v8": createMediaPlayerIconSet(svgIoniconsV8MediaPlayer),
-  themify: createMediaPlayerIconSet(themifyMediaPlayer),
-  "line-awesome": createMediaPlayerIconSet(lineAwesomeMediaPlayer),
-  "bootstrap-icons": createMediaPlayerIconSet(bootstrapIconsMediaPlayer),
-  "custom-media-player": {
-    ...materialIcons,
-    mediaPlayer: {
-      play: "play_circle",
-      pause: "pause_circle",
-      volumeOff: "volume_off",
-      volumeDown: "volume_down",
-      volumeUp: "volume_up",
-      settings: "tune",
-      speed: "speed",
-      language: "subtitles",
-      selected: "done",
-      fullscreen: "fullscreen",
-      fullscreenExit: "fullscreen_exit",
-      bigPlayButton: "slow_motion_video",
-    },
-  },
+const iconSetLoaders = {
+  "eva-icons": () =>
+    import("@quasar/quasar-ui-qmediaplayer/icon-set/eva-icons").then((module) =>
+      createMediaPlayerIconSet(module.default),
+    ),
+  "fontawesome-v7": () =>
+    import("@quasar/quasar-ui-qmediaplayer/icon-set/fontawesome-v7").then((module) =>
+      createMediaPlayerIconSet(module.default),
+    ),
+  "material-icons": () => Promise.resolve(materialIcons),
+  "mdi-v7": () =>
+    import("@quasar/quasar-ui-qmediaplayer/icon-set/mdi-v7").then((module) =>
+      createMediaPlayerIconSet(module.default),
+    ),
+  "svg-ionicons-v8": () =>
+    import("@quasar/quasar-ui-qmediaplayer/icon-set/svg-ionicons-v8").then((module) =>
+      createMediaPlayerIconSet(module.default),
+    ),
+  themify: () =>
+    import("@quasar/quasar-ui-qmediaplayer/icon-set/themify").then((module) =>
+      createMediaPlayerIconSet(module.default),
+    ),
+  "line-awesome": () =>
+    import("@quasar/quasar-ui-qmediaplayer/icon-set/line-awesome").then((module) =>
+      createMediaPlayerIconSet(module.default),
+    ),
+  "bootstrap-icons": () =>
+    import("@quasar/quasar-ui-qmediaplayer/icon-set/bootstrap-icons").then((module) =>
+      createMediaPlayerIconSet(module.default),
+    ),
+  "custom-media-player": () =>
+    Promise.resolve({
+      ...materialIcons,
+      mediaPlayer: {
+        play: "play_circle",
+        pause: "pause_circle",
+        volumeOff: "volume_off",
+        volumeDown: "volume_down",
+        volumeUp: "volume_up",
+        settings: "tune",
+        speed: "speed",
+        language: "subtitles",
+        selected: "done",
+        fullscreen: "fullscreen",
+        fullscreenExit: "fullscreen_exit",
+        bigPlayButton: "slow_motion_video",
+      },
+    }),
 };
 
-type IconSetName = keyof typeof iconSets;
+type IconSetName = keyof typeof iconSetLoaders;
 
 const sources = [
   {
@@ -122,10 +141,11 @@ const tracks = [
 ];
 const $q = useQuasar();
 const iconSet = ref<IconSetName>(
-  Object.prototype.hasOwnProperty.call(iconSets, $q.iconSet.name)
+  Object.prototype.hasOwnProperty.call(iconSetLoaders, $q.iconSet.name)
     ? ($q.iconSet.name as IconSetName)
     : "material-icons",
 );
+let iconSetRequestId = 0;
 const iconSetOptions: Array<{ label: string; value: IconSetName }> = [
   { label: "Eva Icons", value: "eva-icons" },
   { label: "Font Awesome v7", value: "fontawesome-v7" },
@@ -138,7 +158,16 @@ const iconSetOptions: Array<{ label: string; value: IconSetName }> = [
   { label: "Custom mediaPlayer group", value: "custom-media-player" },
 ];
 
-watch(iconSet, (val) => {
-  $q.iconSet.set(iconSets[val]);
-});
+watch(
+  iconSet,
+  async (val) => {
+    const requestId = ++iconSetRequestId;
+    const nextIconSet = await iconSetLoaders[val]();
+
+    if (requestId === iconSetRequestId) {
+      $q.iconSet.set(nextIconSet);
+    }
+  },
+  { immediate: true },
+);
 </script>
