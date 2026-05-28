@@ -183,7 +183,7 @@ function getSetupReturnNames(content: string) {
   const declarationRe =
     /(?:^|\n)\s*(?:const|let|var)\s+([\s\S]*?)(?=\n\s*(?:const|let|var|function|interface|type|class)\s+|\s*$)/g;
   const variableNameRe = /(?:^|\n)\s*([A-Za-z_$][\w$]*)\s*(?:[:=,]|$)/g;
-  const functionRe = /(?:^|\n)\s*function\s+([A-Za-z_$][\w$]*)/g;
+  const functionRe = /(?:^|\n)\s*(?:async\s+)?function\s+([A-Za-z_$][\w$]*)/g;
   let match: RegExpExecArray | null;
 
   while ((match = declarationRe.exec(topLevelContent)) !== null) {
