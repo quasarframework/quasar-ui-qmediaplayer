@@ -32,11 +32,9 @@ interface DashJsApi {
   supportsMediaSource: () => boolean;
 }
 
-declare global {
-  interface Window {
-    dashjs?: DashJsApi;
-  }
-}
+type DashWindow = Window & {
+  dashjs?: DashJsApi;
+};
 
 const dashSource = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
 const dashScriptUrl = "https://cdn.jsdelivr.net/npm/dashjs@5.1.1/dist/modern/umd/dash.all.min.js";
@@ -46,6 +44,10 @@ let dashPlayer: DashMediaPlayer | null = null;
 let activeMedia: HTMLMediaElement | null = null;
 let disposed = false;
 let dashLoader: Promise<DashJsApi> | null = null;
+
+function getDashWindow() {
+  return window as DashWindow;
+}
 
 async function attachDash(media: HTMLMediaElement | null) {
   activeMedia = media;
@@ -85,8 +87,10 @@ async function attachDash(media: HTMLMediaElement | null) {
 }
 
 function loadDashJs() {
-  if (window.dashjs !== void 0) {
-    return Promise.resolve(window.dashjs);
+  const dashWindow = getDashWindow();
+
+  if (dashWindow.dashjs !== void 0) {
+    return Promise.resolve(dashWindow.dashjs);
   }
 
   if (dashLoader !== null) {
@@ -100,12 +104,14 @@ function loadDashJs() {
     script.async = true;
     script.dataset.qmediaplayerDashjs = "";
     script.onload = () => {
-      if (window.dashjs === void 0) {
+      const loadedDash = getDashWindow().dashjs;
+
+      if (loadedDash === void 0) {
         reject(new Error("dash.js loaded, but did not expose a DASH adapter."));
         return;
       }
 
-      resolve(window.dashjs);
+      resolve(loadedDash);
     };
     script.onerror = () => {
       reject(new Error("Unable to load the DASH adapter."));

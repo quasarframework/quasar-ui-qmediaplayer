@@ -41,11 +41,9 @@ interface HlsConstructor {
   isSupported: () => boolean;
 }
 
-declare global {
-  interface Window {
-    Hls?: HlsConstructor;
-  }
-}
+type HlsWindow = Window & {
+  Hls?: HlsConstructor;
+};
 
 const hlsSource = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
 const hlsScriptUrl = "https://cdn.jsdelivr.net/npm/hls.js@1.6.16/dist/hls.min.js";
@@ -55,6 +53,10 @@ let hls: HlsInstance | null = null;
 let activeMedia: HTMLMediaElement | null = null;
 let disposed = false;
 let hlsLoader: Promise<HlsConstructor> | null = null;
+
+function getHlsWindow() {
+  return window as HlsWindow;
+}
 
 async function attachHls(media: HTMLMediaElement | null) {
   activeMedia = media;
@@ -108,8 +110,10 @@ async function attachHls(media: HTMLMediaElement | null) {
 }
 
 function loadHlsJs() {
-  if (window.Hls !== void 0) {
-    return Promise.resolve(window.Hls);
+  const hlsWindow = getHlsWindow();
+
+  if (hlsWindow.Hls !== void 0) {
+    return Promise.resolve(hlsWindow.Hls);
   }
 
   if (hlsLoader !== null) {
@@ -123,12 +127,14 @@ function loadHlsJs() {
     script.async = true;
     script.dataset.qmediaplayerHlsjs = "";
     script.onload = () => {
-      if (window.Hls === void 0) {
+      const loadedHls = getHlsWindow().Hls;
+
+      if (loadedHls === void 0) {
         reject(new Error("hls.js loaded, but did not expose an HLS adapter."));
         return;
       }
 
-      resolve(window.Hls);
+      resolve(loadedHls);
     };
     script.onerror = () => {
       reject(new Error("Unable to load the HLS adapter."));
