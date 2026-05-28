@@ -44,12 +44,12 @@ describe("QMediaPlayer", () => {
         }),
     });
 
-    app.config.globalProperties.$q = {
+    app.provide("_q_", {
       dark: { isActive: false },
       fullscreen: { isActive: false },
       iconSet: { name: "material-icons" },
       lang: { isoName: "en-US" },
-    };
+    });
 
     const html = await renderToString(app);
 
