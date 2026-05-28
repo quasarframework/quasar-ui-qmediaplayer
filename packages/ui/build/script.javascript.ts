@@ -1,4 +1,4 @@
-process.env.BABEL_ENV = "production";
+process.env.NODE_ENV = "production";
 
 import fs from "node:fs";
 import path from "node:path";
@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import {
   rolldown,
   type InputOptions,
+  type OutputAsset,
   type OutputChunk,
   type OutputOptions,
   type Plugin,
@@ -247,7 +248,7 @@ async function buildEntry(config: BuildConfig): Promise<void> {
 }
 
 async function writeOutputFiles(
-  output: OutputChunk[],
+  output: (OutputAsset | OutputChunk)[],
   outputOptions: OutputOptions,
   minify = false,
 ): Promise<void> {
