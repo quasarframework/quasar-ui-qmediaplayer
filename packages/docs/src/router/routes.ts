@@ -1,4 +1,4 @@
-import { slugify } from "@md-plugins/shared";
+import { slugify } from "@/.q-press/components/markdown-utils";
 import examplesPageList from "@/examples/listing";
 import mdPageList from "@/markdown/listing";
 

@@ -15,7 +15,7 @@
 import { Quasar } from "quasar";
 import { ref, reactive, computed, nextTick } from "vue";
 
-import { slugify } from "@md-plugins/shared";
+import { slugify } from "./markdown-utils";
 
 import siteConfig from "../../siteConfig";
 

@@ -1,7 +1,7 @@
 import { fabGithub, fabXTwitter } from "@quasar/extras/fontawesome-v7";
-import { slugify } from "@md-plugins/shared";
 import type { MenuItem } from "@md-plugins/vite-md-plugin";
 import { version } from "../../../ui/package.json";
+import { slugify } from "../.q-press/components/markdown-utils";
 
 const repoBranch = "v3-beta";
 const productName = "QMediaPlayer";
