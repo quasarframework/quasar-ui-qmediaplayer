@@ -15,9 +15,8 @@
 import { Quasar } from "quasar";
 import { ref, reactive, computed, nextTick } from "vue";
 
-import { slugify } from "./markdown-utils";
-
 import siteConfig from "../../siteConfig";
+import { slugify } from "./markdown-utils";
 
 type CodepenParts = {
   Template?: string;
@@ -58,19 +57,40 @@ function rewriteRootRelativeUrls(content: string) {
       /url\(\s*(["']?)\/(?!\/)([^"')]+)\1\s*\)/g,
       (_match: string, quote: string, path: string) =>
         `url(${quote}${getAbsolutePublicUrl(path)}${quote})`,
-    )
-    .replace(
-      /(["'`])\/(?!\/)([^"'`]*\.(?:apng|avif|gif|jpe?g|m3u8|m4a|mov|mp3|mp4|mpd|ogg|png|srt|svg|vtt|wav|webm|webp)(?:\?[^"'`]*)?)\1/gi,
-      (_match: string, quote: string, path: string) =>
-        `${quote}${getAbsolutePublicUrl(path)}${quote}`,
     );
 }
 
 function indent(code: string, spaces = 2) {
   const padding = " ".repeat(spaces);
+  let isInsideTemplateLiteral = false;
+
   return code
     .split("\n")
-    .map((line) => (line.trim().length > 0 ? padding + line : line))
+    .map((line) => {
+      const shouldIndent = line.trim().length > 0 && isInsideTemplateLiteral === false;
+
+      for (let index = 0; index < line.length; index++) {
+        if (line[index] !== "`") {
+          continue;
+        }
+
+        let escapeCount = 0;
+
+        for (
+          let escapeIndex = index - 1;
+          escapeIndex >= 0 && line[escapeIndex] === "\\";
+          escapeIndex--
+        ) {
+          escapeCount++;
+        }
+
+        if (escapeCount % 2 === 0) {
+          isInsideTemplateLiteral = !isInsideTemplateLiteral;
+        }
+      }
+
+      return shouldIndent ? padding + line : line;
+    })
     .join("\n");
 }
 
@@ -311,12 +331,9 @@ const cssPreprocessor = computed(() => {
 const js = computed(() => {
   const script = def.parts.Script ?? "";
 
-  const content =
-    script.includes("<script setup") === true
-      ? createSetupScript(script)
-      : createOptionsScript(script);
-
-  return rewriteRootRelativeUrls(content);
+  return script.includes("<script setup") === true
+    ? createSetupScript(script)
+    : createOptionsScript(script);
 });
 
 const jsPreProcessor = computed(() => {

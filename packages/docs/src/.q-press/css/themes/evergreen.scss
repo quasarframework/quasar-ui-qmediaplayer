@@ -1,34 +1,34 @@
 @use "sass:color";
 
-// Tawny Theme Variables
-$primary: #8b4513;
-$secondary: #a0522d;
-$accent: #d2691e;
+// Evergreen Theme Variables
+$primary: #0f766e;
+$secondary: #3f8f68;
+$accent: #f59e0b;
 
 $positive: #2ecc71;
 $negative: #ff1732;
 $info: #10a0ff;
 $warning: #ffd52d;
 
-$brand-primary: #8b4513;
-$brand-secondary: #a0522d;
-$brand-accent: #d2691e;
-$brand-dark: #5c4033;
-$brand-light: #f5f5dc;
-$brand-medium: #c19a6b;
-$brand-light-text: #5c4033;
-$brand-light-bg: #f5f5dc;
-$brand-dark-bg: #3e2723;
-$brand-dark-text: #f5f5dc;
-$brand-light-codeblock-bg: #fdfdfd;
-$brand-light-codeblock-text: #5c4033;
-$brand-dark-codeblock-bg: #5c4033;
-$brand-dark-codeblock-text: #f5f5dc;
+$brand-primary: #14b8a6;
+$brand-secondary: #3f8f68;
+$brand-accent: #f59e0b;
+$brand-dark: #173b2f;
+$brand-light: #e6f6ee;
+$brand-medium: #6b8f7a;
+$brand-light-text: #173b2f;
+$brand-light-bg: #f3faf6;
+$brand-dark-bg: #071914;
+$brand-dark-text: #d7f3e6;
+$brand-light-codeblock-bg: #e6f6ee;
+$brand-light-codeblock-text: #0f5132;
+$brand-dark-codeblock-bg: #0e2a22;
+$brand-dark-codeblock-text: #b8f5d4;
 
-$header-btn-color--light: #8b4513;
-$header-btn-hover-color--light: #a0522d;
-$header-btn-color--dark: #d2691e;
-$header-btn-hover-color--dark: #cd853f;
+$header-btn-color--light: #0f766e;
+$header-btn-hover-color--light: #b45309;
+$header-btn-color--dark: #5eead4;
+$header-btn-hover-color--dark: #fbbf24;
 
 $light-pill: $brand-light;
 $light-text: $brand-light-text;
@@ -59,7 +59,7 @@ $font-family-technical:
 $font-family-examples: $font-family-technical;
 $font-family-brand: "Montserrat", $font-family-technical;
 
-$shadow--large: 0 24px 24px 0 rgba(0, 179, 255, 0.24);
+$shadow--large: 0 24px 24px 0 rgba($brand-primary, 0.24);
 $shadow--medium: 0 6px 6px 0 rgba($brand-primary, 0.38);
 $shadow--small: 0 6px 6px 0 rgba($brand-primary, 0.28);
 
