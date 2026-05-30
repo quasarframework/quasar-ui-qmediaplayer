@@ -43,6 +43,19 @@ yarn add @quasar/quasar-ui-qmediaplayer@beta
 npm install @quasar/quasar-ui-qmediaplayer@beta
 ```
 
+For direct imports, use the package entrypoint and import the stylesheet separately:
+
+```ts [twoslash]
+import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
+
+QMediaPlayer
+// ^?
+```
+
+```ts
+import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+```
+
 ## QMediaPlayer v2.0.0 (Alpha/Beta)
 
 QMediaPlayer v2 moved the package to Vue 3 and the Composition API.
