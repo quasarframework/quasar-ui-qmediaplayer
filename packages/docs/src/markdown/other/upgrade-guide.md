@@ -48,7 +48,7 @@ For direct imports, use the package entrypoint and import the stylesheet separat
 ```ts [twoslash]
 import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
 
-QMediaPlayer
+QMediaPlayer;
 // ^?
 ```
 

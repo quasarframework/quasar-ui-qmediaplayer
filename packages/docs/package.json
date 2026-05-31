@@ -36,11 +36,11 @@
     "sass-embedded": "^1.100.0",
     "typescript": "~6.0.3",
     "vite-plugin-checker": "^0.14.1",
-    "vue-tsc": "^3.3.2"
+    "vue-tsc": "^3.3.3"
   },
   "engines": {
     "node": ">=22.13",
-    "pnpm": ">=11.3.0"
+    "pnpm": ">=11.5.0"
   },
   "productName": "QMediaPlayer Docs"
 }
