@@ -7,6 +7,7 @@
     </q-banner>
 
     <q-media-player
+      class="video-overlay-ad-player"
       type="video"
       :sources="sources"
       :poster="poster"
@@ -78,7 +79,7 @@ const sources = [
 .overlay-ad-card {
   position: absolute;
   left: 1rem;
-  bottom: 1rem;
+  bottom: 6rem;
   width: min(360px, calc(100% - 2rem));
   padding: 1.25rem;
   border-color: rgba(255, 255, 255, 0.25);
@@ -86,6 +87,8 @@ const sources = [
     radial-gradient(circle at top left, rgba(0, 188, 212, 0.35), transparent 38%),
     linear-gradient(135deg, rgba(0, 33, 61, 0.94), rgba(4, 72, 92, 0.88));
   backdrop-filter: blur(8px);
+  pointer-events: auto;
+  z-index: 1;
 }
 
 .overlay-ad-card__close {
@@ -105,5 +108,18 @@ const sources = [
 .overlay-ad-leave-to {
   opacity: 0;
   transform: translateY(10px);
+}
+
+.video-overlay-ad-player :deep(.q-media__overlay-window) {
+  z-index: 3;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .overlay-ad-card {
+    right: 1rem;
+    bottom: 5.5rem;
+    width: auto;
+  }
 }
 </style>
