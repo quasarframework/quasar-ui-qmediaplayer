@@ -26,5 +26,5 @@ Use it when you want media playback to feel like part of your Quasar application
 ## QMediaPlayer Is Not
 
 - An RTSP, RTMP, RTP, or HDS streaming player
-- A YouTube or Vimeo embed wrapper
+- A direct player for YouTube or Vimeo iframe embed URLs
 - A DRM/media-streaming platform integration

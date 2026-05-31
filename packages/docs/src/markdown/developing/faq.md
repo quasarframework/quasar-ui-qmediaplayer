@@ -111,7 +111,7 @@ By default, QMediaPlayer may still use a `video` element for audio playback beca
 
 :::details Q. Can QMediaPlayer play YouTube, Vimeo, RTSP, RTMP, or DRM streams?
 
-No. QMediaPlayer wraps native HTML5 media playback. It is not a YouTube/Vimeo embed wrapper, DRM platform integration, or low-latency streaming player for protocols like RTSP, RTMP, RTP, or HDS.
+QMediaPlayer wraps native HTML5 media playback, so it cannot play YouTube or Vimeo iframe embed URLs through its `source` or `sources` props. Use Quasar's `QVideo` for embedded providers, like the YouTube wrapper example in the usage guide.
 
 If the browser can play the source through an HTML5 media element, QMediaPlayer can usually provide the UI around it.
 
