@@ -5,9 +5,10 @@
   "description": "QMediaPlayer workspace",
   "type": "module",
   "scripts": {
-    "clean": "rm -rf node_modules pnpm-lock.yaml packages/ui/node_modules packages/docs/node_modules packages/app-extension/node_modules packages/docs/.quasar packages/docs/dist",
-    "build": "pnpm run build:ui && pnpm run build:docs",
+    "clean": "rm -rf node_modules pnpm-lock.yaml packages/ui/node_modules packages/docs/node_modules packages/app-extension/node_modules packages/app-extension/dist packages/docs/.quasar packages/docs/dist",
+    "build": "pnpm run build:ui && pnpm run build:app-ext && pnpm run build:docs",
     "build:ui": "cd packages/ui && pnpm build",
+    "build:app-ext": "cd packages/app-extension && pnpm build",
     "build:docs": "cd packages/docs && pnpm build",
     "ci:publish": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch dev && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch dev",
     "ci:publish:beta": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks",

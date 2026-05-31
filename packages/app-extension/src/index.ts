@@ -17,7 +17,7 @@ export default defineIndexScript((api) => {
   );
 
   api.extendQuasarConf(() => ({
-    boot: ["~@quasar/quasar-app-extension-qmediaplayer/src/boot/vite-register.ts"],
+    boot: ["~@quasar/quasar-app-extension-qmediaplayer/dist/boot/vite-register.js"],
     css: ["~@quasar/quasar-ui-qmediaplayer/src/index.scss"],
     framework: {
       plugins: ["AppFullscreen"],
