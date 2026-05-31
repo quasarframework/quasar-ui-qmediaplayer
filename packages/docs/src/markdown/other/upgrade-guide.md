@@ -57,17 +57,11 @@ QMediaPlayer;
 import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 ```
 
-## QMediaPlayer v2.0.0 (Alpha/Beta)
+## Previous v2 migration notes
 
-QMediaPlayer v2 moved the package to Vue 3 and the Composition API.
+If you are migrating an older QMediaPlayer v1 project directly to v3, remember that QMediaPlayer v2 already moved the package to Vue 3 and the Composition API. QMediaPlayer v3 keeps that Vue 3 foundation and focuses on Quasar CLI Vite 3 compatibility.
 
-## QMediaPlayer rewritten to use Vue v3 Composition API
-
-This means you get better in-editor auto-completion support amongst many other advantages.
-
-## Changes
-
-The following properties were removed:
+The old visual props were replaced with CSS variables:
 
 | Property              |
 | --------------------- |
@@ -75,15 +69,23 @@ The following properties were removed:
 | background-color      |
 | big-play-button-color |
 
-These have been replaces with CSS vars which will give you better control.
+Use CSS variables when you need to theme the player:
 
 ```css
---mediaplayer-color: #ffffff --mediaplayer-background: #000000 --big-play-button-color: #ffffff
-  --big-play-button-background: #90a4ae --big-play-button-border: #ffffff 1px solid
-  --big-play-button-border-hover: #ffffff 1px solid --big-play-button-hover-color: #90a4ae
-  --big-play-button-hover-background: rgba(255, 255, 255, 0.2) --mediaplayer-color-dark: #c0c0c0
-  --mediaplayer-background-dark: #1d1d1d --big-play-button-color-dark: #ffffff
-  --big-play-button-background-dark: #90a4ae --big-play-button-border-dark: #ffffff 1px solid
-  --big-play-button-border-hover-dark: #ffffff 1px solid --big-play-button-hover-color-dark: #90a4ae
-  --big-play-button-hover-background-dark: rgba(255, 255, 255, 0.2);
+.my-player {
+  --mediaplayer-color: #ffffff;
+  --mediaplayer-background: #000000;
+  --big-play-button-color: #ffffff;
+  --big-play-button-background: #90a4ae;
+  --big-play-button-border: #ffffff 1px solid;
+  --big-play-button-hover-color: #90a4ae;
+  --big-play-button-hover-background: rgba(255, 255, 255, 0.2);
+}
+
+.body--dark .my-player {
+  --mediaplayer-color-dark: #c0c0c0;
+  --mediaplayer-background-dark: #1d1d1d;
+  --big-play-button-color-dark: #ffffff;
+  --big-play-button-background-dark: #90a4ae;
+}
 ```
