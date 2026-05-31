@@ -45,6 +45,16 @@ If you install the UI package directly, import the stylesheet in your boot file 
 import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 ```
 
+Quasar CLI projects can also centralize the stylesheet in `quasar.config.ts`:
+
+```ts
+// Note: using ~ tells Quasar the file resides in node_modules
+css: [
+  "app.scss",
+  "~@quasar/quasar-ui-qmediaplayer/dist/index.css",
+],
+```
+
 :::
 
 :::details Q. Can I inspect the component API from the CLI?
