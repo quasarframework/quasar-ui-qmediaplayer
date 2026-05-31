@@ -185,6 +185,8 @@ Slots let you customize pieces of the player UI without replacing the whole comp
 
 <MarkdownExample title="Video Slot" file="VideoSlot"/>
 
+Look for the subtle watermark in the top-left of the video. It is rendered through the `overlay` slot while QMediaPlayer keeps handling the media controls.
+
 When slot content needs to be interactive, such as a form or a custom call to action, use `:toggle-play-on-click="false"` so clicks inside the video frame do not bubble into playback toggles.
 
 <MarkdownExample title="Video Overlay Form" file="VideoOverlayForm"/>
