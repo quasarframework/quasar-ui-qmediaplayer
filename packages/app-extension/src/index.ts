@@ -9,7 +9,7 @@ import { defineIndexScript } from "@quasar/app-vite";
 
 export default defineIndexScript((api) => {
   api.compatibleWith("quasar", "^2.0.0");
-  api.compatibleWith("@quasar/app-vite", ">=3.0.0-beta.27");
+  api.compatibleWith("@quasar/app-vite", ">=3.0.0-beta.33");
 
   api.registerDescribeApi(
     "QMediaPlayer",
