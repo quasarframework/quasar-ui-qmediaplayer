@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-qmediaplayer-workspace",
-  "version": "3.0.0-beta.3",
+  "version": "3.0.0-beta.4",
   "private": true,
   "description": "QMediaPlayer workspace",
   "type": "module",
