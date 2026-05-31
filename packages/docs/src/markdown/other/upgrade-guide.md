@@ -33,13 +33,14 @@ quasar ext add @quasar/qmediaplayer@beta
 
 If you install the UI package directly, install the beta with:
 
-```bash
+```tabs
+<<| bash pnpm |>>
 pnpm add @quasar/quasar-ui-qmediaplayer@beta
-# or
+<<| bash bun |>>
 bun add @quasar/quasar-ui-qmediaplayer@beta
-# or
+<<| bash yarn |>>
 yarn add @quasar/quasar-ui-qmediaplayer@beta
-# or
+<<| bash npm |>>
 npm install @quasar/quasar-ui-qmediaplayer@beta
 ```
 
