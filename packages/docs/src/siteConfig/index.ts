@@ -5,6 +5,7 @@ import { slugify } from "../.q-press/components/markdown-utils";
 
 const repoBranch = "v3-beta";
 const productName = "QMediaPlayer";
+const codepenPackageVersion = version.includes("-beta.") ? "beta" : version;
 
 export interface SocialLink {
   name: string;
@@ -223,10 +224,10 @@ const config: SiteConfig = {
     jsPreProcessor: "typescript",
     titleSuffix: `QMediaPlayer v${version}`,
     cssExternal: [
-      `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${version}/dist/index.min.css`,
+      `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${codepenPackageVersion}/dist/index.min.css`,
     ],
     jsExternal: [
-      `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${version}/dist/index.umd.min.js`,
+      `https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@${codepenPackageVersion}/dist/index.umd.min.js`,
     ],
     globalPackages: [
       {
