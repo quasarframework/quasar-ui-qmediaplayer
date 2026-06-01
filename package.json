@@ -14,7 +14,7 @@
     "ci:publish:beta": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "typecheck": "pnpm --filter @quasar/quasar-ui-qmediaplayer typecheck",
+    "typecheck": "pnpm --filter @quasar/quasar-ui-qmediaplayer typecheck && pnpm --filter docs typecheck",
     "deep": "ncu --configFilePath . --packageFile '{package.json,packages/*/package.json}'",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
