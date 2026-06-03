@@ -150,6 +150,52 @@ const socialLinks = {
   ],
 };
 
+const netlifyLink = {
+  path: "https://www.netlify.com",
+  external: true,
+  image: "https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg",
+  name: "Deploys by Netlify",
+  maxWidth: "120px",
+};
+
+const sponsorLink = {
+  path: "https://github.com/sponsors/hawkeye64",
+  external: true,
+  image: "https://github.com/hawkeye64.png?size=96",
+  name: "Sponsor Jeff",
+  maxWidth: "24px",
+};
+
+const SponsorsLinks = {
+  name: "Sponsors",
+  children: [
+    {
+      name: netlifyLink.name,
+      path: netlifyLink.path,
+      external: netlifyLink.external,
+      image: netlifyLink.image,
+      maxWidth: netlifyLink.maxWidth,
+    },
+    {
+      name: sponsorLink.name,
+      path: sponsorLink.path,
+      external: sponsorLink.external,
+      image: sponsorLink.image,
+      maxWidth: sponsorLink.maxWidth,
+    },
+  ],
+};
+
+const footerLinks = [
+  {
+    name: SponsorsLinks.name,
+    children: [...SponsorsLinks.children],
+  },
+  {
+    name: socialLinks.name,
+    children: [...socialLinks.children],
+  },
+];
 const docsMenus: SiteMenuItem[] = [
   {
     name: "Getting Started",
@@ -270,12 +316,7 @@ const config: SiteConfig = {
     primaryHeaderLinks: [],
     secondaryHeaderLinks: [...docsMenus],
     moreLinks,
-    footerLinks: [
-      {
-        name: socialLinks.name,
-        children: [...socialLinks.children],
-      },
-    ],
+    footerLinks: [...footerLinks] as SiteMenuItem[],
     socialLinks: [...socialLinks.children],
   },
   sidebar,
