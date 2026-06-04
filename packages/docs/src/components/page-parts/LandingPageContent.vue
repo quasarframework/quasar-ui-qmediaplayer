@@ -966,7 +966,6 @@ body.body--dark .landing-page {
 
 .resource-list__item {
   border-color: var(--landing-resource-item-border);
-  background: var(--landing-resource-item-bg);
 }
 
 .resource-list__title {
