@@ -199,7 +199,7 @@ const previewKicker = "HTML5 Playback";
 const previewTitle = "Media controls that look like part of the app, not a bolted-on widget";
 const previewBody =
   "QMediaPlayer wraps HTML5 playback in a Quasar-friendly surface so audio and video experiences can ship with stronger styling, subtitles, language support, and predictable controls.";
-const sectionTitle = "A focused media player for audio, video, and polished playback UI";
+const sectionTitle = "A focused media player for audio, video, and app-ready playback UI";
 const sectionText =
   "QMediaPlayer keeps the problem narrow: play media well, expose the right controls, and make captions, themes, and custom icons feel natural inside a Quasar app.";
 
