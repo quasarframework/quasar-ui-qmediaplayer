@@ -31,7 +31,7 @@ The App Extension registers QMediaPlayer for the app and imports the component s
 
 :::details Q. Does QMediaPlayer v3 support webpack-based Quasar apps?
 
-No. QMediaPlayer v3 targets Quasar CLI Vite 3 and `@quasar/app-vite` v3 beta. If your app still uses `@quasar/app-webpack`, migrate the app to Quasar CLI Vite before installing QMediaPlayer v3.
+No. QMediaPlayer v3 targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0-beta.41. If your app still uses `@quasar/app-webpack`, migrate the app to Quasar CLI Vite before installing QMediaPlayer v3.
 
 :::
 

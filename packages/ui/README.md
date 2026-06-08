@@ -35,7 +35,7 @@ quasar ext add @quasar/qmediaplayer@beta
 Then create and register a boot file:
 
 ```ts
-import { defineBoot } from "@quasar/app-vite";
+import { defineBoot } from "#q-app";
 import VuePlugin from "@quasar/quasar-ui-qmediaplayer";
 import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
 
