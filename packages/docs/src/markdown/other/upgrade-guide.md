@@ -19,7 +19,7 @@ QMediaPlayer v3 prepares the package for Quasar CLI Vite 3 and the shared app-ex
 
 Important changes:
 
-- The app extension is Vite-only and requires `@quasar/app-vite` >=3.0.0-beta.42.
+- The app extension is Vite-only and requires `@quasar/app-vite` >=3.0.0-beta.43.
 - The repo is now a pnpm workspace under `packages/`.
 - The UI build now uses Rolldown and TypeScript build scripts.
 - Documentation is built with Q-Press from `md-plugins`.
