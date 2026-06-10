@@ -14,7 +14,7 @@ QMediaPlayer is a [Quasar](https://quasar.dev) component that provides refined H
 
 ## QMediaPlayer v3.0.0 Beta
 
-QMediaPlayer v3 prepares the project for Quasar CLI Vite 3. The app extension is Vite-only, requires `@quasar/app-vite` >=3.0.0-beta.43, and no longer supports webpack-based Quasar apps.
+QMediaPlayer v3 prepares the project for Quasar CLI Vite 3. The app extension is Vite-only, requires `@quasar/app-vite` >=3.0.0-beta.44, and no longer supports webpack-based Quasar apps.
 
 ## Structure
 
