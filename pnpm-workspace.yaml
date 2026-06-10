@@ -141,5 +141,6 @@ minimumReleaseAgeExclude:
   - "@oxlint/binding-win32-x64-msvc@1.68.0"
   - oxfmt@0.53.0
   - oxlint@1.68.0
+  - semver@7.8.4
 
 trustLockfile: true
