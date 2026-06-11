@@ -27,19 +27,19 @@
     "verify:build": "pnpm build && pnpm typecheck"
   },
   "devDependencies": {
-    "@types/node": "^25.9.2",
+    "@types/node": "^25.9.3",
     "@vitest/coverage-v8": "^4.1.8",
-    "@vue/server-renderer": "^3.5.35",
+    "@vue/server-renderer": "^3.5.38",
     "npm-check-updates": "^22.2.3",
     "oxfmt": "^0.54.0",
     "oxlint": "^1.69.0",
     "typescript": "~6.0.3",
     "vitest": "^4.1.8",
-    "vue": "^3.5.35"
+    "vue": "^3.5.38"
   },
   "engines": {
     "node": ">=22.13",
     "pnpm": ">=11.5.0"
   },
-  "packageManager": "pnpm@11.5.2"
+  "packageManager": "pnpm@11.5.3"
 }
