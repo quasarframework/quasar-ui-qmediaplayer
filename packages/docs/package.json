@@ -22,13 +22,10 @@
   },
   "dependencies": {
     "@quasar/extras": "2.0.0",
-    "@vue/server-renderer": "^3.5.38",
     "markdown-it": "^14.2.0",
     "markdown-it-container": "^4.0.0",
-    "mermaid": "^11.15.0",
     "pinia": "^3.0.4",
     "quasar": "^2.20.0",
-    "shiki": "^4.2.0",
     "vue": "^3.5.38",
     "vue-router": "^5.1.0"
   },
@@ -40,8 +37,11 @@
     "@quasar/app-vite": "3.0.0-rc.1",
     "@quasar/quasar-ui-qmediaplayer": "workspace:*",
     "@types/node": "^25.9.3",
+    "@vue/server-renderer": "^3.5.38",
     "autoprefixer": "^10.5.0",
+    "mermaid": "^11.15.0",
     "sass-embedded": "^1.100.0",
+    "shiki": "^4.2.0",
     "typescript": "~6.0.3",
     "vite-plugin-checker": "^0.14.1",
     "vue-tsc": "^3.3.4"
