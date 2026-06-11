@@ -16,14 +16,14 @@ QMediaPlayer is a [Quasar](https://quasar.dev) component that provides refined H
 
 QMediaPlayer v3 prepares the project for Quasar CLI Vite 3. The app extension is Vite-only, requires `@quasar/app-vite` >=3.0.0-rc.1, and no longer supports webpack-based Quasar apps.
 
-## Structure
+# Structure
 
-This repo is organized as a pnpm workspace under `packages/`.
+This is a pnpm workspace mono-repo. You cannot use npm for building.
 
-- [/packages/ui](packages/ui) - standalone npm package
-- [/packages/app-extension](packages/app-extension) - Quasar app extension
-- [/packages/docs](packages/docs) - Q-Press documentation site with docs, demos, and examples
-- [live docs](https://qmediaplayer.netlify.app/) - live Q-Press docs, demos, and examples
+- [/ui](packages/ui) - standalone npm package (go here for more information)
+- [/app-extension](packages/app-extension) - Quasar app extension
+- [/docs](packages/docs) - Q-Press documentation site with docs, demos, and examples
+- [live demo](https://qmediaplayer.netlify.app/) - **live Q-Press docs, demos, and examples**
 
 ## Local Development
 
