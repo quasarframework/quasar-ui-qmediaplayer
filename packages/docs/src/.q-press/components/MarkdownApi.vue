@@ -660,7 +660,7 @@ body.body--light {
 
 body.body--dark {
   .markdown-api .q-badge {
-    color: $brand-dark;
+    color: $brand-dark-text;
     background-color: $brand-primary;
   }
 
