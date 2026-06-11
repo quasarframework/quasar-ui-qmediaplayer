@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-app-extension-qmediaplayer",
-  "version": "3.0.0-beta.5",
+  "version": "3.0.0-rc.0",
   "description": "A Quasar App Extension for @quasar/quasar-ui-qmediaplayer",
   "keywords": [
     "HTML5 media player",
@@ -41,7 +41,7 @@
     "lint": "oxlint src",
     "lint-fix": "oxlint src --fix",
     "prepack": "pnpm build",
-    "release": "pnpm publish --tag beta"
+    "release": "pnpm publish --tag latest"
   },
   "dependencies": {
     "@quasar/quasar-ui-qmediaplayer": "workspace:^"

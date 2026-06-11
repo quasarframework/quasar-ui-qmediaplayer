@@ -19,12 +19,6 @@ For Quasar CLI Vite apps, use the App Extension when possible:
 quasar ext add @quasar/qmediaplayer
 ```
 
-While QMediaPlayer v3 is in beta, use:
-
-```bash
-quasar ext add @quasar/qmediaplayer@beta
-```
-
 The App Extension registers QMediaPlayer for the app and imports the component styles. Install the UI package directly only when you want to register the component manually, use it outside the App Extension flow, or build a custom integration.
 
 :::

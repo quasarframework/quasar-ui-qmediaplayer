@@ -13,7 +13,7 @@ The information below can help you migrate to QMediaPlayer v3.
 
 > The information below is by no means an exhaustive list of changes and new functionality. If you see something that has been missed, please PR or let us know. Also check the [Releases](/other/releases) page for ongoing updates.
 
-## QMediaPlayer v3.0.0 Beta
+## QMediaPlayer v3.0.0 RC
 
 QMediaPlayer v3 prepares the package for Quasar CLI Vite 3 and the shared app-extension workspace standard.
 
@@ -25,23 +25,23 @@ Important changes:
 - Documentation is built with Q-Press from `md-plugins`.
 - Legacy webpack app-extension paths are no longer supported.
 
-If you use the App Extension, install the beta with:
+If you use the App Extension, install the release candidate with:
 
 ```bash
-quasar ext add @quasar/qmediaplayer@beta
+quasar ext add @quasar/qmediaplayer
 ```
 
-If you install the UI package directly, install the beta with:
+If you install the UI package directly, install the release candidate with:
 
 ```tabs
 <<| bash pnpm |>>
-pnpm add @quasar/quasar-ui-qmediaplayer@beta
+pnpm add @quasar/quasar-ui-qmediaplayer
 <<| bash bun |>>
-bun add @quasar/quasar-ui-qmediaplayer@beta
+bun add @quasar/quasar-ui-qmediaplayer
 <<| bash yarn |>>
-yarn add @quasar/quasar-ui-qmediaplayer@beta
+yarn add @quasar/quasar-ui-qmediaplayer
 <<| bash npm |>>
-npm install @quasar/quasar-ui-qmediaplayer@beta
+npm install @quasar/quasar-ui-qmediaplayer
 ```
 
 For direct imports, use the package entrypoint and import the stylesheet separately:

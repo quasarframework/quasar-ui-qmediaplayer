@@ -1,7 +1,7 @@
 # QMediaPlayer
 
-![@quasar/quasar-ui-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer/beta?label=@quasar/quasar-ui-qmediaplayer)
-![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer/beta?label=@quasar/quasar-app-extension-qmediaplayer)
+![@quasar/quasar-ui-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer?label=@quasar/quasar-ui-qmediaplayer)
+![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer?label=@quasar/quasar-app-extension-qmediaplayer)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ca64630a-6fc2-4679-919d-96a3dd7a2e47/deploy-status)](https://app.netlify.com/projects/qmediaplayer/deploys)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/quasar-ui-qmediaplayer)]()
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/quasar-ui-qmediaplayer)]()
@@ -12,7 +12,7 @@
 
 QMediaPlayer is a [Quasar](https://quasar.dev) component that provides refined HTML5 audio and video controls for Vue and Quasar applications.
 
-## QMediaPlayer v3.0.0 Beta
+## QMediaPlayer v3.0.0 RC
 
 QMediaPlayer v3 prepares the project for Quasar CLI Vite 3. The app extension is Vite-only, requires `@quasar/app-vite` >=3.0.0-rc.1, and no longer supports webpack-based Quasar apps.
 

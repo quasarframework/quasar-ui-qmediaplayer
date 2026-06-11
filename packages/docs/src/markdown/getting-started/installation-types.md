@@ -19,12 +19,6 @@ To add QMediaPlayer to your Quasar application, run the following in your Quasar
 quasar ext add @quasar/qmediaplayer
 ```
 
-While QMediaPlayer v3 is in beta, install with:
-
-```bash
-quasar ext add @quasar/qmediaplayer@beta
-```
-
 The QMediaPlayer v3 App Extension targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0-rc.1. It does not support webpack-based Quasar applications.
 
 ### Manual Boot File
@@ -33,13 +27,13 @@ If you do not install through the App Extension, install the UI package directly
 
 ```tabs
 <<| bash pnpm |>>
-pnpm add @quasar/quasar-ui-qmediaplayer@beta
+pnpm add @quasar/quasar-ui-qmediaplayer
 <<| bash bun |>>
-bun add @quasar/quasar-ui-qmediaplayer@beta
+bun add @quasar/quasar-ui-qmediaplayer
 <<| bash yarn |>>
-yarn add @quasar/quasar-ui-qmediaplayer@beta
+yarn add @quasar/quasar-ui-qmediaplayer
 <<| bash npm |>>
-npm install @quasar/quasar-ui-qmediaplayer@beta
+npm install @quasar/quasar-ui-qmediaplayer
 ```
 
 Then create and register a boot file:
@@ -87,13 +81,13 @@ Add the following tags after the Quasar stylesheet and script tags:
 ```html
 <head>
   <link
-    href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@beta/dist/index.css"
+    href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.css"
     rel="stylesheet"
     type="text/css"
   />
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@beta/dist/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.umd.min.js"></script>
 </body>
 ```
 
@@ -101,7 +95,7 @@ If you need the RTL variant of the CSS, use:
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@beta/dist/index.rtl.css"
+  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.rtl.css"
   rel="stylesheet"
   type="text/css"
 />

@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-ui-qmediaplayer",
-  "version": "3.0.0-beta.5",
+  "version": "3.0.0-rc.0",
   "description": "QMediaPlayer is an HTML5 media player for Quasar applications",
   "keywords": [
     "HTML5 media player",
@@ -85,7 +85,7 @@
     "build:app-ext": "tsx build/script.app-ext.ts",
     "typecheck": "pnpm build:api && tsc -p tsconfig.json --noEmit --pretty false && tsc -p test-d/tsconfig.json --noEmit --pretty false",
     "test:types": "pnpm build && pnpm typecheck",
-    "release": "pnpm publish --tag beta",
+    "release": "pnpm publish --tag latest",
     "prepack": "pnpm build"
   },
   "dependencies": {

@@ -2,7 +2,7 @@
 
 QMediaPlayer is a Quasar component that provides refined HTML5 audio and video controls for Vue and Quasar applications.
 
-[![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer/beta?label=@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
+[![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer?label=@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 
 [![Discord](https://img.shields.io/badge/discord-join%20server-738ADB?style=for-the-badge&logo=discord&logoColor=738ADB)](https://chat.quasar.dev)
@@ -21,15 +21,15 @@ Install the [App Extension](../app-extension).
 Or install the UI package directly:
 
 ```bash
-pnpm add @quasar/quasar-ui-qmediaplayer@beta
+pnpm add @quasar/quasar-ui-qmediaplayer
 # or
-bun add @quasar/quasar-ui-qmediaplayer@beta
+bun add @quasar/quasar-ui-qmediaplayer
 # or
-yarn add @quasar/quasar-ui-qmediaplayer@beta
+yarn add @quasar/quasar-ui-qmediaplayer
 # or
-npm install @quasar/quasar-ui-qmediaplayer@beta
+npm install @quasar/quasar-ui-qmediaplayer
 # or, in a Quasar CLI app
-quasar ext add @quasar/qmediaplayer@beta
+quasar ext add @quasar/qmediaplayer
 ```
 
 Then create and register a boot file:
@@ -74,18 +74,18 @@ The UMD bundle exports `window.QMediaPlayer`.
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@beta/dist/index.min.css"
+  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.min.css"
   rel="stylesheet"
   type="text/css"
 />
-<script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@beta/dist/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.umd.min.js"></script>
 ```
 
 If you need the RTL variant of the CSS, use:
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@beta/dist/index.rtl.min.css"
+  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.rtl.min.css"
   rel="stylesheet"
   type="text/css"
 />

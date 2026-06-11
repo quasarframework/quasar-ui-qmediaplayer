@@ -5,7 +5,7 @@ import { slugify } from "../.q-press/components/markdown-utils";
 
 const repoBranch = "v3-beta";
 const productName = "QMediaPlayer";
-const codepenPackageVersion = version.includes("-beta.") ? "beta" : version;
+const codepenPackageVersion = version;
 
 export interface SocialLink {
   name: string;
