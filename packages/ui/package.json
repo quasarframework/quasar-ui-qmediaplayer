@@ -89,7 +89,7 @@
     "prepack": "pnpm build"
   },
   "dependencies": {
-    "@quasar/extras": "2.0.0"
+    "@quasar/extras": "2.0.1"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
