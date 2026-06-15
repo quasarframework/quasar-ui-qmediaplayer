@@ -79,6 +79,11 @@ export interface CodepenGlobalPackage {
   globalName: string;
 }
 
+export interface CodepenModulePackage {
+  packageName: string;
+  importUrl: string;
+}
+
 export interface CodepenConfig {
   head?: string | undefined;
   cssExternal?: string[] | undefined;
@@ -87,6 +92,7 @@ export interface CodepenConfig {
   titleSuffix?: string | undefined;
   jsSetup?: string | undefined;
   globalPackages?: CodepenGlobalPackage[] | undefined;
+  modulePackages?: CodepenModulePackage[] | undefined;
 }
 
 export interface SiteConfig {
