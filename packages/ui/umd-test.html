@@ -96,33 +96,39 @@
     <script src="dist/icon-set/material-icons.umd.js"></script>
 
     <script>
+      const { ref } = Vue;
       const mediaPlayerPlugin = globalThis.QMediaPlayer;
       const bundleReady =
         mediaPlayerPlugin !== void 0 &&
         typeof mediaPlayerPlugin.install === "function" &&
         mediaPlayerPlugin.QMediaPlayer !== void 0;
+      const bundleError =
+        bundleReady === true
+          ? ""
+          : [
+              "dist/index.umd.js did not load.",
+              "This usually means the page is not being served from the packages/ui folder.",
+              'Use "./start-umd.sh" or "quasar serve -p 9000 . -i umd-test.html".',
+            ].join(" ");
 
       const app = Vue.createApp({
-        data() {
+        setup() {
+          const dense = ref(false);
+          const mobileMode = ref(false);
+          const sources = [
+            {
+              src: "https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4",
+              type: "video/mp4",
+            },
+          ];
+
           return {
             version: bundleReady === true ? mediaPlayerPlugin.version : "bundle missing",
             bundleReady,
-            bundleError:
-              bundleReady === true
-                ? ""
-                : [
-                    "dist/index.umd.js did not load.",
-                    "This usually means the page is not being served from the packages/ui folder.",
-                    'Use "./start-umd.sh" or "quasar serve -p 9000 . -i umd-test.html".',
-                  ].join(" "),
-            dense: false,
-            mobileMode: false,
-            sources: [
-              {
-                src: "https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4",
-                type: "video/mp4",
-              },
-            ],
+            bundleError,
+            dense,
+            mobileMode,
+            sources,
           };
         },
       });
