@@ -210,6 +210,10 @@ function stripCompilerMacros(content: string) {
     .trim()
 }
 
+function stripTemplateTypeScriptAssertions(content: string) {
+  return content.replace(/(\]|\)|[\w$])!(?=\.|\[|\()/g, '$1')
+}
+
 function getScriptBlock(script: string, setup: boolean) {
   const re = setup
     ? /<script\s+setup([^>]*)>([\s\S]*?)<\/script>/
@@ -253,8 +257,76 @@ function getSetupReturnNames(content: string) {
 function getTopLevelContent(content: string) {
   let depth = 0
   let output = ''
+  let quote: "'" | '"' | '`' | null = null
+  let escaped = false
+  let comment: 'line' | 'block' | null = null
 
-  for (const char of content) {
+  for (let index = 0; index < content.length; index++) {
+    const char = content[index] ?? ''
+    const next = content[index + 1]
+
+    if (comment === 'line') {
+      if (char === '\n') {
+        output += char
+        comment = null
+      } else {
+        output += ' '
+      }
+      continue
+    }
+
+    if (comment === 'block') {
+      if (char === '\n') {
+        output += char
+      } else {
+        output += ' '
+      }
+
+      if (char === '*' && next === '/') {
+        output += ' '
+        index++
+        comment = null
+      }
+      continue
+    }
+
+    if (quote !== null) {
+      output += char === '\n' ? char : ' '
+
+      if (escaped === true) {
+        escaped = false
+        continue
+      }
+
+      if (char === '\\') {
+        escaped = true
+      } else if (char === quote) {
+        quote = null
+      }
+      continue
+    }
+
+    if (char === '/' && next === '/') {
+      output += '  '
+      index++
+      comment = 'line'
+      continue
+    }
+
+    if (char === '/' && next === '*') {
+      output += '  '
+      index++
+      comment = 'block'
+      continue
+    }
+
+    if (char === "'" || char === '"' || char === '`') {
+      output += ' '
+      quote = char
+      escaped = false
+      continue
+    }
+
     if (depth === 0 || char === '\n') {
       output += char
     } else {
@@ -375,6 +447,10 @@ const jsPreProcessor = computed(() => {
   )
 })
 
+const jsModule = computed(() => {
+  return /^\s*import\s/m.test(js.value)
+})
+
 const html = computed(() => {
   const content = (def.parts.Template || '')
     .replace(/(<template>|<\/template>$)/g, '')
@@ -411,7 +487,7 @@ const html = computed(() => {
     .replace(/^\s{2}/gm, '')
     .trim()
 
-  return rewriteRootRelativeUrls(content)
+  return rewriteRootRelativeUrls(stripTemplateTypeScriptAssertions(content))
 })
 
 const editors = computed(() => {
@@ -458,6 +534,7 @@ ${html.value}
     css_external: cssResources.value,
     js: js.value,
     js_pre_processor: jsPreProcessor.value,
+    ...(jsModule.value ? { js_module: true } : {}),
     js_external: jsResources.value,
     head: siteConfig.codepen?.head ?? '',
     editors: editors.value,

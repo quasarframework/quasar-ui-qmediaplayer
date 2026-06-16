@@ -12,6 +12,9 @@ export interface PrerenderQPressSsgRoutesOptions extends Omit<
   createAppOptions?: Parameters<typeof createQPressSsgApp>[2] | QPressSsgAppOptionsResolver
 }
 
+/**
+ * Prerenders Q-Press routes with the generated Q-Press Vue/Quasar app factory.
+ */
 export async function prerenderQPressSsgRoutes({
   createAppOptions,
   ...options
