@@ -34,35 +34,35 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { mdiArrowUp } from "@quasar/extras/mdi-v7";
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { mdiArrowUp } from '@quasar/extras/mdi-v7'
 
 // import { useMarkdownStore } from '@/.q-press/stores/doc'
-import { useScroll } from "../composables/scroll";
+import { useScroll } from '../composables/scroll'
 
-import MarkdownHeader from "./MarkdownHeader.vue";
-import MarkdownDrawerSidebar from "./MarkdownDrawerSidebar.vue";
-import MarkdownDrawerToc from "./MarkdownDrawerToc.vue";
-import MarkdownPageSidebar from "./MarkdownPageSidebar";
-import MarkdownPageFooter from "./MarkdownPageFooter.vue";
+import MarkdownHeader from './MarkdownHeader.vue'
+import MarkdownDrawerSidebar from './MarkdownDrawerSidebar.vue'
+import MarkdownDrawerToc from './MarkdownDrawerToc.vue'
+import MarkdownPageSidebar from './MarkdownPageSidebar'
+import MarkdownPageFooter from './MarkdownPageFooter.vue'
 
-import siteConfig from "../../siteConfig";
+import siteConfig from '../../siteConfig'
 
-const { onPageScroll } = useScroll();
+const { onPageScroll } = useScroll()
 
-const route = useRoute();
+const route = useRoute()
 // const markdownStore = useMarkdownStore()
 
-const isFullscreen = computed(() => route.meta.fullscreen === true);
+const isFullscreen = computed(() => route.meta.fullscreen === true)
 const pageClass = computed(
-  () => `markdown-layout__page--${isFullscreen.value === true ? "fullscreen" : "standard"}`,
-);
+  () => `markdown-layout__page--${isFullscreen.value === true ? 'fullscreen' : 'standard'}`,
+)
 const pageContentClass = computed(
   () =>
-    "markdown-layout__page row no-wrap justify-start " +
-    `markdown-layout__page--${route.meta.fullwidth === true ? "fullwidth" : "standard"}`,
-);
+    'markdown-layout__page row no-wrap justify-start ' +
+    `markdown-layout__page--${route.meta.fullwidth === true ? 'fullwidth' : 'standard'}`,
+)
 </script>
 
 <style lang="scss">

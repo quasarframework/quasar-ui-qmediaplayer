@@ -34,17 +34,17 @@
 </template>
 
 <script setup lang="ts">
-import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
-defineOptions({ name: "VideoPortrait" });
+defineOptions({ name: 'VideoPortrait' })
 
 const sources = [
   {
-    src: "/media/pexels-ono-kosuki-5974545.mp4",
-    type: "video/mp4",
+    src: '/media/pexels-ono-kosuki-5974545.mp4',
+    type: 'video/mp4',
   },
-];
+]
 </script>
 
 <style lang="scss" scoped>

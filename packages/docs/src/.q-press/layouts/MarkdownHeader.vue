@@ -181,45 +181,45 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { mdiFolderPound } from "@quasar/extras/mdi-v7";
-import siteConfig from "../../siteConfig";
+import { computed } from 'vue'
+import { mdiFolderPound } from '@quasar/extras/mdi-v7'
+import siteConfig from '../../siteConfig'
 
-import DarkModeToggle from "../components/DarkModeToggle.vue";
+import DarkModeToggle from '../components/DarkModeToggle.vue'
 
 // import MarkdownSearch from './MarkdownSearch.vue'
-import MarkdownHeaderTextLinks from "./MarkdownHeaderTextLinks.vue";
-import MarkdownHeaderIconLinks from "./MarkdownHeaderIconLinks.vue";
+import MarkdownHeaderTextLinks from './MarkdownHeaderTextLinks.vue'
+import MarkdownHeaderIconLinks from './MarkdownHeaderIconLinks.vue'
 
-import { useRoute } from "vue-router";
-import { useMarkdownStore } from "../stores/markdown";
-import { useDark } from "../composables/dark";
+import { useRoute } from 'vue-router'
+import { useMarkdownStore } from '../stores/markdown'
+import { useDark } from '../composables/dark'
 
-const markdownStore = useMarkdownStore();
-const route = useRoute();
-const { isDark } = useDark();
+const markdownStore = useMarkdownStore()
+const route = useRoute()
+const { isDark } = useDark()
 
 const logo = computed(() => {
   if (isDark.value === true)
     return {
       img: siteConfig.logoConfig.logoDark,
       alt: siteConfig.logoConfig.logoAlt,
-    };
+    }
   return {
     img: siteConfig.logoConfig.logoLight,
     alt: siteConfig.logoConfig.logoAlt,
-  };
-});
+  }
+})
 
-const showThemeChanger = computed(() => route.meta.dark !== true);
+const showThemeChanger = computed(() => route.meta.dark !== true)
 const hasToc = computed(
   () =>
     route.meta.fullwidth !== true &&
     route.meta.fullscreen !== true &&
     siteConfig.config.useToc &&
     markdownStore.toc.length !== 0,
-);
-const hasMoreLinks = computed(() => siteConfig.links.moreLinks.length > 0);
+)
+const hasMoreLinks = computed(() => siteConfig.links.moreLinks.length > 0)
 </script>
 
 <style lang="scss">

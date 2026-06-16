@@ -16,10 +16,10 @@ import {
   outlinedCheck,
   outlinedFullscreen,
   outlinedFullscreenExit,
-} from "@quasar/extras/material-icons-outlined";
+} from '@quasar/extras/material-icons-outlined'
 
 export default {
-  name: "svg-material-icons-outlined",
+  name: 'svg-material-icons-outlined',
   mediaPlayer: {
     play: outlinedPlayArrow,
     pause: outlinedPause,
@@ -34,4 +34,4 @@ export default {
     fullscreenExit: outlinedFullscreenExit,
     bigPlayButton: outlinedPlayArrow,
   },
-};
+}

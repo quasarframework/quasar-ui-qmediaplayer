@@ -10,5 +10,5 @@
 </template>
 
 <script setup lang="ts">
-defineOptions({ name: "VideoEmbedProvider" });
+defineOptions({ name: 'VideoEmbedProvider' })
 </script>

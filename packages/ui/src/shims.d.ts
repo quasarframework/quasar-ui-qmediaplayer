@@ -1,6 +1,6 @@
-declare module "*.mjs" {
-  const value: unknown;
-  export default value;
+declare module '*.mjs' {
+  const value: unknown
+  export default value
 }
 
-declare module "*.scss";
+declare module '*.scss'

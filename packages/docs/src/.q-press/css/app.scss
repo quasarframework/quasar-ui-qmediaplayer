@@ -1,17 +1,17 @@
-@use "sass:math";
-@use "sass:color";
-@use "./fonts.scss";
+@use 'sass:math';
+@use 'sass:color';
+@use './fonts.scss';
 
 // Keep this import so Shiki code blocks share the selected qPress theme variables.
-@import "./code-theme.scss";
+@import './code-theme.scss';
 
 @function qpress-rgb($value) {
-  @return #{color.channel($value, "red", $space: rgb)}
-    #{color.channel($value, "green", $space: rgb)} #{color.channel($value, "blue", $space: rgb)};
+  @return #{color.channel($value, 'red', $space: rgb)}
+    #{color.channel($value, 'green', $space: rgb)} #{color.channel($value, 'blue', $space: rgb)};
 }
 
 .material-icons {
-  font-family: "Material Icons";
+  font-family: 'Material Icons';
   font-weight: 400;
   font-style: normal;
   line-height: 1;
@@ -20,7 +20,7 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  font-feature-settings: "liga";
+  font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
 
@@ -214,7 +214,7 @@ ul {
     cursor: pointer;
 
     &:after {
-      content: " #";
+      content: ' #';
       opacity: 0;
     }
     &:hover:after {
@@ -247,7 +247,7 @@ ul {
   font-size: 1.4em !important;
   font-weight: 500;
   &:before {
-    content: "» ";
+    content: '» ';
     vertical-align: text-top;
   }
 }
@@ -256,7 +256,7 @@ ul {
   font-size: 1em !important;
   font-weight: 500;
   &:before {
-    content: "»» ";
+    content: '»» ';
     vertical-align: text-top;
   }
 }
@@ -265,7 +265,7 @@ ul {
   font-size: 1em !important;
   font-weight: 400;
   &:before {
-    content: "»»» ";
+    content: '»»» ';
     vertical-align: text-top;
   }
 }
@@ -530,9 +530,9 @@ body.q-scroll--lock .q-page > .q-scroll--anchor {
 }
 
 $additional-colors: (
-  "brand-primary" $brand-primary,
-  "brand-secondary" $brand-secondary,
-  "brand-accent" $brand-accent
+  'brand-primary' $brand-primary,
+  'brand-secondary' $brand-secondary,
+  'brand-accent' $brand-accent
 );
 @each $color-name, $color in $additional-colors {
   :root {
@@ -807,7 +807,7 @@ body.body--dark {
   letter-spacing: $letter-spacing-brand;
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 100%;
     left: 0;

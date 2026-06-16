@@ -100,23 +100,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { useDark } from "../composables/dark";
-import siteConfig from "../../siteConfig";
-import type { SiteMenuItem } from "../../siteConfig";
+import { computed } from 'vue'
+import { useDark } from '../composables/dark'
+import siteConfig from '../../siteConfig'
+import type { SiteMenuItem } from '../../siteConfig'
 
-const { isDark } = useDark();
+const { isDark } = useDark()
 
 const isPrivacyLocal = computed(() => {
-  return siteConfig?.privacy?.link?.startsWith("/") || siteConfig?.privacy?.link?.startsWith(".");
-});
+  return siteConfig?.privacy?.link?.startsWith('/') || siteConfig?.privacy?.link?.startsWith('.')
+})
 
 const logo = computed(() => {
-  return isDark.value ? siteConfig.logoConfig.logoDark : siteConfig.logoConfig.logoLight;
-});
+  return isDark.value ? siteConfig.logoConfig.logoDark : siteConfig.logoConfig.logoLight
+})
 
 function getIcon(item: SiteMenuItem): string | undefined {
-  return (item as SiteMenuItem & { icon?: string }).icon;
+  return (item as SiteMenuItem & { icon?: string }).icon
 }
 
 /**
@@ -125,10 +125,10 @@ function getIcon(item: SiteMenuItem): string | undefined {
  * @return {*[]} An array of flattened menu items (no more children, they move up to the same level as others)
  */
 function getMenu(path: string): SiteMenuItem[] {
-  const children: SiteMenuItem[] = [];
+  const children: SiteMenuItem[] = []
   const menuItem: SiteMenuItem | undefined = siteConfig.sidebar.find(
     (item) => item.path === path,
-  ) as SiteMenuItem;
+  ) as SiteMenuItem
 
   if (menuItem !== void 0 && menuItem.children) {
     for (const item of menuItem.children) {
@@ -140,26 +140,26 @@ function getMenu(path: string): SiteMenuItem[] {
           icon: getIcon(item),
           image: item.image ?? void 0,
           maxWidth: item.maxWidth ?? void 0,
-        } as SiteMenuItem & { icon?: string });
+        } as SiteMenuItem & { icon?: string })
       }
     }
   }
 
-  return children;
+  return children
 }
 
 const links = siteConfig.links.footerLinks.flatMap((nav) => ({
   name: nav.name,
   children: [...(nav.children || []), ...((nav.extract !== void 0 && getMenu(nav.extract)) || [])],
-}));
+}))
 
 const props = defineProps({
   fullscreen: Boolean,
-});
+})
 </script>
 
 <style lang="scss">
-@use "sass:color";
+@use 'sass:color';
 
 .markdown-page-footer {
   position: relative;
@@ -176,7 +176,7 @@ const props = defineProps({
     inset: 0 0 auto;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba($brand-primary, 0.8), transparent);
-    content: "";
+    content: '';
   }
 
   &__shell {
@@ -277,7 +277,7 @@ const props = defineProps({
     max-height: 24px;
     object-fit: contain;
 
-    &[alt="Sponsor Jeff"] {
+    &[alt='Sponsor Jeff'] {
       border-radius: 999px;
     }
   }

@@ -1,3 +1,3 @@
-import QMediaPlayer from "./QMediaPlayer";
+import QMediaPlayer from './QMediaPlayer'
 
-export { QMediaPlayer };
+export { QMediaPlayer }

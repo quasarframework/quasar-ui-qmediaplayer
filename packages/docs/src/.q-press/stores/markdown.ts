@@ -1,10 +1,10 @@
-import { defineStore, acceptHMRUpdate } from "pinia";
-import { useRoute } from "vue-router";
-import { useScroll } from "../composables/scroll";
+import { defineStore, acceptHMRUpdate } from 'pinia'
+import { useRoute } from 'vue-router'
+import { useScroll } from '../composables/scroll'
 
-export const useMarkdownStore = defineStore("markdown-store", {
+export const useMarkdownStore = defineStore('markdown-store', {
   state: () => ({
-    title: "",
+    title: '',
     toc: [] as TocMenuItem[],
     activeToc: null as string | null,
     menuDrawer: false,
@@ -19,82 +19,82 @@ export const useMarkdownStore = defineStore("markdown-store", {
   },
   actions: {
     toggleMenuDrawer() {
-      this.menuDrawer = this.menuDrawer === false;
+      this.menuDrawer = this.menuDrawer === false
     },
     toggleTocDrawer() {
-      this.tocDrawer = this.tocDrawer === false;
+      this.tocDrawer = this.tocDrawer === false
     },
 
     updateActiveToc(position?: number): void {
       if (!position) {
-        position = document.documentElement.scrollTop || document.body.scrollTop;
+        position = document.documentElement.scrollTop || document.body.scrollTop
       }
 
-      let last;
+      let last
 
       for (const section of this.toc) {
-        const item = document.getElementById(section.id);
+        const item = document.getElementById(section.id)
 
         if (!item) {
-          continue;
+          continue
         }
 
         const offset =
           section.deep === true
             ? item.offsetTop + (item.offsetParent as HTMLElement).offsetTop
-            : item.offsetTop;
+            : item.offsetTop
 
         if (offset >= position + 155) {
           if (last === void 0) {
-            last = section.id;
+            last = section.id
           }
-          break;
+          break
         } else {
-          last = section.id;
+          last = section.id
         }
       }
 
       if (last !== void 0) {
-        this.activeToc = last;
+        this.activeToc = last
       }
     },
 
     setToc(toc: TocMenuItem[]) {
-      const { scrollTo } = useScroll();
+      const { scrollTo } = useScroll()
       this.toc =
         toc !== void 0
           ? ([
               {
-                id: "introduction",
-                title: "1. Introduction",
+                id: 'introduction',
+                title: '1. Introduction',
                 level: 0,
                 sub: false,
-                onClick: () => scrollTo("introduction"),
+                onClick: () => scrollTo('introduction'),
               },
               ...toc.map((entry) => ({
                 ...entry,
                 onClick: () => {
-                  this.tocDrawer = false;
-                  scrollTo(entry.id);
+                  this.tocDrawer = false
+                  scrollTo(entry.id)
                 },
               })),
             ] as TocMenuItem[])
-          : [];
+          : []
     },
 
     injectToc() {
-      const route = useRoute();
+      const route = useRoute()
 
-      this.toc = [];
-      this.activeToc = route.hash.length > 1 ? route.hash.substring(1) : null;
+      this.toc = []
+      this.activeToc = route.hash.length > 1 ? route.hash.substring(1) : null
     },
 
     setActiveToc(pos?: number): void {
-      this.updateActiveToc(pos);
+      this.updateActiveToc(pos)
     },
   },
-});
+})
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useMarkdownStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useMarkdownStore, import.meta.hot))
 }

@@ -1,29 +1,29 @@
 export default function getMeta(title: string, desc: string) {
   return {
     title: {
-      name: "title",
+      name: 'title',
       content: title,
     },
     ogTitle: {
-      name: "og:title",
+      name: 'og:title',
       content: title,
     },
     twitterTitle: {
-      name: "twitter:title",
+      name: 'twitter:title',
       content: title,
     },
 
     description: {
-      name: "description",
+      name: 'description',
       content: desc,
     },
     ogDesc: {
-      name: "og:description",
+      name: 'og:description',
       content: desc,
     },
     twitterDesc: {
-      name: "twitter:description",
+      name: 'twitter:description',
       content: desc,
     },
-  };
+  }
 }

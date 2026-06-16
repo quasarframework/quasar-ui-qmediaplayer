@@ -21,18 +21,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+import { ref } from 'vue'
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
-defineOptions({ name: "VideoOverlayForm" });
+defineOptions({ name: 'VideoOverlayForm' })
 
-const email = ref("");
-const poster = "/media/TearsOfSteel/TearsOfSteel.jpeg";
+const email = ref('')
+const poster = '/media/TearsOfSteel/TearsOfSteel.jpeg'
 const sources = [
   {
-    src: "https://archive.org/download/Tears-of-Steel/tears_of_steel_720p.mp4",
-    type: "video/mp4",
+    src: 'https://archive.org/download/Tears-of-Steel/tears_of_steel_720p.mp4',
+    type: 'video/mp4',
   },
-];
+]
 </script>

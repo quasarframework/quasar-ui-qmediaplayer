@@ -1,1 +1,1 @@
-export default import.meta.glob("./**/*.vue");
+export default import.meta.glob('./**/*.vue')

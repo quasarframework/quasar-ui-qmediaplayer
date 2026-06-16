@@ -1,1 +1,1 @@
-export const version = __UI_VERSION__;
+export const version = __UI_VERSION__

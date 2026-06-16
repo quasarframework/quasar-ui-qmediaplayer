@@ -9,16 +9,16 @@
 </template>
 
 <script setup lang="ts">
-import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
-defineOptions({ name: "VideoError" });
+defineOptions({ name: 'VideoError' })
 
 const sources = [
   {
     // this video does not exist and will cause an error
-    src: "https://some-unknown-service.com/video.mp4",
-    type: "video/mp4",
+    src: 'https://some-unknown-service.com/video.mp4',
+    type: 'video/mp4',
   },
-];
+]
 </script>

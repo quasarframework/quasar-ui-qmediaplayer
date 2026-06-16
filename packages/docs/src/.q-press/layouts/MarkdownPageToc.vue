@@ -18,6 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { useMarkdownStore } from "../stores/markdown";
-const markdownStore = useMarkdownStore();
+import { useMarkdownStore } from '../stores/markdown'
+const markdownStore = useMarkdownStore()
 </script>

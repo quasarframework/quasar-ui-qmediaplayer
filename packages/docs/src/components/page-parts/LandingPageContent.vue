@@ -183,82 +183,82 @@
 </template>
 
 <script setup lang="ts">
-import { fabGithub } from "@quasar/extras/fontawesome-v7";
-import { biArrowRightCircle } from "@quasar/extras/bootstrap-icons";
-import siteConfig from "../../siteConfig";
+import { fabGithub } from '@quasar/extras/fontawesome-v7'
+import { biArrowRightCircle } from '@quasar/extras/bootstrap-icons'
+import siteConfig from '../../siteConfig'
 
-const productName = "QMediaPlayer";
-const logoSrc = "/qmediaplayer-logo.svg";
-const logoAlt = "QMediaPlayer Logo";
-const githubTreeUrl = "https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/v3-beta";
-const githubRepoUrl = "https://github.com/quasarframework/quasar-ui-qmediaplayer";
-const heroEyebrow = "Vue 3 + Quasar 2";
+const productName = 'QMediaPlayer'
+const logoSrc = '/qmediaplayer-logo.svg'
+const logoAlt = 'QMediaPlayer Logo'
+const githubTreeUrl = 'https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/v3-beta'
+const githubRepoUrl = 'https://github.com/quasarframework/quasar-ui-qmediaplayer'
+const heroEyebrow = 'Vue 3 + Quasar 2'
 const heroLede =
-  "Build refined audio and video experiences for Quasar apps with captions, fullscreen flows, themes, and custom player chrome that feels product-ready.";
-const previewKicker = "HTML5 Playback";
-const previewTitle = "Media controls that look like part of the app, not a bolted-on widget";
+  'Build refined audio and video experiences for Quasar apps with captions, fullscreen flows, themes, and custom player chrome that feels product-ready.'
+const previewKicker = 'HTML5 Playback'
+const previewTitle = 'Media controls that look like part of the app, not a bolted-on widget'
 const previewBody =
-  "QMediaPlayer wraps HTML5 playback in a Quasar-friendly surface so audio and video experiences can ship with stronger styling, subtitles, language support, and predictable controls.";
-const sectionTitle = "A focused media player for audio, video, and app-ready playback UI";
+  'QMediaPlayer wraps HTML5 playback in a Quasar-friendly surface so audio and video experiences can ship with stronger styling, subtitles, language support, and predictable controls.'
+const sectionTitle = 'A focused media player for audio, video, and app-ready playback UI'
 const sectionText =
-  "QMediaPlayer keeps the problem narrow: play media well, expose the right controls, and make captions, themes, and custom icons feel natural inside a Quasar app.";
+  'QMediaPlayer keeps the problem narrow: play media well, expose the right controls, and make captions, themes, and custom icons feel natural inside a Quasar app.'
 
-const heroPills = ["Audio", "Video", "Captions", "Fullscreen", "Themes"];
+const heroPills = ['Audio', 'Video', 'Captions', 'Fullscreen', 'Themes']
 
 const previewImages = [
   {
-    src: "/qmediaplayer.png",
-    alt: "QMediaPlayer preview",
+    src: '/qmediaplayer.png',
+    alt: 'QMediaPlayer preview',
   },
-];
+]
 
 const featureCards = [
   {
-    icon: "play_circle",
-    title: "Audio and Video",
-    body: "Handle both playback modes in the same UI family instead of building separate player experiences.",
+    icon: 'play_circle',
+    title: 'Audio and Video',
+    body: 'Handle both playback modes in the same UI family instead of building separate player experiences.',
   },
   {
-    icon: "subtitles",
-    title: "Caption and Track Support",
-    body: "Work with subtitle files and language-aware playback flows for more usable media experiences.",
+    icon: 'subtitles',
+    title: 'Caption and Track Support',
+    body: 'Work with subtitle files and language-aware playback flows for more usable media experiences.',
   },
   {
-    icon: "fullscreen",
-    title: "Fullscreen Ready",
-    body: "Support larger-screen playback without reworking the control model when users need to focus on the media.",
+    icon: 'fullscreen',
+    title: 'Fullscreen Ready',
+    body: 'Support larger-screen playback without reworking the control model when users need to focus on the media.',
   },
   {
-    icon: "palette",
-    title: "Themes and Branding",
-    body: "Match player surfaces to the rest of your Quasar application instead of leaving media in a generic skin.",
+    icon: 'palette',
+    title: 'Themes and Branding',
+    body: 'Match player surfaces to the rest of your Quasar application instead of leaving media in a generic skin.',
   },
   {
-    icon: "translate",
-    title: "Language Packs",
-    body: "Adjust labels and supporting copy for apps that need localized playback controls and captions.",
+    icon: 'translate',
+    title: 'Language Packs',
+    body: 'Adjust labels and supporting copy for apps that need localized playback controls and captions.',
   },
   {
-    icon: "extension",
-    title: "Custom Icons and Controls",
-    body: "Tune the player chrome so the controls feel intentional in dashboards, education tools, and content apps.",
+    icon: 'extension',
+    title: 'Custom Icons and Controls',
+    body: 'Tune the player chrome so the controls feel intentional in dashboards, education tools, and content apps.',
   },
-];
+]
 
 const supportItems = [
   {
-    title: "Introduction First",
-    body: "Start with the introduction and installation docs to choose the right setup path for Vue and Quasar projects.",
+    title: 'Introduction First',
+    body: 'Start with the introduction and installation docs to choose the right setup path for Vue and Quasar projects.',
   },
   {
-    title: "Usage Before Customization",
-    body: "Use the main development guide first, then layer in themes, captions, and media options once playback is working.",
+    title: 'Usage Before Customization',
+    body: 'Use the main development guide first, then layer in themes, captions, and media options once playback is working.',
   },
   {
-    title: "Discussions + Issues",
-    body: "Questions, bugs, and feature requests are easiest to track in the QMediaPlayer repo and GitHub Discussions.",
+    title: 'Discussions + Issues',
+    body: 'Questions, bugs, and feature requests are easiest to track in the QMediaPlayer repo and GitHub Discussions.',
   },
-];
+]
 </script>
 
 <style lang="scss" scoped>
@@ -329,7 +329,7 @@ const supportItems = [
   border-radius: 999px;
   background: rgba(241, 250, 255, 0.08);
   color: #c9ecff;
-  font-family: "Sora", "Montserrat", "Segoe UI", sans-serif;
+  font-family: 'Sora', 'Montserrat', 'Segoe UI', sans-serif;
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -348,7 +348,7 @@ const supportItems = [
 
 .hero-title {
   margin: 0;
-  font-family: "Sora", "Montserrat", "Segoe UI", sans-serif;
+  font-family: 'Sora', 'Montserrat', 'Segoe UI', sans-serif;
   font-size: clamp(3.2rem, 8vw, 6rem);
   line-height: 0.95;
   font-weight: 800;
@@ -359,7 +359,7 @@ const supportItems = [
 .hero-subtitle {
   max-width: 620px;
   margin: 0;
-  font-family: "Sora", "Montserrat", "Segoe UI", sans-serif;
+  font-family: 'Sora', 'Montserrat', 'Segoe UI', sans-serif;
   font-size: clamp(1.15rem, 2vw, 1.45rem);
   line-height: 1.45;
   font-weight: 700;
@@ -432,7 +432,7 @@ const supportItems = [
   column-gap: 12px;
   min-width: 0;
   width: 100%;
-  font-family: "Sora", "Montserrat", "Segoe UI", sans-serif;
+  font-family: 'Sora', 'Montserrat', 'Segoe UI', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
 }
@@ -519,7 +519,7 @@ const supportItems = [
 .section-heading__title,
 .feature-card__title,
 .resource-card__title {
-  font-family: "Sora", "Montserrat", "Segoe UI", sans-serif;
+  font-family: 'Sora', 'Montserrat', 'Segoe UI', sans-serif;
   color: #f7fcff;
 }
 
@@ -621,7 +621,7 @@ const supportItems = [
 }
 
 .feature-card::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0 auto auto 0;
   width: 100%;
@@ -697,7 +697,7 @@ const supportItems = [
 
 .resource-list__title {
   margin-bottom: 6px;
-  font-family: "Sora", "Montserrat", "Segoe UI", sans-serif;
+  font-family: 'Sora', 'Montserrat', 'Segoe UI', sans-serif;
   font-size: 0.96rem;
   font-weight: 700;
   color: #d3f0ff;

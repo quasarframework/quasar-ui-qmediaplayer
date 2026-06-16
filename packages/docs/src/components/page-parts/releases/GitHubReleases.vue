@@ -28,88 +28,88 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { date } from "quasar";
+import { ref, onMounted } from 'vue'
+import { date } from 'quasar'
 
-import PackageReleases from "./PackageReleases.vue";
-import type { ReleaseInfo } from "./PackageReleases.vue";
+import PackageReleases from './PackageReleases.vue'
+import type { ReleaseInfo } from './PackageReleases.vue'
 
-const { extractDate, formatDate } = date;
-const packageName = "QMediaPlayer";
+const { extractDate, formatDate } = date
+const packageName = 'QMediaPlayer'
 
 interface GitHubRelease {
-  name?: string;
-  tag_name?: string;
-  published_at: string;
-  body?: string;
+  name?: string
+  tag_name?: string
+  published_at: string
+  body?: string
 }
 
-type ReleasePackageMap = Record<string, ReleaseInfo[]>;
+type ReleasePackageMap = Record<string, ReleaseInfo[]>
 
-const loading = ref(false);
-const error = ref(false);
-const packages = ref<ReleasePackageMap>({ [packageName]: [] });
-const currentPackage = ref(packageName);
-const latestVersions = ref<Record<string, string>>({});
+const loading = ref(false)
+const error = ref(false)
+const packages = ref<ReleasePackageMap>({ [packageName]: [] })
+const currentPackage = ref(packageName)
+const latestVersions = ref<Record<string, string>>({})
 
 function getReleaseVersion(release: GitHubRelease): string | undefined {
-  const name = release.name || release.tag_name || "";
-  const match = name.match(/(?:^|\s)v?(\d+\.\d+\.\d+(?:[-\w.]+)?)/);
+  const name = release.name || release.tag_name || ''
+  const match = name.match(/(?:^|\s)v?(\d+\.\d+\.\d+(?:[-\w.]+)?)/)
 
-  return match?.[1] ?? release.tag_name?.replace(/^v/, "");
+  return match?.[1] ?? release.tag_name?.replace(/^v/, '')
 }
 
 async function queryReleases(): Promise<void> {
-  loading.value = true;
-  error.value = false;
+  loading.value = true
+  error.value = false
 
   try {
     const response = await fetch(
-      "https://api.github.com/repos/quasarframework/quasar-ui-qmediaplayer/releases?per_page=100",
-    );
+      'https://api.github.com/repos/quasarframework/quasar-ui-qmediaplayer/releases?per_page=100',
+    )
 
     if (response.ok === false) {
-      throw new Error(`GitHub request failed with ${response.status}`);
+      throw new Error(`GitHub request failed with ${response.status}`)
     }
 
-    const releases = (await response.json()) as GitHubRelease[];
+    const releases = (await response.json()) as GitHubRelease[]
     const parsedReleases = releases
       .map((release) => {
-        const version = getReleaseVersion(release);
+        const version = getReleaseVersion(release)
 
         if (version === undefined) {
-          return null;
+          return null
         }
 
         return {
           version,
-          date: formatDate(extractDate(release.published_at, "YYYY-MM-DD"), "YYYY-MM-DD"),
-          body: release.body || "",
+          date: formatDate(extractDate(release.published_at, 'YYYY-MM-DD'), 'YYYY-MM-DD'),
+          body: release.body || '',
           label: version,
-        };
+        }
       })
       .filter((release): release is ReleaseInfo => release !== null)
       .sort((a, b) => {
         return (
-          Number.parseInt(b.date.replace(/-/g, ""), 10) -
-          Number.parseInt(a.date.replace(/-/g, ""), 10)
-        );
-      });
+          Number.parseInt(b.date.replace(/-/g, ''), 10) -
+          Number.parseInt(a.date.replace(/-/g, ''), 10)
+        )
+      })
 
     if (parsedReleases.length === 0) {
-      throw new Error("No releases returned from GitHub");
+      throw new Error('No releases returned from GitHub')
     }
 
-    packages.value = { [packageName]: parsedReleases };
-    latestVersions.value = { [packageName]: parsedReleases[0]?.label ?? "" };
+    packages.value = { [packageName]: parsedReleases }
+    latestVersions.value = { [packageName]: parsedReleases[0]?.label ?? '' }
   } catch {
-    error.value = true;
+    error.value = true
   } finally {
-    loading.value = false;
+    loading.value = false
   }
 }
 
-onMounted(queryReleases);
+onMounted(queryReleases)
 </script>
 
 <style lang="scss">

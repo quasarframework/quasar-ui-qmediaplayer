@@ -38,7 +38,7 @@
           class="q-link markdown-page__related rounded-borders cursor-pointer column justify-center"
           :to="link.path"
         >
-          <div class="markdown-page__nav-categ">{{ link.category || "Docs" }}</div>
+          <div class="markdown-page__nav-categ">{{ link.category || 'Docs' }}</div>
           <div class="markdown-page__nav-name text-weight-bold row items-center no-wrap">
             <div class="q-mr-xs">{{ link.name }}</div>
             <q-icon :name="mdiLaunch" />
@@ -59,7 +59,7 @@
           class="q-link markdown-page__related rounded-borders cursor-pointer column justify-center"
           :class="link.classes"
         >
-          <div class="markdown-page__nav-categ">{{ link.category || "Docs" }}</div>
+          <div class="markdown-page__nav-categ">{{ link.category || 'Docs' }}</div>
           <div class="markdown-page__nav-name text-weight-bold">{{ link.name }}</div>
         </router-link>
       </div>
@@ -87,19 +87,19 @@
 </template>
 
 <script setup lang="ts">
-import { useMeta } from "quasar";
-import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { useMeta } from 'quasar'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-import { mdiPencil, mdiFlash, mdiLaunch } from "@quasar/extras/mdi-v7";
+import { mdiPencil, mdiFlash, mdiLaunch } from '@quasar/extras/mdi-v7'
 
-import type { NavItem, RelatedItem } from "@md-plugins/vite-md-plugin";
-import MarkdownLink from "../components/MarkdownLink.vue";
-import MarkdownPageToc from "./MarkdownPageToc.vue";
+import type { NavItem, RelatedItem } from '@md-plugins/vite-md-plugin'
+import MarkdownLink from '../components/MarkdownLink.vue'
+import MarkdownPageToc from './MarkdownPageToc.vue'
 
-import getMeta from "../assets/get-meta";
-import { useMarkdownStore } from "../stores/markdown";
-import siteConfig from "../../siteConfig";
+import getMeta from '../assets/get-meta'
+import { useMarkdownStore } from '../stores/markdown'
+import siteConfig from '../../siteConfig'
 
 const props = defineProps({
   title: {
@@ -139,31 +139,31 @@ const props = defineProps({
     type: Array<NavItem>,
     default: () => [],
   },
-});
+})
 
 useMeta(
   props.desc !== void 0
     ? {
-        title: props.title ?? "",
-        meta: getMeta(`${props.title ?? ""} || ${siteConfig.title ?? ""}`, props.desc),
+        title: props.title ?? '',
+        meta: getMeta(`${props.title ?? ''} || ${siteConfig.title ?? ''}`, props.desc),
       }
-    : { title: props.title ?? "" },
-);
+    : { title: props.title ?? '' },
+)
 
-const route = useRoute();
-const markdownStore = useMarkdownStore();
+const route = useRoute()
+const markdownStore = useMarkdownStore()
 
 // console.log('toc', props.toc)
 
 if (props.toc !== void 0) {
-  markdownStore.setToc(props.toc);
+  markdownStore.setToc(props.toc)
 }
 
-const editHref = computed(() => `${siteConfig.githubEditRootSrc}/markdown/${props.editLink}.md`);
+const editHref = computed(() => `${siteConfig.githubEditRootSrc}/markdown/${props.editLink}.md`)
 
-const isFullscreen = computed(() => route.meta.fullscreen === true || props.fullscreen);
+const isFullscreen = computed(() => route.meta.fullscreen === true || props.fullscreen)
 
-const showFooterNav = computed(() => isFullscreen.value !== true && props.nav.length > 0);
+const showFooterNav = computed(() => isFullscreen.value !== true && props.nav.length > 0)
 
 const hasToc = computed(
   () =>
@@ -172,11 +172,11 @@ const hasToc = computed(
     props.fullscreen !== true &&
     siteConfig.config.useToc &&
     markdownStore.toc.length !== 0,
-);
+)
 
 const tocClass = computed(
-  () => `markdown-page__toc-container--${props.toc !== void 0 ? "fixed" : "flowing"}`,
-);
+  () => `markdown-page__toc-container--${props.toc !== void 0 ? 'fixed' : 'flowing'}`,
+)
 </script>
 
 <style lang="scss">
@@ -262,7 +262,7 @@ const tocClass = computed(
       text-align: left;
 
       .markdown-page__nav-name:before {
-        content: "« ";
+        content: '« ';
         font-size: 1.2em;
       }
     }
@@ -272,7 +272,7 @@ const tocClass = computed(
       text-align: right;
 
       .markdown-page__nav-name:after {
-        content: " »";
+        content: ' »';
         font-size: 1.2em;
       }
     }

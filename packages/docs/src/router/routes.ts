@@ -1,48 +1,48 @@
-import { slugify } from "@/.q-press/components/markdown-utils";
-import examplesPageList from "@/examples/listing";
-import mdPageList from "@/markdown/listing";
+import { slugify } from '@/.q-press/components/markdown-utils'
+import examplesPageList from '@/examples/listing'
+import mdPageList from '@/markdown/listing'
 
 function getMarkdownPath(key: string): string {
-  const parts = key.replace(/^\.\//, "").replace(/\.md$/, "").split("/").filter(Boolean);
+  const parts = key.replace(/^\.\//, '').replace(/\.md$/, '').split('/').filter(Boolean)
 
-  if (parts[parts.length - 1] === "landing-page") {
-    return "";
+  if (parts[parts.length - 1] === 'landing-page') {
+    return ''
   }
 
   if (parts.length > 1 && parts[parts.length - 1] === parts[parts.length - 2]) {
-    parts.pop();
+    parts.pop()
   }
 
-  return parts.map(slugify).join("/");
+  return parts.map(slugify).join('/')
 }
 
 function getExamplePath(key: string): string {
   const parts = key
-    .replace(/^\.\//, "")
-    .replace(/\.vue$/, "")
-    .split("/")
+    .replace(/^\.\//, '')
+    .replace(/\.vue$/, '')
+    .split('/')
     .filter(Boolean)
-    .map(slugify);
+    .map(slugify)
 
-  return ["examples", ...parts].join("/");
+  return ['examples', ...parts].join('/')
 }
 
 const routes = [
   {
-    path: "/",
-    component: () => import("@/.q-press/layouts/MarkdownLayout.vue"),
+    path: '/',
+    component: () => import('@/.q-press/layouts/MarkdownLayout.vue'),
     children: [
       ...Object.entries(mdPageList)
-        .filter(([key]) => key.includes("landing-page.md"))
+        .filter(([key]) => key.includes('landing-page.md'))
         .map(([_key, component]) => ({
-          path: "",
-          name: "Landing Page",
+          path: '',
+          name: 'Landing Page',
           component,
           meta: { fullscreen: true, dark: true },
         })),
 
       ...Object.entries(mdPageList)
-        .filter(([key]) => !key.includes("landing-page.md"))
+        .filter(([key]) => !key.includes('landing-page.md'))
         .map(([key, component]) => ({
           path: getMarkdownPath(key),
           component,
@@ -56,9 +56,9 @@ const routes = [
   },
 
   {
-    path: "/:catchAll(.*)*",
-    component: () => import("@/pages/Error404.vue"),
+    path: '/:catchAll(.*)*',
+    component: () => import('@/pages/Error404.vue'),
   },
-];
+]
 
-export default routes;
+export default routes

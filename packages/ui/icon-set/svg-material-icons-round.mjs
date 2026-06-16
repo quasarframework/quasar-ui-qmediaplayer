@@ -16,10 +16,10 @@ import {
   roundCheck,
   roundFullscreen,
   roundFullscreenExit,
-} from "@quasar/extras/material-icons-round";
+} from '@quasar/extras/material-icons-round'
 
 export default {
-  name: "svg-material-icons-round",
+  name: 'svg-material-icons-round',
   mediaPlayer: {
     play: roundPlayArrow,
     pause: roundPause,
@@ -34,4 +34,4 @@ export default {
     fullscreenExit: roundFullscreenExit,
     bigPlayButton: roundPlayArrow,
   },
-};
+}

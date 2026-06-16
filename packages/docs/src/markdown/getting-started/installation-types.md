@@ -39,27 +39,27 @@ npm install @quasar/quasar-ui-qmediaplayer
 Then create and register a boot file:
 
 ```js
-import { defineBoot } from "#q-app";
-import Plugin from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+import { defineBoot } from '#q-app'
+import Plugin from '@quasar/quasar-ui-qmediaplayer'
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
 export default defineBoot(({ app }) => {
-  app.use(Plugin);
-});
+  app.use(Plugin)
+})
 ```
 
 ## Vue 3 Or Vite
 
 ```js
-import { createApp } from "vue";
-import Plugin from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
-import App from "./App.vue";
+import { createApp } from 'vue'
+import Plugin from '@quasar/quasar-ui-qmediaplayer'
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
+import App from './App.vue'
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(Plugin);
-app.mount("#app");
+app.use(Plugin)
+app.mount('#app')
 ```
 
 ## Component Import
@@ -68,7 +68,7 @@ app.mount("#app");
 <style src="@quasar/quasar-ui-qmediaplayer/dist/index.css"></style>
 
 <script setup lang="ts">
-  import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
+  import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
 </script>
 ```
 

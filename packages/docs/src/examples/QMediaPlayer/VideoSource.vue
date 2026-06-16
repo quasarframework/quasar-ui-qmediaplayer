@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
-defineOptions({ name: "VideoSource" });
+defineOptions({ name: 'VideoSource' })
 </script>

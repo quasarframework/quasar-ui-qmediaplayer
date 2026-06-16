@@ -47,14 +47,14 @@ npm install @quasar/quasar-ui-qmediaplayer
 For direct imports, use the package entrypoint and import the stylesheet separately:
 
 ```ts [twoslash]
-import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
 
-QMediaPlayer;
+QMediaPlayer
 // ^?
 ```
 
 ```ts
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 ```
 
 ## Previous v2 migration notes

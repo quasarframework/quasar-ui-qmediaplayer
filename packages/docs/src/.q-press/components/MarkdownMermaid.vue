@@ -9,75 +9,75 @@
 </template>
 
 <script setup lang="ts">
-import { uid, useQuasar } from "quasar";
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { uid, useQuasar } from 'quasar'
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{
-  code: string;
-}>();
+  code: string
+}>()
 
-const $q = useQuasar();
-const containerRef = ref<HTMLElement | null>(null);
-const errorMessage = ref("");
-const isRendering = ref(false);
+const $q = useQuasar()
+const containerRef = ref<HTMLElement | null>(null)
+const errorMessage = ref('')
+const isRendering = ref(false)
 
-let disposed = false;
-let renderRequest = 0;
+let disposed = false
+let renderRequest = 0
 
 async function renderDiagram(): Promise<void> {
   if (import.meta.env.QUASAR_CLIENT !== true || containerRef.value === null) {
-    return;
+    return
   }
 
-  const requestId = ++renderRequest;
+  const requestId = ++renderRequest
 
-  errorMessage.value = "";
-  isRendering.value = true;
+  errorMessage.value = ''
+  isRendering.value = true
 
-  await nextTick();
+  await nextTick()
 
   try {
-    const { default: mermaid } = await import("mermaid");
+    const { default: mermaid } = await import('mermaid')
 
     mermaid.initialize({
-      securityLevel: "strict",
+      securityLevel: 'strict',
       startOnLoad: false,
-      theme: $q.dark.isActive === true ? "dark" : "default",
-    });
+      theme: $q.dark.isActive === true ? 'dark' : 'default',
+    })
 
-    const { svg, bindFunctions } = await mermaid.render(`markdown-mermaid-${uid()}`, props.code);
+    const { svg, bindFunctions } = await mermaid.render(`markdown-mermaid-${uid()}`, props.code)
 
     if (disposed === true || requestId !== renderRequest || containerRef.value === null) {
-      return;
+      return
     }
 
-    containerRef.value.innerHTML = svg;
-    bindFunctions?.(containerRef.value);
+    containerRef.value.innerHTML = svg
+    bindFunctions?.(containerRef.value)
   } catch (error) {
     if (disposed === false && requestId === renderRequest) {
-      errorMessage.value = error instanceof Error ? error.message : "Unable to render diagram.";
+      errorMessage.value = error instanceof Error ? error.message : 'Unable to render diagram.'
     }
   } finally {
     if (disposed === false && requestId === renderRequest) {
-      isRendering.value = false;
+      isRendering.value = false
     }
   }
 }
 
 onMounted(() => {
-  void renderDiagram();
-});
+  void renderDiagram()
+})
 
 watch(
   () => [props.code, $q.dark.isActive] as const,
   () => {
-    void renderDiagram();
+    void renderDiagram()
   },
-);
+)
 
 onBeforeUnmount(() => {
-  disposed = true;
-});
+  disposed = true
+})
 </script>
 
 <style lang="scss">

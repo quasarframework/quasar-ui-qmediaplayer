@@ -27,11 +27,11 @@
 </template>
 
 <script setup lang="ts">
-import { mdiClose } from "@quasar/extras/mdi-v7";
+import { mdiClose } from '@quasar/extras/mdi-v7'
 
-import { useMarkdownStore } from "@/.q-press/stores/markdown";
+import { useMarkdownStore } from '@/.q-press/stores/markdown'
 
-import MarkdownPageToc from "./MarkdownPageToc.vue";
+import MarkdownPageToc from './MarkdownPageToc.vue'
 
-const markdownStore = useMarkdownStore();
+const markdownStore = useMarkdownStore()
 </script>

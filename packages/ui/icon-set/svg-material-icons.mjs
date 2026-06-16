@@ -16,10 +16,10 @@ import {
   matCheck,
   matFullscreen,
   matFullscreenExit,
-} from "@quasar/extras/material-icons";
+} from '@quasar/extras/material-icons'
 
 export default {
-  name: "svg-material-icons",
+  name: 'svg-material-icons',
   mediaPlayer: {
     play: matPlayArrow,
     pause: matPause,
@@ -34,4 +34,4 @@ export default {
     fullscreenExit: matFullscreenExit,
     bigPlayButton: matPlayArrow,
   },
-};
+}

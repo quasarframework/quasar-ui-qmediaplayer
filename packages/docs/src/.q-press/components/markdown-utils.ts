@@ -1,10 +1,10 @@
-import { Notify } from "quasar";
+import { Notify } from 'quasar'
 
-const andRE = /&/g;
-const rCombining = /[\u0300-\u036F]/g;
+const andRE = /&/g
+const rCombining = /[\u0300-\u036F]/g
 // oxlint-disable-next-line no-control-regex
-const rControl = /[\u0000-\u001f]/g;
-const rSpecial = /[\s~`!@#$%^&*()\-_+=[\]{}|\\;:"'“”‘’<>,.?/]+/g;
+const rControl = /[\u0000-\u001f]/g
+const rSpecial = /[\s~`!@#$%^&*()\-_+=[\]{}|\\;:"'“”‘’<>,.?/]+/g
 
 /**
  * Default slugification function used by qPress client helpers.
@@ -12,20 +12,20 @@ const rSpecial = /[\s~`!@#$%^&*()\-_+=[\]{}|\\;:"'“”‘’<>,.?/]+/g;
 export const slugify = (str: string): string =>
   str
     .trim()
-    .replace(/([a-z])([A-Z])/g, "$1-$2")
-    .replace(/[\s_]+/g, "-")
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
     .toLowerCase()
-    .normalize("NFKD")
-    .replace(rCombining, "")
-    .replace(andRE, "-and-")
-    .replace(rControl, "-")
-    .replace(rSpecial, "-")
-    .replace(/[^a-z0-9-]+/g, "")
-    .replace(/([a-z])(\d)/g, "$1-$2")
-    .replace(/(\d)([a-z])/g, "$1-$2")
-    .replace(/-{2,}/g, "-")
-    .replace(/(^-|-$)/g, "")
-    .replace(/^(\d)/, "_$1");
+    .normalize('NFKD')
+    .replace(rCombining, '')
+    .replace(andRE, '-and-')
+    .replace(rControl, '-')
+    .replace(rSpecial, '-')
+    .replace(/[^a-z0-9-]+/g, '')
+    .replace(/([a-z])(\d)/g, '$1-$2')
+    .replace(/(\d)([a-z])/g, '$1-$2')
+    .replace(/-{2,}/g, '-')
+    .replace(/(^-|-$)/g, '')
+    .replace(/^(\d)/, '_$1')
 
 /**
  * Fallback function to copy text to clipboard when the Clipboard API is not available.
@@ -36,22 +36,22 @@ export const slugify = (str: string): string =>
  * @returns A boolean indicating whether the copy operation was successful (true) or not (false).
  */
 function copyToClipboardFallback(text: string): boolean {
-  const textArea = document.createElement("textarea");
-  textArea.value = text;
-  textArea.style.position = "fixed"; // avoid scrolling to bottom
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
+  const textArea = document.createElement('textarea')
+  textArea.value = text
+  textArea.style.position = 'fixed' // avoid scrolling to bottom
+  document.body.appendChild(textArea)
+  textArea.focus()
+  textArea.select()
 
-  let res = false;
+  let res = false
   try {
-    res = document.execCommand("copy");
+    res = document.execCommand('copy')
   } catch (err) {
-    console.error("Unable to copy to clipboard", err);
+    console.error('Unable to copy to clipboard', err)
   } finally {
-    document.body.removeChild(textArea);
+    document.body.removeChild(textArea)
   }
-  return res;
+  return res
 }
 
 /**
@@ -66,22 +66,22 @@ function copyToClipboardFallback(text: string): boolean {
 export async function copyToClipboard(text: string): Promise<void> {
   if (navigator.clipboard) {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text)
     } catch (err) {
-      console.error("Failed to copy text to clipboard using Clipboard API", err);
-      throw err;
+      console.error('Failed to copy text to clipboard using Clipboard API', err)
+      throw err
     }
   } else {
     return new Promise((resolve, reject) => {
-      const res = copyToClipboardFallback(text);
+      const res = copyToClipboardFallback(text)
       if (res) {
-        resolve();
+        resolve()
       } else {
-        const error = new Error("Failed to copy text to clipboard using fallback method");
-        console.error(error);
-        reject(error);
+        const error = new Error('Failed to copy text to clipboard using fallback method')
+        console.error(error)
+        reject(error)
       }
-    });
+    })
   }
 }
 
@@ -99,31 +99,31 @@ export async function copyToClipboard(text: string): Promise<void> {
  * @returns void This function doesn't return a value.
  */
 export function copyHeading(id: string): void {
-  const text = `${location.origin}${location.pathname}#${id}`;
-  const el = document.getElementById(id);
+  const text = `${location.origin}${location.pathname}#${id}`
+  const el = document.getElementById(id)
 
   if (el) {
-    el.id = ""; // Temporarily clear the ID to avoid jumping
+    el.id = '' // Temporarily clear the ID to avoid jumping
   }
 
-  if ("replaceState" in history) {
-    history.replaceState(history.state, "", `${location.pathname}#${id}`);
+  if ('replaceState' in history) {
+    history.replaceState(history.state, '', `${location.pathname}#${id}`)
   } else {
-    location.hash = `#${id}`;
+    location.hash = `#${id}`
   }
 
   if (el) {
     setTimeout(() => {
-      el.id = id; // Restore the ID
-    }, 300);
+      el.id = id // Restore the ID
+    }, 300)
   }
 
-  copyToClipboard(text);
+  copyToClipboard(text)
 
   Notify.create({
-    message: "Anchor has been copied to clipboard.",
-    position: "top",
-    actions: [{ icon: "cancel", color: "white", dense: true, round: true }],
+    message: 'Anchor has been copied to clipboard.',
+    position: 'top',
+    actions: [{ icon: 'cancel', color: 'white', dense: true, round: true }],
     timeout: 2000,
-  });
+  })
 }

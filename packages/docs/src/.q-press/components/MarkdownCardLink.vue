@@ -15,7 +15,7 @@ const props = defineProps({
   },
 
   external: Boolean,
-});
+})
 </script>
 
 <style lang="scss">

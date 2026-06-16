@@ -1,4 +1,4 @@
-import Plugin from "./index";
+import Plugin from './index'
 
-export default Plugin;
-export * from "./index";
+export default Plugin
+export * from './index'

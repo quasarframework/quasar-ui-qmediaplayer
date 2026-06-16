@@ -10,8 +10,8 @@ import {
   ref,
   watch,
   withDirectives,
-} from "vue";
-import type { PropType, Slot, VNode, VNodeArrayChildren } from "vue";
+} from 'vue'
+import type { PropType, Slot, VNode, VNodeArrayChildren } from 'vue'
 
 import {
   ClosePopup,
@@ -27,258 +27,258 @@ import {
   QTooltip,
   Ripple,
   useQuasar,
-} from "quasar";
+} from 'quasar'
 
-import defaultIconSet from "../../icon-set/material-icons.mjs";
-import defaultLang from "../../lang/en-US.mjs";
+import defaultIconSet from '../../icon-set/material-icons.mjs'
+import defaultLang from '../../lang/en-US.mjs'
 
-type MediaPlayerType = "video" | "audio";
-type CrossOrigin = "anonymous" | "use-credentials" | null;
-type ClassOrStyle = string | Record<string, unknown> | undefined;
+type MediaPlayerType = 'video' | 'audio'
+type CrossOrigin = 'anonymous' | 'use-credentials' | null
+type ClassOrStyle = string | Record<string, unknown> | undefined
 
 type MediaSource = {
-  src?: string;
-  type?: string;
-};
+  src?: string
+  type?: string
+}
 
 type MediaTrack = {
-  kind?: string;
-  label?: string;
-  src?: string;
-  srclang?: string;
-};
+  kind?: string
+  label?: string
+  src?: string
+  srclang?: string
+}
 
 type PlaybackRateOption = {
-  label: string;
-  value: number;
-};
+  label: string
+  value: number
+}
 
 type SelectOption = {
-  label: string;
-  value: string;
-};
+  label: string
+  value: string
+}
 
-type RenderChild = string | number | boolean | VNode | VNodeArrayChildren | (() => unknown);
+type RenderChild = string | number | boolean | VNode | VNodeArrayChildren | (() => unknown)
 
 type MediaPlayerMessages = {
-  language: string;
-  mute: string;
-  noLoadAudio: string;
-  noLoadVideo: string;
-  oldBrowserAudio: string;
-  oldBrowserVideo: string;
-  pause: string;
-  play: string;
-  rate1Point5: string;
-  rate2: string;
-  rateNormal: string;
-  ratePoint5: string;
-  settings: string;
-  speed: string;
-  toggleFullscreen: string;
-  trackLanguageOff: string;
-  unmute: string;
-  waitingAudio: string;
-  waitingVideo: string;
-};
+  language: string
+  mute: string
+  noLoadAudio: string
+  noLoadVideo: string
+  oldBrowserAudio: string
+  oldBrowserVideo: string
+  pause: string
+  play: string
+  rate1Point5: string
+  rate2: string
+  rateNormal: string
+  ratePoint5: string
+  settings: string
+  speed: string
+  toggleFullscreen: string
+  trackLanguageOff: string
+  unmute: string
+  waitingAudio: string
+  waitingVideo: string
+}
 
 type MediaPlayerLang = {
-  lang?: string;
-  mediaPlayer: MediaPlayerMessages;
-};
+  lang?: string
+  mediaPlayer: MediaPlayerMessages
+}
 
 type MediaPlayerIcons = {
-  bigPlayButton: string;
-  fullscreen: string;
-  fullscreenExit: string;
-  language: string;
-  pause: string;
-  play: string;
-  selected: string;
-  settings: string;
-  speed: string;
-  volumeDown: string;
-  volumeOff: string;
-  volumeUp: string;
-};
+  bigPlayButton: string
+  fullscreen: string
+  fullscreenExit: string
+  language: string
+  pause: string
+  play: string
+  selected: string
+  settings: string
+  speed: string
+  volumeDown: string
+  volumeOff: string
+  volumeUp: string
+}
 
 type MediaPlayerIconSet = {
-  mediaPlayer: MediaPlayerIcons;
-};
+  mediaPlayer: MediaPlayerIcons
+}
 
 type QMediaPlayerGlobal = {
-  Component?: unknown;
-  lang?: Record<string, MediaPlayerLang>;
-  iconSet?: Record<string, MediaPlayerIconSet>;
-};
+  Component?: unknown
+  lang?: Record<string, MediaPlayerLang>
+  iconSet?: Record<string, MediaPlayerIconSet>
+}
 
 type QuasarLike = {
   dark: {
-    isActive: boolean;
-  };
+    isActive: boolean
+  }
   fullscreen?: {
-    isActive?: boolean;
-    request: (target?: Element | null) => void | Promise<void>;
-    exit: () => void | Promise<void>;
-  };
+    isActive?: boolean
+    request: (target?: Element | null) => void | Promise<void>
+    exit: () => void | Promise<void>
+  }
   iconSet?: {
-    name?: string;
-    mediaPlayer?: Partial<MediaPlayerIcons>;
-  };
+    name?: string
+    mediaPlayer?: Partial<MediaPlayerIcons>
+  }
   lang?: {
-    isoName?: string;
-  };
-};
+    isoName?: string
+  }
+}
 
 type MediaPlayerState = {
-  errorText: string | null;
-  controls: boolean;
-  showControls: boolean;
-  inControls: boolean;
-  volume: number;
-  muted: boolean;
-  currentTime: number;
-  duration: number;
-  durationTime: string;
-  remainingTime: string;
-  displayTime: string;
-  inFullscreen: boolean;
-  loading: boolean;
-  playReady: boolean;
-  playing: boolean;
-  playbackRates: PlaybackRateOption[];
-  playbackRate: number;
-  trackLanguage: string;
-  showBigPlayButton: boolean;
-  metadataLoaded: boolean;
-  spinnerSize: string;
-  bottomControls: boolean;
-  noControls: boolean;
-};
+  errorText: string | null
+  controls: boolean
+  showControls: boolean
+  inControls: boolean
+  volume: number
+  muted: boolean
+  currentTime: number
+  duration: number
+  durationTime: string
+  remainingTime: string
+  displayTime: string
+  inFullscreen: boolean
+  loading: boolean
+  playReady: boolean
+  playing: boolean
+  playbackRates: PlaybackRateOption[]
+  playbackRate: number
+  trackLanguage: string
+  showBigPlayButton: boolean
+  metadataLoaded: boolean
+  spinnerSize: string
+  bottomControls: boolean
+  noControls: boolean
+}
 
 declare global {
   interface Window {
-    QMediaPlayer?: QMediaPlayerGlobal;
+    QMediaPlayer?: QMediaPlayerGlobal
   }
 }
 
-const defaultMediaPlayerLang = defaultLang as MediaPlayerLang;
-const defaultMediaPlayerIconSet = defaultIconSet as MediaPlayerIconSet;
+const defaultMediaPlayerLang = defaultLang as MediaPlayerLang
+const defaultMediaPlayerIconSet = defaultIconSet as MediaPlayerIconSet
 
 const matClose =
-  "M0 0h24v24H0z@@fill:none;&&M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z";
+  'M0 0h24v24H0z@@fill:none;&&M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'
 
 const iconSetLoaders = {
-  "bootstrap-icons": () => import("../../icon-set/bootstrap-icons.mjs"),
-  "eva-icons": () => import("../../icon-set/eva-icons.mjs"),
-  "fontawesome-v7": () => import("../../icon-set/fontawesome-v7.mjs"),
-  "ionicons-v4": () => import("../../icon-set/ionicons-v4.mjs"),
-  "ionicons-v8": () => import("../../icon-set/ionicons-v8.mjs"),
-  "line-awesome": () => import("../../icon-set/line-awesome.mjs"),
-  "material-icons": async () => ({ default: defaultIconSet }),
-  "material-icons-outlined": () => import("../../icon-set/material-icons-outlined.mjs"),
-  "material-icons-round": () => import("../../icon-set/material-icons-round.mjs"),
-  "material-icons-sharp": () => import("../../icon-set/material-icons-sharp.mjs"),
-  "material-symbols-outlined": () => import("../../icon-set/material-symbols-outlined.mjs"),
-  "material-symbols-rounded": () => import("../../icon-set/material-symbols-rounded.mjs"),
-  "material-symbols-sharp": () => import("../../icon-set/material-symbols-sharp.mjs"),
-  "mdi-v7": () => import("../../icon-set/mdi-v7.mjs"),
-  "svg-bootstrap-icons": () => import("../../icon-set/svg-bootstrap-icons.mjs"),
-  "svg-eva-icons": () => import("../../icon-set/svg-eva-icons.mjs"),
-  "svg-fontawesome-v7": () => import("../../icon-set/svg-fontawesome-v7.mjs"),
-  "svg-ionicons-v4": () => import("../../icon-set/svg-ionicons-v4.mjs"),
-  "svg-ionicons-v8": () => import("../../icon-set/svg-ionicons-v8.mjs"),
-  "svg-line-awesome": () => import("../../icon-set/svg-line-awesome.mjs"),
-  "svg-material-icons": () => import("../../icon-set/svg-material-icons.mjs"),
-  "svg-material-icons-outlined": () => import("../../icon-set/svg-material-icons-outlined.mjs"),
-  "svg-material-icons-round": () => import("../../icon-set/svg-material-icons-round.mjs"),
-  "svg-material-icons-sharp": () => import("../../icon-set/svg-material-icons-sharp.mjs"),
-  "svg-material-symbols-outlined": () => import("../../icon-set/svg-material-symbols-outlined.mjs"),
-  "svg-material-symbols-rounded": () => import("../../icon-set/svg-material-symbols-rounded.mjs"),
-  "svg-material-symbols-sharp": () => import("../../icon-set/svg-material-symbols-sharp.mjs"),
-  "svg-mdi-v7": () => import("../../icon-set/svg-mdi-v7.mjs"),
-  "svg-themify": () => import("../../icon-set/svg-themify.mjs"),
-  themify: () => import("../../icon-set/themify.mjs"),
-};
+  'bootstrap-icons': () => import('../../icon-set/bootstrap-icons.mjs'),
+  'eva-icons': () => import('../../icon-set/eva-icons.mjs'),
+  'fontawesome-v7': () => import('../../icon-set/fontawesome-v7.mjs'),
+  'ionicons-v4': () => import('../../icon-set/ionicons-v4.mjs'),
+  'ionicons-v8': () => import('../../icon-set/ionicons-v8.mjs'),
+  'line-awesome': () => import('../../icon-set/line-awesome.mjs'),
+  'material-icons': async () => ({ default: defaultIconSet }),
+  'material-icons-outlined': () => import('../../icon-set/material-icons-outlined.mjs'),
+  'material-icons-round': () => import('../../icon-set/material-icons-round.mjs'),
+  'material-icons-sharp': () => import('../../icon-set/material-icons-sharp.mjs'),
+  'material-symbols-outlined': () => import('../../icon-set/material-symbols-outlined.mjs'),
+  'material-symbols-rounded': () => import('../../icon-set/material-symbols-rounded.mjs'),
+  'material-symbols-sharp': () => import('../../icon-set/material-symbols-sharp.mjs'),
+  'mdi-v7': () => import('../../icon-set/mdi-v7.mjs'),
+  'svg-bootstrap-icons': () => import('../../icon-set/svg-bootstrap-icons.mjs'),
+  'svg-eva-icons': () => import('../../icon-set/svg-eva-icons.mjs'),
+  'svg-fontawesome-v7': () => import('../../icon-set/svg-fontawesome-v7.mjs'),
+  'svg-ionicons-v4': () => import('../../icon-set/svg-ionicons-v4.mjs'),
+  'svg-ionicons-v8': () => import('../../icon-set/svg-ionicons-v8.mjs'),
+  'svg-line-awesome': () => import('../../icon-set/svg-line-awesome.mjs'),
+  'svg-material-icons': () => import('../../icon-set/svg-material-icons.mjs'),
+  'svg-material-icons-outlined': () => import('../../icon-set/svg-material-icons-outlined.mjs'),
+  'svg-material-icons-round': () => import('../../icon-set/svg-material-icons-round.mjs'),
+  'svg-material-icons-sharp': () => import('../../icon-set/svg-material-icons-sharp.mjs'),
+  'svg-material-symbols-outlined': () => import('../../icon-set/svg-material-symbols-outlined.mjs'),
+  'svg-material-symbols-rounded': () => import('../../icon-set/svg-material-symbols-rounded.mjs'),
+  'svg-material-symbols-sharp': () => import('../../icon-set/svg-material-symbols-sharp.mjs'),
+  'svg-mdi-v7': () => import('../../icon-set/svg-mdi-v7.mjs'),
+  'svg-themify': () => import('../../icon-set/svg-themify.mjs'),
+  themify: () => import('../../icon-set/themify.mjs'),
+}
 
 const langLoaders = {
-  ar: () => import("../../lang/ar.mjs"),
-  "az-Latn": () => import("../../lang/az-Latn.mjs"),
-  bg: () => import("../../lang/bg.mjs"),
-  bn: () => import("../../lang/bn.mjs"),
-  ca: () => import("../../lang/ca.mjs"),
-  cs: () => import("../../lang/cs.mjs"),
-  da: () => import("../../lang/da.mjs"),
-  de: () => import("../../lang/de.mjs"),
-  el: () => import("../../lang/el.mjs"),
-  "en-GB": () => import("../../lang/en-GB.mjs"),
-  "en-US": async () => ({ default: defaultLang }),
-  eo: () => import("../../lang/eo.mjs"),
-  es: () => import("../../lang/es.mjs"),
-  et: () => import("../../lang/et.mjs"),
-  fa: () => import("../../lang/fa.mjs"),
-  "fa-IR": () => import("../../lang/fa-IR.mjs"),
-  fi: () => import("../../lang/fi.mjs"),
-  fr: () => import("../../lang/fr.mjs"),
-  gn: () => import("../../lang/gn.mjs"),
-  he: () => import("../../lang/he.mjs"),
-  hr: () => import("../../lang/hr.mjs"),
-  hu: () => import("../../lang/hu.mjs"),
-  id: () => import("../../lang/id.mjs"),
-  is: () => import("../../lang/is.mjs"),
-  it: () => import("../../lang/it.mjs"),
-  ja: () => import("../../lang/ja.mjs"),
-  km: () => import("../../lang/km.mjs"),
-  "ko-KR": () => import("../../lang/ko-KR.mjs"),
-  "kur-CKB": () => import("../../lang/kur-CKB.mjs"),
-  lt: () => import("../../lang/lt.mjs"),
-  lu: () => import("../../lang/lu.mjs"),
-  lv: () => import("../../lang/lv.mjs"),
-  ml: () => import("../../lang/ml.mjs"),
-  ms: () => import("../../lang/ms.mjs"),
-  "nb-NO": () => import("../../lang/nb-NO.mjs"),
-  nl: () => import("../../lang/nl.mjs"),
-  pl: () => import("../../lang/pl.mjs"),
-  pt: () => import("../../lang/pt.mjs"),
-  "pt-BR": () => import("../../lang/pt-BR.mjs"),
-  ro: () => import("../../lang/ro.mjs"),
-  ru: () => import("../../lang/ru.mjs"),
-  sk: () => import("../../lang/sk.mjs"),
-  sl: () => import("../../lang/sl.mjs"),
-  sr: () => import("../../lang/sr.mjs"),
-  "sr-CYR": () => import("../../lang/sr-CYR.mjs"),
-  sv: () => import("../../lang/sv.mjs"),
-  ta: () => import("../../lang/ta.mjs"),
-  th: () => import("../../lang/th.mjs"),
-  tr: () => import("../../lang/tr.mjs"),
-  ug: () => import("../../lang/ug.mjs"),
-  uk: () => import("../../lang/uk.mjs"),
-  vi: () => import("../../lang/vi.mjs"),
-  "zh-CN": () => import("../../lang/zh-CN.mjs"),
-  "zh-TW": () => import("../../lang/zh-TW.mjs"),
-};
+  ar: () => import('../../lang/ar.mjs'),
+  'az-Latn': () => import('../../lang/az-Latn.mjs'),
+  bg: () => import('../../lang/bg.mjs'),
+  bn: () => import('../../lang/bn.mjs'),
+  ca: () => import('../../lang/ca.mjs'),
+  cs: () => import('../../lang/cs.mjs'),
+  da: () => import('../../lang/da.mjs'),
+  de: () => import('../../lang/de.mjs'),
+  el: () => import('../../lang/el.mjs'),
+  'en-GB': () => import('../../lang/en-GB.mjs'),
+  'en-US': async () => ({ default: defaultLang }),
+  eo: () => import('../../lang/eo.mjs'),
+  es: () => import('../../lang/es.mjs'),
+  et: () => import('../../lang/et.mjs'),
+  fa: () => import('../../lang/fa.mjs'),
+  'fa-IR': () => import('../../lang/fa-IR.mjs'),
+  fi: () => import('../../lang/fi.mjs'),
+  fr: () => import('../../lang/fr.mjs'),
+  gn: () => import('../../lang/gn.mjs'),
+  he: () => import('../../lang/he.mjs'),
+  hr: () => import('../../lang/hr.mjs'),
+  hu: () => import('../../lang/hu.mjs'),
+  id: () => import('../../lang/id.mjs'),
+  is: () => import('../../lang/is.mjs'),
+  it: () => import('../../lang/it.mjs'),
+  ja: () => import('../../lang/ja.mjs'),
+  km: () => import('../../lang/km.mjs'),
+  'ko-KR': () => import('../../lang/ko-KR.mjs'),
+  'kur-CKB': () => import('../../lang/kur-CKB.mjs'),
+  lt: () => import('../../lang/lt.mjs'),
+  lu: () => import('../../lang/lu.mjs'),
+  lv: () => import('../../lang/lv.mjs'),
+  ml: () => import('../../lang/ml.mjs'),
+  ms: () => import('../../lang/ms.mjs'),
+  'nb-NO': () => import('../../lang/nb-NO.mjs'),
+  nl: () => import('../../lang/nl.mjs'),
+  pl: () => import('../../lang/pl.mjs'),
+  pt: () => import('../../lang/pt.mjs'),
+  'pt-BR': () => import('../../lang/pt-BR.mjs'),
+  ro: () => import('../../lang/ro.mjs'),
+  ru: () => import('../../lang/ru.mjs'),
+  sk: () => import('../../lang/sk.mjs'),
+  sl: () => import('../../lang/sl.mjs'),
+  sr: () => import('../../lang/sr.mjs'),
+  'sr-CYR': () => import('../../lang/sr-CYR.mjs'),
+  sv: () => import('../../lang/sv.mjs'),
+  ta: () => import('../../lang/ta.mjs'),
+  th: () => import('../../lang/th.mjs'),
+  tr: () => import('../../lang/tr.mjs'),
+  ug: () => import('../../lang/ug.mjs'),
+  uk: () => import('../../lang/uk.mjs'),
+  vi: () => import('../../lang/vi.mjs'),
+  'zh-CN': () => import('../../lang/zh-CN.mjs'),
+  'zh-TW': () => import('../../lang/zh-TW.mjs'),
+}
 
 function hSlot(slot: Slot | undefined, otherwise: RenderChild): RenderChild {
-  return slot !== void 0 ? slot() : otherwise;
+  return slot !== void 0 ? slot() : otherwise
 }
 
 const padTime = (val: number) => {
-  val = Math.floor(val);
+  val = Math.floor(val)
   if (val < 10) {
-    return "0" + val;
+    return '0' + val
   }
-  return val + "";
-};
+  return val + ''
+}
 
 const timeParse = (sec: number) => {
-  let min = 0;
-  min = Math.floor(sec / 60);
-  sec = sec - min * 60;
-  return padTime(min) + ":" + padTime(sec);
-};
+  let min = 0
+  min = Math.floor(sec / 60)
+  sec = sec - min * 60
+  return padTime(min) + ':' + padTime(sec)
+}
 
 export default defineComponent({
-  name: "QMediaPlayer",
+  name: 'QMediaPlayer',
 
   directives: {
     ClosePopup,
@@ -289,8 +289,8 @@ export default defineComponent({
     type: {
       type: String as PropType<MediaPlayerType>,
       required: false,
-      default: "video",
-      validator: (v: string) => ["video", "audio"].includes(v),
+      default: 'video',
+      validator: (v: string) => ['video', 'audio'].includes(v),
     },
     mobileMode: Boolean,
     togglePlayOnClick: {
@@ -304,11 +304,11 @@ export default defineComponent({
     },
     poster: {
       type: String,
-      default: "",
+      default: '',
     },
     fallbackPoster: {
       type: String,
-      default: "",
+      default: '',
     },
     tracks: {
       type: Array as PropType<MediaTrack[]>,
@@ -323,7 +323,7 @@ export default defineComponent({
     crossOrigin: {
       type: String as PropType<CrossOrigin>,
       default: null,
-      validator: (v: string | null) => v === null || ["anonymous", "use-credentials"].includes(v),
+      validator: (v: string | null) => v === null || ['anonymous', 'use-credentials'].includes(v),
     },
     volume: {
       type: Number,
@@ -338,8 +338,8 @@ export default defineComponent({
     disabledSeek: Boolean,
     preload: {
       type: String,
-      default: "metadata",
-      validator: (v: string) => ["none", "metadata", "auto"].includes(v),
+      default: 'metadata',
+      validator: (v: string) => ['none', 'metadata', 'auto'].includes(v),
     },
     noVideo: Boolean,
     muted: Boolean,
@@ -347,7 +347,7 @@ export default defineComponent({
     loop: Boolean,
     trackLanguage: {
       type: String,
-      default: "off", // value for 'Off'
+      default: 'off', // value for 'Off'
     },
     showTooltips: Boolean,
     showBigPlayButton: {
@@ -387,45 +387,45 @@ export default defineComponent({
   },
 
   emits: [
-    "mediaPlayer",
-    "playbackRate",
-    "trackLanguage",
-    "showControls",
-    "volume",
-    "muted",
-    "fullscreen",
-    "networkState",
-    "abort",
-    "ready",
-    "canplay",
-    "canplaythrough",
-    "duration",
-    "emptied",
-    "ended",
-    "error",
-    "loadeddata",
-    "loadedmetadata",
-    "stalled",
-    "suspend",
-    "loadstart",
-    "paused",
-    "play",
-    "playing",
-    "timeupdate",
-    "waiting",
+    'mediaPlayer',
+    'playbackRate',
+    'trackLanguage',
+    'showControls',
+    'volume',
+    'muted',
+    'fullscreen',
+    'networkState',
+    'abort',
+    'ready',
+    'canplay',
+    'canplaythrough',
+    'duration',
+    'emptied',
+    'ended',
+    'error',
+    'loadeddata',
+    'loadedmetadata',
+    'stalled',
+    'suspend',
+    'loadstart',
+    'paused',
+    'play',
+    'playing',
+    'timeupdate',
+    'waiting',
   ],
 
   setup(props, { slots, emit, expose }) {
-    const vm = getCurrentInstance();
-    const vmContext = vm as ({ ctx?: { $q?: Partial<QuasarLike> } } & typeof vm) | null;
-    const instanceQuasar = (vm?.proxy?.$q || vmContext?.ctx?.$q) as Partial<QuasarLike> | undefined;
-    const quasar = (useQuasar() || instanceQuasar || {}) as Partial<QuasarLike>;
+    const vm = getCurrentInstance()
+    const vmContext = vm as ({ ctx?: { $q?: Partial<QuasarLike> } } & typeof vm) | null
+    const instanceQuasar = (vm?.proxy?.$q || vmContext?.ctx?.$q) as Partial<QuasarLike> | undefined
+    const quasar = (useQuasar() || instanceQuasar || {}) as Partial<QuasarLike>
     const $q = {
       dark: { isActive: false },
-      iconSet: { name: "material-icons" },
-      lang: { isoName: "en-US" },
+      iconSet: { name: 'material-icons' },
+      lang: { isoName: 'en-US' },
       ...quasar,
-    } as QuasarLike;
+    } as QuasarLike
 
     const canRender = ref(false),
       lang = reactive({
@@ -452,24 +452,24 @@ export default defineComponent({
         muted: false,
         currentTime: 0.01,
         duration: 1,
-        durationTime: "00:00",
-        remainingTime: "00:00",
-        displayTime: "00:00",
+        durationTime: '00:00',
+        remainingTime: '00:00',
+        displayTime: '00:00',
         inFullscreen: false,
         loading: true,
         playReady: false,
         playing: false,
         playbackRates: [
-          { label: ".5x", value: 0.5 },
-          { label: "Normal", value: 1 },
-          { label: "1.5x", value: 1.5 },
-          { label: "2x", value: 2 },
+          { label: '.5x', value: 0.5 },
+          { label: 'Normal', value: 1 },
+          { label: '1.5x', value: 1.5 },
+          { label: '2x', value: 2 },
         ],
         playbackRate: 1,
-        trackLanguage: "Off",
+        trackLanguage: 'Off',
         showBigPlayButton: true,
         metadataLoaded: false,
-        spinnerSize: "5em",
+        spinnerSize: '5em',
         bottomControls: false,
         noControls: false,
       }),
@@ -477,227 +477,227 @@ export default defineComponent({
       autoPauseObserver = ref<IntersectionObserver | null>(null),
       blobObjectUrl = ref<string | null>(null),
       allEvents = [
-        "abort",
-        "canplay",
-        "canplaythrough",
-        "durationchange",
-        "emptied",
-        "ended",
-        "error",
-        "interruptbegin",
-        "interruptend",
-        "loadeddata",
-        "loadedmetadata",
-        "loadstart",
-        "pause",
-        "play",
-        "playing",
-        "progress",
-        "ratechange",
-        "seeked",
-        "timeupdate",
-        "volumechange",
-        "waiting",
-      ];
+        'abort',
+        'canplay',
+        'canplaythrough',
+        'durationchange',
+        'emptied',
+        'ended',
+        'error',
+        'interruptbegin',
+        'interruptend',
+        'loadeddata',
+        'loadedmetadata',
+        'loadstart',
+        'pause',
+        'play',
+        'playing',
+        'progress',
+        'ratechange',
+        'seeked',
+        'timeupdate',
+        'volumechange',
+        'waiting',
+      ]
 
     // Computed
 
     const __classes = computed(() => {
       return {
-        "q-media__fullscreen": state.inFullscreen,
-        "q-media__fullscreen--window": state.inFullscreen,
-      };
-    });
+        'q-media__fullscreen': state.inFullscreen,
+        'q-media__fullscreen--window': state.inFullscreen,
+      }
+    })
 
     const __renderVideoClasses = computed(() => {
       return {
-        "q-media--player": true,
-        "q-media--player--bottom-controls--standard":
+        'q-media--player': true,
+        'q-media--player--bottom-controls--standard':
           !props.dense && state.bottomControls && state.inFullscreen,
-        "q-media--player--bottom-controls--dense":
+        'q-media--player--bottom-controls--dense':
           props.dense && state.bottomControls && state.inFullscreen,
-      };
-    });
+      }
+    })
 
     const __videoControlsClasses = computed(() => {
       return {
-        "q-media__controls--dense":
+        'q-media__controls--dense':
           !slots.controls && (state.showControls || props.mobileMode) && props.dense,
-        "q-media__controls--standard":
+        'q-media__controls--standard':
           !slots.controls && (state.showControls || props.mobileMode) && !props.dense,
-        "q-media__controls--hidden": !state.showControls,
-        "q-media__controls--bottom-controls": state.bottomControls,
-      };
-    });
+        'q-media__controls--hidden': !state.showControls,
+        'q-media__controls--bottom-controls': state.bottomControls,
+      }
+    })
 
     const __audioControlsClasses = computed(() => {
       return {
-        "q-media__controls--dense": props.dense,
-        "q-media__controls--standard": !props.dense,
-        "q-media__controls--bottom-controls": state.bottomControls,
-      };
-    });
+        'q-media__controls--dense': props.dense,
+        'q-media__controls--standard': !props.dense,
+        'q-media__controls--bottom-controls': state.bottomControls,
+      }
+    })
 
     const __contentStyle = computed(() => {
-      const style: Record<string, unknown> = {};
+      const style: Record<string, unknown> = {}
       if (state.inFullscreen !== true) {
-        Object.assign(style, __mergeClassOrStyle("style", props.contentStyle));
+        Object.assign(style, __mergeClassOrStyle('style', props.contentStyle))
         if (props.bottomControls === true && style.height === void 0) {
           // const size = props.dense === true ? 40 : 80
-          style.height = `calc(100% - ${__controlsHeight.value}px)`;
+          style.height = `calc(100% - ${__controlsHeight.value}px)`
         }
         if (style.height === void 0) {
-          style.height = "100%";
+          style.height = '100%'
         }
       }
-      return style;
-    });
+      return style
+    })
 
     const __volumeIcon = computed(() => {
       if (state.volume > 1 && state.volume < 70 && !state.muted) {
-        return iconSet.mediaPlayer.volumeDown;
+        return iconSet.mediaPlayer.volumeDown
       } else if (state.volume >= 70 && !state.muted) {
-        return iconSet.mediaPlayer.volumeUp;
+        return iconSet.mediaPlayer.volumeUp
       } else {
-        return iconSet.mediaPlayer.volumeOff;
+        return iconSet.mediaPlayer.volumeOff
       }
-    });
+    })
 
     const __selectTracksLanguageList = computed(() => {
-      const tracksList: SelectOption[] = [];
+      const tracksList: SelectOption[] = []
       // provide option to turn subtitles/captions/chapters off
       const track: SelectOption = {
         label: lang.mediaPlayer.trackLanguageOff,
-        value: "off",
-      };
-      tracksList.push(track);
+        value: 'off',
+      }
+      tracksList.push(track)
       for (let index = 0; index < props.tracks.length; ++index) {
         const track = {
-          label: props.tracks[index].label || "",
-          value: props.tracks[index].label || "",
-        };
-        tracksList.push(track);
+          label: props.tracks[index].label || '',
+          value: props.tracks[index].label || '',
+        }
+        tracksList.push(track)
       }
-      return tracksList;
-    });
+      return tracksList
+    })
 
     function __mediaElement() {
-      const media = $media.value;
-      return media !== null && media.volume !== undefined ? media : null;
+      const media = $media.value
+      return media !== null && media.volume !== undefined ? media : null
     }
 
-    const __isMediaAvailable = computed(() => __mediaElement() !== null);
+    const __isMediaAvailable = computed(() => __mediaElement() !== null)
 
     const __isAudio = computed(() => {
-      return props.type === "audio";
-    });
+      return props.type === 'audio'
+    })
 
     const __isVideo = computed(() => {
-      return props.type === "video";
-    });
+      return props.type === 'video'
+    })
 
     const __poster = computed(() => {
-      return props.poster || props.fallbackPoster || undefined;
-    });
+      return props.poster || props.fallbackPoster || undefined
+    })
 
     const __settingsPlaybackCaption = computed(() => {
-      let caption = "";
+      let caption = ''
       state.playbackRates.forEach((rate: PlaybackRateOption) => {
         if (rate.value === state.playbackRate) {
-          caption = rate.label;
+          caption = rate.label
         }
-      });
-      return caption;
-    });
+      })
+      return caption
+    })
 
     const __controlsHeight = computed(() => {
       if (controls.value) {
-        return controls.value.clientHeight;
+        return controls.value.clientHeight
       }
-      return props.dense ? 40 : 80;
-    });
+      return props.dense ? 40 : 80
+    })
 
     // Watches
 
     watch(
       () => $media.value,
       () => {
-        __init();
-        emit("mediaPlayer", $media.value);
+        __init()
+        emit('mediaPlayer', $media.value)
       },
-    );
+    )
 
     watch(
       () => [props.poster, props.fallbackPoster],
       () => {
-        __updatePoster();
+        __updatePoster()
       },
-    );
+    )
 
     watch(
       () => props.sources,
       () => {
-        __updateSources();
+        __updateSources()
       },
       { deep: true },
-    );
+    )
 
     watch(
       () => props.source,
       () => {
-        __updateSources();
+        __updateSources()
       },
-    );
+    )
 
     watch(
       () => props.tracks,
       () => {
-        __updateTracks();
+        __updateTracks()
       },
       { deep: true },
-    );
+    )
 
     watch(
       () => props.volume,
       () => {
-        __updateVolume();
+        __updateVolume()
       },
-    );
+    )
 
     watch(
       () => props.muted,
       () => {
-        __updateMuted();
+        __updateMuted()
       },
-    );
+    )
 
     watch(
       () => props.trackLanguage,
       () => {
-        __updateTrackLanguage();
+        __updateTrackLanguage()
       },
-    );
+    )
 
     watch(
       () => props.showBigPlayButton,
       () => {
-        __updateBigPlayButton();
+        __updateBigPlayButton()
       },
-    );
+    )
 
     watch(
       () => props.playbackRates,
       () => {
-        __updatePlaybackRates();
+        __updatePlaybackRates()
       },
-    );
+    )
 
     watch(
       () => props.playbackRate,
       () => {
-        __updatePlaybackRate();
+        __updatePlaybackRate()
       },
-    );
+    )
 
     // watch(() => $route, val => {
     //   exitFullscreen()
@@ -706,397 +706,397 @@ export default defineComponent({
     watch(
       () => $q.lang?.isoName,
       () => {
-        __setupLang();
+        __setupLang()
       },
-    );
+    )
 
     watch(
       () => $q.iconSet?.name,
       () => {
-        __setupIcons();
+        __setupIcons()
       },
-    );
+    )
 
     watch(
       () => $q.fullscreen?.isActive,
       (val: boolean | undefined) => {
         // user pressed F11/ESC to exit fullscreen
         if (!val && __isVideo.value && state.inFullscreen) {
-          exitFullscreen();
+          exitFullscreen()
         }
       },
-    );
+    )
 
     watch(
       () => state.playbackRate,
       (val: number) => {
-        const media = __mediaElement();
+        const media = __mediaElement()
         if (val && media !== null) {
-          media.playbackRate = val;
+          media.playbackRate = val
           // eslint-disable-next-line vue/custom-event-name-casing
-          emit("playbackRate", val);
+          emit('playbackRate', val)
         }
       },
-    );
+    )
 
     watch(
       () => state.trackLanguage,
       (val: string) => {
-        __toggleCaptions();
+        __toggleCaptions()
         // eslint-disable-next-line vue/custom-event-name-casing
-        emit("trackLanguage", val);
+        emit('trackLanguage', val)
       },
-    );
+    )
 
     watch(
       () => state.showControls,
       (val: boolean) => {
         if (__isVideo.value && !state.noControls) {
           // eslint-disable-next-line vue/custom-event-name-casing
-          emit("showControls", val);
+          emit('showControls', val)
         }
       },
-    );
+    )
 
     watch(
       () => state.volume,
       (val: number) => {
-        const media = __mediaElement();
+        const media = __mediaElement()
         if (media !== null) {
-          const volume = val / 100.0;
+          const volume = val / 100.0
           if (media.volume !== volume) {
-            media.volume = volume;
-            emit("volume", val);
+            media.volume = volume
+            emit('volume', val)
           }
         }
       },
-    );
+    )
 
     watch(
       () => state.muted,
       (val: boolean) => {
-        emit("muted", val);
+        emit('muted', val)
       },
-    );
+    )
 
     watch(
       () => state.currentTime,
       () => {
-        const media = __mediaElement();
+        const media = __mediaElement()
         if (media !== null && state.playReady) {
           if (isFinite(media.duration)) {
-            state.remainingTime = timeParse(media.duration - media.currentTime);
+            state.remainingTime = timeParse(media.duration - media.currentTime)
           }
-          state.displayTime = timeParse(media.currentTime);
+          state.displayTime = timeParse(media.currentTime)
         }
       },
-    );
+    )
 
     watch(
       () => props.bottomControls,
       (val: boolean) => {
-        state.bottomControls = val;
+        state.bottomControls = val
         if (val) {
-          state.showControls = true;
+          state.showControls = true
         }
       },
-    );
+    )
 
     watch(
       () => props.noControls,
       (val: boolean) => {
-        state.noControls = val;
+        state.noControls = val
         if (props.nativeControls === true) {
-          state.noControls = true;
+          state.noControls = true
         }
       },
-    );
+    )
 
     watch(
       () => props.autoPause,
       () => {
-        __updateAutoPauseObserver();
+        __updateAutoPauseObserver()
       },
-    );
+    )
 
     // watch(() => state.inControls, (val) => {
     //   console.log('inControls:', val)
     // })
 
     onMounted(() => {
-      canRender.value = typeof window !== "undefined"; // SSR
+      canRender.value = typeof window !== 'undefined' // SSR
       if (canRender.value === true) {
-        __setupLang();
-        __setupIcons();
+        __setupLang()
+        __setupIcons()
         nextTick(() => {
-          __updateAutoPauseObserver();
-        });
+          __updateAutoPauseObserver()
+        })
       }
-    });
+    })
 
     onBeforeUnmount(() => {
       if (canRender.value === true) {
-        __removeAutoPauseObserver();
+        __removeAutoPauseObserver()
 
         // make sure not still in fullscreen
-        exitFullscreen();
+        exitFullscreen()
 
         // make sure noScroll is not left in unintended state
-        document.body.classList.remove("no-scroll");
+        document.body.classList.remove('no-scroll')
 
-        __removeSourceEventListeners();
-        __removeMediaEventListeners();
+        __removeSourceEventListeners()
+        __removeMediaEventListeners()
 
         // make sure no memory leaks
-        __removeTracks();
-        __removeSources();
-        $media.value = null;
+        __removeTracks()
+        __removeSources()
+        $media.value = null
       }
-    });
+    })
 
     // Public Methods
 
     function loadBlob(blob: Blob) {
-      const media = __mediaElement();
+      const media = __mediaElement()
 
       if (media === null) {
-        return false;
+        return false
       }
 
       if (!(blob instanceof Blob)) {
-        console.error("[QMediaPlayer]: loadBlob method requires a Blob or File");
-        return false;
+        console.error('[QMediaPlayer]: loadBlob method requires a Blob or File')
+        return false
       }
 
-      __removeSources();
+      __removeSources()
 
-      const objectUrl = URL.createObjectURL(blob);
-      blobObjectUrl.value = objectUrl;
-      media.src = objectUrl;
-      __reset();
-      __addSourceEventListeners();
-      media.load();
+      const objectUrl = URL.createObjectURL(blob)
+      blobObjectUrl.value = objectUrl
+      media.src = objectUrl
+      __reset()
+      __addSourceEventListeners()
+      media.load()
       nextTick(() => {
-        __syncMediaReady();
-      }).catch((e) => console.error(e));
+        __syncMediaReady()
+      }).catch((e) => console.error(e))
 
-      return true;
+      return true
     }
 
     function loadFileBlob(fileList: FileList) {
       if (fileList) {
-        if (Object.prototype.toString.call(fileList) === "[object FileList]") {
-          return fileList.length > 0 ? loadBlob(fileList[0]) : false;
+        if (Object.prototype.toString.call(fileList) === '[object FileList]') {
+          return fileList.length > 0 ? loadBlob(fileList[0]) : false
         }
 
-        console.error("[QMediaPlayer]: loadFileBlob method requires a FileList");
+        console.error('[QMediaPlayer]: loadFileBlob method requires a FileList')
       }
-      return false;
+      return false
     }
 
     function showControls() {
       // no controls - always off
       if (state.noControls) {
-        state.showControls = false;
-        return;
+        state.showControls = false
+        return
       }
       // bottom controls - always on
       if (state.bottomControls) {
-        state.showControls = true;
-        return;
+        state.showControls = true
+        return
       }
       // kill timer, if there is one
       if (timer.hideControlsTimer) {
-        clearTimeout(timer.hideControlsTimer);
-        timer.hideControlsTimer = null;
+        clearTimeout(timer.hideControlsTimer)
+        timer.hideControlsTimer = null
       }
       // show controls
-      state.showControls = true;
+      state.showControls = true
       // check if hide cursor (fullscreen)
-      __checkCursor();
+      __checkCursor()
       // set the timer
       if (props.controlsDisplayTime !== -1 && !props.mobileMode && __isVideo.value) {
         timer.hideControlsTimer = setTimeout(() => {
           // hide controls, but not if menu is showing
           if (!__showingMenu() && state.inControls !== true) {
-            state.showControls = false;
-            timer.hideControlsTimer = null;
-            __checkCursor();
+            state.showControls = false
+            timer.hideControlsTimer = null
+            __checkCursor()
           } else {
-            showControls();
+            showControls()
           }
           // user configured display time (in ms)
-        }, props.controlsDisplayTime);
+        }, props.controlsDisplayTime)
       }
     }
 
     function hideControls() {
-      if (state.inControls) return;
+      if (state.inControls) return
       // no controls - always off
       if (state.noControls) {
-        state.showControls = false;
-        return;
+        state.showControls = false
+        return
       }
       // bottom controls - always on
       if (state.bottomControls) {
-        state.showControls = true;
-        return;
+        state.showControls = true
+        return
       }
       // clear timer if there is one
       if (timer.hideControlsTimer) {
-        clearTimeout(timer.hideControlsTimer);
+        clearTimeout(timer.hideControlsTimer)
       }
       if (props.controlsDisplayTime !== -1) {
-        state.showControls = false;
-        __checkCursor();
+        state.showControls = false
+        __checkCursor()
       }
-      timer.hideControlsTimer = null;
+      timer.hideControlsTimer = null
     }
 
     function toggleControls() {
       if (state.bottomControls) {
-        return;
+        return
       }
 
       if (state.showControls) {
-        hideControls();
+        hideControls()
       } else {
-        showControls();
+        showControls()
       }
     }
 
     function play() {
-      const media = __mediaElement();
+      const media = __mediaElement()
 
       if (media !== null && state.playReady === true) {
         media
           .play()
           .then(() => {
-            state.showBigPlayButton = false;
-            state.playing = true;
-            __mouseLeaveVideo();
-            return true;
+            state.showBigPlayButton = false
+            state.playing = true
+            __mouseLeaveVideo()
+            return true
           })
-          .catch(() => {});
+          .catch(() => {})
       }
     }
 
     function pause() {
-      const media = __mediaElement();
+      const media = __mediaElement()
 
       if (media !== null && state.playReady === true) {
         if (state.playing) {
-          media.pause();
-          state.showBigPlayButton = true;
-          state.playing = false;
+          media.pause()
+          state.showBigPlayButton = true
+          state.playing = false
         }
       }
     }
 
     function __updateAutoPauseObserver() {
-      __removeAutoPauseObserver();
+      __removeAutoPauseObserver()
 
       if (
         props.autoPause !== true ||
         canRender.value !== true ||
-        typeof IntersectionObserver === "undefined" ||
+        typeof IntersectionObserver === 'undefined' ||
         $root.value === null
       ) {
-        return;
+        return
       }
 
       autoPauseObserver.value = new IntersectionObserver((entries) => {
-        const entry = entries[0];
+        const entry = entries[0]
 
         if (
           entry?.isIntersecting !== true &&
           state.playing === true &&
           state.inFullscreen !== true
         ) {
-          pause();
+          pause()
         }
-      });
+      })
 
-      autoPauseObserver.value.observe($root.value);
+      autoPauseObserver.value.observe($root.value)
     }
 
     function __removeAutoPauseObserver() {
       if (autoPauseObserver.value !== null) {
-        autoPauseObserver.value.disconnect();
-        autoPauseObserver.value = null;
+        autoPauseObserver.value.disconnect()
+        autoPauseObserver.value = null
       }
     }
 
     function mute() {
-      state.muted = true;
-      const media = __mediaElement();
+      state.muted = true
+      const media = __mediaElement()
       if (media !== null) {
-        media.muted = true;
+        media.muted = true
       }
     }
 
     function unmute() {
-      state.muted = false;
-      const media = __mediaElement();
+      state.muted = false
+      const media = __mediaElement()
       if (media !== null) {
-        media.muted = false;
+        media.muted = false
       }
     }
 
     function togglePlay(e?: Event) {
-      __stopAndPrevent(e);
-      const media = __mediaElement();
+      __stopAndPrevent(e)
+      const media = __mediaElement()
 
       if (media !== null && state.playReady === true) {
         if (state.playing) {
-          media.pause();
-          state.showBigPlayButton = true;
-          state.playing = false;
+          media.pause()
+          state.showBigPlayButton = true
+          state.playing = false
         } else {
           media
             .play()
             .then(() => {
-              state.showBigPlayButton = false;
-              state.playing = true;
-              __mouseLeaveVideo();
-              return true;
+              state.showBigPlayButton = false
+              state.playing = true
+              __mouseLeaveVideo()
+              return true
             })
-            .catch(() => {});
+            .catch(() => {})
         }
       }
     }
 
     function toggleMuted(e: Event) {
-      __stopAndPrevent(e);
-      state.muted = !state.muted;
-      const media = __mediaElement();
+      __stopAndPrevent(e)
+      state.muted = !state.muted
+      const media = __mediaElement()
       if (media !== null) {
-        media.muted = state.muted === true;
+        media.muted = state.muted === true
       }
     }
 
     function toggleFullscreen(e: Event) {
       if (__isVideo.value) {
-        __stopAndPrevent(e);
+        __stopAndPrevent(e)
         if (state.inFullscreen) {
-          exitFullscreen();
+          exitFullscreen()
         } else {
-          setFullscreen();
+          setFullscreen()
         }
-        emit("fullscreen", state.inFullscreen);
+        emit('fullscreen', state.inFullscreen)
       }
     }
 
     function setFullscreen() {
-      const media = __mediaElement();
+      const media = __mediaElement()
 
       if (props.hideFullscreenBtn === true || !__isVideo.value || state.inFullscreen) {
-        return;
+        return
       }
       if ($q.fullscreen !== void 0 && media !== null) {
-        state.inFullscreen = true;
-        $q.fullscreen.request(media.parentElement); // NOTE error Not capable - on iPhone Safari
-        document.body.classList.add("no-scroll");
+        state.inFullscreen = true
+        $q.fullscreen.request(media.parentElement) // NOTE error Not capable - on iPhone Safari
+        document.body.classList.add('no-scroll')
         // nextTick(() => {
         //   forceUpdate()
         // })
@@ -1105,12 +1105,12 @@ export default defineComponent({
 
     function exitFullscreen() {
       if (props.hideFullscreenBtn === true || !__isVideo.value || !state.inFullscreen) {
-        return;
+        return
       }
       if ($q.fullscreen !== void 0) {
-        state.inFullscreen = false;
-        $q.fullscreen.exit();
-        document.body.classList.remove("no-scroll");
+        state.inFullscreen = false
+        $q.fullscreen.exit()
+        document.body.classList.remove('no-scroll')
         // nextTick(() => {
         //   forceUpdate()
         // })
@@ -1118,15 +1118,15 @@ export default defineComponent({
     }
 
     function currentTime() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null && state.playReady === true) {
-        return media.currentTime;
+        return media.currentTime
       }
-      return -1;
+      return -1
     }
 
     function setCurrentTime(seconds: number) {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (state.playReady) {
         if (
           media !== null &&
@@ -1134,14 +1134,14 @@ export default defineComponent({
           seconds >= 0 &&
           seconds <= media.duration
         ) {
-          state.currentTime = media.currentTime = seconds;
+          state.currentTime = media.currentTime = seconds
         }
       }
     }
 
     function setVolume(volume: number) {
       if (volume >= 0 && volume <= 100) {
-        state.volume = volume;
+        state.volume = volume
       }
     }
 
@@ -1149,38 +1149,38 @@ export default defineComponent({
 
     function __reset() {
       if (timer.hideControlsTimer && !state.bottomControls) {
-        clearTimeout(timer.hideControlsTimer);
+        clearTimeout(timer.hideControlsTimer)
       }
-      timer.hideControlsTimer = null;
-      state.errorText = null;
-      state.currentTime = 0.01;
-      state.durationTime = "00:00";
-      state.remainingTime = "00:00";
-      state.displayTime = "00:00";
-      state.duration = 1;
-      state.playReady = false;
-      state.playing = false;
-      state.loading = true;
-      state.metadataLoaded = false;
-      __updateTrackLanguage();
-      showControls();
+      timer.hideControlsTimer = null
+      state.errorText = null
+      state.currentTime = 0.01
+      state.durationTime = '00:00'
+      state.remainingTime = '00:00'
+      state.displayTime = '00:00'
+      state.duration = 1
+      state.playReady = false
+      state.playing = false
+      state.loading = true
+      state.metadataLoaded = false
+      __updateTrackLanguage()
+      showControls()
     }
 
     function __toggleCaptions() {
-      __showCaptions(state.trackLanguage);
+      __showCaptions(state.trackLanguage)
     }
 
     function __showCaptions(lang: string) {
-      const media = __mediaElement();
+      const media = __mediaElement()
 
       if (media !== null && __isVideo.value) {
         for (let index = 0; index < media.textTracks.length; ++index) {
           if (media.textTracks[index].label === lang) {
-            media.textTracks[index].mode = "showing";
-            media.textTracks[index].oncuechange = __cueChanged;
+            media.textTracks[index].mode = 'showing'
+            media.textTracks[index].oncuechange = __cueChanged
           } else {
-            media.textTracks[index].mode = "hidden";
-            media.textTracks[index].oncuechange = null;
+            media.textTracks[index].mode = 'hidden'
+            media.textTracks[index].oncuechange = null
           }
         }
       }
@@ -1189,565 +1189,565 @@ export default defineComponent({
     function __stopAndPrevent(e?: Event) {
       if (e) {
         if (e.cancelable !== false) {
-          e.preventDefault();
+          e.preventDefault()
         }
-        e.stopPropagation();
+        e.stopPropagation()
       }
     }
 
     async function __setupLang() {
-      const isoName = $q.lang?.isoName || "en-US";
-      let language: Partial<MediaPlayerLang> | undefined;
+      const isoName = $q.lang?.isoName || 'en-US'
+      let language: Partial<MediaPlayerLang> | undefined
       try {
-        language = await __loadLang(isoName);
+        language = await __loadLang(isoName)
       } catch {}
 
       if (language?.mediaPlayer !== void 0) {
-        lang.mediaPlayer = { ...defaultMediaPlayerLang.mediaPlayer, ...language.mediaPlayer };
-        __updatePlaybackRates();
-        __updateTrackLanguage();
+        lang.mediaPlayer = { ...defaultMediaPlayerLang.mediaPlayer, ...language.mediaPlayer }
+        __updatePlaybackRates()
+        __updateTrackLanguage()
       }
     }
 
     async function __loadLang(lang: string): Promise<Partial<MediaPlayerLang>> {
-      let langList: Partial<MediaPlayerLang> = {};
+      let langList: Partial<MediaPlayerLang> = {}
       if (lang) {
-        const mediaPlayerGlobal = typeof window !== "undefined" ? window.QMediaPlayer : undefined;
+        const mediaPlayerGlobal = typeof window !== 'undefined' ? window.QMediaPlayer : undefined
         // detect if UMD version is installed
         if (mediaPlayerGlobal && mediaPlayerGlobal.Component) {
-          const name = lang.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase());
+          const name = lang.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase())
           if (mediaPlayerGlobal.lang && mediaPlayerGlobal.lang[name]) {
-            langList = mediaPlayerGlobal.lang[name];
+            langList = mediaPlayerGlobal.lang[name]
           } else {
             /* eslint-disable-next-line no-console */
-            console.error(`[QMediaPlayer]: No language loaded called '${lang}'`);
+            console.error(`[QMediaPlayer]: No language loaded called '${lang}'`)
             /* eslint-disable-next-line no-console */
             console.error(
-              "[QMediaPlayer]: Be sure to load the UMD version of the language in a script tag before using with UMD",
-            );
+              '[QMediaPlayer]: Be sure to load the UMD version of the language in a script tag before using with UMD',
+            )
           }
         } else {
           try {
-            const loadLang = langLoaders[lang as keyof typeof langLoaders] || langLoaders["en-US"];
+            const loadLang = langLoaders[lang as keyof typeof langLoaders] || langLoaders['en-US']
 
             if (langLoaders[lang as keyof typeof langLoaders] === void 0) {
               /* eslint-disable-next-line no-console */
-              console.error(`[QMediaPlayer]: Cannot find language file called '${lang}'`);
+              console.error(`[QMediaPlayer]: Cannot find language file called '${lang}'`)
             }
 
-            const result = await loadLang();
-            langList = result.default as MediaPlayerLang;
+            const result = await loadLang()
+            langList = result.default as MediaPlayerLang
           } catch {
             /* eslint-disable-next-line no-console */
-            console.error(`[QMediaPlayer]: Cannot find language file called '${lang}'`);
+            console.error(`[QMediaPlayer]: Cannot find language file called '${lang}'`)
           }
         }
       }
-      return langList;
+      return langList
     }
 
     async function __setupIcons() {
-      const customMediaPlayerIcons = $q.iconSet?.mediaPlayer;
+      const customMediaPlayerIcons = $q.iconSet?.mediaPlayer
 
       if (customMediaPlayerIcons !== void 0) {
         iconSet.mediaPlayer = {
           ...defaultMediaPlayerIconSet.mediaPlayer,
           ...customMediaPlayerIcons,
-        };
-        return;
+        }
+        return
       }
 
-      const iconSetName = $q.iconSet?.name || "material-icons";
-      let icnSet: Partial<MediaPlayerIconSet> | undefined;
+      const iconSetName = $q.iconSet?.name || 'material-icons'
+      let icnSet: Partial<MediaPlayerIconSet> | undefined
       try {
-        icnSet = await __loadIconSet(iconSetName);
+        icnSet = await __loadIconSet(iconSetName)
       } catch {}
 
       if (icnSet !== void 0 && icnSet.mediaPlayer !== void 0) {
-        iconSet.mediaPlayer = { ...defaultMediaPlayerIconSet.mediaPlayer, ...icnSet.mediaPlayer };
+        iconSet.mediaPlayer = { ...defaultMediaPlayerIconSet.mediaPlayer, ...icnSet.mediaPlayer }
       }
     }
 
     async function __loadIconSet(set: string): Promise<Partial<MediaPlayerIconSet>> {
-      let iconsList: Partial<MediaPlayerIconSet> = {};
+      let iconsList: Partial<MediaPlayerIconSet> = {}
       if (set) {
-        const mediaPlayerGlobal = typeof window !== "undefined" ? window.QMediaPlayer : undefined;
+        const mediaPlayerGlobal = typeof window !== 'undefined' ? window.QMediaPlayer : undefined
         // detect if UMD version is installed
         if (mediaPlayerGlobal && mediaPlayerGlobal.Component) {
-          const name = set.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase());
+          const name = set.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase())
           if (mediaPlayerGlobal.iconSet && mediaPlayerGlobal.iconSet[name]) {
-            iconsList = mediaPlayerGlobal.iconSet[name];
+            iconsList = mediaPlayerGlobal.iconSet[name]
           } else {
             /* eslint-disable-next-line no-console */
-            console.error(`[QMediaPlayer]: No icon set loaded called '${set}'`);
+            console.error(`[QMediaPlayer]: No icon set loaded called '${set}'`)
             /* eslint-disable-next-line no-console */
             console.error(
-              "[QMediaPlayer]:Be sure to load the UMD version of the icon set in a script tag before using with UMD",
-            );
+              '[QMediaPlayer]:Be sure to load the UMD version of the icon set in a script tag before using with UMD',
+            )
           }
         } else {
           const loadIconSet =
-            iconSetLoaders[set as keyof typeof iconSetLoaders] || iconSetLoaders["material-icons"];
+            iconSetLoaders[set as keyof typeof iconSetLoaders] || iconSetLoaders['material-icons']
 
           if (iconSetLoaders[set as keyof typeof iconSetLoaders] === void 0) {
             /* eslint-disable-next-line no-console */
-            console.error(`[QMediaPlayer]: Cannot find icon set file called '${set}'`);
+            console.error(`[QMediaPlayer]: Cannot find icon set file called '${set}'`)
           }
 
-          const result = await loadIconSet();
-          iconsList = result.default as MediaPlayerIconSet;
+          const result = await loadIconSet()
+          iconsList = result.default as MediaPlayerIconSet
         }
       }
-      return iconsList;
+      return iconsList
     }
 
     function __init() {
-      const media = __mediaElement();
+      const media = __mediaElement()
 
-      state.bottomControls = props.bottomControls;
-      state.noControls = props.noControls;
+      state.bottomControls = props.bottomControls
+      state.noControls = props.noControls
       if (props.nativeControls === true) {
-        state.noControls = true;
+        state.noControls = true
       }
       // Attach media listeners before loading sources so cached/local assets
       // cannot race past readiness events.
-      __addMediaEventListeners();
+      __addMediaEventListeners()
       // set default track language
-      __updateTrackLanguage();
-      __updateSources();
-      __updateTracks();
+      __updateTrackLanguage()
+      __updateSources()
+      __updateTracks()
       // set big play button
-      __updateBigPlayButton();
+      __updateBigPlayButton()
       // set the volume
-      __updateVolume();
+      __updateVolume()
       // set muted
-      __updateMuted();
+      __updateMuted()
       // set playback rates
-      __updatePlaybackRates();
+      __updatePlaybackRates()
       // set playback rate default
-      __updatePlaybackRate();
+      __updatePlaybackRate()
       // does user want cors?
       if (props.crossOrigin && media !== null) {
-        media.setAttribute("crossorigin", props.crossOrigin);
+        media.setAttribute('crossorigin', props.crossOrigin)
       }
       // make sure "controls" is turned off
       if (media !== null) {
-        media.controls = false;
+        media.controls = false
       }
-      __addSourceEventListeners();
-      __toggleCaptions();
+      __addSourceEventListeners()
+      __toggleCaptions()
     }
 
     function __addMediaEventListeners() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null) {
         allEvents.forEach((event) => {
-          media.addEventListener(event, __mediaEventHandler);
-        });
+          media.addEventListener(event, __mediaEventHandler)
+        })
       }
     }
 
     function __removeMediaEventListeners() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null) {
         allEvents.forEach((event) => {
-          media.removeEventListener(event, __mediaEventHandler);
-        });
+          media.removeEventListener(event, __mediaEventHandler)
+        })
       }
     }
 
     function __addSourceEventListeners() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null) {
-        const sources = media.querySelectorAll("source");
+        const sources = media.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
-          sources[index].addEventListener("error", __sourceEventHandler);
+          sources[index].addEventListener('error', __sourceEventHandler)
         }
       }
     }
 
     function __removeSourceEventListeners() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null) {
-        const sources = media.querySelectorAll("source");
+        const sources = media.querySelectorAll('source')
         for (let index = 0; index < sources.length; ++index) {
-          sources[index].removeEventListener("error", __sourceEventHandler);
+          sources[index].removeEventListener('error', __sourceEventHandler)
         }
       }
     }
 
     function __setMediaReady() {
-      const media = __mediaElement();
+      const media = __mediaElement()
 
       if (media === null) {
-        return false;
+        return false
       }
 
-      const wasReady = state.playReady;
-      state.playReady = true;
-      state.loading = false;
-      state.displayTime = timeParse(media.currentTime);
+      const wasReady = state.playReady
+      state.playReady = true
+      state.loading = false
+      state.displayTime = timeParse(media.currentTime)
 
       if (isFinite(media.duration)) {
-        state.duration = media.duration;
-        state.durationTime = timeParse(media.duration);
-        state.remainingTime = timeParse(media.duration - media.currentTime);
+        state.duration = media.duration
+        state.durationTime = timeParse(media.duration)
+        state.remainingTime = timeParse(media.duration - media.currentTime)
       }
 
-      showControls();
-      return wasReady !== true;
+      showControls()
+      return wasReady !== true
     }
 
     function __syncMediaReady() {
-      const HAVE_METADATA = 1;
-      const media = __mediaElement();
+      const HAVE_METADATA = 1
+      const media = __mediaElement()
 
       if (media !== null && (media.currentSrc || media.src) && media.readyState >= HAVE_METADATA) {
-        __setMediaReady();
+        __setMediaReady()
       }
     }
 
     function __hasMediaSource(media: HTMLMediaElement) {
       return (
         media.currentSrc.length > 0 ||
-        (media.getAttribute("src") || "").length > 0 ||
-        Array.from(media.querySelectorAll("source")).some(
-          (source) => (source.getAttribute("src") || "").length > 0,
+        (media.getAttribute('src') || '').length > 0 ||
+        Array.from(media.querySelectorAll('source')).some(
+          (source) => (source.getAttribute('src') || '').length > 0,
         )
-      );
+      )
     }
 
     function __sourceEventHandler(event: Event) {
-      const NETWORK_NO_SOURCE = 3;
-      const media = __mediaElement();
+      const NETWORK_NO_SOURCE = 3
+      const media = __mediaElement()
       if (media !== null && __hasMediaSource(media) !== true) {
-        state.errorText = null;
-        state.loading = false;
-        return;
+        state.errorText = null
+        state.loading = false
+        return
       }
       if (media !== null && media.networkState === NETWORK_NO_SOURCE) {
         state.errorText = __isVideo.value
           ? lang.mediaPlayer.noLoadVideo
-          : lang.mediaPlayer.noLoadAudio;
-        state.loading = false;
+          : lang.mediaPlayer.noLoadAudio
+        state.loading = false
       }
       // eslint-disable-next-line vue/custom-event-name-casing
-      emit("networkState", event);
+      emit('networkState', event)
     }
 
     function __mediaEventHandler(event: Event) {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media === null) {
-        return;
+        return
       }
 
-      if (event.type === "abort") {
-        emit("abort");
-      } else if (event.type === "canplay") {
-        const becameReady = __setMediaReady();
-        emit("canplay");
+      if (event.type === 'abort') {
+        emit('abort')
+      } else if (event.type === 'canplay') {
+        const becameReady = __setMediaReady()
+        emit('canplay')
         if (becameReady) {
-          emit("ready");
+          emit('ready')
         }
-      } else if (event.type === "canplaythrough") {
+      } else if (event.type === 'canplaythrough') {
         // console.log('canplaythrough')
-        emit("canplaythrough");
-      } else if (event.type === "durationchange") {
+        emit('canplaythrough')
+      } else if (event.type === 'durationchange') {
         if (isFinite(media.duration)) {
-          state.duration = media.duration;
-          state.durationTime = timeParse(media.duration);
-          emit("duration", media.duration);
+          state.duration = media.duration
+          state.durationTime = timeParse(media.duration)
+          emit('duration', media.duration)
         }
-      } else if (event.type === "emptied") {
-        emit("emptied");
-      } else if (event.type === "ended") {
-        state.playing = false;
-        emit("ended");
-      } else if (event.type === "error") {
+      } else if (event.type === 'emptied') {
+        emit('emptied')
+      } else if (event.type === 'ended') {
+        state.playing = false
+        emit('ended')
+      } else if (event.type === 'error') {
         if (__hasMediaSource(media) !== true) {
-          state.errorText = null;
-          state.playing = false;
-          state.loading = false;
-          return;
+          state.errorText = null
+          state.playing = false
+          state.loading = false
+          return
         }
 
-        const error = media.error;
-        state.errorText = error && error.message ? error.message : null;
-        state.playing = false;
-        state.loading = false;
-        emit("error", error);
-      } else if (event.type === "interruptbegin") {
+        const error = media.error
+        state.errorText = error && error.message ? error.message : null
+        state.playing = false
+        state.loading = false
+        emit('error', error)
+      } else if (event.type === 'interruptbegin') {
         // console.log('interruptbegin')
-      } else if (event.type === "interruptend") {
+      } else if (event.type === 'interruptend') {
         // console.log('interruptend')
-      } else if (event.type === "loadeddata") {
-        state.loading = false;
-        emit("loadeddata");
-      } else if (event.type === "loadedmetadata") {
+      } else if (event.type === 'loadeddata') {
+        state.loading = false
+        emit('loadeddata')
+      } else if (event.type === 'loadedmetadata') {
         // tracks can only be programatically added after 'loadedmetadata' event
-        state.metadataLoaded = true;
-        __updateTracks();
+        state.metadataLoaded = true
+        __updateTracks()
         // set default track language
-        __updateTrackLanguage();
-        __toggleCaptions();
-        const becameReady = __setMediaReady();
-        emit("loadedmetadata");
+        __updateTrackLanguage()
+        __toggleCaptions()
+        const becameReady = __setMediaReady()
+        emit('loadedmetadata')
         if (becameReady) {
-          emit("ready");
+          emit('ready')
         }
-      } else if (event.type === "stalled") {
-        emit("stalled");
-      } else if (event.type === "suspend") {
-        emit("suspend");
-      } else if (event.type === "loadstart") {
-        emit("loadstart");
-      } else if (event.type === "pause") {
-        state.playing = false;
-        emit("paused");
-      } else if (event.type === "play") {
-        emit("play");
-      } else if (event.type === "playing") {
-        state.playing = true;
-        emit("playing");
-      } else if (event.type === "progress") {
+      } else if (event.type === 'stalled') {
+        emit('stalled')
+      } else if (event.type === 'suspend') {
+        emit('suspend')
+      } else if (event.type === 'loadstart') {
+        emit('loadstart')
+      } else if (event.type === 'pause') {
+        state.playing = false
+        emit('paused')
+      } else if (event.type === 'play') {
+        emit('play')
+      } else if (event.type === 'playing') {
+        state.playing = true
+        emit('playing')
+      } else if (event.type === 'progress') {
         //
-      } else if (event.type === "ratechange") {
+      } else if (event.type === 'ratechange') {
         //
-      } else if (event.type === "seeked") {
+      } else if (event.type === 'seeked') {
         //
-      } else if (event.type === "timeupdate") {
-        state.currentTime = media.currentTime;
-        emit("timeupdate", media.currentTime, state.remainingTime);
-      } else if (event.type === "volumechange") {
+      } else if (event.type === 'timeupdate') {
+        state.currentTime = media.currentTime
+        emit('timeupdate', media.currentTime, state.remainingTime)
+      } else if (event.type === 'volumechange') {
         //
-      } else if (event.type === "waiting") {
-        emit("waiting");
+      } else if (event.type === 'waiting') {
+        emit('waiting')
       }
     }
 
-    function __mergeClassOrStyle(type: "class" | "style", val: ClassOrStyle) {
-      const child: Record<string, unknown> = {};
+    function __mergeClassOrStyle(type: 'class' | 'style', val: ClassOrStyle) {
+      const child: Record<string, unknown> = {}
       if (val !== undefined) {
-        if (typeof val === "string") {
-          if (type === "style") {
-            const parts = val.replace(/\s+/g, "").split(";");
+        if (typeof val === 'string') {
+          if (type === 'style') {
+            const parts = val.replace(/\s+/g, '').split(';')
             parts.forEach((part) => {
-              if (part !== "") {
-                const data = part.split(":");
-                child[data[0]] = data[1];
+              if (part !== '') {
+                const data = part.split(':')
+                child[data[0]] = data[1]
               }
-            });
-          } else if (type === "class") {
-            const parts = val.split(" ");
+            })
+          } else if (type === 'class') {
+            const parts = val.split(' ')
             parts.forEach((part) => {
-              if (part.replace(/\s+/g, "") !== "") {
-                child[part] = true;
+              if (part.replace(/\s+/g, '') !== '') {
+                child[part] = true
               }
-            });
+            })
           }
         } else {
-          Object.assign(child, val);
+          Object.assign(child, val)
         }
       }
-      return child;
+      return child
     }
 
     // for future functionality
     function __cueChanged(_data: Event) {}
 
     function __checkCursor() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null) {
         if (state.inFullscreen && state.playing && !state.showControls) {
-          media.classList.remove("cursor-inherit");
-          media.classList.add("cursor-none");
+          media.classList.remove('cursor-inherit')
+          media.classList.add('cursor-none')
         } else {
-          media.classList.remove("cursor-none");
-          media.classList.add("cursor-inherit");
+          media.classList.remove('cursor-none')
+          media.classList.add('cursor-inherit')
         }
       }
     }
 
     function __adjustMenu() {
-      const qmenu = menu.value;
+      const qmenu = menu.value
       if (qmenu) {
         setTimeout(() => {
-          qmenu.updatePosition();
-        }, 350);
+          qmenu.updatePosition()
+        }, 350)
       }
     }
 
     function __videoClick(e: Event) {
       if (props.togglePlayOnClick !== true) {
-        return;
+        return
       }
 
-      __stopAndPrevent(e);
+      __stopAndPrevent(e)
       if (props.mobileMode !== true) {
-        togglePlay();
+        togglePlay()
       }
     }
 
     function __bigButtonClick(e: Event) {
-      __stopAndPrevent(e);
+      __stopAndPrevent(e)
       if (props.mobileMode) {
-        hideControls();
+        hideControls()
       }
-      togglePlay();
+      togglePlay()
     }
 
     function __settingsMenuShowing(val: boolean) {
-      settingsMenuVisible.value = val;
+      settingsMenuVisible.value = val
     }
 
     function __mouseLeaveVideo(e?: MouseEvent) {
-      const relatedTarget = e?.relatedTarget;
-      if (relatedTarget instanceof HTMLElement && relatedTarget.className === "q-pa-md") {
+      const relatedTarget = e?.relatedTarget
+      if (relatedTarget instanceof HTMLElement && relatedTarget.className === 'q-pa-md') {
         if (
           !props.bottomControls &&
           !props.mobileMode &&
           !__isAudio.value &&
           state.inControls !== true
         ) {
-          hideControls();
+          hideControls()
         }
       }
     }
 
     function __mouseMoveAction(e: MouseEvent) {
       if (!props.bottomControls && !props.mobileMode && !__isAudio.value) {
-        __showControlsIfValid(e);
+        __showControlsIfValid(e)
       }
     }
 
     function __getParentEl(el: HTMLElement | null, className: string): HTMLElement | null {
-      if (!el) return null;
+      if (!el) return null
       if (String(el.className).startsWith(className)) {
-        return el;
+        return el
       }
-      return __getParentEl(el.offsetParent as HTMLElement | null, className);
+      return __getParentEl(el.offsetParent as HTMLElement | null, className)
     }
 
     function __showControlsIfValid(e: MouseEvent) {
-      const media = __mediaElement();
-      if (media === null || !(e.target instanceof HTMLElement)) return false;
+      const media = __mediaElement()
+      if (media === null || !(e.target instanceof HTMLElement)) return false
 
-      const pos = media.getBoundingClientRect();
-      const el = __getParentEl(e.target, "q-media");
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      if (!pos || !rect) return false;
+      const pos = media.getBoundingClientRect()
+      const el = __getParentEl(e.target, 'q-media')
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      if (!pos || !rect) return false
       if (
         rect.left === pos.left &&
         rect.top === pos.top &&
         rect.height === pos.height &&
         rect.width === pos.width
       ) {
-        showControls();
-        return true;
+        showControls()
+        return true
       }
 
-      return false;
+      return false
     }
 
     function __videoCurrentTimeChanged(val: number) {
-      showControls();
-      const media = __mediaElement();
+      showControls()
+      const media = __mediaElement()
       if (media !== null && media.duration && val && val > 0 && val <= state.duration) {
         if (media.currentTime !== val) {
-          state.currentTime = media.currentTime = val;
+          state.currentTime = media.currentTime = val
         }
       }
     }
 
     function __volumePercentChanged(val: number) {
-      showControls();
-      state.volume = val;
+      showControls()
+      state.volume = val
     }
 
     function __trackLanguageChanged(language: string) {
       if (state.trackLanguage !== language) {
-        state.trackLanguage = language;
+        state.trackLanguage = language
       }
     }
 
     function __playbackRateChanged(rate: number) {
       if (state.playbackRate !== rate) {
-        state.playbackRate = rate;
+        state.playbackRate = rate
       }
     }
 
     function __showingMenu() {
-      return settingsMenuVisible.value;
+      return settingsMenuVisible.value
     }
 
     function __updateBigPlayButton() {
       if (state.showBigPlayButton !== props.showBigPlayButton) {
-        state.showBigPlayButton = props.showBigPlayButton;
+        state.showBigPlayButton = props.showBigPlayButton
       }
     }
 
     function __updateVolume() {
       if (state.volume !== props.volume) {
-        state.volume = props.volume;
+        state.volume = props.volume
       }
     }
 
     function __updateMuted() {
       if (state.muted !== props.muted) {
-        state.muted = props.muted;
-        const media = __mediaElement();
+        state.muted = props.muted
+        const media = __mediaElement()
         if (media !== null) {
-          media.muted = state.muted;
+          media.muted = state.muted
         }
       }
     }
 
     function __updateTrackLanguage() {
       if (state.trackLanguage !== props.trackLanguage || lang.mediaPlayer.trackLanguageOff) {
-        state.trackLanguage = props.trackLanguage || lang.mediaPlayer.trackLanguageOff;
+        state.trackLanguage = props.trackLanguage || lang.mediaPlayer.trackLanguageOff
       }
     }
 
     function __updatePlaybackRates() {
       if (props.playbackRates && props.playbackRates.length > 0) {
-        state.playbackRates = [...props.playbackRates];
+        state.playbackRates = [...props.playbackRates]
       } else {
-        state.playbackRates.splice(0, state.playbackRates.length);
-        state.playbackRates.push({ label: lang.mediaPlayer.ratePoint5, value: 0.5 });
-        state.playbackRates.push({ label: lang.mediaPlayer.rateNormal, value: 1 });
-        state.playbackRates.push({ label: lang.mediaPlayer.rate1Point5, value: 1.5 });
-        state.playbackRates.push({ label: lang.mediaPlayer.rate2, value: 2 });
+        state.playbackRates.splice(0, state.playbackRates.length)
+        state.playbackRates.push({ label: lang.mediaPlayer.ratePoint5, value: 0.5 })
+        state.playbackRates.push({ label: lang.mediaPlayer.rateNormal, value: 1 })
+        state.playbackRates.push({ label: lang.mediaPlayer.rate1Point5, value: 1.5 })
+        state.playbackRates.push({ label: lang.mediaPlayer.rate2, value: 2 })
       }
     }
 
     function __updatePlaybackRate() {
       if (state.playbackRate !== props.playbackRate) {
-        state.playbackRate = props.playbackRate;
+        state.playbackRate = props.playbackRate
       }
     }
 
     function __updateSources() {
-      __removeSources();
-      __addSources();
+      __removeSources()
+      __addSources()
     }
 
     function __removeSources() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null) {
-        __removeSourceEventListeners();
+        __removeSourceEventListeners()
         // player must not be running
-        media.pause();
-        __revokeBlobObjectUrl();
-        media.removeAttribute("src");
+        media.pause()
+        __revokeBlobObjectUrl()
+        media.removeAttribute('src')
         if (media.currentTime) {
           // otherwise IE11 has exception error
-          media.currentTime = 0;
+          media.currentTime = 0
         }
-        const childNodes = media.childNodes;
+        const childNodes = media.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
           if (childNodes[index] instanceof HTMLSourceElement) {
-            media.removeChild(childNodes[index]);
+            media.removeChild(childNodes[index])
           }
         }
       }
@@ -1755,57 +1755,57 @@ export default defineComponent({
 
     function __revokeBlobObjectUrl() {
       if (blobObjectUrl.value !== null) {
-        URL.revokeObjectURL(blobObjectUrl.value);
-        blobObjectUrl.value = null;
+        URL.revokeObjectURL(blobObjectUrl.value)
+        blobObjectUrl.value = null
       }
     }
 
     function __addSources() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null) {
-        let loaded = false;
+        let loaded = false
         if (props.source && props.source.length > 0) {
-          media.src = props.source;
-          loaded = true;
+          media.src = props.source
+          loaded = true
         } else {
           if (props.sources.length > 0) {
             props.sources.forEach((source) => {
-              const s = document.createElement("source");
-              s.src = source.src ? source.src : "";
-              s.type = source.type ? source.type : "";
-              media.appendChild(s);
+              const s = document.createElement('source')
+              s.src = source.src ? source.src : ''
+              s.type = source.type ? source.type : ''
+              media.appendChild(s)
               if (!loaded && source.src) {
-                media.src = source.src;
-                loaded = true;
+                media.src = source.src
+                loaded = true
               }
-            });
+            })
           }
         }
-        __reset();
+        __reset()
         if (loaded !== true) {
-          state.loading = false;
-          return;
+          state.loading = false
+          return
         }
-        __addSourceEventListeners();
-        media.load();
+        __addSourceEventListeners()
+        media.load()
         nextTick(() => {
-          __syncMediaReady();
-        }).catch((e) => console.error(e));
+          __syncMediaReady()
+        }).catch((e) => console.error(e))
       }
     }
 
     function __updateTracks() {
-      __removeTracks();
-      __addTracks();
+      __removeTracks()
+      __addTracks()
     }
 
     function __removeTracks() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media !== null) {
-        const childNodes = media.childNodes;
+        const childNodes = media.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
           if (childNodes[index] instanceof HTMLTrackElement) {
-            media.removeChild(childNodes[index]);
+            media.removeChild(childNodes[index])
           }
         }
       }
@@ -1813,40 +1813,40 @@ export default defineComponent({
 
     function __addTracks() {
       // only add tracks to video
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (__isVideo.value && media !== null) {
         props.tracks.forEach((track) => {
-          const t = document.createElement("track");
-          t.kind = track.kind ? track.kind : "";
-          t.label = track.label ? track.label : "";
-          t.src = track.src ? track.src : "";
-          t.srclang = track.srclang ? track.srclang : "";
-          media.appendChild(t);
-        });
+          const t = document.createElement('track')
+          t.kind = track.kind ? track.kind : ''
+          t.label = track.label ? track.label : ''
+          t.src = track.src ? track.src : ''
+          t.srclang = track.srclang ? track.srclang : ''
+          media.appendChild(t)
+        })
         nextTick(() => {
-          __toggleCaptions();
-        });
+          __toggleCaptions()
+        })
       }
     }
 
     function __updatePoster() {
-      const media = __mediaElement();
+      const media = __mediaElement()
       if (media instanceof HTMLVideoElement) {
-        media.poster = __poster.value || "";
+        media.poster = __poster.value || ''
       }
     }
 
     function __mouseEnterControls() {
-      state.inControls = true;
+      state.inControls = true
     }
     function __mouseLeaveControls() {
-      state.inControls = false;
+      state.inControls = false
     }
 
     // Rendering Methods
 
     function __renderVideo() {
-      const slot = slots.oldbrowser;
+      const slot = slots.oldbrowser
 
       const attrs = {
         poster: __poster.value,
@@ -1857,34 +1857,34 @@ export default defineComponent({
         muted: props.muted === true,
         width: props.contentWidth || undefined,
         height: props.contentHeight || undefined,
-      };
+      }
 
       nextTick(() => {
-        const media = __mediaElement();
+        const media = __mediaElement()
         if (media !== null && props.nativeControls === true) {
-          media.controls = true;
+          media.controls = true
         }
-      }).catch((e) => console.error(e));
+      }).catch((e) => console.error(e))
 
       return h(
-        "video",
+        'video',
         {
           ref: $media,
           class: {
             ...__renderVideoClasses.value,
-            ...__mergeClassOrStyle("class", props.contentClass),
+            ...__mergeClassOrStyle('class', props.contentClass),
           },
           style: {
             ...__contentStyle.value,
           },
           ...attrs,
         },
-        hSlot(slot, h("p", lang.mediaPlayer.oldBrowserVideo)),
-      );
+        hSlot(slot, h('p', lang.mediaPlayer.oldBrowserVideo)),
+      )
     }
 
     function __renderAudio() {
-      const slot = slots.oldbrowser;
+      const slot = slots.oldbrowser
 
       const attrs = {
         poster: __poster.value,
@@ -1895,14 +1895,14 @@ export default defineComponent({
         muted: props.muted === true,
         width: props.contentWidth || undefined,
         height: props.contentHeight || undefined,
-      };
+      }
 
       nextTick(() => {
-        const media = __mediaElement();
+        const media = __mediaElement()
         if (media !== null && props.nativeControls === true) {
-          media.controls = true;
+          media.controls = true
         }
-      }).catch((e) => console.error(e));
+      }).catch((e) => console.error(e))
 
       // This is on purpose (not using audio tag).
       // The video tag can also play audio and works better if dynamically
@@ -1911,18 +1911,18 @@ export default defineComponent({
       // property to force the <audio> tag.
 
       return h(
-        props.noVideo === true ? "audio" : "video",
+        props.noVideo === true ? 'audio' : 'video',
         {
           ref: $media,
           class: {
-            "q-media--player": true,
-            ...__mergeClassOrStyle("class", props.contentClass),
+            'q-media--player': true,
+            ...__mergeClassOrStyle('class', props.contentClass),
           },
           style: props.contentStyle,
           ...attrs,
         },
-        hSlot(slot, h("p", lang.mediaPlayer.oldBrowserAudio)),
-      );
+        hSlot(slot, h('p', lang.mediaPlayer.oldBrowserAudio)),
+      )
     }
 
     // function __renderSources () {
@@ -1954,62 +1954,62 @@ export default defineComponent({
     function __renderOverlayWindow() {
       if (slots.overlay) {
         return h(
-          "div",
+          'div',
           {
-            class: "q-media__overlay-window fit",
+            class: 'q-media__overlay-window fit',
           },
           slots.overlay(),
-        );
+        )
       }
     }
 
     function errorWindowCloseButton() {
       return h(QBtn, {
-        class: "q-media__error-window--button",
+        class: 'q-media__error-window--button',
         onClick: () => {
-          state.errorText = null;
+          state.errorText = null
         },
         icon: matClose,
         flat: true,
-        size: "sm",
-      });
+        size: 'sm',
+      })
     }
 
     function __renderErrorWindow() {
-      const slot = slots.errorWindow;
+      const slot = slots.errorWindow
 
       return h(
-        "div",
+        'div',
         {
-          class: "q-media__error-window",
+          class: 'q-media__error-window',
         },
-        hSlot(slot, h("span", [state.errorText, errorWindowCloseButton()])),
-      );
+        hSlot(slot, h('span', [state.errorText, errorWindowCloseButton()])),
+      )
     }
 
     function __renderPlayButton() {
-      if (props.hidePlayBtn === true) return;
+      if (props.hidePlayBtn === true) return
 
-      const slot = slots.play;
+      const slot = slots.play
 
       const properties = {
         icon: state.playing ? iconSet.mediaPlayer.pause : iconSet.mediaPlayer.play,
-        size: "1rem",
+        size: '1rem',
         disable: !state.playReady,
         flat: true,
-        padding: "4px",
-      };
+        padding: '4px',
+      }
 
       const events = {
         onClick: togglePlay,
-      };
+      }
 
       return (
         (slot && slot()) ||
         h(
           QBtn,
           {
-            class: "q-media__controls--button play-button",
+            class: 'q-media__controls--button play-button',
             ...properties,
             ...events,
           },
@@ -2021,43 +2021,43 @@ export default defineComponent({
               h(QTooltip, () => lang.mediaPlayer.play),
           ],
         )
-      );
+      )
     }
 
     function __renderVideoControls() {
-      const slot = slots.controls;
+      const slot = slots.controls
 
       const events = {
         onClick: __stopAndPrevent,
         onMouseenter: __mouseEnterControls,
         onMouseleave: __mouseLeaveControls,
-      };
+      }
 
       if (slot) {
         // we need to know the controls height for fullscreen, stop propagation to video component
         return h(
-          "div",
+          'div',
           {
             ref: controls,
             class: {
-              "q-media__controls": true,
-              "q-media__controls--overlay":
+              'q-media__controls': true,
+              'q-media__controls--overlay':
                 __isVideo.value === true && state.bottomControls !== true,
               ...__videoControlsClasses.value,
             },
             ...events,
           },
           slot(),
-        );
+        )
       }
 
       return h(
-        "div",
+        'div',
         {
           ref: controls,
           class: {
-            "q-media__controls": true,
-            "q-media__controls--overlay": __isVideo.value === true && state.bottomControls !== true,
+            'q-media__controls': true,
+            'q-media__controls--overlay': __isVideo.value === true && state.bottomControls !== true,
             ...__videoControlsClasses.value,
           },
           ...events,
@@ -2066,12 +2066,12 @@ export default defineComponent({
           // dense
           props.dense &&
             h(
-              "div",
+              'div',
               {
-                class: "q-media__controls--row row col content-start items-center",
+                class: 'q-media__controls--row row col content-start items-center',
               },
               [
-                h("div", [
+                h('div', [
                   __renderPlayButton(),
                   props.showTooltips &&
                     !state.playReady &&
@@ -2091,26 +2091,26 @@ export default defineComponent({
           // sparse
           !props.dense &&
             h(
-              "div",
+              'div',
               {
-                class: "q-media__controls--row row col items-center justify-between",
+                class: 'q-media__controls--row row col items-center justify-between',
               },
               [__renderDisplayTime(), __renderCurrentTimeSlider(), __renderDurationTime()],
             ),
           !props.dense &&
             h(
-              "div",
+              'div',
               {
-                class: "q-media__controls--row row col content-start items-center",
+                class: 'q-media__controls--row row col content-start items-center',
               },
               [
                 h(
-                  "div",
+                  'div',
                   {
-                    class: "row col",
+                    class: 'row col',
                   },
                   [
-                    h("div", [
+                    h('div', [
                       __renderPlayButton(),
                       props.showTooltips &&
                         !state.playReady &&
@@ -2120,7 +2120,7 @@ export default defineComponent({
                     __renderVolumeSlider(),
                   ],
                 ),
-                h("div", [
+                h('div', [
                   __renderSettingsButton(),
                   $q.fullscreen !== void 0 &&
                     props.hideFullscreenBtn !== true &&
@@ -2129,33 +2129,33 @@ export default defineComponent({
               ],
             ),
         ],
-      );
+      )
     }
 
     function __renderAudioControls() {
-      const slot = slots.controls;
+      const slot = slots.controls
 
       return (
         (slot && slot()) ||
         h(
-          "div",
+          'div',
           {
             ref: controls,
             class: {
-              "q-media__controls": true,
+              'q-media__controls': true,
               ...__audioControlsClasses.value,
             },
           },
           [
             props.dense &&
               h(
-                "div",
+                'div',
                 {
-                  class: "q-media__controls--row row col content-start items-center",
+                  class: 'q-media__controls--row row col content-start items-center',
                 },
                 [
                   // dense
-                  h("div", [
+                  h('div', [
                     __renderPlayButton(),
                     props.showTooltips &&
                       !state.playReady &&
@@ -2171,20 +2171,20 @@ export default defineComponent({
             // sparse
             !props.dense &&
               h(
-                "div",
+                'div',
                 {
-                  class: "q-media__controls--row row col items-center justify-between",
+                  class: 'q-media__controls--row row col items-center justify-between',
                 },
                 [__renderDisplayTime(), __renderCurrentTimeSlider(), __renderDurationTime()],
               ),
             !props.dense &&
               h(
-                "div",
+                'div',
                 {
-                  class: "q-media__controls--row row col content-start items-center",
+                  class: 'q-media__controls--row row col content-start items-center',
                 },
                 [
-                  h("div", [
+                  h('div', [
                     __renderPlayButton(),
                     props.showTooltips &&
                       !state.playReady &&
@@ -2196,38 +2196,38 @@ export default defineComponent({
               ),
           ],
         )
-      );
+      )
     }
 
     function __renderVolumeButton() {
       if (props.hideVolumeBtn === true) {
-        return;
+        return
       }
-      const slot = slots.volume;
+      const slot = slots.volume
 
       const properties = {
         icon: __volumeIcon.value,
-        size: "1rem",
+        size: '1rem',
         disable: !state.playReady,
         flat: true,
-        padding: "4px",
-      };
+        padding: '4px',
+      }
 
       const events = {
         onClick: toggleMuted,
-      };
+      }
 
       return (
         (slot && slot()) ||
         h(
           QBtn,
           {
-            class: "q-media__controls--button volume-button",
+            class: 'q-media__controls--button volume-button',
             style: {
               color:
                 props.dark === true || $q.dark.isActive
-                  ? "var(--mediaplayer-color-dark)"
-                  : "var(--mediaplayer-color)",
+                  ? 'var(--mediaplayer-color-dark)'
+                  : 'var(--mediaplayer-color)',
             },
             ...properties,
             ...events,
@@ -2240,14 +2240,14 @@ export default defineComponent({
               : undefined,
           ],
         )
-      );
+      )
     }
 
     function __renderVolumeSlider() {
       if (props.hideVolumeSlider === true || props.hideVolumeBtn === true) {
-        return;
+        return
       }
-      const slot = slots.volumeSlider;
+      const slot = slots.volumeSlider
 
       const properties = {
         modelValue: state.volume,
@@ -2255,53 +2255,53 @@ export default defineComponent({
         min: 0,
         max: 100,
         disable: !state.playReady || state.muted,
-      };
+      }
 
       const events = {
         onChange: __volumePercentChanged,
-      };
+      }
 
       return (
         (slot && slot()) ||
         h(QSlider, {
-          class: "col",
+          class: 'col',
           style: {
-            width: "20%",
-            margin: "0 0.5rem",
-            minWidth: props.dense ? "20px" : "50px",
-            maxWidth: props.dense ? "50px" : "200px",
+            width: '20%',
+            margin: '0 0.5rem',
+            minWidth: props.dense ? '20px' : '50px',
+            maxWidth: props.dense ? '50px' : '200px',
             color:
               props.dark === true || $q.dark.isActive
-                ? "var(--mediaplayer-color-dark)"
-                : "var(--mediaplayer-color)",
+                ? 'var(--mediaplayer-color-dark)'
+                : 'var(--mediaplayer-color)',
           },
           ...properties,
           ...events,
         })
-      );
+      )
     }
 
     function __renderSettingsButton() {
       if (props.hideSettingsBtn === true) {
-        return;
+        return
       }
 
-      const slot = slots.settings;
+      const slot = slots.settings
 
       const properties = {
         icon: iconSet.mediaPlayer.settings,
-        size: "1rem",
+        size: '1rem',
         disable: !state.playReady,
         flat: true,
-        padding: "4px",
-      };
+        padding: '4px',
+      }
 
       return (
         (slot && slot()) ||
         h(
           QBtn,
           {
-            class: "q-media__controls--button settings-button",
+            class: 'q-media__controls--button settings-button',
             ...properties,
           },
           () => [
@@ -2311,32 +2311,32 @@ export default defineComponent({
             __renderSettingsMenu(),
           ],
         )
-      );
+      )
     }
 
     function __renderFullscreenButton() {
-      const slot = slots.fullscreen;
+      const slot = slots.fullscreen
 
       const properties = {
         icon: state.inFullscreen
           ? iconSet.mediaPlayer.fullscreenExit
           : iconSet.mediaPlayer.fullscreen,
-        size: "1rem",
+        size: '1rem',
         disable: !state.playReady,
         flat: true,
-        padding: "4px",
-      };
+        padding: '4px',
+      }
 
       const events = {
         onClick: toggleFullscreen,
-      };
+      }
 
       return (
         (slot && slot()) ||
         h(
           QBtn,
           {
-            class: "q-media__controls--button fullscreen-button",
+            class: 'q-media__controls--button fullscreen-button',
             ...properties,
             ...events,
           },
@@ -2346,25 +2346,25 @@ export default defineComponent({
               : undefined,
           ],
         )
-      );
+      )
     }
 
     function __renderLoader() {
       if (props.spinnerSize === void 0) {
-        if (__isVideo.value) state.spinnerSize = "3em";
-        else state.spinnerSize = "1.5em";
+        if (__isVideo.value) state.spinnerSize = '3em'
+        else state.spinnerSize = '1.5em'
       } else {
-        state.spinnerSize = props.spinnerSize;
+        state.spinnerSize = props.spinnerSize
       }
 
-      const slot = slots.spinner;
+      const slot = slots.spinner
 
       return (
         (slot && slot()) ||
         h(
-          "div",
+          'div',
           {
-            class: __isVideo.value ? "q-media__loading--video" : "q-media__loading--audio",
+            class: __isVideo.value ? 'q-media__loading--video' : 'q-media__loading--audio',
           },
           [
             h(QSpinner, {
@@ -2372,40 +2372,40 @@ export default defineComponent({
             }),
           ],
         )
-      );
+      )
     }
 
     function __renderBigPlayButton() {
-      const slot = slots.bigPlayButton;
+      const slot = slots.bigPlayButton
 
       const events = {
         onClick: __bigButtonClick,
-      };
+      }
 
       return (
         (slot && slot()) ||
         h(
-          "div",
+          'div',
           {
             class: {
-              "q-media--big-button q-media--big-button-bottom-controls":
+              'q-media--big-button q-media--big-button-bottom-controls':
                 state.bottomControls === true,
-              "q-media--big-button": state.bottomControls !== true,
+              'q-media--big-button': state.bottomControls !== true,
             },
           },
           [
             h(QIcon, {
               name: iconSet.mediaPlayer.bigPlayButton,
-              class: "q-media--big-button-icon",
+              class: 'q-media--big-button-icon',
               ...events,
             }),
           ],
         )
-      );
+      )
     }
 
     function __renderCurrentTimeSlider() {
-      const slot = slots.positionSlider;
+      const slot = slots.positionSlider
 
       const properties = {
         modelValue: state.currentTime,
@@ -2413,69 +2413,69 @@ export default defineComponent({
         min: 0,
         max: state.duration ? state.duration : 1,
         disable: !state.playReady || props.disabledSeek,
-      };
+      }
 
       const events = {
         onChange: __videoCurrentTimeChanged,
-      };
+      }
 
       return (
         (slot && slot()) ||
         h(QSlider, {
-          class: "col",
+          class: 'col',
           style: {
-            margin: "0 0.5rem",
+            margin: '0 0.5rem',
             color:
               props.dark === true || $q.dark.isActive
-                ? "var(--mediaplayer-color-dark)"
-                : "var(--mediaplayer-color)",
+                ? 'var(--mediaplayer-color-dark)'
+                : 'var(--mediaplayer-color)',
           },
           ...properties,
           ...events,
         })
-      );
+      )
     }
 
     function __renderDisplayTime() {
-      const slot = slots.displayTime;
+      const slot = slots.displayTime
 
       return (
         (slot && slot()) ||
         h(
-          "span",
+          'span',
           {
-            class: "q-media__controls--video-time-text text-left",
+            class: 'q-media__controls--video-time-text text-left',
             style: {
               color:
                 props.dark === true || $q.dark.isActive
-                  ? "var(--mediaplayer-color-dark)"
-                  : "var(--mediaplayer-color)",
+                  ? 'var(--mediaplayer-color-dark)'
+                  : 'var(--mediaplayer-color)',
             },
           },
           state.displayTime,
         )
-      );
+      )
     }
 
     function __renderDurationTime() {
-      const media = __mediaElement();
-      if (media === null) return;
+      const media = __mediaElement()
+      if (media === null) return
 
-      const slot = slots.durationTime;
-      const isInfinity = !isFinite(media.duration);
+      const slot = slots.durationTime
+      const isInfinity = !isFinite(media.duration)
 
       return (
         (slot && slot()) ||
         h(
-          "span",
+          'span',
           {
-            class: "q-media__controls--video-time-text text-right",
+            class: 'q-media__controls--video-time-text text-right',
             style: {
-              width: isInfinity ? "30px" : "auto",
+              width: isInfinity ? '30px' : 'auto',
               color:
                 props.dark === true || $q.dark.isActive
-                  ? "var(--mediaplayer-color-dark)"
-                  : "var(--mediaplayer-color)",
+                  ? 'var(--mediaplayer-color-dark)'
+                  : 'var(--mediaplayer-color)',
             },
           },
           [
@@ -2483,46 +2483,46 @@ export default defineComponent({
             __isMediaAvailable.value === true && isInfinity === true && __renderInfinitySvg(),
           ],
         )
-      );
+      )
     }
 
     function __renderInfinitySvg() {
       return h(
-        "svg",
+        'svg',
         {
-          height: "16",
-          viewbox: "0 0 16 16",
+          height: '16',
+          viewbox: '0 0 16 16',
         },
         [
-          h("path", {
-            fill: "none",
+          h('path', {
+            fill: 'none',
             color:
               props.dark === true || $q.dark.isActive
-                ? "var(--mediaplayer-color-dark)"
-                : "var(--mediaplayer-color)",
-            strokeWidth: "2",
-            d: "M8,8 C16,0 16,16 8,8 C0,0 0,16 8,8z",
+                ? 'var(--mediaplayer-color-dark)'
+                : 'var(--mediaplayer-color)',
+            strokeWidth: '2',
+            d: 'M8,8 C16,0 16,16 8,8 C0,0 0,16 8,8z',
           }),
         ],
-      );
+      )
     }
 
     function __renderSettingsMenu() {
-      const slot = slots.settingsMenu;
+      const slot = slots.settingsMenu
 
       const properties = {
-        anchor: "top right",
-        self: "bottom right",
-      };
+        anchor: 'top right',
+        self: 'bottom right',
+      }
 
       const events = {
         onShow: () => {
-          __settingsMenuShowing(true);
+          __settingsMenuShowing(true)
         },
         onHide: () => {
-          __settingsMenuShowing(false);
+          __settingsMenuShowing(false)
         },
-      };
+      }
 
       return h(
         QMenu,
@@ -2533,13 +2533,13 @@ export default defineComponent({
         },
         () => [
           (slot && slot()) ||
-            h("div", [
+            h('div', [
               state.playbackRates.length > 0 &&
                 h(
                   QExpansionItem,
                   {
                     // props
-                    group: "settings-menu",
+                    group: 'settings-menu',
                     expandSeparator: true,
                     icon: iconSet.mediaPlayer.speed,
                     label: lang.mediaPlayer.speed,
@@ -2568,8 +2568,8 @@ export default defineComponent({
                                 dense: true,
                                 // events
                                 onClick: (e: Event) => {
-                                  __stopAndPrevent(e);
-                                  __playbackRateChanged(rate.value);
+                                  __stopAndPrevent(e)
+                                  __playbackRateChanged(rate.value)
                                 },
                               },
                               () => [
@@ -2591,7 +2591,7 @@ export default defineComponent({
                               ],
                             ),
                             [[ClosePopup]],
-                          );
+                          )
                         }),
                       ],
                     ),
@@ -2603,7 +2603,7 @@ export default defineComponent({
                   QExpansionItem,
                   {
                     // props
-                    group: "settings-menu",
+                    group: 'settings-menu',
                     expandSeparator: true,
                     icon: iconSet.mediaPlayer.language,
                     label: lang.mediaPlayer.language,
@@ -2632,8 +2632,8 @@ export default defineComponent({
                                 dense: true,
                                 // events
                                 onClick: (e: Event) => {
-                                  __stopAndPrevent(e);
-                                  __trackLanguageChanged(language.value);
+                                  __stopAndPrevent(e)
+                                  __trackLanguageChanged(language.value)
                                 },
                               },
                               () => [
@@ -2655,7 +2655,7 @@ export default defineComponent({
                               ],
                             ),
                             [[ClosePopup]],
-                          );
+                          )
                         }),
                       ],
                     ),
@@ -2663,7 +2663,7 @@ export default defineComponent({
                 ),
             ]),
         ],
-      );
+      )
     }
 
     function __renderMediaPlayer() {
@@ -2671,19 +2671,19 @@ export default defineComponent({
         onMousemove: __mouseMoveAction,
         onMouseleave: __mouseLeaveVideo,
         onClick: __videoClick,
-      };
+      }
 
       return h(
-        "div",
+        'div',
         {
           class: {
-            "q-media--dark": props.dark === true,
-            "q-media": true,
+            'q-media--dark': props.dark === true,
+            'q-media': true,
             ...__classes.value,
           },
           style: {
             borderRadius: !state.inFullscreen ? props.radius : 0,
-            height: __isVideo.value ? "auto" : props.dense ? "40px" : "80px",
+            height: __isVideo.value ? 'auto' : props.dense ? '40px' : '80px',
           },
           ref: $root,
           ...events,
@@ -2708,7 +2708,7 @@ export default defineComponent({
                 __renderBigPlayButton(),
             ]
           : void 0,
-      );
+      )
     }
 
     // expose public methods
@@ -2731,8 +2731,8 @@ export default defineComponent({
       setCurrentTime,
       setVolume,
       $media,
-    });
+    })
 
-    return () => __renderMediaPlayer();
+    return () => __renderMediaPlayer()
   },
-});
+})

@@ -1,27 +1,27 @@
-import { scroll } from "quasar";
-import { watch, onMounted, onBeforeUnmount } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useMarkdownStore } from "../stores/markdown";
-const { setVerticalScrollPosition, getVerticalScrollPosition } = scroll;
+import { scroll } from 'quasar'
+import { watch, onMounted, onBeforeUnmount } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useMarkdownStore } from '../stores/markdown'
+const { setVerticalScrollPosition, getVerticalScrollPosition } = scroll
 
 export function useScroll() {
-  let scrollTimer: ReturnType<typeof setTimeout> | undefined;
-  const scrollDuration = 500;
-  const route = useRoute();
-  const router = useRouter();
-  const markdownStore = useMarkdownStore();
+  let scrollTimer: ReturnType<typeof setTimeout> | undefined
+  const scrollDuration = 500
+  const route = useRoute()
+  const router = useRouter()
+  const markdownStore = useMarkdownStore()
 
-  let preventTocUpdate = route.hash.length > 1;
+  let preventTocUpdate = route.hash.length > 1
 
   // Watch for route changes
   watch(
     () => route.fullPath,
     (newRoute, oldRoute) => {
       setTimeout(() => {
-        scrollToCurrentAnchor(newRoute !== oldRoute);
-      });
+        scrollToCurrentAnchor(newRoute !== oldRoute)
+      })
     },
-  );
+  )
 
   /**
    * Changes the router's hash to the specified value. If the current hash is different from the provided hash,
@@ -31,9 +31,9 @@ export function useScroll() {
    */
   function changeRouterHash(hash: string) {
     if (route.hash !== hash) {
-      router.replace({ hash }).catch(() => {});
+      router.replace({ hash }).catch(() => {})
     } else {
-      scrollToCurrentAnchor();
+      scrollToCurrentAnchor()
     }
   }
 
@@ -44,20 +44,20 @@ export function useScroll() {
    * @param delay - The delay in milliseconds for the scroll animation.
    */
   function scrollPage(el: HTMLElement, delay: number) {
-    const { top } = el.getBoundingClientRect();
+    const { top } = el.getBoundingClientRect()
     const offset = Math.max(
       0,
       top + getVerticalScrollPosition(window) - 166, // TODO: dynamic header offset
-    );
+    )
 
-    clearTimeout(scrollTimer);
+    clearTimeout(scrollTimer)
 
-    preventTocUpdate = true;
-    setVerticalScrollPosition(window, offset, delay);
+    preventTocUpdate = true
+    setVerticalScrollPosition(window, offset, delay)
 
     scrollTimer = setTimeout(() => {
-      preventTocUpdate = false;
-    }, delay + 10);
+      preventTocUpdate = false
+    }, delay + 10)
   }
 
   /**
@@ -66,12 +66,12 @@ export function useScroll() {
    * @param id - The ID of the HTML element to scroll to.
    */
   function scrollTo(id: string) {
-    clearTimeout(scrollTimer);
-    changeRouterHash("#" + id);
+    clearTimeout(scrollTimer)
+    changeRouterHash('#' + id)
 
     setTimeout(() => {
-      markdownStore.setActiveToc(getVerticalScrollPosition(window));
-    }, scrollDuration + 50);
+      markdownStore.setActiveToc(getVerticalScrollPosition(window))
+    }, scrollDuration + 50)
   }
 
   /**
@@ -82,7 +82,7 @@ export function useScroll() {
   function onPageScroll({ position }: { position: number }) {
     // @ts-expect-error Jeff - fix later when I can figure this one out
     if (preventTocUpdate !== true && document.qScrollPrevented !== true) {
-      markdownStore.setActiveToc(position);
+      markdownStore.setActiveToc(position)
     }
   }
 
@@ -92,51 +92,51 @@ export function useScroll() {
    * @param immediate - If true, the scroll will be immediate without any animation.
    */
   function scrollToCurrentAnchor(immediate?: boolean) {
-    const hash = location.hash;
-    const el = hash.length > 1 ? document.getElementById(hash.substring(1)) : null;
+    const hash = location.hash
+    const el = hash.length > 1 ? document.getElementById(hash.substring(1)) : null
 
     if (el !== null) {
       if (immediate === true) {
-        let anchorEl: HTMLElement | null = el;
+        let anchorEl: HTMLElement | null = el
         while (
           anchorEl?.parentElement !== null &&
-          !anchorEl.parentElement.classList.contains("q-page")
+          !anchorEl.parentElement.classList.contains('q-page')
         ) {
-          anchorEl = anchorEl.parentElement;
+          anchorEl = anchorEl.parentElement
         }
 
         if (anchorEl) {
-          document.body.classList.add("q-scroll--lock");
-          anchorEl.classList.add("q-scroll--anchor");
+          document.body.classList.add('q-scroll--lock')
+          anchorEl.classList.add('q-scroll--anchor')
 
           setTimeout(() => {
-            document.body.classList.remove("q-scroll--lock");
+            document.body.classList.remove('q-scroll--lock')
             if (anchorEl) {
-              anchorEl.classList.remove("q-scroll--anchor");
+              anchorEl.classList.remove('q-scroll--anchor')
             }
-          }, 2000);
+          }, 2000)
         }
       }
 
-      scrollPage(el, immediate === true ? 0 : scrollDuration);
+      scrollPage(el, immediate === true ? 0 : scrollDuration)
     } else {
-      preventTocUpdate = false;
-      markdownStore.setActiveToc();
+      preventTocUpdate = false
+      markdownStore.setActiveToc()
     }
   }
 
   onMounted(() => {
     setTimeout(() => {
-      scrollToCurrentAnchor(true);
-    });
-  });
+      scrollToCurrentAnchor(true)
+    })
+  })
 
   onBeforeUnmount(() => {
-    clearTimeout(scrollTimer);
-  });
+    clearTimeout(scrollTimer)
+  })
 
   return {
     scrollTo,
     onPageScroll,
-  };
+  }
 }

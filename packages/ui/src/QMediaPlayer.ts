@@ -1,1 +1,1 @@
-export { default } from "./components/QMediaPlayer";
+export { default } from './components/QMediaPlayer'

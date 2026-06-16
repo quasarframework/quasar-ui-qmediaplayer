@@ -25,9 +25,9 @@
 </template>
 
 <script setup lang="ts">
-import { mdiMenuDown } from "@quasar/extras/mdi-v7";
-import MarkdownHeaderMenu from "./MarkdownHeaderMenu";
-import type { SiteMenuItem } from "../../siteConfig";
+import { mdiMenuDown } from '@quasar/extras/mdi-v7'
+import MarkdownHeaderMenu from './MarkdownHeaderMenu'
+import type { SiteMenuItem } from '../../siteConfig'
 
 const props = defineProps({
   menu: {
@@ -36,11 +36,11 @@ const props = defineProps({
   },
   mqPrefix: {
     type: String,
-    default: "",
+    default: '',
   },
   navClass: {
     type: String,
-    default: "",
+    default: '',
   },
-});
+})
 </script>

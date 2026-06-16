@@ -77,7 +77,6 @@
                 The QMediaPlayer UMD bundle did not load, so the component could not be registered.
               </q-card-section>
             </q-card>
-
           </q-page>
         </q-page-container>
       </q-layout>
@@ -90,48 +89,48 @@
     <script src="dist/icon-set/material-icons.umd.js?ae=qmediaplayer"></script>
 
     <script>
-      const { ref } = Vue;
-      const mediaPlayerPlugin = globalThis.QMediaPlayer;
+      const { ref } = Vue
+      const mediaPlayerPlugin = globalThis.QMediaPlayer
       const bundleReady =
         mediaPlayerPlugin !== void 0 &&
-        typeof mediaPlayerPlugin.install === "function" &&
-        mediaPlayerPlugin.QMediaPlayer !== void 0;
+        typeof mediaPlayerPlugin.install === 'function' &&
+        mediaPlayerPlugin.QMediaPlayer !== void 0
       const bundleError =
         bundleReady === true
-          ? ""
+          ? ''
           : [
-              "dist/index.umd.js did not load.",
-              "This usually means the page is not being served from the packages/ui folder.",
+              'dist/index.umd.js did not load.',
+              'This usually means the page is not being served from the packages/ui folder.',
               'Use "./start-umd.sh" or "quasar serve -p 9000 . -i umd-test.html".',
-            ].join(" ");
+            ].join(' ')
 
       const app = Vue.createApp({
         setup() {
-          const dense = ref(false);
-          const mobileMode = ref(false);
+          const dense = ref(false)
+          const mobileMode = ref(false)
           const sources = [
             {
-              src: "https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4",
-              type: "video/mp4",
+              src: 'https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
+              type: 'video/mp4',
             },
-          ];
+          ]
 
           return {
-            version: bundleReady === true ? mediaPlayerPlugin.version : "bundle missing",
+            version: bundleReady === true ? mediaPlayerPlugin.version : 'bundle missing',
             bundleReady,
             bundleError,
             dense,
             mobileMode,
             sources,
-          };
+          }
         },
-      });
+      })
 
-      app.use(Quasar);
+      app.use(Quasar)
       if (bundleReady === true) {
-        app.use(mediaPlayerPlugin);
+        app.use(mediaPlayerPlugin)
       }
-      app.mount("#q-app");
+      app.mount('#q-app')
     </script>
   </body>
 </html>

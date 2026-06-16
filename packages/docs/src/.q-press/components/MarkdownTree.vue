@@ -35,26 +35,26 @@
 </template>
 
 <script setup lang="ts">
-import { mdiLaunch, mdiInformationOutline } from "@quasar/extras/mdi-v7";
+import { mdiLaunch, mdiInformationOutline } from '@quasar/extras/mdi-v7'
 
 const props = defineProps({
   def: {
     type: Object,
     required: true,
   },
-});
+})
 
-let id = 0;
+let id = 0
 const addId = (node) => {
-  node.id = id++;
+  node.id = id++
   if (node.c !== void 0) {
-    node.l += "/";
-    node.c.forEach(addId);
+    node.l += '/'
+    node.c.forEach(addId)
   }
-  return node;
-};
+  return node
+}
 
-const nodes = [addId(props.def)];
+const nodes = [addId(props.def)]
 </script>
 
 <style lang="scss">

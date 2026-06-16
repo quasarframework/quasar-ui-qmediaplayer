@@ -48,15 +48,15 @@ Completed translations include English, German, Polish, Chinese, Dutch, Czech, S
 </template>
 
 <script setup lang="ts">
-import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
 const sources = [
   {
-    src: "/media/video.mp4",
-    type: "video/mp4",
+    src: '/media/video.mp4',
+    type: 'video/mp4',
   },
-];
+]
 </script>
 ```
 

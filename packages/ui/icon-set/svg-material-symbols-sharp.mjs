@@ -16,10 +16,10 @@ import {
   symSharpCheck,
   symSharpFullscreen,
   symSharpFullscreenExit,
-} from "@quasar/extras/material-symbols-sharp";
+} from '@quasar/extras/material-symbols-sharp'
 
 export default {
-  name: "svg-material-symbols-sharp",
+  name: 'svg-material-symbols-sharp',
   mediaPlayer: {
     play: symSharpPlayArrow,
     pause: symSharpPause,
@@ -34,4 +34,4 @@ export default {
     fullscreenExit: symSharpFullscreenExit,
     bigPlayButton: symSharpPlayArrow,
   },
-};
+}

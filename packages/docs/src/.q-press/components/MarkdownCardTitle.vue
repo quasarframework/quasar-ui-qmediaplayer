@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { copyHeading, slugify } from "./markdown-utils";
+import { computed } from 'vue'
+import { copyHeading, slugify } from './markdown-utils'
 
 const props = defineProps({
   title: {
@@ -15,13 +15,13 @@ const props = defineProps({
   },
   prefix: {
     type: String,
-    default: "",
+    default: '',
   },
-});
+})
 
-const id = computed(() => (props.prefix || "") + slugify(props.title));
+const id = computed(() => (props.prefix || '') + slugify(props.title))
 
 function onClick() {
-  copyHeading(id.value);
+  copyHeading(id.value)
 }
 </script>

@@ -1,8 +1,8 @@
-import { h, ref, computed, defineComponent, type PropType } from "vue";
-import { QCard, QTabs, QTab, QTabPanels, QSeparator } from "quasar";
+import { h, ref, computed, defineComponent, type PropType } from 'vue'
+import { QCard, QTabs, QTab, QTabPanels, QSeparator } from 'quasar'
 
 export default defineComponent({
-  name: "MarkdownPrerender",
+  name: 'MarkdownPrerender',
 
   props: {
     title: {
@@ -18,9 +18,9 @@ export default defineComponent({
   },
 
   setup(props, { slots }) {
-    const currentTab = ref(props.tabs !== undefined ? props.tabs[0] : null);
+    const currentTab = ref(props.tabs !== undefined ? props.tabs[0] : null)
 
-    const hasHeader = computed(() => props.title !== undefined || props.tabs !== undefined);
+    const hasHeader = computed(() => props.title !== undefined || props.tabs !== undefined)
 
     /**
      * Generates an array of VNode elements based on the provided props and slots.
@@ -32,14 +32,14 @@ export default defineComponent({
      * @returns {ReturnType<typeof h>[]} An array of VNode elements to be rendered.
      */
     function getContent() {
-      const acc: ReturnType<typeof h>[] = [];
+      const acc: ReturnType<typeof h>[] = []
 
       if (props.title !== undefined) {
         acc.push(
-          h("div", { class: "header-toolbar row items-center" }, [
-            h("div", { class: "markdown-card-title q-my-xs q-mr-sm" }, props.title),
+          h('div', { class: 'header-toolbar row items-center' }, [
+            h('div', { class: 'markdown-card-title q-my-xs q-mr-sm' }, props.title),
           ]),
-        );
+        )
       }
 
       if (props.tabs !== undefined) {
@@ -47,28 +47,28 @@ export default defineComponent({
           h(
             QTabs,
             {
-              class: "header-tabs",
-              align: "left",
-              activeColor: "brand-primary",
-              indicatorColor: "brand-primary",
+              class: 'header-tabs',
+              align: 'left',
+              activeColor: 'brand-primary',
+              indicatorColor: 'brand-primary',
               dense: true,
               breakpoint: 0,
               shrink: true,
               modelValue: currentTab.value,
-              "onUpdate:modelValue": (v: string) => {
-                currentTab.value = v;
+              'onUpdate:modelValue': (v: string) => {
+                currentTab.value = v
               },
             },
             () =>
               props.tabs!.map((tab) =>
-                h(QTab, { name: tab, class: "header-btn", noCaps: true }, () => tab),
+                h(QTab, { name: tab, class: 'header-btn', noCaps: true }, () => tab),
               ),
           ),
-        );
+        )
       }
 
       if (hasHeader.value) {
-        acc.push(h(QSeparator));
+        acc.push(h(QSeparator))
       }
 
       acc.push(
@@ -76,18 +76,18 @@ export default defineComponent({
           ? h(
               QTabPanels,
               {
-                class: "markdown-copybtn-hover",
+                class: 'markdown-copybtn-hover',
                 animated: true,
                 modelValue: currentTab.value,
               },
               slots.default,
             )
-          : h("div", { class: "markdown-copybtn-hover relative-position" }, slots.default?.()),
-      );
+          : h('div', { class: 'markdown-copybtn-hover relative-position' }, slots.default?.()),
+      )
 
-      return acc;
+      return acc
     }
 
-    return () => h(QCard, { flat: true, bordered: true }, getContent);
+    return () => h(QCard, { flat: true, bordered: true }, getContent)
   },
-});
+})

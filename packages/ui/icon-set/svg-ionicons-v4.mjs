@@ -16,10 +16,10 @@ import {
   ionMdCheckmark,
   ionMdExpand,
   ionMdContract,
-} from "@quasar/extras/ionicons-v4";
+} from '@quasar/extras/ionicons-v4'
 
 export default {
-  name: "svg-ionicons-v4",
+  name: 'svg-ionicons-v4',
   mediaPlayer: {
     play: ionMdPlay,
     pause: ionMdPause,
@@ -34,4 +34,4 @@ export default {
     fullscreenExit: ionMdContract,
     bigPlayButton: ionMdPlay,
   },
-};
+}

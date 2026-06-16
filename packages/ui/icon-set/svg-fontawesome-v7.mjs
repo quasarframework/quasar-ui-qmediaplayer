@@ -16,10 +16,10 @@ import {
   fasCheck,
   fasExpand,
   fasCompress,
-} from "@quasar/extras/fontawesome-v7";
+} from '@quasar/extras/fontawesome-v7'
 
 export default {
-  name: "svg-fontawesome-v7",
+  name: 'svg-fontawesome-v7',
   mediaPlayer: {
     play: fasPlay,
     pause: fasPause,
@@ -34,4 +34,4 @@ export default {
     fullscreenExit: fasCompress,
     bigPlayButton: fasPlay,
   },
-};
+}

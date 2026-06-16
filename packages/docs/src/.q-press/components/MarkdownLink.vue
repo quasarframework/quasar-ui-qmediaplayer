@@ -9,13 +9,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { mdiLaunch } from "@quasar/extras/mdi-v7";
+import { computed } from 'vue'
+import { mdiLaunch } from '@quasar/extras/mdi-v7'
 
-const props = defineProps({ to: { type: String, required: true } });
+const props = defineProps({ to: { type: String, required: true } })
 const internal = computed(
-  () => props.to.charAt(0) === "/" || props.to.charAt(0) === "." || props.to.charAt(0) === "#",
-);
+  () => props.to.charAt(0) === '/' || props.to.charAt(0) === '.' || props.to.charAt(0) === '#',
+)
 </script>
 
 <style lang="scss">

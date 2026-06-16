@@ -22,15 +22,15 @@
 
 <script setup lang="ts">
 interface MenuEntry {
-  icon: string;
-  path: string;
-  external?: boolean;
-  name: string;
-  color?: string;
-  image?: boolean;
+  icon: string
+  path: string
+  external?: boolean
+  name: string
+  color?: string
+  image?: boolean
 }
 
 const props = defineProps<{
-  menu: MenuEntry[];
-}>();
+  menu: MenuEntry[]
+}>()
 </script>

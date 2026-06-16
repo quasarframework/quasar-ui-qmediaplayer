@@ -1,1 +1,1 @@
-export default import.meta.glob("./**/*.md");
+export default import.meta.glob('./**/*.md')

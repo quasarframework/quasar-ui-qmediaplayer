@@ -8,10 +8,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from "vue";
-import { useQuasar } from "quasar";
-import { useDark } from "../composables/dark";
-import { mdiMoonWaningCrescent, mdiWhiteBalanceSunny } from "@quasar/extras/mdi-v7";
+import { computed, watch } from 'vue'
+import { useQuasar } from 'quasar'
+import { useDark } from '../composables/dark'
+import { mdiMoonWaningCrescent, mdiWhiteBalanceSunny } from '@quasar/extras/mdi-v7'
 
 const props = defineProps({
   darkIcon: {
@@ -22,27 +22,27 @@ const props = defineProps({
     type: String,
     default: mdiWhiteBalanceSunny, // Default light mode icon
   },
-});
+})
 
-const emit = defineEmits(["update:mode"]);
+const emit = defineEmits(['update:mode'])
 
-const $q = useQuasar();
-const { toggleDark } = useDark();
+const $q = useQuasar()
+const { toggleDark } = useDark()
 
-const isDark = computed(() => $q.dark.isActive);
+const isDark = computed(() => $q.dark.isActive)
 
 const toggleMode = () => {
-  toggleDark();
-  emit("update:mode", isDark.value ? "dark" : "light");
-};
+  toggleDark()
+  emit('update:mode', isDark.value ? 'dark' : 'light')
+}
 
 // Watch for changes in Quasar dark mode
 watch(
   () => $q.dark.isActive,
   (newVal) => {
-    emit("update:mode", newVal ? "dark" : "light");
+    emit('update:mode', newVal ? 'dark' : 'light')
   },
-);
+)
 </script>
 
 <style scoped lang="scss">

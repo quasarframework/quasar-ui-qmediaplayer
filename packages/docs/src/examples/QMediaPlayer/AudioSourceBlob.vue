@@ -14,25 +14,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { QMediaPlayer } from "@quasar/quasar-ui-qmediaplayer";
-import "@quasar/quasar-ui-qmediaplayer/dist/index.css";
+import { ref, watch } from 'vue'
+import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
-defineOptions({ name: "AudioSourceBlob" });
+defineOptions({ name: 'AudioSourceBlob' })
 
-const media = ref<File | null>(null);
-const mediaplayer = ref<{ loadBlob: (blob: Blob | File) => boolean } | null>(null);
+const media = ref<File | null>(null)
+const mediaplayer = ref<{ loadBlob: (blob: Blob | File) => boolean } | null>(null)
 
 watch(
   () => media.value,
   (file) => {
     if (file) {
-      loadBlob(file);
+      loadBlob(file)
     }
   },
-);
+)
 
 function loadBlob(file: File) {
-  mediaplayer.value?.loadBlob(file);
+  mediaplayer.value?.loadBlob(file)
 }
 </script>

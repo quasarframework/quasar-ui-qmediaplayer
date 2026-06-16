@@ -93,29 +93,29 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, markRaw, ref, reactive, onBeforeUnmount, onMounted } from "vue";
-import { openURL } from "quasar";
+import { computed, inject, markRaw, ref, reactive, onBeforeUnmount, onMounted } from 'vue'
+import { openURL } from 'quasar'
 
-import { fabGithub, fabCodepen } from "@quasar/extras/fontawesome-v7";
+import { fabGithub, fabCodepen } from '@quasar/extras/fontawesome-v7'
 // import { mdiCompare } from '@quasar/extras/mdi-v7'
 
-import MarkdownCode from "./MarkdownCode.vue";
-import MarkdownCodepen from "./MarkdownCodepen.vue";
-import MarkdownCardTitle from "./MarkdownCardTitle.vue";
+import MarkdownCode from './MarkdownCode.vue'
+import MarkdownCodepen from './MarkdownCodepen.vue'
+import MarkdownCardTitle from './MarkdownCardTitle.vue'
 // import { useDark } from '../composables/dark'
 
-import siteConfig from "../../siteConfig";
+import siteConfig from '../../siteConfig'
 
 type MarkdownExampleList = {
-  code?: Record<string, () => Promise<{ default: unknown }>>;
-  source?: Record<string, () => Promise<string>>;
-  [key: string]: unknown;
-};
+  code?: Record<string, () => Promise<{ default: unknown }>>
+  source?: Record<string, () => Promise<string>>
+  [key: string]: unknown
+}
 
 type MarkdownExamples = {
-  name: string;
-  list?: Promise<MarkdownExampleList> | MarkdownExampleList;
-};
+  name: string
+  list?: Promise<MarkdownExampleList> | MarkdownExampleList
+}
 
 const props = defineProps({
   title: {
@@ -130,22 +130,22 @@ const props = defineProps({
   scrollable: Boolean,
   overflow: Boolean,
   noGithub: Boolean, // no GitHub link
-});
+})
 
-const examples = inject<MarkdownExamples | null>("_markdown_examples_", null);
+const examples = inject<MarkdownExamples | null>('_markdown_examples_', null)
 
 // const dark = useDark()
-const codepenRef = ref(null);
-const isBusy = ref(true);
+const codepenRef = ref(null)
+const isBusy = ref(true)
 
-const component = ref(null);
+const component = ref(null)
 const def = reactive({
   tabs: [],
   parts: {},
-});
-const currentTab = ref("Template");
-const expanded = ref(false);
-let removeHmrListener = () => {};
+})
+const currentTab = ref('Template')
+const expanded = ref(false)
+let removeHmrListener = () => {}
 
 /**
  * A computed property that returns the CSS class for the component.
@@ -153,11 +153,11 @@ let removeHmrListener = () => {};
  */
 const componentClass = computed(() => {
   return props.scrollable === true
-    ? "markdown-example__content--scrollable scroll-y"
+    ? 'markdown-example__content--scrollable scroll-y'
     : props.overflow === true
-      ? "overflow-auto"
-      : "";
-});
+      ? 'overflow-auto'
+      : ''
+})
 
 /**
  * Parses a given template and applies it to the target.
@@ -168,10 +168,10 @@ const componentClass = computed(() => {
  */
 function parseTemplate(target, template) {
   const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`,
-    regex = new RegExp(string, "g"),
-    parsed = regex.exec(template) || [];
+    regex = new RegExp(string, 'g'),
+    parsed = regex.exec(template) || []
 
-  return parsed[1] || "";
+  return parsed[1] || ''
 }
 
 /**
@@ -182,109 +182,109 @@ function parseTemplate(target, template) {
  */
 function parseComponent(comp) {
   def.parts = {
-    Template: parseTemplate("template", comp),
-    Script: parseTemplate("script", comp),
-    Style: parseTemplate("style", comp),
-  };
-
-  const tabs = ["Template", "Script", "Style"].filter((type) => def.parts[type]);
-
-  if (tabs.length > 1) {
-    def.parts.All = comp;
-    tabs.push("All");
+    Template: parseTemplate('template', comp),
+    Script: parseTemplate('script', comp),
+    Style: parseTemplate('style', comp),
   }
 
-  def.tabs = tabs;
+  const tabs = ['Template', 'Script', 'Style'].filter((type) => def.parts[type])
+
+  if (tabs.length > 1) {
+    def.parts.All = comp
+    tabs.push('All')
+  }
+
+  def.tabs = tabs
 }
 
 function openGitHub() {
-  const examplesConfig = getExamplesConfig();
+  const examplesConfig = getExamplesConfig()
   const root =
-    siteConfig.githubSourceRootSrc ?? siteConfig.githubEditRootSrc.replace("/edit/", "/tree/");
-  openURL(`${root}/examples/${examplesConfig.name}/${props.file}.vue`);
+    siteConfig.githubSourceRootSrc ?? siteConfig.githubEditRootSrc.replace('/edit/', '/tree/')
+  openURL(`${root}/examples/${examplesConfig.name}/${props.file}.vue`)
 }
 
 function openCodepen() {
-  codepenRef.value.open(def.parts);
+  codepenRef.value.open(def.parts)
 }
 
 function toggleExpand() {
-  expanded.value = expanded.value === false;
+  expanded.value = expanded.value === false
 }
 
 async function loadExample() {
-  const examplesConfig = getExamplesConfig();
-  const list = await getExampleList(examplesConfig);
-  const devFile = `/src/examples/${examplesConfig.name}/${props.file}.vue`;
+  const examplesConfig = getExamplesConfig()
+  const list = await getExampleList(examplesConfig)
+  const devFile = `/src/examples/${examplesConfig.name}/${props.file}.vue`
 
   if (import.meta.env.QUASAR_DEV) {
-    const loadComponent = list.code?.[devFile];
-    const loadSource = list.source?.[devFile];
+    const loadComponent = list.code?.[devFile]
+    const loadSource = list.source?.[devFile]
 
     if (loadComponent === void 0 || loadSource === void 0) {
-      throw new Error(`Markdown example not found: ${devFile}`);
+      throw new Error(`Markdown example not found: ${devFile}`)
     }
 
-    const componentModule = await loadComponent();
-    const source = await loadSource();
+    const componentModule = await loadComponent()
+    const source = await loadSource()
 
-    component.value = markRaw(componentModule.default);
-    parseComponent(source);
+    component.value = markRaw(componentModule.default)
+    parseComponent(source)
   } else {
-    component.value = markRaw(list[props.file]);
-    parseComponent(list[`Raw${props.file}`]);
+    component.value = markRaw(list[props.file])
+    parseComponent(list[`Raw${props.file}`])
   }
 
-  isBusy.value = false;
+  isBusy.value = false
 }
 
 if (import.meta.env.QUASAR_CLIENT) {
   onMounted(() => {
-    void loadExample();
+    void loadExample()
 
     if (import.meta.hot) {
-      const examplesConfig = getExamplesConfig();
-      const examplePath = `/src/examples/${examplesConfig.name}/${props.file}.vue`;
+      const examplesConfig = getExamplesConfig()
+      const examplePath = `/src/examples/${examplesConfig.name}/${props.file}.vue`
       const onAfterUpdate = (payload) => {
         const shouldReload = payload.updates.some(
           (update) => update.path === examplePath || update.acceptedPath === examplePath,
-        );
+        )
 
         if (shouldReload === true) {
-          void loadExample();
+          void loadExample()
         }
-      };
+      }
 
-      import.meta.hot.on("vite:afterUpdate", onAfterUpdate);
+      import.meta.hot.on('vite:afterUpdate', onAfterUpdate)
       removeHmrListener = () => {
-        import.meta.hot?.off("vite:afterUpdate", onAfterUpdate);
-      };
+        import.meta.hot?.off('vite:afterUpdate', onAfterUpdate)
+      }
     }
-  });
+  })
 
   onBeforeUnmount(() => {
-    removeHmrListener();
-  });
+    removeHmrListener()
+  })
 }
 
 function getExamplesConfig(): MarkdownExamples {
   if (examples === null) {
     throw new Error(
       `Markdown example "${props.file}" is missing examples frontmatter on the current page.`,
-    );
+    )
   }
 
-  return examples;
+  return examples
 }
 
 async function getExampleList(examplesConfig: MarkdownExamples): Promise<MarkdownExampleList> {
   if (examplesConfig.list === undefined) {
     throw new Error(
       `Markdown example group "${examplesConfig.name}" was not loaded for "${props.file}".`,
-    );
+    )
   }
 
-  return examplesConfig.list;
+  return examplesConfig.list
 }
 </script>
 

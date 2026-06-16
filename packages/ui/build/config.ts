@@ -1,28 +1,28 @@
-import { createRequire } from "node:module";
+import { createRequire } from 'node:module'
 
-const nodeRequire = createRequire(import.meta.url);
-const { name, author, version } = nodeRequire("../package.json") as {
-  name: string;
-  author: string;
-  version: string;
-};
-const year = new Date().getFullYear();
+const nodeRequire = createRequire(import.meta.url)
+const { name, author, version } = nodeRequire('../package.json') as {
+  name: string
+  author: string
+  version: string
+}
+const year = new Date().getFullYear()
 
 export default {
   name,
   version,
   banner:
-    "/*!\n" +
-    " * " +
+    '/*!\n' +
+    ' * ' +
     name +
-    " v" +
+    ' v' +
     version +
-    "\n" +
-    " * (c) " +
+    '\n' +
+    ' * (c) ' +
     year +
-    " " +
+    ' ' +
     author +
-    "\n" +
-    " * Released under the MIT License.\n" +
-    " */\n",
-};
+    '\n' +
+    ' * Released under the MIT License.\n' +
+    ' */\n',
+}

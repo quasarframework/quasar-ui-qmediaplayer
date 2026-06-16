@@ -1,9 +1,9 @@
 // app global css in SCSS form
-@import "../.q-press/css/app.scss";
-@import "../.q-press/css/fonts.scss";
+@import '../.q-press/css/app.scss';
+@import '../.q-press/css/fonts.scss';
 
-@import "quasar/src/css/variables.sass";
-@import "../../../ui/src/index.scss";
+@import 'quasar/src/css/variables.sass';
+@import '../../../ui/src/index.scss';
 
 :root {
   --background-color: transparent;
@@ -65,6 +65,6 @@ html,
 body,
 #q-app {
   font-family:
-    "Poppins", "Roboto", "-apple-system", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    'Poppins', 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
   font-size: 14px;
 }
