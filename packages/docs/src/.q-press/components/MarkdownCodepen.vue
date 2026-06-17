@@ -180,7 +180,7 @@ function getModulePackageImportLines(content: string) {
     .flatMap(({ packageName, importUrl }: CodepenModulePackage) => {
       const escapedPackageName = packageName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
       const importRe = new RegExp(
-        `^\\s*import\\s+([\\s\\S]*?\\s+from\\s+)['"]${escapedPackageName}['"];?\\s*$`,
+        `^\\s*import\\s+((?:[^\\n]|\\n(?!\\s*import\\s))*?\\s+from\\s+)['"]${escapedPackageName}['"];?\\s*$`,
         'gm',
       )
       const imports: string[] = []
@@ -459,7 +459,7 @@ const html = computed(() => {
       return p1 + p2.replace(/>/g, '___TEMP_REPLACEMENT___') + p3
     })
     .replace(
-      /<([A-Z][\w-]*|[a-z][\w]*-[\w-]+|div)([^>]*?)\s*?([\n\r][\t ]+)?\/>/gs,
+      /<([A-Z][\w-]*|[a-z][\w]*-[\w-]+|div|span)([^>]*?)\s*?([\n\r][\t ]+)?\/>/gs,
       '<$1$2$3></$1>',
     )
     .replace(

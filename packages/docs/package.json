@@ -26,15 +26,15 @@
     "markdown-it": "^14.2.0",
     "markdown-it-container": "^4.0.0",
     "pinia": "^3.0.4",
-    "quasar": "^2.20.0",
+    "quasar": "^2.20.1",
     "vue": "^3.5.38",
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
-    "@md-plugins/quasar-app-extension-q-press": "0.1.0-rc.7",
-    "@md-plugins/vite-examples-plugin": "0.1.0-rc.7",
-    "@md-plugins/vite-md-plugin": "0.1.0-rc.7",
-    "@md-plugins/vite-ssg-plugin": "0.1.0-rc.7",
+    "@md-plugins/quasar-app-extension-q-press": "0.1.0-rc.8",
+    "@md-plugins/vite-examples-plugin": "0.1.0-rc.8",
+    "@md-plugins/vite-md-plugin": "0.1.0-rc.8",
+    "@md-plugins/vite-ssg-plugin": "0.1.0-rc.8",
     "@quasar/app-vite": "3.0.0-rc.3",
     "@quasar/quasar-ui-qmediaplayer": "workspace:*",
     "@types/node": "^25.9.3",
@@ -44,7 +44,7 @@
     "sass-embedded": "^1.100.0",
     "shiki": "^4.2.0",
     "typescript": "~6.0.3",
-    "vite-plugin-checker": "^0.14.1",
+    "vite-plugin-checker": "^0.14.4",
     "vue-tsc": "^3.3.5"
   },
   "engines": {
