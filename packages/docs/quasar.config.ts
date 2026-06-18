@@ -4,6 +4,7 @@
 import { defineConfig } from '@quasar/app-vite'
 import { viteExamplesPlugin, viteManualChunks } from '@md-plugins/vite-examples-plugin'
 import { viteMdPlugin, type MenuItem } from '@md-plugins/vite-md-plugin'
+import { viteSearchPlugin } from '@md-plugins/vite-search-plugin'
 
 export default defineConfig(async (ctx) => {
   const siteConfig = await import('./src/siteConfig')
@@ -113,6 +114,12 @@ export default defineConfig(async (ctx) => {
             path: ctx.appPaths.srcDir + '/examples',
           },
         ],
+        viteSearchPlugin({
+          markdown: {
+            root: ctx.appPaths.srcDir + '/markdown',
+            exclude: ['__*.md'],
+          },
+        }),
         [
           'vite-plugin-checker',
           {
