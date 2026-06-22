@@ -16,10 +16,10 @@ import {
   sharpCheck,
   sharpFullscreen,
   sharpFullscreenExit,
-} from '@quasar/extras/material-icons-sharp'
+} from "@quasar/extras/material-icons-sharp";
 
 export default {
-  name: 'svg-material-icons-sharp',
+  name: "svg-material-icons-sharp",
   mediaPlayer: {
     play: sharpPlayArrow,
     pause: sharpPause,

@@ -16,10 +16,10 @@ import {
   symOutlinedCheck,
   symOutlinedFullscreen,
   symOutlinedFullscreenExit,
-} from '@quasar/extras/material-symbols-outlined'
+} from "@quasar/extras/material-symbols-outlined";
 
 export default {
-  name: 'svg-material-symbols-outlined',
+  name: "svg-material-symbols-outlined",
   mediaPlayer: {
     play: symOutlinedPlayArrow,
     pause: symOutlinedPause,

@@ -16,10 +16,10 @@ import {
   ionCheckmark,
   ionExpand,
   ionContract,
-} from '@quasar/extras/ionicons-v8'
+} from "@quasar/extras/ionicons-v8";
 
 export default {
-  name: 'svg-ionicons-v8',
+  name: "svg-ionicons-v8",
   mediaPlayer: {
     play: ionPlay,
     pause: ionPause,

@@ -17,10 +17,10 @@ import {
   evaExpandOutline,
   evaCollapseOutline,
   evaArrowRightOutline,
-} from '@quasar/extras/eva-icons'
+} from "@quasar/extras/eva-icons";
 
 export default {
-  name: 'svg-eva-icons',
+  name: "svg-eva-icons",
   mediaPlayer: {
     play: evaPlayCircleOutline,
     pause: evaPauseCircleOutline,

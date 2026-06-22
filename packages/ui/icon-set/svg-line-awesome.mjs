@@ -16,10 +16,10 @@ import {
   laCheckSolid,
   laExpandSolid,
   laCompressSolid,
-} from '@quasar/extras/line-awesome'
+} from "@quasar/extras/line-awesome";
 
 export default {
-  name: 'svg-line-awesome',
+  name: "svg-line-awesome",
   mediaPlayer: {
     play: laPlaySolid,
     pause: laPauseSolid,

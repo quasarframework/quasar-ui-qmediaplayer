@@ -16,10 +16,10 @@ import {
   symRoundedCheck,
   symRoundedFullscreen,
   symRoundedFullscreenExit,
-} from '@quasar/extras/material-symbols-rounded'
+} from "@quasar/extras/material-symbols-rounded";
 
 export default {
-  name: 'svg-material-symbols-rounded',
+  name: "svg-material-symbols-rounded",
   mediaPlayer: {
     play: symRoundedPlayArrow,
     pause: symRoundedPause,

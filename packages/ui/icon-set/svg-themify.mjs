@@ -15,10 +15,10 @@ import {
   tiCheck,
   tiFullscreen,
   tiClose,
-} from '@quasar/extras/themify'
+} from "@quasar/extras/themify";
 
 export default {
-  name: 'svg-themify',
+  name: "svg-themify",
   mediaPlayer: {
     play: tiControlPlay,
     pause: tiControlPause,
