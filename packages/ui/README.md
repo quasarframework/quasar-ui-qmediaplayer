@@ -74,18 +74,18 @@ The UMD bundle exports `window.QMediaPlayer`.
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.min.css"
+  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.1/dist/index.min.css"
   rel="stylesheet"
   type="text/css"
 />
-<script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.1/dist/index.umd.min.js"></script>
 ```
 
 If you need the RTL variant of the CSS, use:
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.rtl.min.css"
+  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.1/dist/index.rtl.min.css"
   rel="stylesheet"
   type="text/css"
 />

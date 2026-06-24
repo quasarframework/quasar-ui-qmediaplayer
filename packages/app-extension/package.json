@@ -1,6 +1,6 @@
 {
   "name": "@quasar/quasar-app-extension-qmediaplayer",
-  "version": "3.0.0-rc.0",
+  "version": "3.0.0-rc.1",
   "description": "A Quasar App Extension for @quasar/quasar-ui-qmediaplayer",
   "keywords": [
     "HTML5 media player",

@@ -36,7 +36,7 @@ To add QMediaPlayer to your Quasar application, run the following in your Quasar
 quasar ext add @quasar/qmediaplayer
 ```
 
-The QMediaPlayer v3 App Extension targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0-rc.2. It does not support webpack-based Quasar applications.
+The QMediaPlayer v3 App Extension targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0-rc.3. It does not support webpack-based Quasar applications.
 
 ### Manual Boot File
 
@@ -98,13 +98,13 @@ Add the following tags after the Quasar stylesheet and script tags:
 ```html
 <head>
   <link
-    href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.css"
+    href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.1/dist/index.css"
     rel="stylesheet"
     type="text/css"
   />
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.1/dist/index.umd.min.js"></script>
 </body>
 ```
 
@@ -112,7 +112,7 @@ If you need the RTL variant of the CSS, use:
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.0/dist/index.rtl.css"
+  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0-rc.1/dist/index.rtl.css"
   rel="stylesheet"
   type="text/css"
 />
