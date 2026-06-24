@@ -28,10 +28,10 @@ import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 defineOptions({ name: 'VideoOverlayForm' })
 
 const email = ref('')
-const poster = '/media/TearsOfSteel/TearsOfSteel.jpeg'
+const poster = '/media/sintel/sintel-poster1.jpeg'
 const sources = [
   {
-    src: 'https://archive.org/download/Tears-of-Steel/tears_of_steel_720p.mp4',
+    src: 'https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
     type: 'video/mp4',
   },
 ]

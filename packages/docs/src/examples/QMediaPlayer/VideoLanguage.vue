@@ -17,10 +17,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import languages from 'quasar/lang/index.json'
 import { QMediaPlayer } from '@quasar/quasar-ui-qmediaplayer'
+import mediaPlayerLanguages from '@quasar/quasar-ui-qmediaplayer/lang'
 import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
 defineOptions({ name: 'VideoLanguage' })
@@ -75,8 +76,26 @@ const tracks = [
   },
 ]
 const $q = useQuasar()
-const lang = ref($q.lang.isoName)
-const langOptions = ref<Array<{ label: string; value: string }>>([])
+const mediaPlayerLanguageNames = new Set(
+  (mediaPlayerLanguages as LanguageOption[]).map((language) => language.isoName),
+)
+
+function hasMediaPlayerLanguage(isoName: string) {
+  const [baseIsoName] = isoName.split('-')
+
+  return (
+    mediaPlayerLanguageNames.has(isoName) ||
+    (baseIsoName !== undefined && mediaPlayerLanguageNames.has(baseIsoName))
+  )
+}
+
+const lang = ref(hasMediaPlayerLanguage($q.lang.isoName) ? $q.lang.isoName : 'en-US')
+const langOptions = (languages as LanguageOption[])
+  .filter((language) => hasMediaPlayerLanguage(language.isoName))
+  .map((language) => ({
+    label: language.nativeName,
+    value: language.isoName,
+  }))
 const quasarLangLoaders = {
   ar: () => import('quasar/lang/ar'),
   'ar-TN': () => import('quasar/lang/ar-TN'),
@@ -150,13 +169,6 @@ const quasarLangLoaders = {
   'zh-CN': () => import('quasar/lang/zh-CN'),
   'zh-TW': () => import('quasar/lang/zh-TW'),
 }
-
-onBeforeMount(() => {
-  langOptions.value = (languages as LanguageOption[]).map((l) => ({
-    label: l.nativeName,
-    value: l.isoName,
-  }))
-})
 
 watch(lang, async (val) => {
   const loadLang =

@@ -5,7 +5,12 @@
       <code>hls.js</code>. QMediaPlayer supplies the controls; the adapter owns stream loading.
     </q-banner>
 
-    <q-media-player type="video" cross-origin="anonymous" @media-player="attachHls" />
+    <q-media-player
+      type="video"
+      cross-origin="anonymous"
+      @media-player="attachHls"
+      @error="onMediaError"
+    />
 
     <div class="text-caption text-grey-7">
       {{ status }}
@@ -45,7 +50,8 @@ type HlsWindow = Window & {
   Hls?: HlsConstructor
 }
 
-const hlsSource = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
+const hlsSource =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8'
 const hlsScriptUrl = 'https://cdn.jsdelivr.net/npm/hls.js@1.6.16/dist/hls.min.js'
 const status = ref('Waiting for the media element...')
 
@@ -55,7 +61,11 @@ let disposed = false
 let hlsLoader: Promise<HlsConstructor> | null = null
 
 function getHlsWindow() {
-  return window as HlsWindow
+  return typeof window === 'undefined' ? undefined : (window as HlsWindow)
+}
+
+function getHlsDocument() {
+  return typeof document === 'undefined' ? undefined : document
 }
 
 async function attachHls(media: HTMLMediaElement | null) {
@@ -71,6 +81,7 @@ async function attachHls(media: HTMLMediaElement | null) {
 
   if (media.canPlayType('application/vnd.apple.mpegurl')) {
     media.src = hlsSource
+    media.load()
     status.value = 'Using native browser HLS support.'
     return
   }
@@ -109,8 +120,18 @@ async function attachHls(media: HTMLMediaElement | null) {
   hls.attachMedia(media)
 }
 
+function onMediaError(error: MediaError | null) {
+  status.value = error?.message
+    ? `Media error: ${error.message}`
+    : 'The media stream failed to load.'
+}
+
 function loadHlsJs() {
   const hlsWindow = getHlsWindow()
+
+  if (hlsWindow === undefined) {
+    return Promise.reject(new Error('HLS playback is only available in the browser.'))
+  }
 
   if (hlsWindow.Hls !== void 0) {
     return Promise.resolve(hlsWindow.Hls)
@@ -121,13 +142,20 @@ function loadHlsJs() {
   }
 
   hlsLoader = new Promise<HlsConstructor>((resolve, reject) => {
-    const script = document.createElement('script')
+    const hlsDocument = getHlsDocument()
+
+    if (hlsDocument === undefined) {
+      reject(new Error('HLS playback is only available in the browser.'))
+      return
+    }
+
+    const script = hlsDocument.createElement('script')
 
     script.src = hlsScriptUrl
     script.async = true
     script.dataset.qmediaplayerHlsjs = ''
     script.onload = () => {
-      const loadedHls = getHlsWindow().Hls
+      const loadedHls = getHlsWindow()?.Hls
 
       if (loadedHls === void 0) {
         reject(new Error('hls.js loaded, but did not expose an HLS adapter.'))
@@ -140,7 +168,7 @@ function loadHlsJs() {
       reject(new Error('Unable to load the HLS adapter.'))
     }
 
-    document.head.append(script)
+    hlsDocument.head.append(script)
   })
 
   return hlsLoader

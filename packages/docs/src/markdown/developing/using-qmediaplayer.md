@@ -13,6 +13,8 @@ QMediaPlayer gives Quasar apps a consistent audio and video player experience wi
 Some example videos are remotely hosted and may load slowly or fail depending on your network location.
 :::
 
+Need adaptive streaming adapters, runtime blobs, custom language or icon sets, overlays, or deeper styling hooks? See the [Advanced page](/developing/advanced) after the basics here.
+
 ## API
 
 <script import>
@@ -60,6 +62,10 @@ Poster images are useful for setting context before playback starts, especially 
 <MarkdownExample title="Video Poster" file="VideoPoster"/>
 
 <MarkdownExample title="Video Fallback Poster" file="VideoFallbackPoster"/>
+
+Native audio elements do not support poster images. When audio needs artwork, use the video player mode with an audio source.
+
+<MarkdownExample title="Audio With Poster" file="AudioWithPoster"/>
 
 ## Dark
 
@@ -131,30 +137,6 @@ Use `source` for a single source or `sources` when the browser should choose fro
 
 <MarkdownExample title="Video Source" file="VideoSource"/>
 
-## Source Blobs
-
-Blob sources let you play media created or fetched at runtime. Use `loadBlob()` when you already have a `File` or `Blob`, such as data from `QFile`, a drag-and-drop flow, or a generated media object. The player creates and cleans up the object URL for you. The older `loadFileBlob()` helper remains available for native `FileList` values.
-
-<MarkdownExample title="Audio Source Blob" file="AudioSourceBlob"/>
-
-<MarkdownExample title="Video Source Blob" file="VideoSourceBlob"/>
-
-## Advanced Streaming
-
-QMediaPlayer intentionally stays focused on native HTML5 media controls. For adaptive streaming formats, attach a dedicated streaming adapter to the native media element emitted by `@media-player`.
-
-Use this pattern for HLS, MPEG-DASH, DRM adapters, or other source loaders that need direct access to the underlying `<video>` element. The DASH example lazy-loads `dash.js` so the adapter stays out of the default docs bundle.
-
-<MarkdownExample title="Video HLS With hls.js" file="VideoHls"/>
-
-<MarkdownExample title="Video DASH With dash.js" file="VideoDash"/>
-
-## Embedded Providers
-
-YouTube, Vimeo, and other embedded providers do not expose a direct media file to the browser. Their embed URLs return an iframe player, so use Quasar's `QVideo` instead of passing those URLs to QMediaPlayer's `source` or `sources` props.
-
-<MarkdownExample title="YouTube Embed With QVideo" file="VideoEmbedProvider"/>
-
 ## Tracks
 
 Tracks are captions or subtitles. Start playback, then use the options menu to choose a language track.
@@ -165,32 +147,4 @@ In the example below, the default language track is French.
 
 <MarkdownExample title="Video Tracks Language" file="VideoTracksLanguage"/>
 
-## Language
-
-QMediaPlayer uses Quasar's language support indirectly. When the Quasar language changes, QMediaPlayer labels change with it.
-
-Not all languages have been translated yet. If you can help, please open a pull request with a language pack.
-
-<MarkdownExample title="Video Language" file="VideoLanguage" no-edit/>
-
-## Icon Sets
-
-Icon sets help you fit the player into stricter brand systems or specialized UIs. If your Quasar icon set already defines a `mediaPlayer` group, QMediaPlayer will use those icons directly before falling back to its bundled icon-set loaders.
-
-<MarkdownExample title="Video Icon Set" file="VideoIconSet" no-edit/>
-
-## Slots
-
-Slots let you customize pieces of the player UI without replacing the whole component.
-
-<MarkdownExample title="Video Slot" file="VideoSlot"/>
-
-Look for the subtle watermark in the top-left of the video. It is rendered through the `overlay` slot while QMediaPlayer keeps handling the media controls.
-
-When slot content needs to be interactive, such as a form or a custom call to action, use `:toggle-play-on-click="false"` so clicks inside the video frame do not bubble into playback toggles.
-
-<MarkdownExample title="Video Overlay Form" file="VideoOverlayForm"/>
-
-Dismissible overlays are useful for sponsored placements, consent prompts, upgrade calls to action, or other moments where the user needs to interact with content on top of the video. Bind `toggle-play-on-click` to the overlay state if you want normal frame-click playback behavior to return after the overlay is closed.
-
-<MarkdownExample title="Video Overlay Ad" file="VideoOverlayAd"/>
+For adaptive streaming, runtime files, overlays, icon sets, localization, and deeper styling, continue with the [Advanced page](/developing/advanced).

@@ -16,7 +16,7 @@ import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 
 defineOptions({ name: 'VideoSlot' })
 
-const poster = '/media/TearsOfSteel/TearsOfSteel.jpeg'
+const poster = '/media/sintel/sintel-poster1.jpeg'
 const sources = [
   {
     src: 'https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',

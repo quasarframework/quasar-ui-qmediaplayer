@@ -33,12 +33,14 @@ import '@quasar/quasar-ui-qmediaplayer/dist/index.css'
 defineOptions({ name: 'VideoIconSet' })
 
 type MediaPlayerIconSet = {
+  name?: string
   mediaPlayer: Record<string, string>
 }
 
 function createMediaPlayerIconSet(mediaPlayerIcons: MediaPlayerIconSet) {
   return {
     ...materialIcons,
+    name: mediaPlayerIcons.name ?? materialIcons.name,
     mediaPlayer: mediaPlayerIcons.mediaPlayer,
   }
 }
@@ -76,6 +78,7 @@ const iconSetLoaders = {
   'custom-media-player': () =>
     Promise.resolve({
       ...materialIcons,
+      name: 'custom-media-player',
       mediaPlayer: {
         play: 'play_circle',
         pause: 'pause_circle',

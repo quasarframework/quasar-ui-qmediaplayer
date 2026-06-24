@@ -6,7 +6,9 @@
           type="video"
           :sources="sources"
           :content-style="{
-            objectFit: 'cover',
+            height: '100%',
+            objectFit: 'contain',
+            width: '100%',
           }"
           class="qmediaplayer-portrait-example__player"
         />

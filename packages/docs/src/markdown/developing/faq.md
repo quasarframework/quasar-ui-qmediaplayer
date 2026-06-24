@@ -25,7 +25,7 @@ The App Extension registers QMediaPlayer for the app and imports the component s
 
 :::details Q. Does QMediaPlayer v3 support webpack-based Quasar apps?
 
-No. QMediaPlayer v3 targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0-rc.2. If your app still uses `@quasar/app-webpack`, migrate the app to Quasar CLI Vite before installing QMediaPlayer v3.
+No. QMediaPlayer v3 targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0-rc.3. If your app still uses `@quasar/app-webpack`, migrate the app to Quasar CLI Vite before installing QMediaPlayer v3.
 
 :::
 
@@ -115,7 +115,7 @@ By default, QMediaPlayer may still use a `video` element for audio playback beca
 
 :::details Q. Can QMediaPlayer play YouTube, Vimeo, RTSP, RTMP, or DRM streams?
 
-QMediaPlayer wraps native HTML5 media playback, so it cannot play YouTube or Vimeo iframe embed URLs through its `source` or `sources` props. Use Quasar's `QVideo` for embedded providers, like the YouTube wrapper example in the usage guide.
+QMediaPlayer wraps native HTML5 media playback, so it cannot play YouTube or Vimeo iframe embed URLs through its `source` or `sources` props. Use Quasar's `QVideo` for embedded providers and keep QMediaPlayer for direct native audio/video sources.
 
 If the browser can play the source through an HTML5 media element, QMediaPlayer can usually provide the UI around it.
 

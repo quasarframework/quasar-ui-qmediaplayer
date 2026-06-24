@@ -46,7 +46,11 @@ let disposed = false
 let dashLoader: Promise<DashJsApi> | null = null
 
 function getDashWindow() {
-  return window as DashWindow
+  return typeof window === 'undefined' ? undefined : (window as DashWindow)
+}
+
+function getDashDocument() {
+  return typeof document === 'undefined' ? undefined : document
 }
 
 async function attachDash(media: HTMLMediaElement | null) {
@@ -89,6 +93,10 @@ async function attachDash(media: HTMLMediaElement | null) {
 function loadDashJs() {
   const dashWindow = getDashWindow()
 
+  if (dashWindow === undefined) {
+    return Promise.reject(new Error('DASH playback is only available in the browser.'))
+  }
+
   if (dashWindow.dashjs !== void 0) {
     return Promise.resolve(dashWindow.dashjs)
   }
@@ -98,13 +106,20 @@ function loadDashJs() {
   }
 
   dashLoader = new Promise<DashJsApi>((resolve, reject) => {
-    const script = document.createElement('script')
+    const dashDocument = getDashDocument()
+
+    if (dashDocument === undefined) {
+      reject(new Error('DASH playback is only available in the browser.'))
+      return
+    }
+
+    const script = dashDocument.createElement('script')
 
     script.src = dashScriptUrl
     script.async = true
     script.dataset.qmediaplayerDashjs = ''
     script.onload = () => {
-      const loadedDash = getDashWindow().dashjs
+      const loadedDash = getDashWindow()?.dashjs
 
       if (loadedDash === void 0) {
         reject(new Error('dash.js loaded, but did not expose a DASH adapter.'))
@@ -117,7 +132,7 @@ function loadDashJs() {
       reject(new Error('Unable to load the DASH adapter.'))
     }
 
-    document.head.append(script)
+    dashDocument.head.append(script)
   })
 
   return dashLoader
