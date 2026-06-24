@@ -17,7 +17,7 @@ export default {
     waitingVideo: 'Warte auf Video',
     waitingAudio: 'Warte auf Audio',
     ratePoint5: '.5x',
-    rateNormal: 'Normal',
+    rateNormal: 'Standard',
     rate1Point5: '1.5x',
     rate2: '2x',
     trackLanguageOff: 'aus',
