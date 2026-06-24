@@ -11,7 +11,7 @@ import {
   watch,
   withDirectives,
 } from 'vue'
-import type { PropType, Slot, VNode, VNodeArrayChildren } from 'vue'
+import type { PropType, Slot, SlotsType, VNode, VNodeArrayChildren } from 'vue'
 
 import {
   ClosePopup,
@@ -37,19 +37,66 @@ type CrossOrigin = 'anonymous' | 'use-credentials' | null
 type ClassOrStyle = string | Record<string, unknown> | undefined
 
 type MediaSource = {
+  /**
+   * Path to a media source.
+   *
+   * @example src="https://your-server/your-video.mov"
+   * @example src="https://your-server/your-audio.mp3"
+   */
   src?: string
+  /**
+   * MIME type for the media source.
+   *
+   * @example type="video/mp4"
+   * @example type="audio/mp3"
+   */
   type?: string
 }
 
 type MediaTrack = {
+  /**
+   * Text track kind.
+   *
+   * @example kind="subtitles"
+   * @example kind="captions"
+   */
   kind?: string
+  /**
+   * Label used for track selection.
+   *
+   * @example label="English"
+   * @example label="Deutsch"
+   */
   label?: string
+  /**
+   * Path to a subtitle, caption, chapter, or metadata file.
+   *
+   * @example src="https://your-server/path/to/subtitles-en.vtt"
+   */
   src?: string
+  /**
+   * Track language identifier.
+   *
+   * @example srclang="en"
+   * @example srclang="de"
+   */
   srclang?: string
 }
 
 type PlaybackRateOption = {
+  /**
+   * Displayed label for the playback speed option.
+   *
+   * @example .5X
+   * @example Normal
+   */
   label: string
+  /**
+   * Playback speed multiplier.
+   *
+   * @example 0.5
+   * @example 1
+   */
   value: number
 }
 
@@ -156,6 +203,99 @@ type MediaPlayerState = {
   noControls: boolean
 }
 
+interface QMediaPlayerSlots {
+  /**
+   * Replace the default old browser fallback text.
+   *
+   * @applicable Audio | Video
+   */
+  oldbrowser: () => VNode[]
+  /**
+   * Render custom overlay content over the video frame.
+   *
+   * @applicable Video
+   */
+  overlay: () => VNode[]
+  /**
+   * Replace the default error window.
+   *
+   * @applicable Audio | Video
+   */
+  errorWindow: () => VNode[]
+  /**
+   * Replace the default controls.
+   *
+   * @applicable Audio | Video
+   */
+  controls: () => VNode[]
+  /**
+   * Replace the default spinner/loading icon.
+   *
+   * @applicable Audio | Video
+   */
+  spinner: () => VNode[]
+  /**
+   * Replace the default big play button.
+   *
+   * @applicable Video
+   */
+  bigPlayButton: () => VNode[]
+  /**
+   * Replace the default display time.
+   *
+   * @applicable Audio | Video
+   */
+  displayTime: () => VNode[]
+  /**
+   * Replace the default playback position slider.
+   *
+   * @applicable Audio | Video
+   */
+  positionSlider: () => VNode[]
+  /**
+   * Replace the default duration time.
+   *
+   * @applicable Audio | Video
+   */
+  durationTime: () => VNode[]
+  /**
+   * Replace the default play/pause control.
+   *
+   * @applicable Audio | Video
+   */
+  play: () => VNode[]
+  /**
+   * Replace the default volume button.
+   *
+   * @applicable Audio | Video
+   */
+  volume: () => VNode[]
+  /**
+   * Replace the default volume slider.
+   *
+   * @applicable Audio | Video
+   */
+  volumeSlider: () => VNode[]
+  /**
+   * Replace the default settings button.
+   *
+   * @applicable Video
+   */
+  settings: () => VNode[]
+  /**
+   * Replace the default settings menu content.
+   *
+   * @applicable Video
+   */
+  settingsMenu: () => VNode[]
+  /**
+   * Replace the default fullscreen button.
+   *
+   * @applicable Video
+   */
+  fullscreen: () => VNode[]
+}
+
 declare global {
   interface Window {
     QMediaPlayer?: QMediaPlayerGlobal
@@ -258,6 +398,37 @@ const langLoaders = {
   'zh-TW': () => import('../../lang/zh-TW.mjs'),
 }
 
+function getLanguageCandidates(lang: string) {
+  const candidates = [lang]
+  const [baseLang] = lang.split('-')
+
+  if (baseLang && baseLang !== lang) {
+    candidates.push(baseLang)
+  }
+
+  if (!candidates.includes('en-US')) {
+    candidates.push('en-US')
+  }
+
+  return candidates
+}
+
+function getLanguageGlobalName(lang: string) {
+  return lang.replace(/-([A-Za-z])/g, (_, char: string) => char.toUpperCase())
+}
+
+function resolveLangLoaderName(lang: string): keyof typeof langLoaders {
+  const candidates = getLanguageCandidates(lang)
+
+  for (const candidate of candidates) {
+    if (Object.prototype.hasOwnProperty.call(langLoaders, candidate)) {
+      return candidate as keyof typeof langLoaders
+    }
+  }
+
+  return 'en-US'
+}
+
 function hSlot(slot: Slot | undefined, otherwise: RenderChild): RenderChild {
   return slot !== void 0 ? slot() : otherwise
 }
@@ -285,133 +456,611 @@ export default defineComponent({
     Ripple,
   },
 
+  slots: Object as SlotsType<QMediaPlayerSlots>,
+
   props: {
+    /**
+     * Tells the component which player is to be used.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @values video | audio
+     * @example type="video"
+     * @example type="audio"
+     */
     type: {
       type: String as PropType<MediaPlayerType>,
       required: false,
       default: 'video',
       validator: (v: string) => ['video', 'audio'].includes(v),
     },
+    /**
+     * Use mobile logic for handling visibility of controls. This mode is best for mobiles, but can be used on desktop as well. It prevents the controls from displaying/hiding with mouse hover. Instead, clicks are used to show/hide the controls.
+     *
+     * @category behavior
+     * @applicable Video
+     */
     mobileMode: Boolean,
+    /**
+     * When true, clicking or tapping the video frame toggles play/pause. Turn this off when the overlay slot contains interactive content, such as forms or buttons.
+     *
+     * @category behavior
+     * @applicable Video
+     * @example :toggle-play-on-click="false"
+     */
     togglePlayOnClick: {
       type: Boolean,
       default: true,
     },
+    /**
+     * Direct media source URL. When this is set, the media element `src` is set directly and the `sources` prop is ignored.
+     *
+     * @category model
+     * @applicable Audio | Video
+     * @example source="https://path/to/the/video.mpeg"
+     */
     source: String,
+    /**
+     * One or more sources for video or audio. The browser picks the best source based on supported codecs.
+     *
+     * @category model
+     * @applicable Audio | Video
+     * @tsType MediaSource[]
+     * @example :sources="[{ src: 'https://your-server/your-video.mov', type: 'video/mp4' }]"
+     * @example :sources="[{ src: 'https://your-server/your-audio.mp3', type: 'audio/mp3' }]"
+     */
     sources: {
       type: Array as PropType<MediaSource[]>,
       default: () => [],
     },
+    /**
+     * Poster image to display before the video is loaded.
+     *
+     * @category model
+     * @applicable Video
+     * @example poster="https://path/to/the/image.jpg"
+     */
     poster: {
       type: String,
       default: '',
     },
+    /**
+     * Fallback poster image to display when `poster` is not provided. The `poster` prop always takes precedence.
+     *
+     * @category model
+     * @applicable Video
+     * @example fallback-poster="https://path/to/the/fallback-image.jpg"
+     */
     fallbackPoster: {
       type: String,
       default: '',
     },
+    /**
+     * One or more text tracks for subtitles, captions, chapters, or metadata.
+     *
+     * @category model
+     * @applicable Video
+     * @tsType MediaTrack[]
+     * @example :tracks="[{ src: 'https://your-server/path/to/subtitles-en.vtt', kind: 'subtitles', srclang: 'en', label: 'English' }]"
+     */
     tracks: {
       type: Array as PropType<MediaTrack[]>,
       default: () => [],
     },
+    /**
+     * Display controls in a compact single-line layout.
+     *
+     * @category style
+     * @applicable Audio | Video
+     */
     dense: Boolean,
+    /**
+     * Automatically start playback when the media is ready to play.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     */
     autoplay: Boolean,
+    /**
+     * Pause playback when the player scrolls completely out of the viewport. QMediaPlayer will not automatically resume playback when it becomes visible again.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @example auto-pause
+     */
     autoPause: {
       type: Boolean,
       default: false,
     },
+    /**
+     * Whether to use CORS for fetching media assets.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @values null | anonymous | use-credentials
+     * @example cross-origin="anonymous"
+     */
     crossOrigin: {
       type: String as PropType<CrossOrigin>,
       default: null,
       validator: (v: string | null) => v === null || ['anonymous', 'use-credentials'].includes(v),
     },
+    /**
+     * Initial volume from 0-100, as a percentage.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @example :volume="50"
+     * @example :volume="75"
+     */
     volume: {
       type: Number,
       default: 60,
       validator: (v: number) => v >= 0 && v <= 100,
     },
+    /**
+     * Hide the volume slider control.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     */
     hideVolumeSlider: Boolean,
+    /**
+     * Hide the volume button and volume slider.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @since v1.1.0
+     */
     hideVolumeBtn: Boolean,
+    /**
+     * Hide the play/pause button.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @since v1.0.21
+     */
     hidePlayBtn: Boolean,
+    /**
+     * Hide the settings button.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @since v1.0.2
+     */
     hideSettingsBtn: Boolean,
+    /**
+     * Hide the fullscreen button.
+     *
+     * @category behavior
+     * @applicable Video
+     * @since v1.2.0
+     */
     hideFullscreenBtn: Boolean,
+    /**
+     * Disable the seek-to-position slider.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @since v1.1.0
+     */
     disabledSeek: Boolean,
+    /**
+     * Provides a hint to the browser about what the author thinks will lead to the best user experience.
+     *
+     * @category state
+     * @applicable Video
+     * @values none | metadata | auto
+     * @tsType 'none' | 'metadata' | 'auto'
+     * @example preload="metadata"
+     */
     preload: {
       type: String,
       default: 'metadata',
       validator: (v: string) => ['none', 'metadata', 'auto'].includes(v),
     },
+    /**
+     * Force the player to use an `<audio>` element when `type` is `audio`.
+     *
+     * @category behavior
+     * @applicable Audio
+     * @since v1.0.23
+     */
     noVideo: Boolean,
+    /**
+     * Start the player muted.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     */
     muted: Boolean,
+    /**
+     * Render media inline where the platform supports the video element `playsinline` attribute.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     */
     playsinline: Boolean,
+    /**
+     * Automatically seek back to the start when playback reaches the end.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     */
     loop: Boolean,
+    /**
+     * Track `label` value to show by default.
+     *
+     * @category behavior
+     * @applicable Video
+     * @example track-language="English"
+     */
     trackLanguage: {
       type: String,
       default: 'off', // value for 'Off'
     },
+    /**
+     * Show tooltips for built-in controls.
+     *
+     * @category state
+     */
     showTooltips: Boolean,
+    /**
+     * Show the big play button over the video frame.
+     *
+     * @category behavior
+     * @applicable Video
+     */
     showBigPlayButton: {
       type: Boolean,
       default: true,
     },
+    /**
+     * Show the spinner while video or audio is loading.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     */
     showSpinner: {
       type: Boolean,
       default: true,
     },
+    /**
+     * CSS size for the spinner. Defaults to `3em` for video and `1.5em` for audio.
+     *
+     * @category state
+     * @applicable Audio | Video
+     * @example spinner-size="3em"
+     * @example spinner-size="1.5em"
+     */
     spinnerSize: String,
+    /**
+     * Never display QMediaPlayer controls.
+     *
+     * @category behavior
+     * @applicable Video
+     */
     noControls: Boolean,
+    /**
+     * Show the native browser media controls.
+     *
+     * @category behavior
+     * @applicable Audio | Video
+     * @since v1.2.0
+     */
     nativeControls: Boolean,
+    /**
+     * Render controls below the video instead of covering the video.
+     *
+     * @category behavior
+     * @applicable Video | Audio
+     */
     bottomControls: {
       type: Boolean,
       default: false,
     },
+    /**
+     * Idle time in milliseconds before hiding the controls.
+     *
+     * @category behavior
+     * @applicable Video
+     * @example :controls-display-time="3000"
+     */
     controlsDisplayTime: {
       type: Number,
       default: 4000,
     },
+    /**
+     * Playback speed options for the settings menu.
+     *
+     * @category behavior
+     * @applicable Video
+     * @tsType PlaybackRateOption[]
+     * @default [ { label: '.5x', value: 0.5 }, { label: 'Normal', value: 1 }, { label: '1.5x', value: 1.5 }, { label: '2x', value: 2 } ]
+     * @example :playback-rates="[{ label: '.5x', value: 0.5 }]"
+     */
     playbackRates: Array as PropType<PlaybackRateOption[]>,
-    // initial playback rate
+    /**
+     * Initial playback rate. Corresponds to a `value` in `playback-rates`.
+     *
+     * @category behavior
+     * @applicable Video
+     * @example :playback-rate="2"
+     */
     playbackRate: {
       type: Number,
       default: 1,
     },
+    /**
+     * Render the player on a dark background.
+     *
+     * @category style
+     * @applicable Audio | Video
+     */
     dark: Boolean,
+    /**
+     * Border radius applied to the media player.
+     *
+     * @category style
+     * @applicable Audio | Video
+     * @tsType number | string
+     * @example radius="4px"
+     * @example radius="6%"
+     */
     radius: {
       type: [Number, String],
       default: 0,
     },
+    /**
+     * Style definitions applied directly to the media element.
+     *
+     * @category style
+     * @applicable Audio | Video
+     * @tsType ClassOrStyle
+     * @example content-style="background-color: #ff0000"
+     * @example :content-style="{ backgroundColor: '#ff0000' }"
+     */
     contentStyle: [String, Object] as PropType<ClassOrStyle>,
+    /**
+     * Class definitions applied directly to the media element.
+     *
+     * @category style
+     * @applicable Audio | Video
+     * @tsType ClassOrStyle
+     * @example content-class="my-special-class"
+     * @example :content-class="{ 'my-special-class': condition }"
+     */
     contentClass: [String, Object] as PropType<ClassOrStyle>,
+    /**
+     * Width attribute applied directly to the media element, in pixels.
+     *
+     * @category style
+     * @applicable Audio | Video
+     * @example :content-width="300"
+     * @since v1.0.2
+     */
     contentWidth: Number,
+    /**
+     * Height attribute applied directly to the media element, in pixels.
+     *
+     * @category style
+     * @applicable Audio | Video
+     * @example :content-height="300"
+     * @since v1.0.2
+     */
     contentHeight: Number,
   },
 
   emits: [
+    /**
+     * Emitted when the media element has been created.
+     *
+     * @applicable Audio | Video
+     * @param mediaElement Media element instance.
+     * @param-type mediaElement Object
+     * @param-tsType mediaElement HTMLMediaElement | null
+     */
     'mediaPlayer',
+    /**
+     * Emitted when the playback rate changes.
+     *
+     * @applicable Audio | Video
+     * @param rate Playback rate value.
+     * @param-type rate Number
+     * @param-tsType rate number
+     * @param-api-exemption rate examples
+     */
     'playbackRate',
+    /**
+     * Emitted when the track language changes.
+     *
+     * @applicable Audio | Video
+     * @param lang Track language value.
+     * @param-type lang String
+     * @param-tsType lang string
+     * @param-api-exemption lang examples
+     */
     'trackLanguage',
+    /**
+     * Emitted when QMediaPlayer controls are toggled.
+     *
+     * @applicable Video
+     * @param showing Whether the controls are showing.
+     * @param-type showing Boolean
+     * @param-tsType showing boolean
+     */
     'showControls',
+    /**
+     * Emitted when the volume changes.
+     *
+     * @applicable Audio | Video
+     * @param volume Volume as a percent.
+     * @param-type volume Number
+     * @param-tsType volume number
+     * @param-example volume 50 - 50%
+     * @param-example volume 75 - 75%
+     */
     'volume',
+    /**
+     * Emitted when mute changes.
+     *
+     * @applicable Audio | Video
+     * @param muted Whether volume is muted.
+     * @param-type muted Boolean
+     * @param-tsType muted boolean
+     */
     'muted',
+    /**
+     * Emitted when entering or exiting fullscreen mode.
+     *
+     * @applicable Video
+     * @param showing Whether the player is in fullscreen mode.
+     * @param-type showing Boolean
+     * @param-tsType showing boolean
+     */
     'fullscreen',
+    /**
+     * Emitted when a source element reports a network-state error.
+     *
+     * @applicable Audio | Video
+     * @param event Native source error event.
+     * @param-type event Object
+     * @param-tsType event Event
+     * @param-api-exemption event examples
+     */
     'networkState',
+    /**
+     * Emitted when the resource was not fully loaded, but not as the result of an error.
+     *
+     * @applicable Audio | Video
+     */
     'abort',
+    /**
+     * Emitted when the media is ready to play. Do not call play/pause or setCurrentTime before this event.
+     *
+     * @applicable Audio | Video
+     */
     'ready',
+    /**
+     * Emitted when the user agent can play the media, but estimates that more buffering may be needed before playback can finish.
+     *
+     * @applicable Audio | Video
+     */
     'canplay',
+    /**
+     * Emitted when the user agent estimates enough data has loaded to play through to the end without further buffering.
+     *
+     * @applicable Audio | Video
+     * @since v1.0.18
+     */
     'canplaythrough',
+    /**
+     * Emitted when the duration of the media has been determined.
+     *
+     * @applicable Audio | Video
+     * @param seconds Duration in seconds.
+     * @param-type seconds Number
+     * @param-tsType seconds number
+     * @param-example seconds 600 - 10 minutes of audio or video
+     * @param-example seconds 1200 - 20 minutes of audio or video
+     */
     'duration',
+    /**
+     * Emitted when the media has become empty, for example when `HTMLMediaElement.load()` reloads previously loaded media.
+     *
+     * @applicable Audio | Video
+     * @since v1.0.18
+     */
     'emptied',
+    /**
+     * Emitted when the media has finished playing.
+     *
+     * @applicable Audio | Video
+     */
     'ended',
+    /**
+     * Emitted when there is a media error.
+     *
+     * @applicable Audio | Video
+     * @param mediaError Media error details from the HTML media element.
+     * @param-type mediaError Object
+     * @param-tsType mediaError MediaError | null
+     * @param-api-exemption mediaError examples
+     */
     'error',
+    /**
+     * Emitted when the browser has loaded the current frame of media data.
+     *
+     * @applicable Audio | Video
+     * @since v1.0.18
+     */
     'loadeddata',
+    /**
+     * Emitted when the metadata has been loaded.
+     *
+     * @applicable Audio | Video
+     * @since v1.0.18
+     */
     'loadedmetadata',
+    /**
+     * Emitted when the user agent is trying to fetch media data, but data is unexpectedly not forthcoming.
+     *
+     * @applicable Audio | Video
+     * @since v1.0.18
+     */
     'stalled',
+    /**
+     * Emitted when media data loading has been suspended.
+     *
+     * @applicable Audio | Video
+     * @since v1.0.18
+     */
     'suspend',
+    /**
+     * Emitted when the browser has started loading a resource.
+     *
+     * @applicable Audio | Video
+     * @since v1.0.18
+     */
     'loadstart',
+    /**
+     * Emitted when the media player is paused.
+     *
+     * @applicable Audio | Video
+     */
     'paused',
+    /**
+     * Emitted when the paused property changes from true to false because of `HTMLMediaElement.play()` or autoplay.
+     *
+     * @applicable Audio | Video
+     * @since v1.0.18
+     */
     'play',
+    /**
+     * Emitted when media starts playing. This can also emit after a pause or wait.
+     *
+     * @applicable Audio | Video
+     */
     'playing',
+    /**
+     * Emitted whenever playback time updates during play.
+     *
+     * @applicable Audio | Video
+     * @param currentTime Current play time in seconds.
+     * @param-type currentTime Number
+     * @param-tsType currentTime number
+     * @param-api-exemption currentTime examples
+     * @param remainingTime Remaining play time formatted as `MM:SS`.
+     * @param-type remainingTime String
+     * @param-tsType remainingTime string
+     * @param-api-exemption remainingTime examples
+     */
     'timeupdate',
+    /**
+     * Emitted when playback stops because of a temporary lack of data.
+     *
+     * @applicable Audio | Video
+     */
     'waiting',
   ],
 
@@ -571,14 +1220,21 @@ export default defineComponent({
         value: 'off',
       }
       tracksList.push(track)
-      for (let index = 0; index < props.tracks.length; ++index) {
+      for (const mediaTrack of props.tracks) {
         const track = {
-          label: props.tracks[index].label || '',
-          value: props.tracks[index].label || '',
+          label: mediaTrack.label || '',
+          value: mediaTrack.label || '',
         }
         tracksList.push(track)
       }
       return tracksList
+    })
+
+    const __trackLanguageCaption = computed(() => {
+      return (
+        __selectTracksLanguageList.value.find((language) => language.value === state.trackLanguage)
+          ?.label || state.trackLanguage
+      )
     })
 
     function __mediaElement() {
@@ -711,7 +1367,7 @@ export default defineComponent({
     )
 
     watch(
-      () => $q.iconSet?.name,
+      () => [$q.iconSet?.name, $q.iconSet?.mediaPlayer] as const,
       () => {
         __setupIcons()
       },
@@ -856,7 +1512,18 @@ export default defineComponent({
 
     // Public Methods
 
-    function loadBlob(blob: Blob) {
+    /**
+     * Load audio or video using a Blob or File object.
+     *
+     * @param blob Blob or File object. The player creates and manages the object URL.
+     * @param-tsType blob Blob | File
+     * @param-api-exemption blob examples
+     * @returns True if the media source was loaded, otherwise false.
+     * @returns-type Boolean
+     * @returns-tsType boolean
+     * @returns-api-exemption examples
+     */
+    function loadBlob(blob: Blob): boolean {
       const media = __mediaElement()
 
       if (media === null) {
@@ -883,10 +1550,23 @@ export default defineComponent({
       return true
     }
 
-    function loadFileBlob(fileList: FileList) {
+    /**
+     * Load audio or video using a FileList. Only the first item in the list is used.
+     *
+     * @param fileList FileList received from an input with `type="file"`.
+     * @param-tsType fileList FileList
+     * @param-api-exemption fileList examples
+     * @returns True if the media source was loaded, otherwise false.
+     * @returns-type Boolean
+     * @returns-tsType boolean
+     * @returns-api-exemption examples
+     */
+    function loadFileBlob(fileList: FileList): boolean {
       if (fileList) {
         if (Object.prototype.toString.call(fileList) === '[object FileList]') {
-          return fileList.length > 0 ? loadBlob(fileList[0]) : false
+          const file = fileList.item(0)
+
+          return file !== null ? loadBlob(file) : false
         }
 
         console.error('[QMediaPlayer]: loadFileBlob method requires a FileList')
@@ -894,7 +1574,12 @@ export default defineComponent({
       return false
     }
 
-    function showControls() {
+    /**
+     * Show the controls. Has no effect if controls are already displayed.
+     *
+     * @applicable Video
+     */
+    function showControls(): void {
       // no controls - always off
       if (state.noControls) {
         state.showControls = false
@@ -930,7 +1615,12 @@ export default defineComponent({
       }
     }
 
-    function hideControls() {
+    /**
+     * Hide the controls. Has no effect if controls are already hidden.
+     *
+     * @applicable Video
+     */
+    function hideControls(): void {
       if (state.inControls) return
       // no controls - always off
       if (state.noControls) {
@@ -953,7 +1643,12 @@ export default defineComponent({
       timer.hideControlsTimer = null
     }
 
-    function toggleControls() {
+    /**
+     * Toggle the controls.
+     *
+     * @applicable Video
+     */
+    function toggleControls(): void {
       if (state.bottomControls) {
         return
       }
@@ -965,7 +1660,12 @@ export default defineComponent({
       }
     }
 
-    function play() {
+    /**
+     * Start playback if the media is ready. This should be called after the `ready` event and may still require a user gesture depending on browser policy.
+     *
+     * @applicable Audio | Video
+     */
+    function play(): void {
       const media = __mediaElement()
 
       if (media !== null && state.playReady === true) {
@@ -981,7 +1681,12 @@ export default defineComponent({
       }
     }
 
-    function pause() {
+    /**
+     * Pause playback if the media is currently playing.
+     *
+     * @applicable Audio | Video
+     */
+    function pause(): void {
       const media = __mediaElement()
 
       if (media !== null && state.playReady === true) {
@@ -1027,7 +1732,12 @@ export default defineComponent({
       }
     }
 
-    function mute() {
+    /**
+     * Mute the audio.
+     *
+     * @applicable Audio | Video
+     */
+    function mute(): void {
       state.muted = true
       const media = __mediaElement()
       if (media !== null) {
@@ -1035,7 +1745,12 @@ export default defineComponent({
       }
     }
 
-    function unmute() {
+    /**
+     * Unmute the audio.
+     *
+     * @applicable Audio | Video
+     */
+    function unmute(): void {
       state.muted = false
       const media = __mediaElement()
       if (media !== null) {
@@ -1043,8 +1758,16 @@ export default defineComponent({
       }
     }
 
-    function togglePlay(e?: Event) {
-      __stopAndPrevent(e)
+    /**
+     * Toggle between play and pause states.
+     *
+     * @applicable Audio | Video
+     * @param event Optional source event.
+     * @param-required event false
+     * @param-tsType event Event
+     */
+    function togglePlay(event?: Event): void {
+      __stopAndPrevent(event)
       const media = __mediaElement()
 
       if (media !== null && state.playReady === true) {
@@ -1066,8 +1789,15 @@ export default defineComponent({
       }
     }
 
-    function toggleMuted(e: Event) {
-      __stopAndPrevent(e)
+    /**
+     * Toggle between muted and unmuted states.
+     *
+     * @applicable Audio | Video
+     * @param event Source event.
+     * @param-tsType event Event
+     */
+    function toggleMuted(event: Event): void {
+      __stopAndPrevent(event)
       state.muted = !state.muted
       const media = __mediaElement()
       if (media !== null) {
@@ -1075,9 +1805,16 @@ export default defineComponent({
       }
     }
 
-    function toggleFullscreen(e: Event) {
+    /**
+     * Toggle fullscreen mode.
+     *
+     * @applicable Video
+     * @param event Source event.
+     * @param-tsType event Event
+     */
+    function toggleFullscreen(event: Event): void {
       if (__isVideo.value) {
-        __stopAndPrevent(e)
+        __stopAndPrevent(event)
         if (state.inFullscreen) {
           exitFullscreen()
         } else {
@@ -1087,7 +1824,12 @@ export default defineComponent({
       }
     }
 
-    function setFullscreen() {
+    /**
+     * Enter fullscreen mode.
+     *
+     * @applicable Video
+     */
+    function setFullscreen(): void {
       const media = __mediaElement()
 
       if (props.hideFullscreenBtn === true || !__isVideo.value || state.inFullscreen) {
@@ -1103,7 +1845,12 @@ export default defineComponent({
       }
     }
 
-    function exitFullscreen() {
+    /**
+     * Exit fullscreen mode.
+     *
+     * @applicable Video
+     */
+    function exitFullscreen(): void {
       if (props.hideFullscreenBtn === true || !__isVideo.value || !state.inFullscreen) {
         return
       }
@@ -1117,7 +1864,16 @@ export default defineComponent({
       }
     }
 
-    function currentTime() {
+    /**
+     * Return the current play time in seconds.
+     *
+     * @applicable Audio | Video
+     * @returns `-1` if not ready, otherwise the current play time in seconds.
+     * @returns-type Number
+     * @returns-tsType number
+     * @returns-api-exemption examples
+     */
+    function currentTime(): number {
       const media = __mediaElement()
       if (media !== null && state.playReady === true) {
         return media.currentTime
@@ -1125,7 +1881,17 @@ export default defineComponent({
       return -1
     }
 
-    function setCurrentTime(seconds: number) {
+    /**
+     * Set the current play time.
+     *
+     * @applicable Audio | Video
+     * @param seconds Time in seconds.
+     * @param-type seconds Number
+     * @param-tsType seconds number
+     * @param-example seconds 30
+     * @param-example seconds 280
+     */
+    function setCurrentTime(seconds: number): void {
       const media = __mediaElement()
       if (state.playReady) {
         if (
@@ -1139,7 +1905,17 @@ export default defineComponent({
       }
     }
 
-    function setVolume(volume: number) {
+    /**
+     * Set the volume as a percent from 0-100.
+     *
+     * @applicable Audio | Video
+     * @param volume Volume in percent.
+     * @param-type volume Number
+     * @param-tsType volume number
+     * @param-example volume 50
+     * @param-example volume 75
+     */
+    function setVolume(volume: number): void {
       if (volume >= 0 && volume <= 100) {
         state.volume = volume
       }
@@ -1174,13 +1950,13 @@ export default defineComponent({
       const media = __mediaElement()
 
       if (media !== null && __isVideo.value) {
-        for (let index = 0; index < media.textTracks.length; ++index) {
-          if (media.textTracks[index].label === lang) {
-            media.textTracks[index].mode = 'showing'
-            media.textTracks[index].oncuechange = __cueChanged
+        for (const track of Array.from(media.textTracks as ArrayLike<TextTrack>)) {
+          if (track.label === lang) {
+            track.mode = 'showing'
+            track.oncuechange = __cueChanged
           } else {
-            media.textTracks[index].mode = 'hidden'
-            media.textTracks[index].oncuechange = null
+            track.mode = 'hidden'
+            track.oncuechange = null
           }
         }
       }
@@ -1215,9 +1991,12 @@ export default defineComponent({
         const mediaPlayerGlobal = typeof window !== 'undefined' ? window.QMediaPlayer : undefined
         // detect if UMD version is installed
         if (mediaPlayerGlobal && mediaPlayerGlobal.Component) {
-          const name = lang.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase())
-          if (mediaPlayerGlobal.lang && mediaPlayerGlobal.lang[name]) {
-            langList = mediaPlayerGlobal.lang[name]
+          const language = getLanguageCandidates(lang).find(
+            (candidate) => mediaPlayerGlobal.lang?.[getLanguageGlobalName(candidate)] !== void 0,
+          )
+
+          if (language !== void 0) {
+            langList = mediaPlayerGlobal.lang?.[getLanguageGlobalName(language)] ?? {}
           } else {
             /* eslint-disable-next-line no-console */
             console.error(`[QMediaPlayer]: No language loaded called '${lang}'`)
@@ -1228,9 +2007,10 @@ export default defineComponent({
           }
         } else {
           try {
-            const loadLang = langLoaders[lang as keyof typeof langLoaders] || langLoaders['en-US']
+            const langName = resolveLangLoaderName(lang)
+            const loadLang = langLoaders[langName]
 
-            if (langLoaders[lang as keyof typeof langLoaders] === void 0) {
+            if (langName === 'en-US' && lang !== 'en-US') {
               /* eslint-disable-next-line no-console */
               console.error(`[QMediaPlayer]: Cannot find language file called '${lang}'`)
             }
@@ -1274,7 +2054,7 @@ export default defineComponent({
         const mediaPlayerGlobal = typeof window !== 'undefined' ? window.QMediaPlayer : undefined
         // detect if UMD version is installed
         if (mediaPlayerGlobal && mediaPlayerGlobal.Component) {
-          const name = set.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase())
+          const name = set.replace(/-([a-z])/g, (_match, char: string) => char.toUpperCase())
           if (mediaPlayerGlobal.iconSet && mediaPlayerGlobal.iconSet[name]) {
             iconsList = mediaPlayerGlobal.iconSet[name]
           } else {
@@ -1360,8 +2140,8 @@ export default defineComponent({
       const media = __mediaElement()
       if (media !== null) {
         const sources = media.querySelectorAll('source')
-        for (let index = 0; index < sources.length; ++index) {
-          sources[index].addEventListener('error', __sourceEventHandler)
+        for (const source of sources) {
+          source.addEventListener('error', __sourceEventHandler)
         }
       }
     }
@@ -1370,8 +2150,8 @@ export default defineComponent({
       const media = __mediaElement()
       if (media !== null) {
         const sources = media.querySelectorAll('source')
-        for (let index = 0; index < sources.length; ++index) {
-          sources[index].removeEventListener('error', __sourceEventHandler)
+        for (const source of sources) {
+          source.removeEventListener('error', __sourceEventHandler)
         }
       }
     }
@@ -1533,8 +2313,11 @@ export default defineComponent({
             const parts = val.replace(/\s+/g, '').split(';')
             parts.forEach((part) => {
               if (part !== '') {
-                const data = part.split(':')
-                child[data[0]] = data[1]
+                const [property, value] = part.split(':')
+
+                if (property !== undefined && value !== undefined) {
+                  child[property] = value
+                }
               }
             })
           } else if (type === 'class') {
@@ -1746,8 +2529,10 @@ export default defineComponent({
         }
         const childNodes = media.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
-          if (childNodes[index] instanceof HTMLSourceElement) {
-            media.removeChild(childNodes[index])
+          const node = childNodes[index]
+
+          if (node instanceof HTMLSourceElement) {
+            media.removeChild(node)
           }
         }
       }
@@ -1804,8 +2589,10 @@ export default defineComponent({
       if (media !== null) {
         const childNodes = media.childNodes
         for (let index = childNodes.length - 1; index >= 0; --index) {
-          if (childNodes[index] instanceof HTMLTrackElement) {
-            media.removeChild(childNodes[index])
+          const node = childNodes[index]
+
+          if (node instanceof HTMLTrackElement) {
+            media.removeChild(node)
           }
         }
       }
@@ -1885,9 +2672,10 @@ export default defineComponent({
 
     function __renderAudio() {
       const slot = slots.oldbrowser
+      const mediaTag = props.noVideo === true ? 'audio' : 'video'
 
       const attrs = {
-        poster: __poster.value,
+        ...(mediaTag === 'video' ? { poster: __poster.value } : {}),
         preload: props.preload,
         playsinline: props.playsinline === true,
         loop: props.loop === true,
@@ -1911,7 +2699,7 @@ export default defineComponent({
       // property to force the <audio> tag.
 
       return h(
-        props.noVideo === true ? 'audio' : 'video',
+        mediaTag,
         {
           ref: $media,
           class: {
@@ -2607,7 +3395,7 @@ export default defineComponent({
                     expandSeparator: true,
                     icon: iconSet.mediaPlayer.language,
                     label: lang.mediaPlayer.language,
-                    caption: state.trackLanguage,
+                    caption: __trackLanguageCaption.value,
                     // events
                     onShow: __adjustMenu,
                     onHide: __adjustMenu,

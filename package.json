@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-qmediaplayer-workspace",
-  "version": "3.0.0-rc.0",
+  "version": "3.0.0-rc.1",
   "private": true,
   "description": "QMediaPlayer workspace",
   "type": "module",
@@ -10,6 +10,9 @@
     "build:ui": "cd packages/ui && pnpm build",
     "build:app-ext": "cd packages/app-extension && pnpm build",
     "build:docs": "cd packages/docs && pnpm build",
+    "api:generate": "pnpm --dir packages/docs exec qpress api generate --root ../..",
+    "api:check": "pnpm --dir packages/docs exec qpress api check --root ../..",
+    "check:qpress": "pnpm --dir packages/docs exec qpress check --root ../.. --src-dir packages/docs/src",
     "ci:publish": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch dev && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch dev",
     "ci:publish:latest": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch dev --tag latest && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch dev --tag latest",
     "ci:publish:beta": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks",
@@ -24,7 +27,7 @@
     "check:all": "pnpm verify",
     "verify": "pnpm verify:fast && pnpm verify:build",
     "verify:fast": "pnpm format:check && pnpm lint && pnpm test",
-    "verify:build": "pnpm build && pnpm typecheck"
+    "verify:build": "pnpm build && pnpm api:check && pnpm check:qpress && pnpm typecheck"
   },
   "devDependencies": {
     "@types/node": "^26.0.0",
@@ -41,5 +44,5 @@
     "node": ">=22.13",
     "pnpm": ">=11.5.0"
   },
-  "packageManager": "pnpm@11.8.0"
+  "packageManager": "pnpm@11.9.0"
 }

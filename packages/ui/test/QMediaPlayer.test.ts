@@ -3,7 +3,6 @@ import { createSSRApp, h } from 'vue'
 import { renderToString } from '@vue/server-renderer'
 
 import { QMediaPlayer, version } from '../src'
-import api from '../src/components/QMediaPlayer.json'
 
 describe('QMediaPlayer', () => {
   it('exports the component and package version', () => {
@@ -21,15 +20,21 @@ describe('QMediaPlayer', () => {
     expect(QMediaPlayer.props).toHaveProperty('playbackRate')
   })
 
-  it('documents blob loading helpers', () => {
-    expect(api.methods).toHaveProperty('loadBlob')
-    expect(api.methods).toHaveProperty('loadFileBlob')
-  })
-
-  it('emits every documented public event', () => {
+  it('declares key public events', () => {
     const emittedEvents = new Set(QMediaPlayer.emits)
+    const publicEvents = [
+      'mediaPlayer',
+      'ready',
+      'play',
+      'paused',
+      'timeupdate',
+      'fullscreen',
+      'networkState',
+      'playbackRate',
+      'trackLanguage',
+    ]
 
-    Object.keys(api.events).forEach((eventName) => {
+    publicEvents.forEach((eventName) => {
       expect(emittedEvents.has(eventName)).toBe(true)
     })
   })

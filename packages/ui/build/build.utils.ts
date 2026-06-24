@@ -14,9 +14,11 @@ const { version, name } = nodeRequire('../package.json') as {
 const buildDir = path.dirname(fileURLToPath(import.meta.url))
 const kebabRegex = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g
 const tableData: string[][] = []
+const verboseBuild =
+  process.env.QMEDIAPLAYER_BUILD_VERBOSE === '1' || process.env.BUILD_VERBOSE === '1'
 
 process.on('exit', (code) => {
-  if (code === 0 && tableData.length > 0) {
+  if (verboseBuild && code === 0 && tableData.length > 0) {
     tableData.sort((a, b) => {
       const [aType = '', aFile = ''] = a
       const [bType = '', bFile = ''] = b
@@ -105,9 +107,11 @@ export function writeFile(dest: string, code: string, zip?: boolean): Promise<st
 
   return new Promise((resolve, reject) => {
     function report(gzippedString = '', gzippedSize = '-'): void {
-      console.log(`${banner} ${filePath.padEnd(49)} ${fileSize.padStart(8)}${gzippedString}`)
+      if (verboseBuild) {
+        console.log(`${banner} ${filePath.padEnd(49)} ${fileSize.padStart(8)}${gzippedString}`)
+      }
 
-      if (toTable) {
+      if (verboseBuild && toTable) {
         tableData.push([tableEntryType, filePath, fileSize, gzippedSize])
       }
 
