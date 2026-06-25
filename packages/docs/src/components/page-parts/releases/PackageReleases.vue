@@ -50,7 +50,7 @@
             class="q-pa-none"
           >
             <q-scroll-area>
-              <div class="q-pa-md" v-html="currentReleaseBody" />
+              <div class="q-pa-md release__body" v-html="currentReleaseBody" />
             </q-scroll-area>
           </q-tab-panel>
         </q-tab-panels>
@@ -206,12 +206,21 @@ const currentReleaseBody = computed(() => {
 
 <style lang="scss">
 .release__splitter {
+  color: $light-text;
+  background: $light-bg;
+  border-color: $brand-border-color-light;
+
   .q-splitter__before {
     min-width: 260px;
+    background: $light-pill;
   }
 
   .q-splitter__after {
     min-width: 0;
+  }
+
+  .q-splitter__separator {
+    background: rgba($brand-primary, 0.28);
   }
 
   .q-scrollarea {
@@ -223,9 +232,14 @@ const currentReleaseBody = computed(() => {
   }
 
   .q-tab {
+    color: $light-text;
     justify-content: flex-start;
     min-height: 56px;
     padding: 8px 16px;
+  }
+
+  .q-tab small {
+    color: rgba($light-text, 0.68) !important;
   }
 
   .q-tab__content {
@@ -236,6 +250,12 @@ const currentReleaseBody = computed(() => {
 
   .q-tab--active {
     background: rgba($primary, 0.12);
+  }
+
+  .q-tab-panels,
+  .q-tab-panel {
+    color: $light-text;
+    background: $light-bg;
   }
 
   .release__version,
@@ -256,15 +276,76 @@ const currentReleaseBody = computed(() => {
   }
 }
 
-.body--dark .release__splitter .q-tab--active {
-  background: rgba($primary, 0.2);
+.body--dark .release__splitter {
+  color: $dark-text;
+  background: $dark-bg;
+  border-color: $brand-border-color-dark;
+
+  .q-splitter__before {
+    background: $dark-pill;
+  }
+
+  .q-splitter__separator {
+    background: $brand-border-color-dark;
+  }
+
+  .q-tab {
+    color: $dark-text;
+  }
+
+  .q-tab small {
+    color: rgba($dark-text, 0.58) !important;
+  }
+
+  .q-tab--active {
+    background: rgba($primary, 0.2);
+  }
+
+  .q-tab-panels,
+  .q-tab-panel {
+    color: $dark-text;
+    background: $dark-bg;
+  }
 }
 
 .release__body {
   white-space: pre-line;
 
+  a.markdown-link {
+    color: $brand-primary;
+  }
+
+  .markdown-token,
+  .markdown--token {
+    color: $brand-light-codeblock-text;
+    background: $brand-light-codeblock-bg;
+    border: 1px solid $brand-border-color-light;
+  }
+
   .q-markup-table {
     white-space: normal;
+    color: $light-text;
+    background: $light-bg;
+    border-color: $brand-border-color-light;
+  }
+}
+
+.body--dark .release__body {
+  a.markdown-link {
+    color: $header-btn-color--dark;
+  }
+
+  .markdown-token,
+  .markdown--token {
+    color: $brand-dark-codeblock-text;
+    background: $brand-dark-codeblock-bg;
+    border-color: $brand-border-color-dark;
+  }
+
+  .q-markup-table {
+    color: $dark-text;
+    background: $dark-bg;
+    border-color: $brand-border-color-dark;
   }
 }
 
@@ -286,7 +367,17 @@ const currentReleaseBody = computed(() => {
 }
 
 .release__code {
+  color: $brand-light-codeblock-text;
+  background: $brand-light-codeblock-bg;
+  border: 1px solid $brand-border-color-light;
+  border-radius: $generic-border-radius;
   padding: 4px;
   margin: 8px;
+}
+
+.body--dark .release__code {
+  color: $brand-dark-codeblock-text;
+  background: $brand-dark-codeblock-bg;
+  border-color: $brand-border-color-dark;
 }
 </style>
