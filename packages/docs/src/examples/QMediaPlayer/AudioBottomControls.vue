@@ -8,7 +8,7 @@
             style="position: absolute"
           >
             We are playing the audio in video type player to test the
-            <code class="markdown--token"> bottom-controls</code> property.
+            <code class="markdown-token"> bottom-controls</code> property.
           </div>
         </div>
       </template>

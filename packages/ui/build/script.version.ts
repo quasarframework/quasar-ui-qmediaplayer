@@ -12,7 +12,7 @@ const outputPath = path.resolve(buildDir, '../src/version.ts')
 
 export function generateVersionFile(): void {
   const template = fs.readFileSync(templatePath, 'utf-8')
-  fs.writeFileSync(outputPath, template.replace('__UI_VERSION__', `"${version}"`), 'utf-8')
+  fs.writeFileSync(outputPath, template.replace('__UI_VERSION__', `'${version}'`), 'utf-8')
 }
 
 if (fileURLToPath(import.meta.url) === process.argv[1]) {

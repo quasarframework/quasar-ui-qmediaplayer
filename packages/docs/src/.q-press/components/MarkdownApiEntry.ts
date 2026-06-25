@@ -133,10 +133,6 @@ function getStringList(value: any): string {
   return Array.isArray(value) ? value.join(', ') : '' + value
 }
 
-function formatTokenValue(value: unknown): string {
-  return value === '' ? 'empty string ("")' : String(value)
-}
-
 const NAME_PROP_COLOR = ['orange-8', 'brand-primary', 'green-5', 'purple-5']
 const NAME_PROP_COLOR_LEN = NAME_PROP_COLOR.length
 
@@ -166,7 +162,11 @@ function getTypeScriptDiv(value: string): VNode {
     12,
     'TypeScript',
     void 0,
-    h('pre', { class: 'markdown-api-entry__typescript markdown-token' }, h('code', value)),
+    h(
+      'pre',
+      { class: 'markdown-api-entry__typescript markdown-token' },
+      h('code', value),
+    ),
   )
 }
 
@@ -296,6 +296,10 @@ function parseForInlineCode(code: string) {
       return part
     }
   })
+}
+
+function formatTokenValue(value: unknown): string {
+  return value === '' || value === "''" || value === '""' ? 'empty string ("")' : String(value)
 }
 
 /**
