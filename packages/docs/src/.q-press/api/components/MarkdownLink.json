@@ -10,7 +10,10 @@
       "type": "String",
       "required": true,
       "category": "navigation",
-      "examples": ["/home", "https://example.com"]
+      "examples": [
+        "/home",
+        "https://example.com"
+      ]
     }
   },
   "slots": {

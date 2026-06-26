@@ -10,14 +10,19 @@
       "type": "String",
       "required": true,
       "category": "content",
-      "examples": ["'Introduction'", "'Chapter 1'"]
+      "examples": [
+        "'Introduction'",
+        "'Chapter 1'"
+      ]
     },
     "prefix": {
       "desc": "Prefix to add to the slugified title.",
       "type": "String",
       "default": "",
       "category": "content",
-      "examples": ["'section-'"]
+      "examples": [
+        "'section-'"
+      ]
     }
   }
 }

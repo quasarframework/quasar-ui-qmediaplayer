@@ -106,9 +106,7 @@ const isExternalAction = computed(() => {
 
   return action.value?.external === true || /^(https?:)?\/\//.test(link)
 })
-const actionHref = computed(() =>
-  isExternalAction.value === true ? action.value?.link : undefined,
-)
+const actionHref = computed(() => (isExternalAction.value === true ? action.value?.link : undefined))
 const actionTo = computed(() => (isExternalAction.value === false ? action.value?.link : undefined))
 
 /** Removes all active trigger listeners and timers. */
@@ -191,10 +189,7 @@ function isRouteMatch(campaign: CampaignConfig): boolean {
     return false
   }
 
-  return (
-    includeRoutes.length === 0 ||
-    includeRoutes.some((pattern) => matchesRoutePattern(path, pattern))
-  )
+  return includeRoutes.length === 0 || includeRoutes.some((pattern) => matchesRoutePattern(path, pattern))
 }
 
 /** Returns whether the campaign is allowed for the current viewport class. */
@@ -378,19 +373,14 @@ function onDialogHide(): void {
 function armTrigger(campaign: CampaignConfig): void {
   const requestedTrigger = campaign.trigger?.type ?? 'load'
   const trigger =
-    requestedTrigger === 'exit-intent' &&
-    isMobile.value === true &&
-    campaign.mobileFallback === 'load'
+    requestedTrigger === 'exit-intent' && isMobile.value === true && campaign.mobileFallback === 'load'
       ? 'load'
       : requestedTrigger
 
   armedCampaign.value = campaign
 
   if (trigger === 'delay') {
-    const timeoutId = window.setTimeout(
-      () => openCampaign(campaign),
-      campaign.trigger?.delayMs ?? 2500,
-    )
+    const timeoutId = window.setTimeout(() => openCampaign(campaign), campaign.trigger?.delayMs ?? 2500)
     triggerCleanup.push(() => window.clearTimeout(timeoutId))
     return
   }

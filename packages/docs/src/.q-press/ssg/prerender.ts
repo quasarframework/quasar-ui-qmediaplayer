@@ -5,10 +5,8 @@ import type {
 } from '@md-plugins/vite-ssg-plugin'
 import { createQPressSsgApp, type QPressSsgAppOptionsResolver } from './create-app'
 
-export interface PrerenderQPressSsgRoutesOptions extends Omit<
-  PrerenderVueSsgRoutesOptions,
-  'createApp'
-> {
+export interface PrerenderQPressSsgRoutesOptions
+  extends Omit<PrerenderVueSsgRoutesOptions, 'createApp'> {
   createAppOptions?: Parameters<typeof createQPressSsgApp>[2] | QPressSsgAppOptionsResolver
 }
 

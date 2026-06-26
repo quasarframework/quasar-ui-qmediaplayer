@@ -10,14 +10,20 @@
       "type": "String",
       "required": true,
       "category": "content",
-      "examples": ["'Example 1'", "'Sample Code'"]
+      "examples": [
+        "'Example 1'",
+        "'Sample Code'"
+      ]
     },
     "file": {
       "desc": "Vue example file name without the .vue extension.",
       "type": "String",
       "required": true,
       "category": "content",
-      "examples": ["'Basic'", "'AdvancedUsage'"]
+      "examples": [
+        "'Basic'",
+        "'AdvancedUsage'"
+      ]
     },
     "noEdit": {
       "desc": "Hide the CodePen edit action.",

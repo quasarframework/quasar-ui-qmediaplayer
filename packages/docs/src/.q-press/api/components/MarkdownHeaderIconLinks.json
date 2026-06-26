@@ -11,7 +11,9 @@
       "tsType": "MenuEntry[]",
       "type": "Array",
       "category": "content",
-      "examples": ["[{ icon: 'home', path: '/' }, { icon: 'info', path: '/about' }]"]
+      "examples": [
+        "[{ icon: 'home', path: '/' }, { icon: 'info', path: '/about' }]"
+      ]
     }
   }
 }

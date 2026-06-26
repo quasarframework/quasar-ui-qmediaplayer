@@ -10,14 +10,18 @@
       "type": "String",
       "default": "mdiMoonWaningCrescent",
       "category": "content",
-      "examples": ["mdiMoonWaningCrescent"]
+      "examples": [
+        "mdiMoonWaningCrescent"
+      ]
     },
     "lightIcon": {
       "desc": "Icon name displayed for the light mode state.",
       "type": "String",
       "default": "mdiWhiteBalanceSunny",
       "category": "content",
-      "examples": ["mdiWhiteBalanceSunny"]
+      "examples": [
+        "mdiWhiteBalanceSunny"
+      ]
     }
   },
   "events": {

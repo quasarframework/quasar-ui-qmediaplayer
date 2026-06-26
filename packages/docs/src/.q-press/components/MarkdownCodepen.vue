@@ -81,11 +81,7 @@ function indent(code: string, spaces = 2) {
 
         let escapeCount = 0
 
-        for (
-          let escapeIndex = index - 1;
-          escapeIndex >= 0 && line[escapeIndex] === '\\';
-          escapeIndex--
-        ) {
+        for (let escapeIndex = index - 1; escapeIndex >= 0 && line[escapeIndex] === '\\'; escapeIndex--) {
           escapeCount++
         }
 
@@ -383,8 +379,7 @@ function createOptionsScript(script: string) {
   const moduleImports = getModulePackageImportLines(content)
   const globalImports = getGlobalImportLines(content)
   const match = /export\s+default\s+{([\s\S]*)}/.exec(content)
-  const beforeDefault =
-    match === null ? stripImports(content) : stripImports(content.slice(0, match.index))
+  const beforeDefault = match === null ? stripImports(content) : stripImports(content.slice(0, match.index))
   let component = match?.[1]?.trim() ?? ''
 
   if (component.length > 0) {
@@ -430,9 +425,7 @@ const jsResources = computed(() => {
 })
 
 const css = computed(() => {
-  return rewriteRootRelativeUrls(
-    (def.parts.Style || '').replace(/(<style.*?>|<\/style>)/g, '').trim(),
-  )
+  return rewriteRootRelativeUrls((def.parts.Style || '').replace(/(<style.*?>|<\/style>)/g, '').trim())
 })
 
 const cssPreprocessor = computed(() => {
@@ -454,9 +447,7 @@ const jsPreProcessor = computed(() => {
   const optionsBlock = getScriptBlock(def.parts.Script ?? '', false)
   const attrs = setupBlock.content.length > 0 ? setupBlock.attrs : optionsBlock.attrs
 
-  return (
-    siteConfig.codepen?.jsPreProcessor ?? (/lang=["']ts["']/.test(attrs) ? 'typescript' : 'babel')
-  )
+  return siteConfig.codepen?.jsPreProcessor ?? (/lang=["']ts["']/.test(attrs) ? 'typescript' : 'babel')
 })
 
 const jsModule = computed(() => {

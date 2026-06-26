@@ -177,6 +177,9 @@ export async function createQPressSsgApp(
  */
 export function createQPressSsgAppFactory(
   options?: QPressSsgAppFactoryOptions,
-): (route: SsgRoute, context: SsgRouteRenderContext) => Promise<VueSsgAppFactoryResult> {
+): (
+  route: SsgRoute,
+  context: SsgRouteRenderContext,
+) => Promise<VueSsgAppFactoryResult> {
   return (route, context) => createQPressSsgApp(route, context, options)
 }

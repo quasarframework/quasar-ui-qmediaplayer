@@ -10,7 +10,9 @@
       "type": "Object",
       "required": true,
       "category": "content",
-      "examples": ["{ id: 1, l: 'Node 1', c: [{ id: 2, l: 'Child Node' }] }"]
+      "examples": [
+        "{ id: 1, l: 'Node 1', c: [{ id: 2, l: 'Child Node' }] }"
+      ]
     }
   },
   "slots": {

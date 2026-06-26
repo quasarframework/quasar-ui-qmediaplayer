@@ -10,21 +10,28 @@
       "type": "Array<SiteMenuItem>",
       "required": true,
       "category": "content",
-      "examples": ["[{ name: 'Home', path: '/' }, { name: 'Docs', path: '/docs' }]"]
+      "examples": [
+        "[{ name: 'Home', path: '/' }, { name: 'Docs', path: '/docs' }]"
+      ]
     },
     "mqPrefix": {
       "desc": "Prefix for media query classes.",
       "type": "String",
       "default": "",
       "category": "style",
-      "examples": ["'md'", "'lg'"]
+      "examples": [
+        "'md'",
+        "'lg'"
+      ]
     },
     "navClass": {
       "desc": "Additional CSS class to apply to navigation items.",
       "type": "String",
       "default": "",
       "category": "style",
-      "examples": ["'custom-nav-class'"]
+      "examples": [
+        "'custom-nav-class'"
+      ]
     }
   }
 }

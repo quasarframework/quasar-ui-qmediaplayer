@@ -233,8 +233,7 @@ function parseComponent(comp) {
 
 function openGitHub() {
   const examplesConfig = getExamplesConfig()
-  const root =
-    siteConfig.githubSourceRootSrc ?? siteConfig.githubEditRootSrc.replace('/edit/', '/tree/')
+  const root = siteConfig.githubSourceRootSrc ?? siteConfig.githubEditRootSrc.replace('/edit/', '/tree/')
   openURL(`${root}/examples/${examplesConfig.name}/${props.file}.vue`)
 }
 

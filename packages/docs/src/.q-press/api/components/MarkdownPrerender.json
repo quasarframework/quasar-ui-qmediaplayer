@@ -11,7 +11,10 @@
       "tsType": "string",
       "required": false,
       "category": "content",
-      "examples": ["'Example Title'", "'Sample Content'"]
+      "examples": [
+        "'Example Title'",
+        "'Sample Content'"
+      ]
     },
     "tabs": {
       "desc": "List of tabs to display.",
@@ -19,7 +22,9 @@
       "tsType": "string[]",
       "required": false,
       "category": "content",
-      "examples": ["['Tab 1', 'Tab 2']"]
+      "examples": [
+        "['Tab 1', 'Tab 2']"
+      ]
     }
   },
   "slots": {

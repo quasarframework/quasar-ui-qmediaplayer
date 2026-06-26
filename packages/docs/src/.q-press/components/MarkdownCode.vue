@@ -1,10 +1,6 @@
 <template>
   <div class="relative-position markdown-copybtn-hover">
-    <pre
-      class="markdown-code"
-      :class="block.className"
-      :style="[style, block.style]"
-    ><code v-html="block.code"></code></pre>
+    <pre class="markdown-code" :class="block.className" :style="[style, block.style]"><code v-html="block.code"></code></pre>
     <MarkdownCopyButton />
   </div>
 </template>

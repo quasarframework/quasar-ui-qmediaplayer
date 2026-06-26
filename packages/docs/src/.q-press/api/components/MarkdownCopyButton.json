@@ -10,14 +10,20 @@
       "type": "String",
       "default": "",
       "category": "content",
-      "examples": ["'const count = 1'"]
+      "examples": [
+        "'const count = 1'"
+      ]
     },
     "lang": {
       "desc": "Language of the code block to copy.",
       "type": "String",
       "default": "markdown",
       "category": "content",
-      "examples": ["'js'", "'html'", "'css'"]
+      "examples": [
+        "'js'",
+        "'html'",
+        "'css'"
+      ]
     }
   }
 }

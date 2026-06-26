@@ -10,7 +10,10 @@
       "type": "String",
       "required": true,
       "category": "content",
-      "examples": ["'Basic Example'", "'Advanced Playground'"]
+      "examples": [
+        "'Basic Example'",
+        "'Advanced Playground'"
+      ]
     }
   }
 }

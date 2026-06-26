@@ -1,10 +1,22 @@
 <template>
   <div class="markdown-mermaid q-my-md">
-    <div v-if="errorMessage" class="markdown-mermaid__error" role="alert">
+    <div
+      v-if="errorMessage"
+      class="markdown-mermaid__error"
+      role="alert"
+    >
       {{ errorMessage }}
     </div>
-    <div v-else-if="isRendering" class="markdown-mermaid__loading">Rendering diagram...</div>
-    <div ref="containerRef" class="markdown-mermaid__diagram"></div>
+    <div
+      v-else-if="isRendering"
+      class="markdown-mermaid__loading"
+    >
+      Rendering diagram...
+    </div>
+    <div
+      ref="containerRef"
+      class="markdown-mermaid__diagram"
+    ></div>
   </div>
 </template>
 

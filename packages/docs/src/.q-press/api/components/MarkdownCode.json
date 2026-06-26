@@ -10,20 +10,30 @@
       "type": "String",
       "required": true,
       "category": "content",
-      "examples": ["'const a = 1;'", "'<div>Hello World</div>'"]
+      "examples": [
+        "'const a = 1;'",
+        "'<div>Hello World</div>'"
+      ]
     },
     "maxHeight": {
       "desc": "Maximum height for the rendered code block.",
       "type": "String",
       "category": "style",
-      "examples": ["'200px'", "'50vh'"]
+      "examples": [
+        "'200px'",
+        "'50vh'"
+      ]
     },
     "lang": {
       "desc": "Language identifier used by the syntax highlighter.",
       "type": "String",
       "default": "js",
       "category": "content",
-      "examples": ["'js'", "'html'", "'css'"]
+      "examples": [
+        "'js'",
+        "'html'",
+        "'css'"
+      ]
     }
   }
 }

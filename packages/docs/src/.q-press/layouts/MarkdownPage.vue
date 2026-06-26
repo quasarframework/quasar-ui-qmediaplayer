@@ -245,6 +245,7 @@ const hasToc = computed(
 const tocClass = computed(
   () => `markdown-page__toc-container--${props.toc !== void 0 ? 'fixed' : 'flowing'}`,
 )
+
 </script>
 
 <style lang="scss">

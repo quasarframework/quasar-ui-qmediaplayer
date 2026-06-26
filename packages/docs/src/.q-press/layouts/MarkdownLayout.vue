@@ -38,11 +38,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type {
-  AnnouncementBannerConfig,
-  CampaignConfig,
-  PrivacyConsentConfig,
-} from '../types/config'
+import type { AnnouncementBannerConfig, CampaignConfig, PrivacyConsentConfig } from '../types/config'
 import { useRoute } from 'vue-router'
 import { mdiArrowUp } from '@quasar/extras/mdi-v7'
 
