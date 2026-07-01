@@ -1,12 +1,17 @@
 # Quasar App Extension QMediaPlayer
 
-The **QMediaPlayer App Extension** adds the [QMediaPlayer](../ui) component to a Quasar CLI Vite application. It registers the boot file and adds the QMediaPlayer stylesheet for you.
+[![npm version](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer?label=%40quasar%2Fquasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
+[![npm downloads](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
+[![npm monthly downloads](https://img.shields.io/npm/dm/@quasar/quasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
+[![license](https://img.shields.io/npm/l/@quasar/quasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
 
-[![npm](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer?label=@quasar/quasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
-[![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer.svg)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
+<span class="badge-github-sponsors"><a href="https://github.com/sponsors/hawkeye64" title="Sponsor this project on GitHub"><img src="https://img.shields.io/badge/github-sponsors-ea4aaa.svg?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors button" /></a></span>
+<span class="badge-paypal"><a href="https://paypal.me/hawkeye64" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
 
 [![Discord](https://img.shields.io/badge/discord-join%20server-738ADB?style=for-the-badge&logo=discord&logoColor=738ADB)](https://chat.quasar.dev)
 [![X](https://img.shields.io/badge/follow-@jgalbraith64-1DA1F2?style=for-the-badge&logo=x&logoColor=1DA1F2)](https://twitter.com/jgalbraith64)
+
+The **QMediaPlayer App Extension** adds the [QMediaPlayer](../ui) component to a Quasar CLI Vite application. It registers the boot file and adds the QMediaPlayer stylesheet for you.
 
 ## QMediaPlayer v3.0.0 RC
 

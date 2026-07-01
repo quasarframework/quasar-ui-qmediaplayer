@@ -1,12 +1,17 @@
 # QMediaPlayer
 
-QMediaPlayer is a Quasar component that provides refined HTML5 audio and video controls for Vue and Quasar applications.
+[![npm version](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer?label=%40quasar%2Fquasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
+[![npm downloads](https://img.shields.io/npm/dt/@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
+[![npm monthly downloads](https://img.shields.io/npm/dm/@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
+[![license](https://img.shields.io/npm/l/@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
 
-[![npm](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer?label=@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
-[![npm](https://img.shields.io/npm/dt/@quasar/quasar-ui-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-ui-qmediaplayer)
+<span class="badge-github-sponsors"><a href="https://github.com/sponsors/hawkeye64" title="Sponsor this project on GitHub"><img src="https://img.shields.io/badge/github-sponsors-ea4aaa.svg?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors button" /></a></span>
+<span class="badge-paypal"><a href="https://paypal.me/hawkeye64" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
 
 [![Discord](https://img.shields.io/badge/discord-join%20server-738ADB?style=for-the-badge&logo=discord&logoColor=738ADB)](https://chat.quasar.dev)
 [![X](https://img.shields.io/badge/follow-@jgalbraith64-1DA1F2?style=for-the-badge&logo=x&logoColor=1DA1F2)](https://twitter.com/jgalbraith64)
+
+QMediaPlayer is a Quasar component that provides refined HTML5 audio and video controls for Vue and Quasar applications.
 
 ## Documentation
 
