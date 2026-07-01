@@ -10,7 +10,9 @@
     "packages/*/dist",
     "packages/ui/icon-set",
     "packages/ui/src/version.ts",
+    "packages/docs/src/.q-press/**",
     "packages/docs/.quasar",
-    "packages/docs/dist"
+    "packages/docs/dist",
+    "pnpm-lock.yaml"
   ]
 }

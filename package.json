@@ -32,13 +32,13 @@
   "devDependencies": {
     "@types/node": "^26.0.0",
     "@vitest/coverage-v8": "^4.1.9",
-    "@vue/server-renderer": "^3.5.38",
+    "@vue/server-renderer": "^3.5.39",
     "npm-check-updates": "^22.2.7",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
     "typescript": "~6.0.3",
     "vitest": "^4.1.9",
-    "vue": "^3.5.38"
+    "vue": "^3.5.39"
   },
   "engines": {
     "node": ">=22.13",

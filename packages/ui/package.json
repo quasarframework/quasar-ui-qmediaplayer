@@ -92,7 +92,7 @@
     "@quasar/extras": "2.0.1"
   },
   "devDependencies": {
-    "@md-plugins/quasar-app-extension-q-press": "0.1.0-rc.17",
+    "@md-plugins/quasar-app-extension-q-press": "0.1.0-rc.18",
     "@types/node": "^26.0.0",
     "@types/rtlcss": "^3.5.4",
     "@types/uglify-js": "^3.17.5",
@@ -110,7 +110,7 @@
     "tsx": "^4.22.4",
     "typescript": "~6.0.3",
     "uglify-js": "^3.19.3",
-    "vue": "^3.5.38"
+    "vue": "^3.5.39"
   },
   "browserslist": [
     "last 4 Chrome versions",

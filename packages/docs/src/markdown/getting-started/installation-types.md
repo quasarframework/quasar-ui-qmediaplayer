@@ -36,7 +36,7 @@ To add QMediaPlayer to your Quasar application, run the following in your Quasar
 quasar ext add @quasar/qmediaplayer
 ```
 
-The QMediaPlayer v3 App Extension targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0-rc.3. It does not support webpack-based Quasar applications.
+The QMediaPlayer v3 App Extension targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0-rc.5. It does not support webpack-based Quasar applications.
 
 ### Manual Boot File
 
