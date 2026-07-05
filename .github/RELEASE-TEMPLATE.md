@@ -35,7 +35,7 @@ Short user-facing summary of what changed for QMediaPlayer component/app-extensi
 ## Compatibility
 
 - Node.js: `>=22.13`
-- Quasar: `^2.20.0`
+- Quasar: `^2.21.0`
 - Quasar App Vite target: `@quasar/app-vite@3.0.0-rc.3`
 - npm dist-tag: `latest`
 
