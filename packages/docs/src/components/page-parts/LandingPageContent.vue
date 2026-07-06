@@ -190,7 +190,7 @@ import siteConfig from '../../siteConfig'
 const productName = 'QMediaPlayer'
 const logoSrc = '/qmediaplayer-logo.svg'
 const logoAlt = 'QMediaPlayer Logo'
-const githubTreeUrl = 'https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/v3-beta'
+const githubTreeUrl = 'https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/dev'
 const githubRepoUrl = 'https://github.com/quasarframework/quasar-ui-qmediaplayer'
 const heroEyebrow = 'Vue 3 + Quasar 2'
 const heroLede =

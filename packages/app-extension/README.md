@@ -13,9 +13,9 @@
 
 The **QMediaPlayer App Extension** adds the [QMediaPlayer](../ui) component to a Quasar CLI Vite application. It registers the boot file and adds the QMediaPlayer stylesheet for you.
 
-## QMediaPlayer v3.0.0 RC
+## QMediaPlayer v3.0.0
 
-QMediaPlayer v3 prepares the app extension for Quasar CLI Vite 3. The app extension requires `@quasar/app-vite` >=3.0.0-rc.6 and no longer supports webpack-based Quasar apps. If your application is still using `@quasar/app-webpack`, migrate the application to Quasar CLI Vite before installing QMediaPlayer v3.
+QMediaPlayer v3 prepares the app extension for Quasar CLI Vite 3. The app extension requires `@quasar/app-vite` >=3.0.0 and no longer supports webpack-based Quasar apps. If your application is still using `@quasar/app-webpack`, migrate the application to Quasar CLI Vite before installing QMediaPlayer v3.
 
 ## Install
 

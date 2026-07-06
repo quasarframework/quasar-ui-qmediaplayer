@@ -3,7 +3,7 @@ import type { MenuItem } from '@md-plugins/vite-md-plugin'
 import { version } from '../../../ui/package.json'
 import { slugify } from '../.q-press/components/markdown-utils'
 
-const repoBranch = 'v3-beta'
+const repoBranch = 'dev'
 const productName = 'QMediaPlayer'
 const codepenPackageVersion = version
 

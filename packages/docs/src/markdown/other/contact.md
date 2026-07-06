@@ -10,7 +10,7 @@ Have a question about QMediaPlayer? We're here to help. Before you start, be sur
 
 ### QMediaPlayer GitHub issues
 
-As a first step, it's always good to search open and closed issues on the QMediaPlayer [GitHub repo](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/v3-beta).
+As a first step, it's always good to search open and closed issues on the QMediaPlayer [GitHub repo](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/dev).
 
 ### QMediaPlayer GitHub discussions
 
@@ -28,7 +28,7 @@ File on the [GitHub Issues](https://github.com/quasarframework/quasar-ui-qmediap
 
 ### GitHub pull requests (PR)
 
-If you have a specific fix or contribution, you can generate a pull request on the [QMediaPlayer repo](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/v3-beta). For QMediaPlayer v3 RC work, target the `v3-beta` branch.
+If you have a specific fix or contribution, you can generate a pull request on the [QMediaPlayer repo](https://github.com/quasarframework/quasar-ui-qmediaplayer/tree/dev). For current QMediaPlayer development work, target the `dev` branch.
 
 ## Start a discussion
 

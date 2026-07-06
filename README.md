@@ -15,9 +15,9 @@
 
 QMediaPlayer is a [Quasar](https://quasar.dev) component that provides refined HTML5 audio and video controls for Vue and Quasar applications.
 
-## QMediaPlayer v3.0.0 RC
+## QMediaPlayer v3.0.0
 
-QMediaPlayer v3 prepares the project for Quasar CLI Vite 3. The app extension is Vite-only, requires `@quasar/app-vite` >=3.0.0-rc.6, and no longer supports webpack-based Quasar apps.
+QMediaPlayer v3 prepares the project for Quasar CLI Vite 3. The app extension is Vite-only, requires `@quasar/app-vite` >=3.0.0, and no longer supports webpack-based Quasar apps.
 
 # Structure
 

@@ -13,13 +13,13 @@ The information below can help you migrate to QMediaPlayer v3.
 
 > The information below is by no means an exhaustive list of changes and new functionality. If you see something that has been missed, please PR or let us know. Also check the [Releases](/other/releases) page for ongoing updates.
 
-## QMediaPlayer v3.0.0 RC
+## QMediaPlayer v3.0.0
 
 QMediaPlayer v3 prepares the package for Quasar CLI Vite 3 and the shared app-extension workspace standard.
 
 Important changes:
 
-- The app extension is Vite-only and requires `@quasar/app-vite` >=3.0.0-rc.6.
+- The app extension is Vite-only and requires `@quasar/app-vite` >=3.0.0.
 - The repo is now a pnpm workspace under `packages/`.
 - The UI build now uses Rolldown and TypeScript build scripts.
 - Documentation is built with Q-Press from `md-plugins`.
