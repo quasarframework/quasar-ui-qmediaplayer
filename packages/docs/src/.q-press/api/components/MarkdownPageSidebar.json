@@ -1,0 +1,56 @@
+{
+  "type": "plugin",
+  "meta": {
+    "docsUrl": "https://path-to-your-docs/markdown-page-sidebar"
+  },
+  "functions": {
+    "getParentProxy": {
+      "desc": "Retrieves the parent proxy of a given component proxy.",
+      "params": {
+        "proxy": {
+          "type": "ComponentProxy",
+          "desc": "The component proxy to retrieve the parent for."
+        }
+      },
+      "returns": {
+        "type": "ComponentProxy | undefined",
+        "desc": "The parent component proxy, or undefined if not found."
+      }
+    }
+  },
+  "types": {
+    "ComponentProxy": {
+      "desc": "Interface representing a component proxy.",
+      "properties": {
+        "$parent": {
+          "type": "ComponentProxy",
+          "desc": "The parent component proxy."
+        },
+        "$": {
+          "type": "Object",
+          "desc": "Internal Vue instance properties.",
+          "properties": {
+            "parent": {
+              "type": "Object",
+              "desc": "The parent Vue instance.",
+              "properties": {
+                "proxy": {
+                  "type": "ComponentProxy",
+                  "desc": "The parent component proxy."
+                },
+                "parent": {
+                  "type": "ComponentProxy",
+                  "desc": "The grandparent component proxy."
+                }
+              }
+            }
+          }
+        },
+        "show": {
+          "type": "Function",
+          "desc": "Function to show the component."
+        }
+      }
+    }
+  }
+}

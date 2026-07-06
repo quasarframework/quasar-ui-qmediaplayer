@@ -1,0 +1,29 @@
+export default {
+  lang: 'he',
+  mediaPlayer: {
+    oldBrowserVideo:
+      'כדי לצפות בסרטון זה, יש להפעיל JavaScript ו/או לעדכן את הדפדפן לגרסה שתומכת בווידאו HTML5.',
+    oldBrowserAudio:
+      'כדי להאזין לאודיו זה, יש להפעיל JavaScript ו/או לעדכן את הדפדפן לגרסה שתומכת באודיו HTML5.',
+    pause: 'השהה',
+    play: 'נגן',
+    settings: 'הגדרות',
+    toggleFullscreen: 'מסך מלא',
+    mute: 'השתק',
+    unmute: 'בטל השתקה',
+    speed: 'מהירות',
+    language: 'שפה',
+    playbackRate: 'מהירות הפעלה',
+    waitingVideo: 'ממתין לווידאו',
+    waitingAudio: 'ממתין לאודיו',
+    ratePoint5: '.5x',
+    rateNormal: 'רגיל',
+    rate1Point5: '1.5x',
+    rate2: '2x',
+    trackLanguageOff: 'כבוי',
+    noLoadVideo: 'לא ניתן לטעון את הסרטון',
+    noLoadAudio: 'לא ניתן לטעון את האודיו',
+    cannotPlayVideo: 'לא ניתן לנגן את הסרטון',
+    cannotPlayAudio: 'לא ניתן לנגן את האודיו',
+  },
+}

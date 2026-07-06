@@ -1,0 +1,342 @@
+<template>
+  <q-card class="markdown-example q-my-lg" flat bordered>
+    <div class="header-toolbar row items-center q-pr-sm">
+      <MarkdownCardTitle :title="props.title" prefix="example-" />
+
+      <q-space />
+
+      <div class="markdown-example__actions row no-wrap items-center">
+        <!-- <q-btn class="header-btn" dense flat round :icon="mdiCompare" @click="dark.toggleDark">
+          <q-tooltip>Toggle dark mode</q-tooltip>
+        </q-btn> -->
+
+        <!-- <q-separator class="q-mx-xs" vertical inset /> -->
+
+        <q-btn
+          v-if="props.noGithub !== true"
+          class="header-btn"
+          dense
+          flat
+          round
+          :icon="fabGithub"
+          @click="openGitHub"
+        >
+          <q-tooltip>View on GitHub</q-tooltip>
+        </q-btn>
+        <q-btn
+          v-if="props.noEdit !== true"
+          class="header-btn q-ml-xs"
+          dense
+          flat
+          round
+          :icon="fabCodepen"
+          :disable="isBusy"
+          @click="openCodepen"
+        >
+          <q-tooltip>Edit in Codepen</q-tooltip>
+        </q-btn>
+        <q-btn
+          class="header-btn q-ml-xs"
+          dense
+          flat
+          round
+          icon="code"
+          :disable="isBusy"
+          @click="toggleExpand"
+        >
+          <q-tooltip>View Source</q-tooltip>
+        </q-btn>
+      </div>
+    </div>
+
+    <q-slide-transition>
+      <div v-show="expanded">
+        <q-tabs
+          v-model="currentTab"
+          class="header-tabs"
+          align="left"
+          no-caps
+          active-color="brand-primary"
+          indicator-color="brand-primary"
+          dense
+          :breakpoint="0"
+        >
+          <q-tab v-for="tab in def.tabs" :key="`tab-${tab}`" :name="tab" class="header-btn">
+            {{ tab }}
+          </q-tab>
+        </q-tabs>
+
+        <q-separator />
+
+        <q-tab-panels v-model="currentTab" class="text-grey-3 text-weight-regular" animated>
+          <q-tab-panel v-for="tab in def.tabs" :key="`pane-${tab}`" class="q-pa-none" :name="tab">
+            <MarkdownCode lang="markup" :code="def.parts[tab]" max-height="70vh" />
+          </q-tab-panel>
+        </q-tab-panels>
+      </div>
+    </q-slide-transition>
+
+    <MarkdownCodepen v-if="!isBusy" ref="codepenRef" :title="props.title" />
+
+    <q-separator />
+
+    <div class="row overflow-hidden">
+      <q-linear-progress v-if="isBusy" color="brand-primary" indeterminate />
+      <component
+        :is="component"
+        v-else
+        class="col markdown-example__content markdown-example-typography"
+        :class="componentClass"
+      />
+    </div>
+  </q-card>
+</template>
+
+<script setup lang="ts">
+import { computed, inject, markRaw, ref, reactive, onBeforeUnmount, onMounted } from 'vue'
+import { openURL } from 'quasar'
+
+import { fabGithub, fabCodepen } from '@quasar/extras/fontawesome-v7'
+// import { mdiCompare } from '@quasar/extras/mdi-v7'
+
+import MarkdownCode from './MarkdownCode.vue'
+import MarkdownCodepen from './MarkdownCodepen.vue'
+import MarkdownCardTitle from './MarkdownCardTitle.vue'
+// import { useDark } from '../composables/dark'
+
+import siteConfig from '../../siteConfig'
+
+type MarkdownExampleList = {
+  code?: Record<string, () => Promise<{ default: unknown }>>
+  source?: Record<string, () => Promise<string>>
+  [key: string]: unknown
+}
+
+type MarkdownExamples = {
+  name: string
+  list?: Promise<MarkdownExampleList> | MarkdownExampleList
+}
+
+const props = defineProps({
+  /**
+   * Title displayed above the example.
+   *
+   * @category content
+   * @example 'Example 1'
+   * @example 'Sample Code'
+   */
+  title: {
+    type: String,
+    required: true,
+  },
+  /**
+   * Vue example file name without the .vue extension.
+   *
+   * @category content
+   * @example 'Basic'
+   * @example 'AdvancedUsage'
+   */
+  file: {
+    type: String,
+    required: true,
+  },
+  /**
+   * Hide the CodePen edit action.
+   *
+   * @category behavior
+   */
+  noEdit: Boolean, // no codepen edit
+  /**
+   * Constrain the rendered example area to vertical scrolling.
+   *
+   * @category content
+   */
+  scrollable: Boolean,
+  /**
+   * Allow the example content to manage overflow.
+   *
+   * @category behavior
+   */
+  overflow: Boolean,
+  /**
+   * Hide the GitHub source action.
+   *
+   * @category behavior
+   */
+  noGithub: Boolean, // no GitHub link
+})
+
+const examples = inject<MarkdownExamples | null>('_markdown_examples_', null)
+
+// const dark = useDark()
+const codepenRef = ref(null)
+const isBusy = ref(true)
+
+const component = ref(null)
+const def = reactive({
+  tabs: [],
+  parts: {},
+})
+const currentTab = ref('Template')
+const expanded = ref(false)
+let removeHmrListener = () => {}
+
+/**
+ * A computed property that returns the CSS class for the component.
+ * This class is dynamically generated based on the component's state or props.
+ */
+const componentClass = computed(() => {
+  return props.scrollable === true
+    ? 'markdown-example__content--scrollable scroll-y'
+    : props.overflow === true
+      ? 'overflow-auto'
+      : ''
+})
+
+/**
+ * Parses a given template and applies it to the target.
+ *
+ * @param {Object} target - The target object to which the template will be applied.
+ * @param {string} template - The template string to be parsed and applied.
+ * @returns {void}
+ */
+function parseTemplate(target, template) {
+  const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`,
+    regex = new RegExp(string, 'g'),
+    parsed = regex.exec(template) || []
+
+  return parsed[1] || ''
+}
+
+/**
+ * Parses a given component.
+ *
+ * @param {Object} comp - The component to be parsed.
+ * @returns {Object} The parsed component.
+ */
+function parseComponent(comp) {
+  def.parts = {
+    Template: parseTemplate('template', comp),
+    Script: parseTemplate('script', comp),
+    Style: parseTemplate('style', comp),
+  }
+
+  const tabs = ['Template', 'Script', 'Style'].filter((type) => def.parts[type])
+
+  if (tabs.length > 1) {
+    def.parts.All = comp
+    tabs.push('All')
+  }
+
+  def.tabs = tabs
+}
+
+function openGitHub() {
+  const examplesConfig = getExamplesConfig()
+  const root = siteConfig.githubSourceRootSrc ?? siteConfig.githubEditRootSrc.replace('/edit/', '/tree/')
+  openURL(`${root}/examples/${examplesConfig.name}/${props.file}.vue`)
+}
+
+function openCodepen() {
+  codepenRef.value.open(def.parts)
+}
+
+function toggleExpand() {
+  expanded.value = expanded.value === false
+}
+
+async function loadExample() {
+  const examplesConfig = getExamplesConfig()
+  const list = await getExampleList(examplesConfig)
+  const devFile = `/src/examples/${examplesConfig.name}/${props.file}.vue`
+
+  if (import.meta.env.QUASAR_DEV) {
+    const loadComponent = list.code?.[devFile]
+    const loadSource = list.source?.[devFile]
+
+    if (loadComponent === void 0 || loadSource === void 0) {
+      throw new Error(`Markdown example not found: ${devFile}`)
+    }
+
+    const componentModule = await loadComponent()
+    const source = await loadSource()
+
+    component.value = markRaw(componentModule.default)
+    parseComponent(source)
+  } else {
+    component.value = markRaw(list[props.file])
+    parseComponent(list[`Raw${props.file}`])
+  }
+
+  isBusy.value = false
+}
+
+if (import.meta.env.QUASAR_CLIENT) {
+  onMounted(() => {
+    void loadExample()
+
+    if (import.meta.hot) {
+      const examplesConfig = getExamplesConfig()
+      const examplePath = `/src/examples/${examplesConfig.name}/${props.file}.vue`
+      const onAfterUpdate = (payload) => {
+        const shouldReload = payload.updates.some(
+          (update) => update.path === examplePath || update.acceptedPath === examplePath,
+        )
+
+        if (shouldReload === true) {
+          void loadExample()
+        }
+      }
+
+      import.meta.hot.on('vite:afterUpdate', onAfterUpdate)
+      removeHmrListener = () => {
+        import.meta.hot?.off('vite:afterUpdate', onAfterUpdate)
+      }
+    }
+  })
+
+  onBeforeUnmount(() => {
+    removeHmrListener()
+  })
+}
+
+function getExamplesConfig(): MarkdownExamples {
+  if (examples === null) {
+    throw new Error(
+      `Markdown example "${props.file}" is missing examples frontmatter on the current page.`,
+    )
+  }
+
+  return examples
+}
+
+async function getExampleList(examplesConfig: MarkdownExamples): Promise<MarkdownExampleList> {
+  if (examplesConfig.list === undefined) {
+    throw new Error(
+      `Markdown example group "${examplesConfig.name}" was not loaded for "${props.file}".`,
+    )
+  }
+
+  return examplesConfig.list
+}
+</script>
+
+<style lang="scss">
+.markdown-example {
+  &__actions {
+    padding: 3px 0 3px 7px;
+  }
+
+  &__content {
+    position: relative;
+
+    // reset markdown style
+    font-weight: 400;
+    font-family: $font-family-examples;
+
+    &--scrollable {
+      height: 500px;
+    }
+  }
+}
+</style>

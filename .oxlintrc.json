@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true,
+    "vue": true
+  },
+  "globals": {
+    "Capacitor": "readonly",
+    "browser": "readonly",
+    "chrome": "readonly",
+    "cordova": "readonly",
+    "defineEmits": "readonly",
+    "defineExpose": "readonly",
+    "defineModel": "readonly",
+    "defineOptions": "readonly",
+    "defineProps": "readonly",
+    "ga": "readonly",
+    "gtag": "readonly",
+    "withDefaults": "readonly",
+    "__UI_VERSION__": "readonly"
+  },
+  "plugins": ["import", "node", "promise", "vue"],
+  "ignorePatterns": [
+    "node_modules",
+    "packages/*/node_modules",
+    "packages/*/dist",
+    "packages/docs/.quasar",
+    "packages/docs/dist"
+  ],
+  "rules": {
+    "no-undef": "error"
+  }
+}

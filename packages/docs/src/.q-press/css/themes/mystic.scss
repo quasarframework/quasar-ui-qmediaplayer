@@ -1,0 +1,88 @@
+@use 'sass:color';
+
+// Mystic Theme Variables
+$primary: #8a2be2;
+$secondary: #00ced1;
+$accent: #ff4500;
+
+$positive: #2ecc71;
+$negative: #ff1732;
+$info: #10a0ff;
+$warning: #ffd52d;
+
+$brand-primary: #8a2be2;
+$brand-secondary: #00ced1;
+$brand-accent: #ff4500;
+$brand-dark: #8d66da;
+$brand-light: #e6e6fa;
+$brand-medium: #9370db;
+$brand-light-text: #4b0082;
+$brand-light-bg: #e6e6fa;
+$brand-dark-bg: #171122;
+$brand-dark-text: #e6e6fa;
+
+$brand-light-codeblock-bg: #f8f8ff;
+$brand-light-codeblock-text: #9370db;
+$brand-dark-codeblock-bg: #4b0082;
+$brand-dark-codeblock-text: #e6e6fa;
+
+$header-btn-color--light: #8a2be2;
+$header-btn-hover-color--light: #ff4500;
+$header-btn-color--dark: #00ced1;
+$header-btn-hover-color--dark: #9370db;
+
+$light-pill: $brand-light;
+$light-text: $brand-light-text;
+$light-bg: $brand-light-bg;
+
+$dark-pill: color.scale($brand-dark-bg, $lightness: 12%);
+$dark-text: $brand-dark-text;
+$dark-bg: $brand-dark-bg;
+
+$separator-color: $brand-accent;
+$separator-color-dark: $brand-accent;
+
+$steps-bg: $brand-light-codeblock-bg;
+$steps-bg-dark: $brand-dark-codeblock-bg;
+$steps-text: $brand-light-text;
+$steps-text-dark: $brand-dark-text;
+$steps-title-color: $brand-light-text;
+$steps-title-color-dark: $brand-dark-text;
+$brand-border-color-light: $separator-color;
+$brand-border-color-dark: rgba($brand-medium, 0.68);
+
+$steps-border-color-light: $brand-border-color-light;
+$steps-border-color-dark: $brand-border-color-dark;
+$steps-marker-bg: $brand-primary;
+$steps-marker-bg-dark: $brand-secondary;
+$steps-marker-color: $brand-light;
+$steps-marker-color-dark: $brand-dark-bg;
+$steps-shadow: 0 10px 20px 0 rgba($brand-dark, 0.08);
+$steps-shadow-dark: 0 10px 20px 0 rgba(#000, 0.2);
+
+$font-size: 16px;
+$font-size-brand: 16px;
+$font-weight-brand: 500;
+$font-weight-technical: 400;
+$letter-spacing-brand: 0.7px;
+
+$font-family-technical:
+  'Roboto',
+  -apple-system,
+  Avenir,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Helvetica,
+  Arial,
+  sans-serif;
+$font-family-examples: $font-family-technical;
+$font-family-brand: 'Montserrat', $font-family-technical;
+
+$shadow--large: 0 24px 24px 0 rgba(0, 179, 255, 0.24);
+$shadow--medium: 0 6px 6px 0 rgba($brand-primary, 0.38);
+$shadow--small: 0 6px 6px 0 rgba($brand-primary, 0.28);
+
+// also update QHeader :height-hint
+$header-height: 55px;
+$header-transition: 0.6s cubic-bezier(0.25, 0.8, 0.5, 1);
+$header-quick-transition: 0.28s ease-in-out;

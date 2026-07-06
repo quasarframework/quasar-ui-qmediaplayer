@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-06-22T19:26:50.139Z",
+  "type": "plugin",
+  "meta": {
+    "docsUrl": "https://md-plugins.netlify.app/quasar-app-extensions/qpress/overview"
+  },
+  "functions": {
+    "useDark": {
+      "desc": "Provides Q-Press dark-mode state, cookie persistence, and Quasar Dark sync.",
+      "tsSignature": "function useDark(): UseDarkReturn",
+      "type": "Function",
+      "returns": {
+        "definition": {
+          "isDark": {
+            "desc": "Computed reference to the current Q-Press dark-mode state.",
+            "required": true,
+            "tsType": "ComputedRef<boolean>",
+            "type": "ComputedRef<boolean>"
+          },
+          "initDark": {
+            "desc": "Initializes dark mode from the saved theme cookie.",
+            "required": true,
+            "tsType": "() => void",
+            "type": "() => void"
+          },
+          "toggleDark": {
+            "desc": "Toggles dark mode and persists the chosen theme.",
+            "required": true,
+            "tsType": "() => void",
+            "type": "() => void"
+          }
+        },
+        "desc": "Dark-mode state and helpers for Q-Press layouts.",
+        "type": "UseDarkReturn",
+        "tsType": "UseDarkReturn"
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-06-22T19:26:50.091Z",
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://md-plugins.netlify.app/quasar-app-extensions/qpress/components"
+  },
+  "props": {
+    "title": {
+      "desc": "The title text to display.",
+      "type": "String",
+      "required": true,
+      "category": "content",
+      "examples": [
+        "'Introduction'",
+        "'Chapter 1'"
+      ]
+    },
+    "prefix": {
+      "desc": "Prefix to add to the slugified title.",
+      "type": "String",
+      "default": "",
+      "category": "content",
+      "examples": [
+        "'section-'"
+      ]
+    }
+  }
+}

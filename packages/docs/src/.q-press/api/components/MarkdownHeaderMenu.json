@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-06-22T19:26:50.127Z",
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://md-plugins.netlify.app/quasar-app-extensions/qpress/components"
+  },
+  "props": {
+    "elements": {
+      "desc": "Array of menu elements to display in the header menu.",
+      "type": "Array",
+      "category": "content",
+      "examples": [
+        "[{ name: 'Home', path: '/' }, { name: 'Docs', path: '/docs' }]"
+      ]
+    },
+    "mq-prefix": {
+      "desc": "Prefix for media query classes.",
+      "type": "String",
+      "category": "style",
+      "examples": [
+        "'md'",
+        "'lg'"
+      ]
+    }
+  }
+}

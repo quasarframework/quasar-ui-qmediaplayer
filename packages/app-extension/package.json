@@ -1,0 +1,60 @@
+{
+  "name": "@quasar/quasar-app-extension-qmediaplayer",
+  "version": "3.0.0",
+  "description": "A Quasar App Extension for @quasar/quasar-ui-qmediaplayer",
+  "keywords": [
+    "HTML5 media player",
+    "app",
+    "app extension",
+    "audio",
+    "extension",
+    "media",
+    "media player",
+    "mediaplayer",
+    "player",
+    "quasar",
+    "quasarframework",
+    "video"
+  ],
+  "homepage": "https://github.com/quasarframework/quasar-ui-qmediaplayer",
+  "bugs": "https://github.com/quasarframework/quasar-ui-qmediaplayer/issues",
+  "license": "MIT",
+  "author": "Jeff Galbraith <jeff@quasar.dev>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quasarframework/quasar-ui-qmediaplayer.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/hawkeye64"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "imports": {
+    "#q-app": "@quasar/app-vite"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsc -p tsconfig.build.json",
+    "lint": "oxlint src",
+    "lint-fix": "oxlint src --fix",
+    "prepack": "pnpm build",
+    "release": "pnpm publish --tag latest"
+  },
+  "dependencies": {
+    "@quasar/quasar-ui-qmediaplayer": "workspace:^"
+  },
+  "devDependencies": {
+    "@quasar/app-vite": "3.0.0",
+    "typescript": "~6.0.3"
+  },
+  "peerDependencies": {
+    "@quasar/app-vite": ">=3.0.0"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "pnpm": ">=11.5.0"
+  }
+}

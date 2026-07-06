@@ -1,0 +1,27 @@
+export default {
+  lang: 'th',
+  mediaPlayer: {
+    oldBrowserVideo: 'หากต้องการดูวิดีโอนี้ โปรดเปิดใช้ JavaScript และ/หรือใช้เบราว์เซอร์ที่รองรับวิดีโอ HTML5',
+    oldBrowserAudio: 'หากต้องการฟังเสียงนี้ โปรดเปิดใช้ JavaScript และ/หรือใช้เบราว์เซอร์ที่รองรับเสียง HTML5',
+    pause: 'หยุดชั่วคราว',
+    play: 'เล่น',
+    settings: 'การตั้งค่า',
+    toggleFullscreen: 'สลับเต็มหน้าจอ',
+    mute: 'ปิดเสียง',
+    unmute: 'เปิดเสียง',
+    speed: 'ความเร็ว', // Playback rate
+    language: 'ภาษา',
+    playbackRate: 'ความเร็วในการเล่น',
+    waitingVideo: 'กำลังรอวิดีโอ',
+    waitingAudio: 'กำลังรอเสียง',
+    ratePoint5: '.5x',
+    rateNormal: 'ปกติ',
+    rate1Point5: '1.5x',
+    rate2: '2x',
+    trackLanguageOff: 'ปิด',
+    noLoadVideo: 'ไม่สามารถโหลดวิดีโอได้',
+    noLoadAudio: 'ไม่สามารถโหลดเสียงได้',
+    cannotPlayVideo: 'ไม่สามารถเล่นวิดีโอได้',
+    cannotPlayAudio: 'ไม่สามารถเล่นเสียงได้',
+  },
+}

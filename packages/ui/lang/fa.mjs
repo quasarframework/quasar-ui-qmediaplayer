@@ -1,0 +1,27 @@
+export default {
+  lang: 'fa',
+  mediaPlayer: {
+    oldBrowserVideo: 'undefined',
+    oldBrowserAudio: 'undefined',
+    pause: 'undefined',
+    play: 'undefined',
+    settings: 'undefined',
+    toggleFullscreen: 'undefined',
+    mute: 'undefined',
+    unmute: 'undefined',
+    speed: 'undefined', // Playback rate
+    language: 'undefined',
+    playbackRate: 'undefined',
+    waitingVideo: 'undefined',
+    waitingAudio: 'undefined',
+    ratePoint5: '.5x',
+    rateNormal: 'undefined',
+    rate1Point5: '1.5x',
+    rate2: '2x',
+    trackLanguageOff: 'undefined',
+    noLoadVideo: 'undefined',
+    noLoadAudio: 'undefined',
+    cannotPlayVideo: 'undefined',
+    cannotPlayAudio: 'undefined',
+  },
+}

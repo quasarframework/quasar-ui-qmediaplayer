@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-06-22T19:26:50.058Z",
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://md-plugins.netlify.app/quasar-app-extensions/qpress/components"
+  },
+  "props": {
+    "darkIcon": {
+      "desc": "Icon name displayed for the dark mode state.",
+      "type": "String",
+      "default": "mdiMoonWaningCrescent",
+      "category": "content",
+      "examples": [
+        "mdiMoonWaningCrescent"
+      ]
+    },
+    "lightIcon": {
+      "desc": "Icon name displayed for the light mode state.",
+      "type": "String",
+      "default": "mdiWhiteBalanceSunny",
+      "category": "content",
+      "examples": [
+        "mdiWhiteBalanceSunny"
+      ]
+    }
+  },
+  "events": {
+    "update:mode": {
+      "desc": "Emitted when the mode is toggled.",
+      "params": {
+        "mode": {
+          "desc": "The current mode ('dark' or 'light').",
+          "type": "'dark' | 'light'",
+          "required": true,
+          "tsType": "'dark' | 'light'"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,218 @@
+[
+  {
+    "isoName": "ar",
+    "nativeName": "العربية"
+  },
+  {
+    "isoName": "az-Latn",
+    "nativeName": "Azərbaycanca (latın)"
+  },
+  {
+    "isoName": "bg",
+    "nativeName": "български език"
+  },
+  {
+    "isoName": "bn",
+    "nativeName": "বাংলা"
+  },
+  {
+    "isoName": "ca",
+    "nativeName": "Català"
+  },
+  {
+    "isoName": "cs",
+    "nativeName": "Čeština"
+  },
+  {
+    "isoName": "da",
+    "nativeName": "Dansk"
+  },
+  {
+    "isoName": "de",
+    "nativeName": "Deutsch"
+  },
+  {
+    "isoName": "el",
+    "nativeName": "ελληνικά"
+  },
+  {
+    "isoName": "en-GB",
+    "nativeName": "English (UK)"
+  },
+  {
+    "isoName": "en-US",
+    "nativeName": "English (US)"
+  },
+  {
+    "isoName": "eo",
+    "nativeName": "Esperanto"
+  },
+  {
+    "isoName": "es",
+    "nativeName": "Español"
+  },
+  {
+    "isoName": "et",
+    "nativeName": "Eesti"
+  },
+  {
+    "isoName": "fa",
+    "nativeName": "فارسی"
+  },
+  {
+    "isoName": "fa-IR",
+    "nativeName": "فارسی"
+  },
+  {
+    "isoName": "fi",
+    "nativeName": "Suomi"
+  },
+  {
+    "isoName": "fr",
+    "nativeName": "Français"
+  },
+  {
+    "isoName": "gn",
+    "nativeName": "Avañe'ẽ"
+  },
+  {
+    "isoName": "he",
+    "nativeName": "עברית"
+  },
+  {
+    "isoName": "hr",
+    "nativeName": "Hrvatski jezik"
+  },
+  {
+    "isoName": "hu",
+    "nativeName": "Magyar"
+  },
+  {
+    "isoName": "id",
+    "nativeName": "Bahasa Indonesia"
+  },
+  {
+    "isoName": "is",
+    "nativeName": "Íslenska"
+  },
+  {
+    "isoName": "it",
+    "nativeName": "Italiano"
+  },
+  {
+    "isoName": "ja",
+    "nativeName": "日本語 (にほんご)"
+  },
+  {
+    "isoName": "km",
+    "nativeName": "ខ្មែរ"
+  },
+  {
+    "isoName": "ko-KR",
+    "nativeName": "한국어"
+  },
+  {
+    "isoName": "kur-CKB",
+    "nativeName": "کوردی سۆرانی"
+  },
+  {
+    "isoName": "lt",
+    "nativeName": "Lietuvių"
+  },
+  {
+    "isoName": "lu",
+    "nativeName": "Kiluba"
+  },
+  {
+    "isoName": "lv",
+    "nativeName": "Latviešu valoda"
+  },
+  {
+    "isoName": "ml",
+    "nativeName": "മലയാളം"
+  },
+  {
+    "isoName": "ms",
+    "nativeName": "Bahasa Melayu"
+  },
+  {
+    "isoName": "nb-NO",
+    "nativeName": "Norsk"
+  },
+  {
+    "isoName": "nl",
+    "nativeName": "Nederlands"
+  },
+  {
+    "isoName": "pl",
+    "nativeName": "Polski"
+  },
+  {
+    "isoName": "pt",
+    "nativeName": "Português"
+  },
+  {
+    "isoName": "pt-BR",
+    "nativeName": "Português (BR)"
+  },
+  {
+    "isoName": "ro",
+    "nativeName": "Română"
+  },
+  {
+    "isoName": "ru",
+    "nativeName": "русский"
+  },
+  {
+    "isoName": "sk",
+    "nativeName": "Slovenčina"
+  },
+  {
+    "isoName": "sl",
+    "nativeName": "Slovenski Jezik"
+  },
+  {
+    "isoName": "sr",
+    "nativeName": "srpski jezik"
+  },
+  {
+    "isoName": "sr-CYR",
+    "nativeName": "српски језик"
+  },
+  {
+    "isoName": "sv",
+    "nativeName": "Svenska"
+  },
+  {
+    "isoName": "ta",
+    "nativeName": "தமிழ்"
+  },
+  {
+    "isoName": "th",
+    "nativeName": "ไทย"
+  },
+  {
+    "isoName": "tr",
+    "nativeName": "Türkçe"
+  },
+  {
+    "isoName": "ug",
+    "nativeName": "ئۇيغۇرچە"
+  },
+  {
+    "isoName": "uk",
+    "nativeName": "Українська"
+  },
+  {
+    "isoName": "vi",
+    "nativeName": "Tiếng Việt"
+  },
+  {
+    "isoName": "zh-CN",
+    "nativeName": "中文（简体）"
+  },
+  {
+    "isoName": "zh-TW",
+    "nativeName": "中文（繁體）"
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-06-22T19:26:50.131Z",
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://md-plugins.netlify.app/quasar-app-extensions/qpress/components"
+  },
+  "props": {
+    "menu": {
+      "desc": "Array of menu items to display in the header.",
+      "type": "Array<SiteMenuItem>",
+      "required": true,
+      "category": "content",
+      "examples": [
+        "[{ name: 'Home', path: '/' }, { name: 'Docs', path: '/docs' }]"
+      ]
+    },
+    "mqPrefix": {
+      "desc": "Prefix for media query classes.",
+      "type": "String",
+      "default": "",
+      "category": "style",
+      "examples": [
+        "'md'",
+        "'lg'"
+      ]
+    },
+    "navClass": {
+      "desc": "Additional CSS class to apply to navigation items.",
+      "type": "String",
+      "default": "",
+      "category": "style",
+      "examples": [
+        "'custom-nav-class'"
+      ]
+    }
+  }
+}

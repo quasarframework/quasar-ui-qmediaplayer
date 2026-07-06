@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-06-22T19:26:50.114Z",
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://md-plugins.netlify.app/quasar-app-extensions/qpress/components"
+  },
+  "props": {
+    "type": {
+      "desc": "API section type being rendered.",
+      "type": "String",
+      "tsType": "string",
+      "required": true,
+      "category": "content",
+      "examples": [
+        "'props'",
+        "'methods'"
+      ]
+    },
+    "definition": {
+      "desc": "API definition entries for the selected section.",
+      "type": "Object | String",
+      "tsType": "Record<string, any> | string",
+      "required": true,
+      "category": "content",
+      "examples": [
+        "{ modelValue: { type: 'String', desc: 'Current model value.' } }"
+      ]
+    }
+  }
+}

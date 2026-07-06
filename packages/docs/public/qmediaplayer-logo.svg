@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">QMediaPlayer</title>
+  <desc id="desc">A rounded QMediaPlayer app icon with a play button, progress rail, and sound waves.</desc>
+  <defs>
+    <linearGradient id="bg" x1="42" x2="214" y1="28" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#25c6da" />
+      <stop offset="1" stop-color="#1d5378" />
+    </linearGradient>
+    <linearGradient id="disc" x1="68" x2="188" y1="60" y2="196" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" />
+      <stop offset="1" stop-color="#d9f7ff" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#063044" flood-opacity=".35" />
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="58" fill="url(#bg)" />
+  <path
+    fill="#063044"
+    opacity=".16"
+    d="M42 170c24 14 58 19 101 16 33-3 58 4 75 20v50H42z"
+  />
+  <g filter="url(#shadow)">
+    <path
+      fill="url(#disc)"
+      d="M128 52a76 76 0 0 0-21 149l-14 26h34l9-20a76 76 0 0 0-8-155Zm0 31a45 45 0 1 1 0 90 45 45 0 0 1 0-90Z"
+    />
+    <path fill="#0ba9d8" d="m116 105 47 28-47 28z" />
+    <path fill="#ffffff" d="M61 181h72v12H61z" opacity=".95" />
+    <path fill="#8be9ff" d="M61 181h44v12H61z" />
+    <path
+      fill="none"
+      stroke="#ffffff"
+      stroke-linecap="round"
+      stroke-width="12"
+      d="M179 91c12 10 19 23 19 38s-7 28-19 38"
+      opacity=".9"
+    />
+    <path
+      fill="none"
+      stroke="#ffffff"
+      stroke-linecap="round"
+      stroke-width="10"
+      d="M195 70c20 15 32 36 32 59s-12 44-32 59"
+      opacity=".7"
+    />
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-06-22T19:26:50.107Z",
+  "type": "component",
+  "meta": {
+    "docsUrl": "https://md-plugins.netlify.app/quasar-app-extensions/qpress/components"
+  },
+  "props": {
+    "title": {
+      "desc": "Title of the prerendered content.",
+      "type": "String",
+      "tsType": "string",
+      "required": false,
+      "category": "content",
+      "examples": [
+        "'Example Title'",
+        "'Sample Content'"
+      ]
+    },
+    "tabs": {
+      "desc": "List of tabs to display.",
+      "type": "Array",
+      "tsType": "string[]",
+      "required": false,
+      "category": "content",
+      "examples": [
+        "['Tab 1', 'Tab 2']"
+      ]
+    }
+  },
+  "slots": {
+    "default": {
+      "desc": "Prerendered Markdown or example content."
+    }
+  }
+}

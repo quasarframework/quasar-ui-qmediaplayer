@@ -1,0 +1,8 @@
+[build]
+command = "pnpm run build"
+publish = "packages/docs/dist/spa"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

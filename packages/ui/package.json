@@ -1,0 +1,129 @@
+{
+  "name": "@quasar/quasar-ui-qmediaplayer",
+  "version": "3.0.0",
+  "description": "QMediaPlayer is an HTML5 media player for Quasar applications",
+  "keywords": [
+    "HTML5 media player",
+    "audio",
+    "media",
+    "media player",
+    "mediaplayer",
+    "player",
+    "quasar",
+    "quasarframework",
+    "video"
+  ],
+  "homepage": "https://github.com/quasarframework/quasar-ui-qmediaplayer",
+  "bugs": "https://github.com/quasarframework/quasar-ui-qmediaplayer/issues",
+  "license": "MIT",
+  "author": "Jeff Galbraith <jeff@quasar.dev>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quasarframework/quasar-ui-qmediaplayer.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/hawkeye64"
+  },
+  "files": [
+    "dist",
+    "icon-set",
+    "lang",
+    "src"
+  ],
+  "type": "module",
+  "main": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/types/index.d.ts",
+  "typings": "dist/types/index.d.ts",
+  "unpkg": "dist/index.umd.js",
+  "jsdelivr": "dist/index.umd.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.esm.js"
+    },
+    "./index.min.css": {
+      "default": "./dist/index.min.css"
+    },
+    "./index.css": {
+      "default": "./dist/index.css"
+    },
+    "./index.rtl.min.css": {
+      "default": "./dist/index.rtl.min.css"
+    },
+    "./index.rtl.css": {
+      "default": "./dist/index.rtl.css"
+    },
+    "./dist/api/QMediaPlayer.json": {
+      "default": "./dist/api/QMediaPlayer.json"
+    },
+    "./icon-set/*": {
+      "import": "./icon-set/*.mjs",
+      "default": "./icon-set/*.mjs"
+    },
+    "./lang": {
+      "default": "./lang/index.json"
+    },
+    "./lang/*": {
+      "import": "./lang/*.mjs",
+      "default": "./lang/*.mjs"
+    },
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "oxlint src build types",
+    "dev:umd": "pnpm build && tsx build/script.open-umd.ts",
+    "build": "tsx build/index.ts",
+    "build:js": "tsx build/script.javascript.ts",
+    "build:css": "tsx build/script.css.ts",
+    "build:api": "tsx build/build.api.ts",
+    "build:app-ext": "tsx build/script.app-ext.ts",
+    "typecheck": "pnpm build:api && tsc -p tsconfig.json --noEmit --pretty false && tsc -p test-d/tsconfig.json --noEmit --pretty false",
+    "test:types": "pnpm build && pnpm typecheck",
+    "release": "pnpm publish --tag latest",
+    "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "@quasar/extras": "2.0.2"
+  },
+  "devDependencies": {
+    "@md-plugins/quasar-app-extension-q-press": "1.0.0",
+    "@types/node": "^26.1.0",
+    "@types/rtlcss": "^3.5.4",
+    "@types/uglify-js": "^3.17.5",
+    "autoprefixer": "^10.5.2",
+    "cssnano": "^8.0.2",
+    "kolorist": "^1.8.0",
+    "open": "^11.0.0",
+    "postcss": "^8.5.16",
+    "quasar": "^2.21.1",
+    "rimraf": "^6.1.3",
+    "rolldown": "^1.1.4",
+    "rtlcss": "^4.3.0",
+    "sass-embedded": "1.100.0",
+    "table": "^6.9.0",
+    "tsx": "^4.23.0",
+    "typescript": "~6.0.3",
+    "uglify-js": "^3.19.3",
+    "vue": "^3.5.39"
+  },
+  "browserslist": [
+    "last 4 Chrome versions",
+    "last 4 Firefox versions",
+    "last 2 Edge versions",
+    "last 4 Safari versions",
+    "last 4 Android versions",
+    "last 4 ChromeAndroid versions",
+    "last 4 FirefoxAndroid versions",
+    "last 4 iOS versions"
+  ],
+  "engines": {
+    "node": ">=22.13",
+    "pnpm": ">=11.5.0"
+  }
+}

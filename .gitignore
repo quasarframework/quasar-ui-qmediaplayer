@@ -2,6 +2,9 @@
 .thumbs.db
 node_modules
 dist
+coverage
+.playwright
+.playwright-cli
 yarn.lock
 npm-debug.log*
 yarn-debug.log*
@@ -15,6 +18,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-docs/.quasar/
-
-ui/dev.old/.quasar/
+packages/docs/.quasar/
+packages/docs/dist/
+packages/*/node_modules/

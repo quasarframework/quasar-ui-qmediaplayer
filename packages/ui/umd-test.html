@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta
+      name="viewport"
+      content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width"
+    />
+
+    <link rel="icon" href="data:," />
+    <title>UMD test</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.prod.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="dist/index.css?ae=qmediaplayer" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="q-app">
+      <q-layout view="lHh Lpr fff">
+        <q-header class="glossy bg-primary">
+          <q-toolbar>
+            <q-toolbar-title> QMediaPlayer v{{ version }} </q-toolbar-title>
+
+            <div>Quasar v{{ $q.version }}</div>
+          </q-toolbar>
+        </q-header>
+
+        <q-page-container>
+          <q-page padding>
+            <q-banner
+              v-if="bundleError !== ''"
+              rounded
+              inline-actions
+              class="bg-red-1 text-negative q-mb-lg"
+            >
+              {{ bundleError }}
+            </q-banner>
+
+            <q-card flat bordered class="q-mb-lg">
+              <q-card-section class="row items-center q-col-gutter-md">
+                <div class="col">
+                  <div class="text-h6">UMD player smoke test</div>
+                  <div class="text-body2 text-grey-7">
+                    Toggle a few props and confirm the UMD bundle renders QMediaPlayer controls.
+                  </div>
+                </div>
+                <div class="col-auto row items-center q-gutter-sm">
+                  <q-toggle v-model="dense" label="Dense"></q-toggle>
+                  <q-toggle v-model="mobileMode" label="Mobile mode"></q-toggle>
+                </div>
+              </q-card-section>
+
+              <q-separator></q-separator>
+
+              <q-card-section v-if="bundleReady">
+                <q-media-player
+                  type="video"
+                  :sources="sources"
+                  :dense="dense"
+                  :mobile-mode="mobileMode"
+                  show-big-play-button
+                  bottom-controls
+                ></q-media-player>
+              </q-card-section>
+
+              <q-card-section v-else class="text-negative">
+                The QMediaPlayer UMD bundle did not load, so the component could not be registered.
+              </q-card-section>
+            </q-card>
+          </q-page>
+        </q-page-container>
+      </q-layout>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.umd.prod.js"></script>
+    <script src="dist/index.umd.js?ae=qmediaplayer"></script>
+    <script src="dist/lang/en-US.umd.js?ae=qmediaplayer"></script>
+    <script src="dist/icon-set/material-icons.umd.js?ae=qmediaplayer"></script>
+
+    <script>
+      const { ref } = Vue
+      const mediaPlayerPlugin = globalThis.QMediaPlayer
+      const bundleReady =
+        mediaPlayerPlugin !== void 0 &&
+        typeof mediaPlayerPlugin.install === 'function' &&
+        mediaPlayerPlugin.QMediaPlayer !== void 0
+      const bundleError =
+        bundleReady === true
+          ? ''
+          : [
+              'dist/index.umd.js did not load.',
+              'This usually means the page is not being served from the packages/ui folder.',
+              'Use "./start-umd.sh" or "quasar serve -p 9000 . -i umd-test.html".',
+            ].join(' ')
+
+      const app = Vue.createApp({
+        setup() {
+          const dense = ref(false)
+          const mobileMode = ref(false)
+          const sources = [
+            {
+              src: 'https://www.peach.themazzone.com/durian/movies/sintel-2048-surround.mp4',
+              type: 'video/mp4',
+            },
+          ]
+
+          return {
+            version: bundleReady === true ? mediaPlayerPlugin.version : 'bundle missing',
+            bundleReady,
+            bundleError,
+            dense,
+            mobileMode,
+            sources,
+          }
+        },
+      })
+
+      app.use(Quasar)
+      if (bundleReady === true) {
+        app.use(mediaPlayerPlugin)
+      }
+      app.mount('#q-app')
+    </script>
+  </body>
+</html>
