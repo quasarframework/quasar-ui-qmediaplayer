@@ -2,9 +2,9 @@ name: Run Vitest
 
 on:
   push:
-    branches: [dev, v3-beta]
+    branches: [dev]
   pull_request:
-    branches: [dev, v3-beta]
+    branches: [dev]
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true

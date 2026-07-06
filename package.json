@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-qmediaplayer-workspace",
-  "version": "3.0.0-rc.1",
+  "version": "3.0.0",
   "private": true,
   "description": "QMediaPlayer workspace",
   "type": "module",
@@ -15,7 +15,6 @@
     "check:qpress": "pnpm --dir packages/docs exec qpress check --root ../.. --src-dir packages/docs/src",
     "ci:publish": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch dev && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch dev",
     "ci:publish:latest": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch dev --tag latest && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch dev --tag latest",
-    "ci:publish:beta": "pnpm --filter @quasar/quasar-ui-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks && pnpm --filter @quasar/quasar-app-extension-qmediaplayer publish --access public --publish-branch v3-beta --tag beta --no-git-checks",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "typecheck": "pnpm --filter @quasar/quasar-ui-qmediaplayer typecheck && pnpm --filter docs typecheck",
@@ -30,19 +29,19 @@
     "verify:build": "pnpm build && pnpm api:check && pnpm check:qpress && pnpm typecheck"
   },
   "devDependencies": {
-    "@types/node": "^26.0.0",
-    "@vitest/coverage-v8": "^4.1.9",
+    "@types/node": "^26.1.0",
+    "@vitest/coverage-v8": "^4.1.10",
     "@vue/server-renderer": "^3.5.39",
-    "npm-check-updates": "^22.2.7",
-    "oxfmt": "^0.56.0",
-    "oxlint": "^1.71.0",
+    "npm-check-updates": "^22.2.9",
+    "oxfmt": "^0.57.0",
+    "oxlint": "^1.72.0",
     "typescript": "~6.0.3",
-    "vitest": "^4.1.9",
+    "vitest": "^4.1.10",
     "vue": "^3.5.39"
   },
   "engines": {
     "node": ">=22.13",
     "pnpm": ">=11.5.0"
   },
-  "packageManager": "pnpm@11.9.0"
+  "packageManager": "pnpm@11.10.0"
 }

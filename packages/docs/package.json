@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "3.0.0-rc.1",
+  "version": "3.0.0",
   "private": true,
   "description": "QMediaPlayer Docs",
   "author": "Jeff Galbraith <jeff@quasar.dev>",
@@ -23,11 +23,11 @@
     "check:qpress": "qpress check"
   },
   "dependencies": {
-    "@quasar/extras": "2.0.1",
-    "markdown-it": "^14.2.0",
+    "@quasar/extras": "2.0.2",
+    "markdown-it": "^14.3.0",
     "markdown-it-container": "^4.0.0",
     "pinia": "^3.0.4",
-    "quasar": "^2.21.0",
+    "quasar": "^2.21.1",
     "vue": "^3.5.39",
     "vue-router": "^5.1.0"
   },
@@ -38,17 +38,17 @@
     "@md-plugins/vite-md-plugin": "1.0.0",
     "@md-plugins/vite-search-plugin": "1.0.0",
     "@md-plugins/vite-ssg-plugin": "1.0.0",
-    "@quasar/app-vite": "3.0.0-rc.6",
+    "@quasar/app-vite": "3.0.0",
     "@quasar/quasar-ui-qmediaplayer": "workspace:*",
-    "@types/node": "^26.0.0",
+    "@types/node": "^26.1.0",
     "@vue/server-renderer": "^3.5.39",
-    "autoprefixer": "^10.5.1",
-    "mermaid": "^11.15.0",
+    "autoprefixer": "^10.5.2",
+    "mermaid": "^11.16.0",
     "sass-embedded": "1.100.0",
-    "shiki": "^4.2.0",
+    "shiki": "^4.3.1",
     "typescript": "~6.0.3",
     "vite-plugin-checker": "^0.14.4",
-    "vue-tsc": "^3.3.5"
+    "vue-tsc": "^3.3.6"
   },
   "engines": {
     "node": ">=22.13",
