@@ -5,7 +5,12 @@
       QMediaPlayer emits the native media element so the DASH adapter can initialize against it.
     </q-banner>
 
-    <q-media-player type="video" cross-origin="anonymous" @media-player="attachDash" />
+    <q-media-player
+      type="video"
+      cross-origin="anonymous"
+      @media-player="attachDash"
+      @error="onMediaError"
+    />
 
     <div class="text-caption text-grey-7">
       {{ status }}
@@ -136,6 +141,12 @@ function loadDashJs() {
   })
 
   return dashLoader
+}
+
+function onMediaError(error: MediaError | null) {
+  status.value = error?.message
+    ? `Media error: ${error.message}`
+    : 'The media stream failed to load.'
 }
 
 function resetDash() {

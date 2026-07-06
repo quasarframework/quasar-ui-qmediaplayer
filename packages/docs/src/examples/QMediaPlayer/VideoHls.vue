@@ -50,8 +50,7 @@ type HlsWindow = Window & {
   Hls?: HlsConstructor
 }
 
-const hlsSource =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8'
+const hlsSource = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
 const hlsScriptUrl = 'https://cdn.jsdelivr.net/npm/hls.js@1.6.16/dist/hls.min.js'
 const status = ref('Waiting for the media element...')
 
@@ -79,19 +78,16 @@ async function attachHls(media: HTMLMediaElement | null) {
 
   status.value = 'Preparing HLS stream...'
 
-  if (media.canPlayType('application/vnd.apple.mpegurl')) {
-    media.src = hlsSource
-    media.load()
-    status.value = 'Using native browser HLS support.'
-    return
-  }
-
   let Hls: HlsConstructor
 
   try {
     Hls = await loadHlsJs()
   } catch (err) {
     if (disposed === false && activeMedia === media) {
+      if (useNativeHls(media) === true) {
+        return
+      }
+
       status.value = err instanceof Error ? err.message : 'Unable to load the HLS adapter.'
     }
 
@@ -103,6 +99,10 @@ async function attachHls(media: HTMLMediaElement | null) {
   }
 
   if (Hls.isSupported() !== true) {
+    if (useNativeHls(media) === true) {
+      return
+    }
+
     status.value = 'HLS is not supported by this browser.'
     return
   }
@@ -118,6 +118,18 @@ async function attachHls(media: HTMLMediaElement | null) {
   })
   hls.loadSource(hlsSource)
   hls.attachMedia(media)
+}
+
+function useNativeHls(media: HTMLMediaElement) {
+  if (media.canPlayType('application/vnd.apple.mpegurl') === '') {
+    return false
+  }
+
+  media.src = hlsSource
+  media.load()
+  status.value = 'Using native browser HLS support.'
+
+  return true
 }
 
 function onMediaError(error: MediaError | null) {
