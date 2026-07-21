@@ -3,8 +3,8 @@
 ![@quasar/quasar-ui-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-ui-qmediaplayer?label=@quasar/quasar-ui-qmediaplayer)
 ![@quasar/quasar-app-extension-qmediaplayer](https://img.shields.io/npm/v/@quasar/quasar-app-extension-qmediaplayer?label=@quasar/quasar-app-extension-qmediaplayer)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ca64630a-6fc2-4679-919d-96a3dd7a2e47/deploy-status)](https://app.netlify.com/projects/qmediaplayer/deploys)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/quasar-ui-qmediaplayer)]()
-[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/quasar-ui-qmediaplayer)]()
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/quasarframework/quasar-ui-qmediaplayer)](https://github.com/quasarframework/quasar-ui-qmediaplayer)
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/quasarframework/quasar-ui-qmediaplayer)](https://github.com/quasarframework/quasar-ui-qmediaplayer)
 [![npm](https://img.shields.io/npm/dt/@quasar/quasar-app-extension-qmediaplayer)](https://www.npmjs.com/package/@quasar/quasar-app-extension-qmediaplayer)
 
 <span class="badge-github-sponsors"><a href="https://github.com/sponsors/hawkeye64" title="Sponsor this project on GitHub"><img src="https://img.shields.io/badge/github-sponsors-ea4aaa.svg?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors button" /></a></span>
