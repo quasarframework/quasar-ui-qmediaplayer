@@ -38,6 +38,10 @@ quasar ext add @quasar/qmediaplayer
 
 The QMediaPlayer v3 App Extension targets Quasar CLI Vite 3 and requires `@quasar/app-vite` >=3.0.0. It does not support webpack-based Quasar applications.
 
+::: tip
+The App Extension can register QMediaPlayer without an import from application source. If your application imports a component or type from `@quasar/quasar-ui-qmediaplayer`, add the UI package as a direct application dependency (for example, `pnpm add @quasar/quasar-ui-qmediaplayer`). Do not rely on the App Extension's transitive dependency, especially with strict package managers such as pnpm.
+:::
+
 ### Manual Boot File
 
 If you do not install through the App Extension, install the UI package directly:
