@@ -31,13 +31,13 @@
   "devDependencies": {
     "@types/node": "^26.1.2",
     "@vitest/coverage-v8": "^4.1.10",
-    "@vue/server-renderer": "^3.5.40",
+    "@vue/server-renderer": "^3.5.41",
     "npm-check-updates": "^23.0.1",
     "oxfmt": "^0.62.0",
     "oxlint": "^1.77.0",
     "typescript": "~6.0.3",
     "vitest": "^4.1.10",
-    "vue": "^3.5.40"
+    "vue": "^3.5.41"
   },
   "engines": {
     "node": ">=22.13",
