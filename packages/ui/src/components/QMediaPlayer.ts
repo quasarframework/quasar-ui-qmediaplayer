@@ -2758,6 +2758,7 @@ export default defineComponent({
           state.errorText = null
         },
         icon: matClose,
+        'aria-label': 'Close error message',
         flat: true,
         size: 'sm',
       })
@@ -2782,6 +2783,7 @@ export default defineComponent({
 
       const properties = {
         icon: state.playing ? iconSet.mediaPlayer.pause : iconSet.mediaPlayer.play,
+        'aria-label': state.playing ? lang.mediaPlayer.pause : lang.mediaPlayer.play,
         size: '1rem',
         disable: !state.playReady,
         flat: true,
@@ -2995,6 +2997,7 @@ export default defineComponent({
 
       const properties = {
         icon: __volumeIcon.value,
+        'aria-label': state.muted === true ? lang.mediaPlayer.unmute : lang.mediaPlayer.mute,
         size: '1rem',
         disable: !state.playReady,
         flat: true,
@@ -3053,6 +3056,7 @@ export default defineComponent({
         (slot && slot()) ||
         h(QSlider, {
           class: 'col',
+          'aria-label': 'Volume',
           style: {
             width: '20%',
             margin: '0 0.5rem',
@@ -3078,6 +3082,7 @@ export default defineComponent({
 
       const properties = {
         icon: iconSet.mediaPlayer.settings,
+        'aria-label': lang.mediaPlayer.settings,
         size: '1rem',
         disable: !state.playReady,
         flat: true,
@@ -3109,6 +3114,7 @@ export default defineComponent({
         icon: state.inFullscreen
           ? iconSet.mediaPlayer.fullscreenExit
           : iconSet.mediaPlayer.fullscreen,
+        'aria-label': lang.mediaPlayer.toggleFullscreen,
         size: '1rem',
         disable: !state.playReady,
         flat: true,
@@ -3211,6 +3217,7 @@ export default defineComponent({
         (slot && slot()) ||
         h(QSlider, {
           class: 'col',
+          'aria-label': 'Playback position',
           style: {
             margin: '0 0.5rem',
             color:

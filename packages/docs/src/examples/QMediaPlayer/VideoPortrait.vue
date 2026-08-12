@@ -17,6 +17,7 @@
           <strong
             ><a
               target="_blank"
+              rel="noopener noreferrer"
               href="https://www.pexels.com/@ono-kosuki?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels"
               >Ono Kosuki</a
             ></strong
@@ -25,6 +26,7 @@
           <strong
             ><a
               target="_blank"
+              rel="noopener noreferrer"
               href="https://www.pexels.com/photo/a-woman-texting-on-her-cellphone-5974545/?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels"
               >Pexels</a
             ></strong

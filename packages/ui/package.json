@@ -89,15 +89,15 @@
     "prepack": "pnpm build"
   },
   "dependencies": {
-    "@quasar/extras": "2.0.2"
+    "@quasar/extras": "2.0.3"
   },
   "devDependencies": {
-    "@md-plugins/quasar-app-extension-q-press": "2.0.3",
-    "@types/node": "^26.1.2",
+    "@md-plugins/quasar-app-extension-q-press": "2.0.4",
+    "@types/node": "^26.2.0",
     "@types/rtlcss": "^3.5.4",
     "@types/uglify-js": "^3.17.5",
     "autoprefixer": "^10.5.4",
-    "cssnano": "^8.0.4",
+    "cssnano": "^8.0.5",
     "kolorist": "^1.8.0",
     "open": "^11.0.0",
     "postcss": "^8.5.26",
@@ -107,7 +107,7 @@
     "rtlcss": "^4.3.0",
     "sass-embedded": "1.100.0",
     "table": "^6.9.0",
-    "tsx": "^4.23.11",
+    "tsx": "^4.23.12",
     "typescript": "~6.0.3",
     "uglify-js": "^3.19.3",
     "vue": "^3.5.41"

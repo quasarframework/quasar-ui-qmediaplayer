@@ -23,7 +23,7 @@
     "check:qpress": "qpress check"
   },
   "dependencies": {
-    "@quasar/extras": "2.0.2",
+    "@quasar/extras": "2.0.3",
     "markdown-it": "^15.0.0",
     "markdown-it-container": "^4.0.0",
     "pinia": "^4.0.2",
@@ -32,20 +32,20 @@
     "vue-router": "^5.2.0"
   },
   "devDependencies": {
-    "@md-plugins/quasar-app-extension-q-press": "2.0.3",
-    "@md-plugins/search-ui": "2.0.3",
-    "@md-plugins/vite-examples-plugin": "2.0.3",
-    "@md-plugins/vite-md-plugin": "2.0.3",
-    "@md-plugins/vite-search-plugin": "2.0.3",
-    "@md-plugins/vite-ssg-plugin": "2.0.3",
+    "@md-plugins/quasar-app-extension-q-press": "2.0.4",
+    "@md-plugins/search-ui": "2.0.4",
+    "@md-plugins/vite-examples-plugin": "2.0.4",
+    "@md-plugins/vite-md-plugin": "2.0.4",
+    "@md-plugins/vite-search-plugin": "2.0.4",
+    "@md-plugins/vite-ssg-plugin": "2.0.4",
     "@quasar/app-vite": "3.5.0",
     "@quasar/quasar-ui-qmediaplayer": "workspace:*",
-    "@types/node": "^26.1.2",
+    "@types/node": "^26.2.0",
     "@vue/server-renderer": "^3.5.41",
     "autoprefixer": "^10.5.4",
     "mermaid": "^11.16.1",
     "sass-embedded": "1.100.0",
-    "shiki": "^4.4.2",
+    "shiki": "^4.4.3",
     "typescript": "~6.0.3",
     "vite-plugin-checker": "^0.14.5",
     "vue-tsc": "^3.3.9"
