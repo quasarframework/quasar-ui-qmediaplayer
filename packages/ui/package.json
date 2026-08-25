@@ -92,7 +92,7 @@
     "@quasar/extras": "2.0.4"
   },
   "devDependencies": {
-    "@md-plugins/quasar-app-extension-q-press": "2.1.0",
+    "@md-plugins/quasar-app-extension-q-press": "2.2.0",
     "@types/node": "^26.2.0",
     "@types/rtlcss": "^3.5.4",
     "@types/uglify-js": "^3.17.5",
