@@ -47,7 +47,7 @@
     "@quasar/quasar-ui-qmediaplayer": "workspace:^"
   },
   "devDependencies": {
-    "@quasar/app-vite": "^3.7.0",
+    "@quasar/app-vite": "^3.8.0",
     "typescript": "~6.0.3"
   },
   "peerDependencies": {

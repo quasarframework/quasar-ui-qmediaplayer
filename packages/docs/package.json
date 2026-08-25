@@ -27,7 +27,7 @@
     "markdown-it": "^15.0.0",
     "markdown-it-container": "^4.0.0",
     "pinia": "^4.0.3",
-    "quasar": "^2.25.1",
+    "quasar": "^2.26.0",
     "vue": "^3.5.41",
     "vue-router": "^5.2.0"
   },
@@ -38,17 +38,17 @@
     "@md-plugins/vite-md-plugin": "2.2.0",
     "@md-plugins/vite-search-plugin": "2.2.0",
     "@md-plugins/vite-ssg-plugin": "2.2.0",
-    "@quasar/app-vite": "3.7.0",
+    "@quasar/app-vite": "3.8.0",
     "@quasar/quasar-ui-qmediaplayer": "workspace:*",
     "@types/node": "^26.2.0",
     "@vue/server-renderer": "^3.5.41",
     "autoprefixer": "^10.5.4",
     "mermaid": "^11.17.0",
-    "sass-embedded": "1.102.0",
+    "sass-embedded": "1.103.1",
     "shiki": "^4.4.3",
     "typescript": "~6.0.3",
     "vite-plugin-checker": "^0.14.5",
-    "vue-tsc": "^3.3.10"
+    "vue-tsc": "^3.3.11"
   },
   "engines": {
     "node": ">=22.13",
