@@ -17,6 +17,11 @@ type QuasarLang = {
 
 const quasarLanguages = nodeRequire('quasar/lang/index.json') as QuasarLang[]
 const nativeNames = new Map(quasarLanguages.map(({ isoName, nativeName }) => [isoName, nativeName]))
+// Keep QMediaPlayer's published locale IDs while looking up Quasar's renamed locales.
+const quasarLocaleAliases: Record<string, string> = {
+  'kur-CKB': 'ckb',
+  'sr-CYR': 'sr-Cyrl',
+}
 
 function parseStringProp(prop: string, txt: string, filename: string): string {
   const match = new RegExp(`${prop}:\\s*["']([^"']+)["']`).exec(txt)
@@ -45,7 +50,7 @@ export async function buildLang(): Promise<void> {
     const fullPath = path.join(langDir, file)
     const content = fs.readFileSync(fullPath, 'utf-8')
     const isoName = parseStringProp('lang', content, file)
-    const nativeName = nativeNames.get(isoName) ?? isoName
+    const nativeName = nativeNames.get(quasarLocaleAliases[isoName] ?? isoName) ?? isoName
 
     languages.push({ isoName, nativeName })
   })
