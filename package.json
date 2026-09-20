@@ -29,20 +29,20 @@
     "verify:build": "pnpm build && pnpm api:check && pnpm check:qpress && pnpm typecheck"
   },
   "devDependencies": {
-    "@types/node": "^26.6.1",
+    "@types/node": "^26.6.2",
     "@vitest/coverage-v8": "^5.0.1",
-    "@vue/server-renderer": "^3.5.42",
+    "@vue/server-renderer": "^3.5.43",
     "happy-dom": "^20.14.5",
     "npm-check-updates": "^23.1.0",
     "oxfmt": "^0.68.0",
     "oxlint": "^1.83.0",
     "typescript": "~6.0.3",
     "vitest": "^5.0.1",
-    "vue": "^3.5.42"
+    "vue": "^3.5.43"
   },
   "engines": {
     "node": ">=22.13",
     "pnpm": ">=11.5.0"
   },
-  "packageManager": "pnpm@12.4.2"
+  "packageManager": "pnpm@12.5.1"
 }
