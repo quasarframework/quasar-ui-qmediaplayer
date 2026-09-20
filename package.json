@@ -32,6 +32,7 @@
     "@types/node": "^26.6.1",
     "@vitest/coverage-v8": "^5.0.1",
     "@vue/server-renderer": "^3.5.42",
+    "happy-dom": "^20.14.5",
     "npm-check-updates": "^23.1.0",
     "oxfmt": "^0.68.0",
     "oxlint": "^1.83.0",

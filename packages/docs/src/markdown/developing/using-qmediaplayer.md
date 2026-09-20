@@ -133,6 +133,8 @@ QMediaPlayer supports portrait media and mobile-friendly controls. `mobile-mode`
 
 Use `source` for a single source or `sources` when the browser should choose from multiple formats.
 
+To clear the player, set `source` to an empty string or `undefined` and `sources` to an empty array. If you only use one of these props, clear that prop. This stops playback and unloads the previous media, including its video frame. Unmounting the player also unloads its media. The video example below includes controls to clear and reload the source.
+
 <MarkdownExample title="Audio Source" file="AudioSource"/>
 
 <MarkdownExample title="Video Source" file="VideoSource"/>

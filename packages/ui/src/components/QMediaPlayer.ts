@@ -493,7 +493,7 @@ export default defineComponent({
       default: true,
     },
     /**
-     * Direct media source URL. When this is set, the media element `src` is set directly and the `sources` prop is ignored.
+     * Direct media source URL. When this is set, the media element `src` is set directly and the `sources` prop is ignored. Clearing this prop unloads the media when `sources` is also empty.
      *
      * @category model
      * @applicable Audio | Video
@@ -501,7 +501,7 @@ export default defineComponent({
      */
     source: String,
     /**
-     * One or more sources for video or audio. The browser picks the best source based on supported codecs.
+     * One or more sources for video or audio. The browser picks the best source based on supported codecs. An empty array unloads the media when `source` is also empty.
      *
      * @category model
      * @applicable Audio | Video
@@ -2535,6 +2535,9 @@ export default defineComponent({
             media.removeChild(node)
           }
         }
+        // Removing URLs alone retains decoded media. Reset only after all
+        // sources are removed so clearing or unmounting unloads the resource.
+        media.load()
       }
     }
 
