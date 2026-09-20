@@ -102,13 +102,13 @@ Add the following tags after the Quasar stylesheet and script tags:
 ```html
 <head>
   <link
-    href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0/dist/index.css"
+    href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.2/dist/index.css"
     rel="stylesheet"
     type="text/css"
   />
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0/dist/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.2/dist/index.umd.min.js"></script>
 </body>
 ```
 
@@ -116,7 +116,7 @@ If you need the RTL variant of the CSS, use:
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.0/dist/index.rtl.css"
+  href="https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmediaplayer@3.0.2/dist/index.rtl.css"
   rel="stylesheet"
   type="text/css"
 />
